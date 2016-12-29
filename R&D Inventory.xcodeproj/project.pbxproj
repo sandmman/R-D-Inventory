@@ -26,9 +26,8 @@
 		E398F1571E136C2200CD91D4 /* AssemblyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F1561E136C2200CD91D4 /* AssemblyTableViewController.swift */; };
 		E398F1591E15A66400CD91D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E398F1581E15A66400CD91D4 /* Main.storyboard */; };
 		E398F15B1E15B0AF00CD91D4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E398F15A1E15B0AF00CD91D4 /* GoogleService-Info.plist */; };
-		E398F15D1E15B28300CD91D4 /* AssemblyDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F15C1E15B28300CD91D4 /* AssemblyDataManager.swift */; };
+		E398F15D1E15B28300CD91D4 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F15C1E15B28300CD91D4 /* DataService.swift */; };
 		E3ECCE931E15B662009C936D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ECCE921E15B662009C936D /* Constants.swift */; };
-		E3ECCE951E15B8F3009C936D /* FirebaseConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ECCE941E15B8F3009C936D /* FirebaseConfiguration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,9 +79,9 @@
 		E398F1561E136C2200CD91D4 /* AssemblyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssemblyTableViewController.swift; sourceTree = "<group>"; };
 		E398F1581E15A66400CD91D4 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../../../../.Trash/Main.storyboard; sourceTree = "<group>"; };
 		E398F15A1E15B0AF00CD91D4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		E398F15C1E15B28300CD91D4 /* AssemblyDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssemblyDataManager.swift; sourceTree = "<group>"; };
+		E398F15C1E15B28300CD91D4 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		E3ECCE921E15B662009C936D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		E3ECCE941E15B8F3009C936D /* FirebaseConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseConfiguration.swift; sourceTree = "<group>"; };
+		E3ECCE961E15C98A009C936D /* R&D Inventory.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "R&D Inventory.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,12 +160,12 @@
 		E398F1171E1357E300CD91D4 /* R&D Inventory */ = {
 			isa = PBXGroup;
 			children = (
+				E3ECCE961E15C98A009C936D /* R&D Inventory.entitlements */,
 				E398F1481E1360B400CD91D4 /* AddAssemblyViewController.swift */,
 				E398F14A1E13624800CD91D4 /* AddPartViewController.swift */,
 				E398F1181E1357E300CD91D4 /* AppDelegate.swift */,
 				E398F1541E136A6500CD91D4 /* Assembly.swift */,
-				E398F15C1E15B28300CD91D4 /* AssemblyDataManager.swift */,
-				E3ECCE941E15B8F3009C936D /* FirebaseConfiguration.swift */,
+				E398F15C1E15B28300CD91D4 /* DataService.swift */,
 				E398F1461E13602E00CD91D4 /* AssemblyDetailViewController.swift */,
 				E398F1501E1363C500CD91D4 /* AssemblyTableViewCell.swift */,
 				E398F1561E136C2200CD91D4 /* AssemblyTableViewController.swift */,
@@ -279,6 +278,11 @@
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = HNACG3848H;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					E398F1281E1357E300CD91D4 = {
 						CreatedOnToolsVersion = 8.1;
@@ -471,7 +475,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E398F14F1E1363BA00CD91D4 /* PartTableViewCell.swift in Sources */,
-				E3ECCE951E15B8F3009C936D /* FirebaseConfiguration.swift in Sources */,
 				E398F1551E136A6500CD91D4 /* Assembly.swift in Sources */,
 				E398F1511E1363C500CD91D4 /* AssemblyTableViewCell.swift in Sources */,
 				E398F1471E13602E00CD91D4 /* AssemblyDetailViewController.swift in Sources */,
@@ -480,7 +483,7 @@
 				E3ECCE931E15B662009C936D /* Constants.swift in Sources */,
 				E398F14D1E1363A600CD91D4 /* PartViewController.swift in Sources */,
 				E398F1491E1360B400CD91D4 /* AddAssemblyViewController.swift in Sources */,
-				E398F15D1E15B28300CD91D4 /* AssemblyDataManager.swift in Sources */,
+				E398F15D1E15B28300CD91D4 /* DataService.swift in Sources */,
 				E398F1531E13684500CD91D4 /* Part.swift in Sources */,
 				E398F1191E1357E300CD91D4 /* AppDelegate.swift in Sources */,
 			);
@@ -627,6 +630,7 @@
 			baseConfigurationReference = 0672CE23FAA7C122D880215E /* Pods-R&D Inventory.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "R&D Inventory/R&D Inventory.entitlements";
 				DEVELOPMENT_TEAM = HNACG3848H;
 				INFOPLIST_FILE = "R&D Inventory/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -641,6 +645,7 @@
 			baseConfigurationReference = DDAB533742B9B435D147DCC3 /* Pods-R&D Inventory.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "R&D Inventory/R&D Inventory.entitlements";
 				DEVELOPMENT_TEAM = HNACG3848H;
 				INFOPLIST_FILE = "R&D Inventory/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

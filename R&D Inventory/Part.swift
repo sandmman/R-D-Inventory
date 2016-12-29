@@ -10,19 +10,47 @@ import UIKit
 
 class Part: NSObject {
 
-    let name: String
+    private var _name: String
 
-    let uid: Int
+    private var _uid: Int
 
-    let manufacturer: String
+    private var _manufacturer: String
 
-    let leadTime: Date
+    private var _leadTime: Date
 
-    let countSubParts: Int
+    private var _countSubParts: Int
 
-    let countInStock: Int
+    private var _countInStock: Int
 
-    let countOnOrder: Int
+    private var _countOnOrder: Int
+    
+    var name: String {
+        return _name
+    }
+    
+    var uid: Int {
+        return _uid
+    }
+    
+    var manufacturer: String {
+        return _manufacturer
+    }
+    
+    var leadTime: Date {
+        return _leadTime
+    }
+    
+    var countSubParts: Int {
+        return _countSubParts
+    }
+    
+    var countInStock: Int {
+        return _countInStock
+    }
+    
+    var countOnOrder: Int {
+        return _countOnOrder
+    }
     
     init?(name: String, uid: Int, manufacturer: String, leadTime: Date, countSubParts: Int, countInStock: Int, countOnOrder: Int) {
         
@@ -36,15 +64,25 @@ class Part: NSObject {
             return nil
         }
         
-        self.name = name
-        self.uid = uid
-        self.manufacturer = manufacturer
-        self.leadTime = leadTime
-        self.countSubParts = countSubParts
-        self.countInStock = countInStock
-        self.countOnOrder = countOnOrder
+        _name = name
+        _uid = uid
+        _manufacturer = manufacturer
+        _leadTime = leadTime
+        _countSubParts = countSubParts
+        _countInStock = countInStock
+        _countOnOrder = countOnOrder
 
     }
     
-    
+    func toAnyObject() -> Any {
+        return [
+            "name": name,
+            "uid": uid,
+            "manufacturer": manufacturer,
+            "leadTime": leadTime,
+            "countSubParts": countSubParts,
+            "countInStock": countInStock,
+            "countOnOrder": countOnOrder,
+        ]
+    }
 }

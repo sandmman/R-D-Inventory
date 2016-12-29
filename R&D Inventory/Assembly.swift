@@ -10,11 +10,23 @@ import UIKit
 
 class Assembly: NSObject {
 
-    let name: String
+    private var _name: String
     
-    let identifier: Int
+    private var _uid: Int
 
-    let parts: [Part]
+    private var _parts: [Part]
+    
+    var name: String {
+        return _name
+    }
+    
+    var uid: Int {
+        return _uid
+    }
+    
+    var parts: [Part] {
+        return _parts
+    }
     
     init?(name: String, parts: [Part]) {
         
@@ -23,12 +35,26 @@ class Assembly: NSObject {
             return nil
         }
     
-        self.name = name
-        // Auto generated? user generated?
-        self.identifier = 0
+        _name = name
 
-        self.parts = parts
+        _uid = 0 // Auto generated? user generated?
+
+        _parts = parts
 
     }
     
+    init(dict: [String: Any]) {
+        
+        _name = dict["name"] as! String
+        _uid  = dict["uid"] as! Int
+        _parts = dict["parts"] as! [Part]
+    }
+    
+    func toAnyObject() -> Any {
+        return [
+            "name": name,
+            "uid": uid,
+            "parts": parts.reduce([Int: Any]()) { (dict, e) in var dict = dict; dict[e.uid] = e ; return dict}
+        ]
+    }
 }

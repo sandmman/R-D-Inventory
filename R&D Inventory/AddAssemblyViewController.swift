@@ -10,6 +10,12 @@ import UIKit
 
 class AddAssemblyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UINavigationControllerDelegate {
     
+    var assembly: Assembly? = nil
+    
+    var parts: [Part] = []
+    
+    private var selectedCell: Part? = nil
+
     @IBOutlet weak var addPartButton: UIBarButtonItem!
     
     @IBOutlet weak var saveAssemblyButton: UIBarButtonItem!
@@ -37,12 +43,6 @@ class AddAssemblyViewController: UIViewController, UITableViewDelegate, UITableV
             partsTableView.insertRows(at: [newIndexPath], with: .automatic)
         }
     }
-
-    var assembly: Assembly? = nil
-    
-    var parts: [Part] = []
-    
-    private var selectedCell: Part? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,7 +94,6 @@ class AddAssemblyViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt: IndexPath) {
-        // Get Cell Label
         let indexPath = tableView.indexPathForSelectedRow!
         
         selectedCell = parts[indexPath.row]
