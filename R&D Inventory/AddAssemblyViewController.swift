@@ -74,6 +74,12 @@ class AddAssemblyViewController: UIViewController, UITableViewDelegate, UITableV
             let name = nameTextField.text ?? ""
 
             assembly = Assembly(name: name, parts: parts)
+            
+            guard let a = assembly else {
+                return
+            }
+    
+            DataService.sharedInstance.addAssembly(assembly: a)
         }
     }
     

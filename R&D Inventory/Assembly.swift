@@ -7,15 +7,16 @@
 //
 
 import UIKit
+import Firebase
 
-class Assembly: NSObject {
+class Assembly: FIRDataObject {
 
-    private var _name: String
+    private var _name: String = ""
     
-    private var _uid: Int
+    private var _uid: Int = -1
 
-    private var _parts: [Part]
-    
+    private var _parts: [Part] = []
+
     var name: String {
         return _name
     }
@@ -29,7 +30,6 @@ class Assembly: NSObject {
     }
     
     init?(name: String, parts: [Part]) {
-        
         // The name must not be empty
         guard !name.isEmpty else {
             return nil
@@ -41,20 +41,27 @@ class Assembly: NSObject {
 
         _parts = parts
 
+        super.init()
     }
     
-    init(dict: [String: Any]) {
+    required init(snapshot: FIRDataSnapshot) {
+        let value = snapshot.value as! [String: Any]
+
+        _name = value["_name"] as! String
+        _uid = value["_uid"] as! Int
+        var partsDict = value["_parts"] as! [String: [String: Any]]
+        for (key,value) in partsDict {
+            _parts.append(Part(dict: value))
+        }
         
-        _name = dict["name"] as! String
-        _uid  = dict["uid"] as! Int
-        _parts = dict["parts"] as! [Part]
+        super.init(snapshot: snapshot)
     }
     
     func toAnyObject() -> Any {
         return [
-            "name": name,
-            "uid": uid,
-            "parts": parts.reduce([Int: Any]()) { (dict, e) in var dict = dict; dict[e.uid] = e ; return dict}
+            "_name": name,
+            "_uid": uid,
+            "_parts": parts.reduce([String: Any]()) { (dict, e) in var dict = dict; dict[String(e.uid)] = e.toAnyObject() ; return dict}
         ]
     }
 }

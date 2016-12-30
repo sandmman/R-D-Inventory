@@ -8,9 +8,7 @@
 
 import UIKit
 
-class AssemblyTableViewController: UITableViewController {
-    
-    var assemblies: [Assembly] = []
+class AssemblyTableViewController: UITableViewController, AssemblyDelegate {
     
     var selectedAssembly: Assembly? = nil
 
@@ -18,26 +16,32 @@ class AssemblyTableViewController: UITableViewController {
         if let sourceViewController = sender.source as? AddAssemblyViewController,
            let assembly = sourceViewController.assembly {
 
-            // Add a new assembly.
+            /*// Add a new assembly.
             let newIndexPath = IndexPath(row: assemblies.count, section: 0)
             
             assemblies.append(assembly)
 
-            tableView.insertRows(at: [newIndexPath], with: .automatic)
+            tableView.insertRows(at: [newIndexPath], with: .automatic)*/
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        DataService.sharedInstance.delegate = self
     }
-
+    
+    public func onItemsAddedToList() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.assemblies.count
+        return DataService.sharedInstance.allAssemblies.count
     }
     
     
@@ -45,7 +49,7 @@ class AssemblyTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.assembly, for: indexPath)
 
         // Configure the cell...
-        cell.textLabel?.text = self.assemblies[indexPath.row].name
+        cell.textLabel?.text = DataService.sharedInstance.allAssemblies[indexPath.row].name
         
         return cell
     }
@@ -77,7 +81,7 @@ class AssemblyTableViewController: UITableViewController {
         // Get Cell Label
         let indexPath = tableView.indexPathForSelectedRow!
         
-        selectedAssembly = assemblies[indexPath.row]
+        selectedAssembly = DataService.sharedInstance.allAssemblies[indexPath.row]
         
         performSegue(withIdentifier: Constants.Segues.AssemblyDetail, sender: self)
     }

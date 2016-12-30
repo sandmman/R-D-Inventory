@@ -28,6 +28,7 @@
 		E398F15B1E15B0AF00CD91D4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E398F15A1E15B0AF00CD91D4 /* GoogleService-Info.plist */; };
 		E398F15D1E15B28300CD91D4 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F15C1E15B28300CD91D4 /* DataService.swift */; };
 		E3ECCE931E15B662009C936D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ECCE921E15B662009C936D /* Constants.swift */; };
+		E3ECCE9A1E15D0DC009C936D /* FIRDataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ECCE991E15D0DC009C936D /* FIRDataObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +83,7 @@
 		E398F15C1E15B28300CD91D4 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		E3ECCE921E15B662009C936D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E3ECCE961E15C98A009C936D /* R&D Inventory.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "R&D Inventory.entitlements"; sourceTree = "<group>"; };
+		E3ECCE991E15D0DC009C936D /* FIRDataObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIRDataObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,17 +162,17 @@
 		E398F1171E1357E300CD91D4 /* R&D Inventory */ = {
 			isa = PBXGroup;
 			children = (
-				E3ECCE961E15C98A009C936D /* R&D Inventory.entitlements */,
 				E398F1481E1360B400CD91D4 /* AddAssemblyViewController.swift */,
 				E398F14A1E13624800CD91D4 /* AddPartViewController.swift */,
 				E398F1181E1357E300CD91D4 /* AppDelegate.swift */,
 				E398F1541E136A6500CD91D4 /* Assembly.swift */,
-				E398F15C1E15B28300CD91D4 /* DataService.swift */,
 				E398F1461E13602E00CD91D4 /* AssemblyDetailViewController.swift */,
 				E398F1501E1363C500CD91D4 /* AssemblyTableViewCell.swift */,
 				E398F1561E136C2200CD91D4 /* AssemblyTableViewController.swift */,
 				E398F11F1E1357E300CD91D4 /* Assets.xcassets */,
 				E3ECCE921E15B662009C936D /* Constants.swift */,
+				E398F15C1E15B28300CD91D4 /* DataService.swift */,
+				E3ECCE991E15D0DC009C936D /* FIRDataObject.swift */,
 				E398F15A1E15B0AF00CD91D4 /* GoogleService-Info.plist */,
 				E398F1241E1357E300CD91D4 /* Info.plist */,
 				E398F1211E1357E300CD91D4 /* LaunchScreen.storyboard */,
@@ -178,6 +180,7 @@
 				E398F1521E13684500CD91D4 /* Part.swift */,
 				E398F14E1E1363BA00CD91D4 /* PartTableViewCell.swift */,
 				E398F14C1E1363A600CD91D4 /* PartViewController.swift */,
+				E3ECCE961E15C98A009C936D /* R&D Inventory.entitlements */,
 			);
 			path = "R&D Inventory";
 			sourceTree = "<group>";
@@ -479,6 +482,7 @@
 				E398F1511E1363C500CD91D4 /* AssemblyTableViewCell.swift in Sources */,
 				E398F1471E13602E00CD91D4 /* AssemblyDetailViewController.swift in Sources */,
 				E398F1571E136C2200CD91D4 /* AssemblyTableViewController.swift in Sources */,
+				E3ECCE9A1E15D0DC009C936D /* FIRDataObject.swift in Sources */,
 				E398F14B1E13624800CD91D4 /* AddPartViewController.swift in Sources */,
 				E3ECCE931E15B662009C936D /* Constants.swift in Sources */,
 				E398F14D1E1363A600CD91D4 /* PartViewController.swift in Sources */,

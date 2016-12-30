@@ -51,12 +51,19 @@ class DataService {
     var subscribedReplyHandle: UInt?
     
     var delegate: AssemblyDelegate!
-    var allAssemblies: [[Assembly]] = []
-
+    var allAssemblies: [Assembly] = []
+    
     init() {
-        assemblyRef.queryOrdered(byChild: "name").observe(.value, with: { snapshot in
-            print("what")
-            print(snapshot.value)
+        assemblyRef.observe(.value, with: { snapshot in
+            var newItems: [Assembly] = []
+
+            for item in snapshot.children {
+                let assemblyItem = Assembly(snapshot: item as! FIRDataSnapshot)
+                newItems.append(assemblyItem)
+            }
+            
+            self.allAssemblies = newItems
+            self.delegate.onItemsAddedToList()
         })
     }
 }
@@ -64,7 +71,7 @@ class DataService {
 extension DataService: DataManager {
     
     func addAssembly(assembly: Assembly) {
-        assemblyRef.setValue(assembly.toAnyObject())
+        assemblyRef.childByAutoId().setValue(assembly.toAnyObject())
     }
     
     func deleteAssembly(assembly: Assembly) {

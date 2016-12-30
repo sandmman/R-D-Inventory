@@ -74,12 +74,23 @@ class Part: NSObject {
 
     }
     
+    init(dict: [String: Any]) {
+        print(dict)
+        _name = dict["name"] as! String
+        _uid = dict["uid"] as! Int
+        _manufacturer = dict["manufacturer"] as! String
+        _leadTime =  Date(timeIntervalSince1970: TimeInterval(dict["leadTime"] as! Int))
+        _countSubParts = dict["countSubParts"] as! Int
+        _countInStock = dict["countInStock"] as! Int
+        _countOnOrder = dict["countOnOrder"] as! Int
+    }
+
     func toAnyObject() -> Any {
         return [
             "name": name,
             "uid": uid,
             "manufacturer": manufacturer,
-            "leadTime": leadTime,
+            "leadTime": leadTime.timeIntervalSince1970,
             "countSubParts": countSubParts,
             "countInStock": countInStock,
             "countOnOrder": countOnOrder,
