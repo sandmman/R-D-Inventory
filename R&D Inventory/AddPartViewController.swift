@@ -56,5 +56,11 @@ class AddPartViewController: UIViewController {
         let onOrder = countOnOrderTextField.text != nil ? Int(countOnOrderTextField.text!)! : 0
 
         part = Part(name: name, uid: Int(id)!, manufacturer: manufacturer, leadTime: leadTime, countSubParts: subParts, countInStock: inStock, countOnOrder: onOrder)
+        
+        guard let p = part else {
+            return
+        }
+        
+        DataService.sharedInstance.addPart(part: p)
     }
 }

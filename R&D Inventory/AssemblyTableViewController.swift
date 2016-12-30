@@ -62,6 +62,11 @@ class AssemblyTableViewController: UITableViewController, AssemblyDelegate {
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            
+            let assemblyToDelete = DataService.sharedInstance.allAssemblies[indexPath.row]
+
+            DataService.sharedInstance.deleteAssembly(assembly: assemblyToDelete)
+            
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
@@ -73,21 +78,19 @@ class AssemblyTableViewController: UITableViewController, AssemblyDelegate {
 
     // Override to support conditional rearranging of the table view.
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
         return true
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Get Cell Label
         let indexPath = tableView.indexPathForSelectedRow!
         
         selectedAssembly = DataService.sharedInstance.allAssemblies[indexPath.row]
         
         performSegue(withIdentifier: Constants.Segues.AssemblyDetail, sender: self)
     }
+
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == Constants.Segues.AssemblyDetail) {
             

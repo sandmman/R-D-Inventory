@@ -9,32 +9,37 @@
 import Foundation
 import Firebase
 
-protocol AssemblyDelegate {
+public protocol AssemblyDelegate {
     func onItemsAddedToList()
 }
 
-protocol DataManager {
+public protocol DataManager {
     func addAssembly(assembly: Assembly)
+    func addPart(part: Part)
+    func getParts(for assembly: Assembly, onAddPart: @escaping (Part) -> ())
+    func updateAssembly(assembly: Assembly)
+    func updatePart(part: Part)
     func deleteAssembly(assembly: Assembly)
 }
 
-class DataService {
+public class DataService {
     
-    static let sharedInstance = DataService()
+    public static let sharedInstance = DataService()
 
     private let _rootRef = FIRDatabase.database().reference()
     private let _userRef = FIRDatabase.database().reference().child("users")
     private let _assemblyRef = FIRDatabase.database().reference().child("assemblies")
+    private let _partsRef = FIRDatabase.database().reference().child("parts")
     
-    var rootRef: FIRDatabaseReference {
+    public var rootRef: FIRDatabaseReference {
         return _rootRef
     }
         
-    var userRef: FIRDatabaseReference {
+    public var userRef: FIRDatabaseReference {
         return _userRef
     }
         
-    var currentUserRef: FIRDatabaseReference? {
+    public var currentUserRef: FIRDatabaseReference? {
         guard let userID = UserDefaults.standard.string(forKey: "user") else {
             return nil
         }
@@ -44,16 +49,18 @@ class DataService {
         return currentUser
     }
         
-    var assemblyRef: FIRDatabaseReference {
+    public var assemblyRef: FIRDatabaseReference {
         return _assemblyRef
     }
     
-    var subscribedReplyHandle: UInt?
+    public var partsRef: FIRDatabaseReference {
+        return _partsRef
+    }
+
+    public var delegate: AssemblyDelegate!
+    public var allAssemblies: [Assembly] = []
     
-    var delegate: AssemblyDelegate!
-    var allAssemblies: [Assembly] = []
-    
-    init() {
+    public init() {
         assemblyRef.observe(.value, with: { snapshot in
             var newItems: [Assembly] = []
 
@@ -70,11 +77,49 @@ class DataService {
 
 extension DataService: DataManager {
     
-    func addAssembly(assembly: Assembly) {
+    public func addAssembly(assembly: Assembly) {
         assemblyRef.childByAutoId().setValue(assembly.toAnyObject())
     }
     
-    func deleteAssembly(assembly: Assembly) {
+    public func addPart(part: Part) {
+        partsRef.child(part.databaseID).setValue(part.toAnyObject())
+    }
+
+    public func getParts(for assembly: Assembly, onAddPart: @escaping (Part) -> ()) {
+
+        for pointer in assembly.parts {
+            partsRef.child(pointer).observeSingleEvent(of: .value, with: { snapshot in
+                onAddPart(Part(snapshot: snapshot))
+                
+            }) {
+                error in
+                print(error.localizedDescription)
+            }
+        }
+    }
+    public func updateAssembly(assembly: Assembly) {
         
+    }
+
+    public func updatePart(part: Part) {
+        
+    }
+
+    public func deleteAssembly(assembly: Assembly) {
+        guard let ref = assembly.ref else {
+            return
+        }
+        
+        allAssemblies = allAssemblies.filter { $0 != assembly}
+
+        ref.removeValue()
+    }
+    
+    public func deletePart(part: Part) {
+        guard let ref = part.ref else {
+            return
+        }
+
+        ref.removeValue()
     }
 }

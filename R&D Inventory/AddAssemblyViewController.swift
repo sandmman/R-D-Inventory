@@ -13,7 +13,7 @@ class AddAssemblyViewController: UIViewController, UITableViewDelegate, UITableV
     var assembly: Assembly? = nil
     
     var parts: [Part] = []
-    
+
     private var selectedCell: Part? = nil
 
     @IBOutlet weak var addPartButton: UIBarButtonItem!
@@ -31,6 +31,29 @@ class AddAssemblyViewController: UIViewController, UITableViewDelegate, UITableV
         dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func save(_ sender: UIBarButtonItem) {
+        guard let button = sender as? UIBarButtonItem, button === saveAssemblyButton else {
+            return
+        }
+        
+        let name = nameTextField.text ?? ""
+
+        assembly = Assembly(name: name, parts: parts.reduce([String]()) {
+            arr, part in
+            var arr = arr
+            arr.append(part.databaseID)
+            return arr
+        })
+        
+        guard let a = assembly else {
+            return
+        }
+        
+        DataService.sharedInstance.addAssembly(assembly: a)
+        
+        dismiss(animated: true, completion: nil)
+    }
+
     @IBAction func unwindToAssemblyBuilder(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? AddPartViewController,
             let part = sourceViewController.part {
@@ -43,7 +66,7 @@ class AddAssemblyViewController: UIViewController, UITableViewDelegate, UITableV
             partsTableView.insertRows(at: [newIndexPath], with: .automatic)
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -65,21 +88,6 @@ class AddAssemblyViewController: UIViewController, UITableViewDelegate, UITableV
 
             viewController.part = selectedCell
 
-        } else {
-
-            guard let button = sender as? UIBarButtonItem, button === saveAssemblyButton else {
-                return
-            }
-            
-            let name = nameTextField.text ?? ""
-
-            assembly = Assembly(name: name, parts: parts)
-            
-            guard let a = assembly else {
-                return
-            }
-    
-            DataService.sharedInstance.addAssembly(assembly: a)
         }
     }
     

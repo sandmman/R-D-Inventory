@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import Firebase
 
-class Part: NSObject {
-
+public class Part: FIRDataObject {
+    
     private var _name: String
 
     private var _uid: Int
@@ -23,36 +24,36 @@ class Part: NSObject {
     private var _countInStock: Int
 
     private var _countOnOrder: Int
-    
-    var name: String {
+
+    public var name: String {
         return _name
     }
     
-    var uid: Int {
+    public var uid: Int {
         return _uid
     }
     
-    var manufacturer: String {
+    public var manufacturer: String {
         return _manufacturer
     }
     
-    var leadTime: Date {
+    public var leadTime: Date {
         return _leadTime
     }
     
-    var countSubParts: Int {
+    public var countSubParts: Int {
         return _countSubParts
     }
     
-    var countInStock: Int {
+    public var countInStock: Int {
         return _countInStock
     }
     
-    var countOnOrder: Int {
+    public var countOnOrder: Int {
         return _countOnOrder
     }
-    
-    init?(name: String, uid: Int, manufacturer: String, leadTime: Date, countSubParts: Int, countInStock: Int, countOnOrder: Int) {
+
+    public init?(name: String, uid: Int, manufacturer: String, leadTime: Date, countSubParts: Int, countInStock: Int, countOnOrder: Int) {
         
         // The name must not be empty
         guard !name.isEmpty else {
@@ -71,11 +72,12 @@ class Part: NSObject {
         _countSubParts = countSubParts
         _countInStock = countInStock
         _countOnOrder = countOnOrder
-
+        
+        super.init()
     }
     
-    init(dict: [String: Any]) {
-        print(dict)
+    public init(dict: [String: Any]) {
+
         _name = dict["name"] as! String
         _uid = dict["uid"] as! Int
         _manufacturer = dict["manufacturer"] as! String
@@ -83,9 +85,26 @@ class Part: NSObject {
         _countSubParts = dict["countSubParts"] as! Int
         _countInStock = dict["countInStock"] as! Int
         _countOnOrder = dict["countOnOrder"] as! Int
+        
+        super.init()
+    }
+    
+     public override init(snapshot: FIRDataSnapshot) {
+        
+        let value = snapshot.value as! [String: Any]
+        
+        _name = value["name"] as! String
+        _uid = value["uid"] as! Int
+        _manufacturer = value["manufacturer"] as! String
+        _leadTime =  Date(timeIntervalSince1970: TimeInterval(value["leadTime"] as! Int))
+        _countSubParts = value["countSubParts"] as! Int
+        _countInStock = value["countInStock"] as! Int
+        _countOnOrder = value["countOnOrder"] as! Int
+        
+        super.init(snapshot: snapshot)
     }
 
-    func toAnyObject() -> Any {
+    public func toAnyObject() -> Any {
         return [
             "name": name,
             "uid": uid,

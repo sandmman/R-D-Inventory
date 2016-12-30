@@ -9,39 +9,34 @@
 import UIKit
 import Firebase
 
-class FIRDataObject: NSObject {
+public class FIRDataObject: NSObject {
     
-    var snapshot: FIRDataSnapshot? = nil
-    var key: String? { return snapshot?.key }
-    var ref: FIRDatabaseReference? { return snapshot?.ref }
+    public var snapshot: FIRDataSnapshot? = nil
+
+    public var key: String? { return snapshot?.key }
+
+    public var ref: FIRDatabaseReference? { return snapshot?.ref }
+    
+    public var databaseID: String
     
     override init() {
+        databaseID = UUID().uuidString
         super.init()
     }
 
-    required init(snapshot: FIRDataSnapshot) {
+    public init(snapshot: FIRDataSnapshot) {
         
         self.snapshot = snapshot
-
+        
+        self.databaseID = snapshot.key
+        
         super.init()
         
         /*for child in snapshot.children.allObjects as? [FIRDataSnapshot] ?? [] {
-            print(child.value, child.key, responds(to: Selector(child.key)))
             if responds(to: Selector(child.key)) {
-                print(2)
                 setValue(child.value, forKey: child.key)
             }
         }*/
 
-    }
-}
-
-protocol FIRDatabaseReferenceable {
-    var ref: FIRDatabaseReference { get }
-}
-
-extension FIRDatabaseReferenceable {
-    var ref: FIRDatabaseReference {
-        return FIRDatabase.database().reference()
     }
 }

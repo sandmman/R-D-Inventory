@@ -9,59 +9,56 @@
 import UIKit
 import Firebase
 
-class Assembly: FIRDataObject {
+public class Assembly: FIRDataObject {
 
-    private var _name: String = ""
-    
-    private var _uid: Int = -1
+    private var _name: String
 
-    private var _parts: [Part] = []
+    private var _parts: [String] = []
 
-    var name: String {
+    public var name: String {
         return _name
     }
     
-    var uid: Int {
-        return _uid
-    }
-    
-    var parts: [Part] {
+    public var parts: [String] {
         return _parts
     }
     
-    init?(name: String, parts: [Part]) {
-        // The name must not be empty
+    public init?(name: String, parts: [String]) {
         guard !name.isEmpty else {
             return nil
         }
     
         _name = name
 
-        _uid = 0 // Auto generated? user generated?
-
         _parts = parts
 
         super.init()
     }
     
-    required init(snapshot: FIRDataSnapshot) {
+    public override init(snapshot: FIRDataSnapshot) {
         let value = snapshot.value as! [String: Any]
 
         _name = value["_name"] as! String
-        _uid = value["_uid"] as! Int
-        var partsDict = value["_parts"] as! [String: [String: Any]]
-        for (key,value) in partsDict {
-            _parts.append(Part(dict: value))
+
+        if let parts = value["_parts"] as? [String: Bool] {
+            for (key, _) in parts {
+                _parts.append(key)
+            }
         }
-        
+    
         super.init(snapshot: snapshot)
     }
     
-    func toAnyObject() -> Any {
+    public func toAnyObject() -> Any {
         return [
             "_name": name,
-            "_uid": uid,
-            "_parts": parts.reduce([String: Any]()) { (dict, e) in var dict = dict; dict[String(e.uid)] = e.toAnyObject() ; return dict}
+            "_parts": parts.reduce([String: Bool](), createDict)
         ]
+    }
+    
+    private func createDict(dict: [String: Bool], partID: String) -> [String: Bool] {
+        var dict = dict
+        dict[partID] = true
+        return dict
     }
 }
