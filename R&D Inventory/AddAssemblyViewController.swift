@@ -55,7 +55,7 @@ class AddAssemblyViewController: UIViewController, UITableViewDelegate, UITableV
     }
 
     @IBAction func unwindToAssemblyBuilder(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.source as? AddPartViewController,
+        if let sourceViewController = sender.source as? BuildPartViewController,
             let part = sourceViewController.part {
 
             // Add a new assembly.
@@ -90,8 +90,6 @@ class AddAssemblyViewController: UIViewController, UITableViewDelegate, UITableV
 
         }
     }
-    
-    
     
     // Table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

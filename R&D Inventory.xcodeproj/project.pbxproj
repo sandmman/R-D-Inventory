@@ -10,6 +10,7 @@
 		287C95AF5B3FA7110137599D /* Pods_R_D_InventoryTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47048ECE232CB2FB9BDC8B8F /* Pods_R_D_InventoryTests.framework */; };
 		4824DFCA8C3FFC428B679E6B /* Pods_R_D_InventoryUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 033EE9BAD2D7E561D2A2CE08 /* Pods_R_D_InventoryUITests.framework */; };
 		9C16A19B83CE2DEDDDC16B87 /* Pods_R_D_Inventory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 640D7C703A6221D293FF22F1 /* Pods_R_D_Inventory.framework */; };
+		E32CD1071E161326005A35BD /* BuildPartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32CD1061E161326005A35BD /* BuildPartViewController.swift */; };
 		E398F1191E1357E300CD91D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F1181E1357E300CD91D4 /* AppDelegate.swift */; };
 		E398F1201E1357E300CD91D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E398F11F1E1357E300CD91D4 /* Assets.xcassets */; };
 		E398F1231E1357E300CD91D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E398F1211E1357E300CD91D4 /* LaunchScreen.storyboard */; };
@@ -17,7 +18,6 @@
 		E398F1391E1357E300CD91D4 /* R_D_InventoryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F1381E1357E300CD91D4 /* R_D_InventoryUITests.swift */; };
 		E398F1471E13602E00CD91D4 /* AssemblyDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F1461E13602E00CD91D4 /* AssemblyDetailViewController.swift */; };
 		E398F1491E1360B400CD91D4 /* AddAssemblyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F1481E1360B400CD91D4 /* AddAssemblyViewController.swift */; };
-		E398F14B1E13624800CD91D4 /* AddPartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F14A1E13624800CD91D4 /* AddPartViewController.swift */; };
 		E398F14D1E1363A600CD91D4 /* PartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F14C1E1363A600CD91D4 /* PartViewController.swift */; };
 		E398F14F1E1363BA00CD91D4 /* PartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F14E1E1363BA00CD91D4 /* PartTableViewCell.swift */; };
 		E398F1511E1363C500CD91D4 /* AssemblyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F1501E1363C500CD91D4 /* AssemblyTableViewCell.swift */; };
@@ -58,6 +58,7 @@
 		640D7C703A6221D293FF22F1 /* Pods_R_D_Inventory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_R_D_Inventory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		687954077D7958893F4A5DE0 /* Pods-R&D InventoryUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-R&D InventoryUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-R&D InventoryUITests/Pods-R&D InventoryUITests.release.xcconfig"; sourceTree = "<group>"; };
 		DDAB533742B9B435D147DCC3 /* Pods-R&D Inventory.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-R&D Inventory.release.xcconfig"; path = "Pods/Target Support Files/Pods-R&D Inventory/Pods-R&D Inventory.release.xcconfig"; sourceTree = "<group>"; };
+		E32CD1061E161326005A35BD /* BuildPartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildPartViewController.swift; sourceTree = "<group>"; };
 		E398F1151E1357E300CD91D4 /* R&D Inventory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "R&D Inventory.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E398F1181E1357E300CD91D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E398F11F1E1357E300CD91D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -71,7 +72,6 @@
 		E398F13A1E1357E300CD91D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E398F1461E13602E00CD91D4 /* AssemblyDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssemblyDetailViewController.swift; sourceTree = "<group>"; };
 		E398F1481E1360B400CD91D4 /* AddAssemblyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAssemblyViewController.swift; sourceTree = "<group>"; };
-		E398F14A1E13624800CD91D4 /* AddPartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPartViewController.swift; sourceTree = "<group>"; };
 		E398F14C1E1363A600CD91D4 /* PartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartViewController.swift; sourceTree = "<group>"; };
 		E398F14E1E1363BA00CD91D4 /* PartTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartTableViewCell.swift; sourceTree = "<group>"; };
 		E398F1501E1363C500CD91D4 /* AssemblyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssemblyTableViewCell.swift; sourceTree = "<group>"; };
@@ -163,13 +163,13 @@
 			isa = PBXGroup;
 			children = (
 				E398F1481E1360B400CD91D4 /* AddAssemblyViewController.swift */,
-				E398F14A1E13624800CD91D4 /* AddPartViewController.swift */,
 				E398F1181E1357E300CD91D4 /* AppDelegate.swift */,
 				E398F1541E136A6500CD91D4 /* Assembly.swift */,
 				E398F1461E13602E00CD91D4 /* AssemblyDetailViewController.swift */,
 				E398F1501E1363C500CD91D4 /* AssemblyTableViewCell.swift */,
 				E398F1561E136C2200CD91D4 /* AssemblyTableViewController.swift */,
 				E398F11F1E1357E300CD91D4 /* Assets.xcassets */,
+				E32CD1061E161326005A35BD /* BuildPartViewController.swift */,
 				E3ECCE921E15B662009C936D /* Constants.swift */,
 				E398F15C1E15B28300CD91D4 /* DataService.swift */,
 				E3ECCE991E15D0DC009C936D /* FIRDataObject.swift */,
@@ -210,12 +210,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E398F13D1E1357E300CD91D4 /* Build configuration list for PBXNativeTarget "R&D Inventory" */;
 			buildPhases = (
-				A00D7DF31D974A64D4204E62 /* 📦 Check Pods Manifest.lock */,
+				A00D7DF31D974A64D4204E62 /* [CP] Check Pods Manifest.lock */,
 				E398F1111E1357E300CD91D4 /* Sources */,
 				E398F1121E1357E300CD91D4 /* Frameworks */,
 				E398F1131E1357E300CD91D4 /* Resources */,
-				BF5355FDA21C99A95FD2E509 /* 📦 Embed Pods Frameworks */,
-				A5AE4569846EDF49815D6831 /* 📦 Copy Pods Resources */,
+				BF5355FDA21C99A95FD2E509 /* [CP] Embed Pods Frameworks */,
+				A5AE4569846EDF49815D6831 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -230,12 +230,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E398F1401E1357E300CD91D4 /* Build configuration list for PBXNativeTarget "R&D InventoryTests" */;
 			buildPhases = (
-				998A3D901D51DCD5977560BC /* 📦 Check Pods Manifest.lock */,
+				998A3D901D51DCD5977560BC /* [CP] Check Pods Manifest.lock */,
 				E398F1251E1357E300CD91D4 /* Sources */,
 				E398F1261E1357E300CD91D4 /* Frameworks */,
 				E398F1271E1357E300CD91D4 /* Resources */,
-				2E6607C27878D512EFBC87D4 /* 📦 Embed Pods Frameworks */,
-				82A580A73B4A55118A49E446 /* 📦 Copy Pods Resources */,
+				2E6607C27878D512EFBC87D4 /* [CP] Embed Pods Frameworks */,
+				82A580A73B4A55118A49E446 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -251,11 +251,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E398F1431E1357E300CD91D4 /* Build configuration list for PBXNativeTarget "R&D InventoryUITests" */;
 			buildPhases = (
-				66F84BFE338C1836B860FE56 /* 📦 Check Pods Manifest.lock */,
+				66F84BFE338C1836B860FE56 /* [CP] Check Pods Manifest.lock */,
 				E398F1301E1357E300CD91D4 /* Sources */,
 				E398F1311E1357E300CD91D4 /* Frameworks */,
 				E398F1321E1357E300CD91D4 /* Resources */,
-				875F51F8A71F72117F350B5A /* 📦 Copy Pods Resources */,
+				875F51F8A71F72117F350B5A /* [CP] Copy Pods Resources */,
+				E4514746850A5BE7BB7149B5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -350,14 +351,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2E6607C27878D512EFBC87D4 /* 📦 Embed Pods Frameworks */ = {
+		2E6607C27878D512EFBC87D4 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -365,29 +366,29 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-R&D InventoryTests/Pods-R&D InventoryTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		66F84BFE338C1836B860FE56 /* 📦 Check Pods Manifest.lock */ = {
+		66F84BFE338C1836B860FE56 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		82A580A73B4A55118A49E446 /* 📦 Copy Pods Resources */ = {
+		82A580A73B4A55118A49E446 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -395,14 +396,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-R&D InventoryTests/Pods-R&D InventoryTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		875F51F8A71F72117F350B5A /* 📦 Copy Pods Resources */ = {
+		875F51F8A71F72117F350B5A /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -410,44 +411,44 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-R&D InventoryUITests/Pods-R&D InventoryUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		998A3D901D51DCD5977560BC /* 📦 Check Pods Manifest.lock */ = {
+		998A3D901D51DCD5977560BC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		A00D7DF31D974A64D4204E62 /* 📦 Check Pods Manifest.lock */ = {
+		A00D7DF31D974A64D4204E62 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		A5AE4569846EDF49815D6831 /* 📦 Copy Pods Resources */ = {
+		A5AE4569846EDF49815D6831 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -455,19 +456,34 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-R&D Inventory/Pods-R&D Inventory-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BF5355FDA21C99A95FD2E509 /* 📦 Embed Pods Frameworks */ = {
+		BF5355FDA21C99A95FD2E509 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-R&D Inventory/Pods-R&D Inventory-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E4514746850A5BE7BB7149B5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-R&D InventoryUITests/Pods-R&D InventoryUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -483,8 +499,8 @@
 				E398F1471E13602E00CD91D4 /* AssemblyDetailViewController.swift in Sources */,
 				E398F1571E136C2200CD91D4 /* AssemblyTableViewController.swift in Sources */,
 				E3ECCE9A1E15D0DC009C936D /* FIRDataObject.swift in Sources */,
-				E398F14B1E13624800CD91D4 /* AddPartViewController.swift in Sources */,
 				E3ECCE931E15B662009C936D /* Constants.swift in Sources */,
+				E32CD1071E161326005A35BD /* BuildPartViewController.swift in Sources */,
 				E398F14D1E1363A600CD91D4 /* PartViewController.swift in Sources */,
 				E398F1491E1360B400CD91D4 /* AddAssemblyViewController.swift in Sources */,
 				E398F15D1E15B28300CD91D4 /* DataService.swift in Sources */,

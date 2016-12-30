@@ -22,11 +22,14 @@ struct Constants {
         
     }
     
-    struct MessageFields {
-        static let name = "name"
-        static let text = "text"
-        static let photoURL = "photoURL"
-        static let imageURL = "imageURL"
+    struct PartFields {
+        static let Name = "name"
+        static let ID = "id"
+        static let Manufacturer = "manufacturer"
+        static let NumSubParts = "numSubParts"
+        static let NumInStock = "numInStock"
+        static let NumOnOrder = "numOnOrder"
+        static let LeadTime = "leadTime"
     }
     
     struct TableViewCells {
