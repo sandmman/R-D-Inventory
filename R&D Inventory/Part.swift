@@ -17,9 +17,9 @@ public class Part: FIRDataObject {
 
     private var _manufacturer: String
 
-    private var _leadTime: Date
+    private var _leadTime: Int
 
-    private var _countSubParts: Int
+    private var _countInAssembly: Int
 
     private var _countInStock: Int
 
@@ -37,12 +37,17 @@ public class Part: FIRDataObject {
         return _manufacturer
     }
     
-    public var leadTime: Date {
+    public var leadTime: Int {
         return _leadTime
     }
     
-    public var countSubParts: Int {
-        return _countSubParts
+    public var countInAssembly: Int {
+        get {
+            return _countInAssembly
+        }
+        set {
+            _countInAssembly = newValue
+        }
     }
     
     public var countInStock: Int {
@@ -53,7 +58,7 @@ public class Part: FIRDataObject {
         return _countOnOrder
     }
 
-    public init?(name: String, uid: Int, manufacturer: String, leadTime: Date, countSubParts: Int, countInStock: Int, countOnOrder: Int) {
+    public init?(name: String, uid: Int, manufacturer: String, leadTime: Int, countInAssembly: Int, countInStock: Int, countOnOrder: Int) {
         
         // The name must not be empty
         guard !name.isEmpty else {
@@ -61,7 +66,7 @@ public class Part: FIRDataObject {
         }
 
         // Nothing should be negative
-        if (countSubParts < 0 || countInStock < 0 || countOnOrder < 0) {
+        if (countInAssembly < 0 || countInStock < 0 || countOnOrder < 0) {
             return nil
         }
         
@@ -69,22 +74,21 @@ public class Part: FIRDataObject {
         _uid = uid
         _manufacturer = manufacturer
         _leadTime = leadTime
-        _countSubParts = countSubParts
+        _countInAssembly = countInAssembly
         _countInStock = countInStock
         _countOnOrder = countOnOrder
         
         super.init()
     }
     
-    public init(dict: [String: Any]) {
-
-        _name = dict["name"] as! String
-        _uid = dict["uid"] as! Int
-        _manufacturer = dict["manufacturer"] as! String
-        _leadTime =  Date(timeIntervalSince1970: TimeInterval(dict["leadTime"] as! Int))
-        _countSubParts = dict["countSubParts"] as! Int
-        _countInStock = dict["countInStock"] as! Int
-        _countOnOrder = dict["countOnOrder"] as! Int
+    public init(dict: [String: Any], countInAssembly: Int) {
+        _name = dict[Constants.PartFields.Name] as! String
+        _uid = dict[Constants.PartFields.ID] as! Int
+        _manufacturer = dict[Constants.PartFields.Manufacturer] as! String
+        _leadTime = dict[Constants.PartFields.LeadTime] as! Int
+        _countInAssembly = countInAssembly
+        _countInStock = dict[Constants.PartFields.CountInStock] as! Int
+        _countOnOrder = dict[Constants.PartFields.CountOnOrder] as! Int
         
         super.init()
     }
@@ -93,26 +97,25 @@ public class Part: FIRDataObject {
         
         let value = snapshot.value as! [String: Any]
         
-        _name = value["name"] as! String
-        _uid = value["uid"] as! Int
-        _manufacturer = value["manufacturer"] as! String
-        _leadTime =  Date(timeIntervalSince1970: TimeInterval(value["leadTime"] as! Int))
-        _countSubParts = value["countSubParts"] as! Int
-        _countInStock = value["countInStock"] as! Int
-        _countOnOrder = value["countOnOrder"] as! Int
+        _name = value[Constants.PartFields.Name] as! String
+        _uid = value[Constants.PartFields.ID] as! Int
+        _manufacturer = value[Constants.PartFields.Manufacturer] as! String
+        _leadTime = value[Constants.PartFields.LeadTime] as! Int
+        _countInAssembly = 0
+        _countInStock = value[Constants.PartFields.CountInStock] as! Int
+        _countOnOrder = value[Constants.PartFields.CountOnOrder] as! Int
         
         super.init(snapshot: snapshot)
     }
 
     public func toAnyObject() -> Any {
         return [
-            "name": name,
-            "uid": uid,
-            "manufacturer": manufacturer,
-            "leadTime": leadTime.timeIntervalSince1970,
-            "countSubParts": countSubParts,
-            "countInStock": countInStock,
-            "countOnOrder": countOnOrder,
+            Constants.PartFields.Name             : name,
+            Constants.PartFields.ID             : uid,
+            Constants.PartFields.Manufacturer   : manufacturer,
+            Constants.PartFields.LeadTime       : leadTime,
+            Constants.PartFields.CountInStock   : countInStock,
+            Constants.PartFields.CountOnOrder   : countOnOrder,
         ]
     }
 }

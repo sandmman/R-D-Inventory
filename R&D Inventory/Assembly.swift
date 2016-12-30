@@ -13,17 +13,17 @@ public class Assembly: FIRDataObject {
 
     private var _name: String
 
-    private var _parts: [String] = []
+    private var _parts: [String: Int] = [:]
 
     public var name: String {
         return _name
     }
     
-    public var parts: [String] {
+    public var parts: [String: Int] {
         return _parts
     }
     
-    public init?(name: String, parts: [String]) {
+    public init?(name: String, parts: [String: Int]) {
         guard !name.isEmpty else {
             return nil
         }
@@ -40,11 +40,7 @@ public class Assembly: FIRDataObject {
 
         _name = value["_name"] as! String
 
-        if let parts = value["_parts"] as? [String: Bool] {
-            for (key, _) in parts {
-                _parts.append(key)
-            }
-        }
+        _parts = value["_parts"] as? [String: Int] ?? [:]
     
         super.init(snapshot: snapshot)
     }
@@ -52,7 +48,7 @@ public class Assembly: FIRDataObject {
     public func toAnyObject() -> Any {
         return [
             "_name": name,
-            "_parts": parts.reduce([String: Bool](), createDict)
+            "_parts": _parts,
         ]
     }
     

@@ -44,20 +44,20 @@ class BuildPartViewController: FormViewController {
             }
             <<< IntRow(Constants.PartFields.ID){ row in
                 row.title = "ID"
-                row.placeholder = "0"
+                row.placeholder = ""
                 row.add(rule: RuleRequired())
                 row.validationOptions = .validatesOnChange
             }
             +++ Section("Detail")
-            <<< IntRow(Constants.PartFields.NumSubParts) {
-                $0.title = "# Sub Parts"
+            <<< IntRow(Constants.PartFields.CountInAssembly) {
+                $0.title = "# in Assembly"
                 $0.placeholder = ""
             }
-            <<< IntRow(Constants.PartFields.NumInStock) {
+            <<< IntRow(Constants.PartFields.CountInStock) {
                 $0.title = "# In Stock"
                 $0.placeholder = ""
             }
-            <<< IntRow(Constants.PartFields.NumOnOrder) {
+            <<< IntRow(Constants.PartFields.CountOnOrder) {
                 $0.title = "# On Order"
                 $0.placeholder = ""
             }
@@ -82,10 +82,10 @@ class BuildPartViewController: FormViewController {
         part = Part(name: rows[Constants.PartFields.Name]! as? String ?? "",
                     uid: rows[Constants.PartFields.ID]! as? Int ?? -1,
                     manufacturer: rows[Constants.PartFields.Manufacturer]! as? String ?? "",
-                    leadTime: Date(),//rows["leadTime"] as! Int,
-                    countSubParts: rows[Constants.PartFields.NumSubParts]! as? Int ?? -1,
-                    countInStock: rows[Constants.PartFields.NumInStock]! as? Int ?? -1,
-                    countOnOrder: rows[Constants.PartFields.NumOnOrder]! as? Int ?? -1)
+                    leadTime: rows[Constants.PartFields.LeadTime]! as? Int ?? -1,
+                    countInAssembly: rows[Constants.PartFields.CountInAssembly]! as? Int ?? -1,
+                    countInStock: rows[Constants.PartFields.CountInStock]! as? Int ?? -1,
+                    countOnOrder: rows[Constants.PartFields.CountOnOrder]! as? Int ?? -1)
         
         guard let p = part else {
             return

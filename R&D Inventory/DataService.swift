@@ -87,9 +87,11 @@ extension DataService: DataManager {
 
     public func getParts(for assembly: Assembly, onAddPart: @escaping (Part) -> ()) {
 
-        for pointer in assembly.parts {
-            partsRef.child(pointer).observeSingleEvent(of: .value, with: { snapshot in
-                onAddPart(Part(snapshot: snapshot))
+        for (ID, count) in assembly.parts {
+            partsRef.child(ID).observeSingleEvent(of: .value, with: { snapshot in
+                var part = Part(snapshot: snapshot)
+                part.countInAssembly = count
+                onAddPart(part)
                 
             }) {
                 error in

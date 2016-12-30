@@ -24,11 +24,11 @@ struct Constants {
     
     struct PartFields {
         static let Name = "name"
-        static let ID = "id"
+        static let ID = "uid"
         static let Manufacturer = "manufacturer"
-        static let NumSubParts = "numSubParts"
-        static let NumInStock = "numInStock"
-        static let NumOnOrder = "numOnOrder"
+        static let CountInAssembly = "countInAssembly"
+        static let CountInStock = "countInStock"
+        static let CountOnOrder = "countOnOrder"
         static let LeadTime = "leadTime"
     }
     

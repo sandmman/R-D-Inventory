@@ -38,12 +38,7 @@ class AddAssemblyViewController: UIViewController, UITableViewDelegate, UITableV
         
         let name = nameTextField.text ?? ""
 
-        assembly = Assembly(name: name, parts: parts.reduce([String]()) {
-            arr, part in
-            var arr = arr
-            arr.append(part.databaseID)
-            return arr
-        })
+        assembly = Assembly(name: name, parts: parts.reduce([String: Int](), createPartDict))
         
         guard let a = assembly else {
             return
@@ -111,5 +106,13 @@ class AddAssemblyViewController: UIViewController, UITableViewDelegate, UITableV
         selectedCell = parts[indexPath.row]
 
         performSegue(withIdentifier: Constants.Segues.PartDetail, sender: self)
+    }
+    
+    // Helper 
+    private func createPartDict(dict: [String: Int], nextPart: Part) -> [String: Int] {
+        var dict = dict
+        dict[nextPart.databaseID] = nextPart.countInAssembly
+        return dict
+        
     }
 }

@@ -35,7 +35,7 @@ class PartViewController: UIViewController {
         numOnOrderLabel.text = String(p.countOnOrder)
         numInStockLabel.text = String(p.countInStock)
         orderLeadTimeLabel.text = p.leadTime.description
-        numPartsNeededLabel.text = String(p.countSubParts)
+        numPartsNeededLabel.text = String(p.countInAssembly)
     }
 
 }
