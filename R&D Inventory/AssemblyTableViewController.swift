@@ -12,19 +12,6 @@ class AssemblyTableViewController: UITableViewController, AssemblyDelegate {
     
     var selectedAssembly: Assembly? = nil
 
-    @IBAction func unwindToAssemblyList(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.source as? AddAssemblyViewController,
-           let assembly = sourceViewController.assembly {
-
-            /*// Add a new assembly.
-            let newIndexPath = IndexPath(row: assemblies.count, section: 0)
-            
-            assemblies.append(assembly)
-
-            tableView.insertRows(at: [newIndexPath], with: .automatic)*/
-        }
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         

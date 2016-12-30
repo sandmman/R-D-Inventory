@@ -11,7 +11,8 @@
 		4824DFCA8C3FFC428B679E6B /* Pods_R_D_InventoryUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 033EE9BAD2D7E561D2A2CE08 /* Pods_R_D_InventoryUITests.framework */; };
 		9C16A19B83CE2DEDDDC16B87 /* Pods_R_D_Inventory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 640D7C703A6221D293FF22F1 /* Pods_R_D_Inventory.framework */; };
 		E32CD1071E161326005A35BD /* BuildPartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32CD1061E161326005A35BD /* BuildPartViewController.swift */; };
-		E34FC4931E16B31F0028D36C /* PushRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34FC4921E16B31F0028D36C /* PushRow.swift */; };
+		E34FC4931E16B31F0028D36C /* PartRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34FC4921E16B31F0028D36C /* PartRow.swift */; };
+		E34FC4951E16B4E50028D36C /* BuildAssemblyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34FC4941E16B4E50028D36C /* BuildAssemblyViewController.swift */; };
 		E398F1191E1357E300CD91D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F1181E1357E300CD91D4 /* AppDelegate.swift */; };
 		E398F1201E1357E300CD91D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E398F11F1E1357E300CD91D4 /* Assets.xcassets */; };
 		E398F1231E1357E300CD91D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E398F1211E1357E300CD91D4 /* LaunchScreen.storyboard */; };
@@ -60,7 +61,8 @@
 		687954077D7958893F4A5DE0 /* Pods-R&D InventoryUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-R&D InventoryUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-R&D InventoryUITests/Pods-R&D InventoryUITests.release.xcconfig"; sourceTree = "<group>"; };
 		DDAB533742B9B435D147DCC3 /* Pods-R&D Inventory.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-R&D Inventory.release.xcconfig"; path = "Pods/Target Support Files/Pods-R&D Inventory/Pods-R&D Inventory.release.xcconfig"; sourceTree = "<group>"; };
 		E32CD1061E161326005A35BD /* BuildPartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildPartViewController.swift; sourceTree = "<group>"; };
-		E34FC4921E16B31F0028D36C /* PushRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushRow.swift; sourceTree = "<group>"; };
+		E34FC4921E16B31F0028D36C /* PartRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartRow.swift; sourceTree = "<group>"; };
+		E34FC4941E16B4E50028D36C /* BuildAssemblyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildAssemblyViewController.swift; sourceTree = "<group>"; };
 		E398F1151E1357E300CD91D4 /* R&D Inventory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "R&D Inventory.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E398F1181E1357E300CD91D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E398F11F1E1357E300CD91D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				E398F1481E1360B400CD91D4 /* AddAssemblyViewController.swift */,
+				E34FC4941E16B4E50028D36C /* BuildAssemblyViewController.swift */,
 				E398F1181E1357E300CD91D4 /* AppDelegate.swift */,
 				E398F1541E136A6500CD91D4 /* Assembly.swift */,
 				E398F1461E13602E00CD91D4 /* AssemblyDetailViewController.swift */,
@@ -173,7 +176,7 @@
 				E398F11F1E1357E300CD91D4 /* Assets.xcassets */,
 				E32CD1061E161326005A35BD /* BuildPartViewController.swift */,
 				E3ECCE921E15B662009C936D /* Constants.swift */,
-				E34FC4921E16B31F0028D36C /* PushRow.swift */,
+				E34FC4921E16B31F0028D36C /* PartRow.swift */,
 				E398F15C1E15B28300CD91D4 /* DataService.swift */,
 				E3ECCE991E15D0DC009C936D /* FIRDataObject.swift */,
 				E398F15A1E15B0AF00CD91D4 /* GoogleService-Info.plist */,
@@ -498,6 +501,7 @@
 			files = (
 				E398F14F1E1363BA00CD91D4 /* PartTableViewCell.swift in Sources */,
 				E398F1551E136A6500CD91D4 /* Assembly.swift in Sources */,
+				E34FC4951E16B4E50028D36C /* BuildAssemblyViewController.swift in Sources */,
 				E398F1511E1363C500CD91D4 /* AssemblyTableViewCell.swift in Sources */,
 				E398F1471E13602E00CD91D4 /* AssemblyDetailViewController.swift in Sources */,
 				E398F1571E136C2200CD91D4 /* AssemblyTableViewController.swift in Sources */,
@@ -506,7 +510,7 @@
 				E32CD1071E161326005A35BD /* BuildPartViewController.swift in Sources */,
 				E398F14D1E1363A600CD91D4 /* PartViewController.swift in Sources */,
 				E398F1491E1360B400CD91D4 /* AddAssemblyViewController.swift in Sources */,
-				E34FC4931E16B31F0028D36C /* PushRow.swift in Sources */,
+				E34FC4931E16B31F0028D36C /* PartRow.swift in Sources */,
 				E398F15D1E15B28300CD91D4 /* DataService.swift in Sources */,
 				E398F1531E13684500CD91D4 /* Part.swift in Sources */,
 				E398F1191E1357E300CD91D4 /* AppDelegate.swift in Sources */,

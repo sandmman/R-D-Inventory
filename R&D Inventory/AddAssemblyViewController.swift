@@ -48,25 +48,13 @@ class AddAssemblyViewController: UIViewController, UITableViewDelegate, UITableV
         
         dismiss(animated: true, completion: nil)
     }
-
-    @IBAction func unwindToAssemblyBuilder(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.source as? BuildPartViewController,
-            let part = sourceViewController.part {
-
-            // Add a new assembly.
-            let newIndexPath = IndexPath(row: parts.count, section: 0)
-            
-            parts.append(part)
-
-            partsTableView.insertRows(at: [newIndexPath], with: .automatic)
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         partsTableView.delegate = self
         partsTableView.dataSource = self
+        
     }
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
