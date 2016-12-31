@@ -11,52 +11,19 @@ import Firebase
 
 public class Part: FIRDataObject {
     
-    private var _name: String
+    public var name: String
 
-    private var _uid: Int
+    public var uid: Int
 
-    private var _manufacturer: String
+    public var manufacturer: String
 
-    private var _leadTime: Int
+    public var leadTime: Int
 
-    private var _countInAssembly: Int
+    public var countInAssembly: Int
 
-    private var _countInStock: Int
+    public var countInStock: Int
 
-    private var _countOnOrder: Int
-
-    public var name: String {
-        return _name
-    }
-    
-    public var uid: Int {
-        return _uid
-    }
-    
-    public var manufacturer: String {
-        return _manufacturer
-    }
-    
-    public var leadTime: Int {
-        return _leadTime
-    }
-    
-    public var countInAssembly: Int {
-        get {
-            return _countInAssembly
-        }
-        set {
-            _countInAssembly = newValue
-        }
-    }
-    
-    public var countInStock: Int {
-        return _countInStock
-    }
-    
-    public var countOnOrder: Int {
-        return _countOnOrder
-    }
+    public var countOnOrder: Int
 
     public init?(name: String, uid: Int, manufacturer: String, leadTime: Int, countInAssembly: Int, countInStock: Int, countOnOrder: Int) {
         
@@ -70,25 +37,25 @@ public class Part: FIRDataObject {
             return nil
         }
         
-        _name = name
-        _uid = uid
-        _manufacturer = manufacturer
-        _leadTime = leadTime
-        _countInAssembly = countInAssembly
-        _countInStock = countInStock
-        _countOnOrder = countOnOrder
+        self.name = name
+        self.uid = uid
+        self.manufacturer = manufacturer
+        self.leadTime = leadTime
+        self.countInAssembly = countInAssembly
+        self.countInStock = countInStock
+        self.countOnOrder = countOnOrder
         
         super.init()
     }
     
     public init(dict: [String: Any], countInAssembly: Int) {
-        _name = dict[Constants.PartFields.Name] as! String
-        _uid = dict[Constants.PartFields.ID] as! Int
-        _manufacturer = dict[Constants.PartFields.Manufacturer] as! String
-        _leadTime = dict[Constants.PartFields.LeadTime] as! Int
-        _countInAssembly = countInAssembly
-        _countInStock = dict[Constants.PartFields.CountInStock] as! Int
-        _countOnOrder = dict[Constants.PartFields.CountOnOrder] as! Int
+        self.name = dict[Constants.PartFields.Name] as! String
+        self.uid = dict[Constants.PartFields.ID] as! Int
+        self.manufacturer = dict[Constants.PartFields.Manufacturer] as! String
+        self.leadTime = dict[Constants.PartFields.LeadTime] as! Int
+        self.countInAssembly = countInAssembly
+        self.countInStock = dict[Constants.PartFields.CountInStock] as! Int
+        self.countOnOrder = dict[Constants.PartFields.CountOnOrder] as! Int
         
         super.init()
     }
@@ -97,20 +64,20 @@ public class Part: FIRDataObject {
         
         let value = snapshot.value as! [String: Any]
         
-        _name = value[Constants.PartFields.Name] as! String
-        _uid = value[Constants.PartFields.ID] as! Int
-        _manufacturer = value[Constants.PartFields.Manufacturer] as! String
-        _leadTime = value[Constants.PartFields.LeadTime] as! Int
-        _countInAssembly = 0
-        _countInStock = value[Constants.PartFields.CountInStock] as! Int
-        _countOnOrder = value[Constants.PartFields.CountOnOrder] as! Int
+        self.name = value[Constants.PartFields.Name] as! String
+        self.uid = value[Constants.PartFields.ID] as! Int
+        self.manufacturer = value[Constants.PartFields.Manufacturer] as! String
+        self.leadTime = value[Constants.PartFields.LeadTime] as! Int
+        self.countInAssembly = 0
+        self.countInStock = value[Constants.PartFields.CountInStock] as! Int
+        self.countOnOrder = value[Constants.PartFields.CountOnOrder] as! Int
         
         super.init(snapshot: snapshot)
     }
 
     public func toAnyObject() -> Any {
         return [
-            Constants.PartFields.Name             : name,
+            Constants.PartFields.Name           : name,
             Constants.PartFields.ID             : uid,
             Constants.PartFields.Manufacturer   : manufacturer,
             Constants.PartFields.LeadTime       : leadTime,

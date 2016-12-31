@@ -20,10 +20,16 @@ public protocol DataManager {
     func add(build: Build)
 
     func add(part: Part)
-
-    func getParts(for assembly: Assembly, onAddPart: @escaping (Part) -> ())
+    
+    func get(assembly: String, onComplete: @escaping (Assembly) -> ())
+    
+    func get(build: String, onComplete: @escaping (Build) -> ())
+    
+    func get(part: String, onComplete: @escaping (Part) -> ())
 
     func update(assembly: Assembly)
+
+    func update(build: Build)
 
     func update(part: Part)
 
@@ -32,6 +38,10 @@ public protocol DataManager {
     func delete(build: Build)
     
     func delete(part: Part)
+    
+    func getParts(for assembly: Assembly, onComplete: @escaping (Part) -> ())
+    
+    func getBuilds(for assembly: Assembly, onComplete: @escaping (Build) -> ())
 }
 
 public class FirebaseDataManager: NSObject {
@@ -96,6 +106,7 @@ extension FirebaseDataManager: DataManager {
     }
     
     public func add(build: Build) {
+        assemblyRef.child(build.assemblyID).child("builds").updateChildValues([build.databaseID: true])
         buildsRef.child(build.databaseID).setValue(build.toAnyObject())
     }
 
@@ -118,31 +129,44 @@ extension FirebaseDataManager: DataManager {
         }
     }
 
-    public func getParts(for assembly: Assembly, onAddPart: @escaping (Part) -> ()) {
+    public func getParts(for assembly: Assembly, onComplete: @escaping (Part) -> ()) {
 
         for (ID, count) in assembly.parts {
-            partsRef.child(ID).observeSingleEvent(of: .value, with: { snapshot in
-                let part = Part(snapshot: snapshot)
-                part.countInAssembly = count
-                onAddPart(part)
+            
+            get(part: ID) { part in
                 
-            }) {
-                error in
-                print(error.localizedDescription)
+                part.countInAssembly = count
+
+                onComplete(part)
             }
         }
     }
     
-    public func getBuilds(for assembly: Assembly, onComplete: @escaping ([Build]) -> ()) {
+    public func getBuilds(for assembly: Assembly, onComplete: @escaping (Build) -> ()) {
         
-            buildsRef.child(assembly.databaseID).observeSingleEvent(of: .value, with: { snapshot in
-                //let builds = Build(snapshot: snapshot)
-                onComplete([])
-                
-            })
+        assemblyRef.child(assembly.databaseID).child("builds").observeSingleEvent(of: .value, with: { snapshot in
+            
+            guard let builds = snapshot.value as? [String: Bool] else {
+                return
+            }
+            
+            for (id, _) in builds {
+                self.get(build: id) { build in
+                    onComplete(build)
+                }
+            }
+        
+        }) {
+            error in
+            print(error.localizedDescription)
+        }
     }
 
     public func update(assembly: Assembly) {
+        
+    }
+    
+    public func update(build: Build) {
         
     }
 
@@ -169,6 +193,49 @@ extension FirebaseDataManager: DataManager {
     }
     
     public func delete(build: Build) {
+        guard let ref = build.ref else {
+            return
+        }
         
+        ref.removeValue()
+    }
+
+    public func get(assembly: String, onComplete: @escaping (Assembly) -> ()) {
+        partsRef.child(assembly).observeSingleEvent(of: .value, with: { snapshot in
+            
+            let assembly = Assembly(snapshot: snapshot)
+            
+            onComplete(assembly)
+            
+        }) {
+            error in
+            print(error.localizedDescription)
+        }
+    }
+    
+    public func get(build: String, onComplete: @escaping (Build) -> ()) {
+        self.buildsRef.child(build).observeSingleEvent(of: .value, with: { snapshot in
+            
+            let build = Build(snapshot: snapshot)
+            
+            onComplete(build)
+            
+        }) {
+            error in
+            print(error.localizedDescription)
+        }
+    }
+    
+    public func get(part: String, onComplete: @escaping (Part) -> ()) {
+        self.partsRef.child(part).observeSingleEvent(of: .value, with: { snapshot in
+            
+            let part = Part(snapshot: snapshot)
+            
+            onComplete(part)
+            
+        }) {
+            error in
+            print(error.localizedDescription)
+        }
     }
 }

@@ -31,6 +31,7 @@
 		E398F15D1E15B28300CD91D4 /* FirebaseDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F15C1E15B28300CD91D4 /* FirebaseDataManager.swift */; };
 		E3AF6CB01E1762E000AE0947 /* Build.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AF6CAF1E1762E000AE0947 /* Build.swift */; };
 		E3AF6CB71E18135E00AE0947 /* CreateBuildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AF6CB61E18135E00AE0947 /* CreateBuildViewController.swift */; };
+		E3AF6CB91E1840EF00AE0947 /* BuildDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AF6CB81E1840EF00AE0947 /* BuildDetailViewController.swift */; };
 		E3ECCE931E15B662009C936D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ECCE921E15B662009C936D /* Constants.swift */; };
 		E3ECCE9A1E15D0DC009C936D /* FIRDataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ECCE991E15D0DC009C936D /* FIRDataObject.swift */; };
 /* End PBXBuildFile section */
@@ -89,6 +90,7 @@
 		E398F15C1E15B28300CD91D4 /* FirebaseDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseDataManager.swift; sourceTree = "<group>"; };
 		E3AF6CAF1E1762E000AE0947 /* Build.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Build.swift; sourceTree = "<group>"; };
 		E3AF6CB61E18135E00AE0947 /* CreateBuildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateBuildViewController.swift; sourceTree = "<group>"; };
+		E3AF6CB81E1840EF00AE0947 /* BuildDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildDetailViewController.swift; sourceTree = "<group>"; };
 		E3ECCE921E15B662009C936D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E3ECCE961E15C98A009C936D /* R&D Inventory.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "R&D Inventory.entitlements"; sourceTree = "<group>"; };
 		E3ECCE991E15D0DC009C936D /* FIRDataObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIRDataObject.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				E32CD1061E161326005A35BD /* BuildPartViewController.swift */,
 				E398F14C1E1363A600CD91D4 /* PartViewController.swift */,
 				E3AF6CB61E18135E00AE0947 /* CreateBuildViewController.swift */,
+				E3AF6CB81E1840EF00AE0947 /* BuildDetailViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -557,6 +560,7 @@
 				E32CD1071E161326005A35BD /* BuildPartViewController.swift in Sources */,
 				E398F14D1E1363A600CD91D4 /* PartViewController.swift in Sources */,
 				E398F1491E1360B400CD91D4 /* AddAssemblyViewController.swift in Sources */,
+				E3AF6CB91E1840EF00AE0947 /* BuildDetailViewController.swift in Sources */,
 				E34FC4931E16B31F0028D36C /* PartRow.swift in Sources */,
 				E398F15D1E15B28300CD91D4 /* FirebaseDataManager.swift in Sources */,
 				E3AF6CB71E18135E00AE0947 /* CreateBuildViewController.swift in Sources */,

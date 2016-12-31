@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Eureka
 
 class AssemblyDetailTableViewController: UITableViewController, UIGestureRecognizerDelegate {
 
@@ -17,6 +18,8 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
     var builds: [Build] = []
 
     var selectedPart: Part? = nil
+    
+    var selectedBuild: Build? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,12 +37,12 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
             self.reloadData()
         }
         
-        /*FirebaseDataManager.sharedInstance.getBuilds(for: a) {
+        FirebaseDataManager.sharedInstance.getBuilds(for: a) {
             build in
             
             self.builds.append(build)
             self.reloadData()
-        }*/
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,18 +54,27 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
     @IBAction func unwindToAssemblyDetail(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? CreateBuildViewController {
             
+            guard let row: DateRow = sourceViewController.form.rowBy(tag: Constants.BuildFields.Date) else {
+                return
+            }
+            
+            guard let date = row.value else {
+                return
+            }
+            
             guard let a = assembly else {
                 return
             }
 
-            let rows = sourceViewController.form.values()
-            
-            if let build = Build(scheduledFor: (rows["Date"] as? Date)!, with: a.databaseID) {
-                
-                builds.append(build)
-
-                FirebaseDataManager.sharedInstance.add(build: build)
+            guard let build = Build(scheduledFor: date, with: a.databaseID) else {
+                return
             }
+                
+            builds.append(build)
+            
+            reloadData()
+
+            FirebaseDataManager.sharedInstance.add(build: build)
         }
     }
 
@@ -125,18 +137,32 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.part)! as UITableViewCell
         
-        cell.textLabel?.text = parts[indexPath.row].name
-        cell.detailTextLabel?.text = parts[indexPath.row].manufacturer
+        if indexPath.section == 0 {
+            cell.textLabel?.text = ""
+            cell.detailTextLabel?.text = builds[indexPath.row].scheduledDate.description
+        } else {
+            cell.textLabel?.text = parts[indexPath.row].name
+            cell.detailTextLabel?.text = parts[indexPath.row].manufacturer
+        }
+        
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt: IndexPath) {
-
-        let indexPath = tableView.indexPathForSelectedRow!
         
-        selectedPart = parts[indexPath.row]
+        guard let indexPath = tableView.indexPathForSelectedRow else {
+            return
+        }
         
-        performSegue(withIdentifier: Constants.Segues.PartDetail, sender: self)
+        if indexPath.section == 0 {
+            selectedBuild = builds[indexPath.row]
+            
+            performSegue(withIdentifier: Constants.Segues.BuildDetail, sender: self)
+        } else {
+            selectedPart = parts[indexPath.row]
+            
+            performSegue(withIdentifier: Constants.Segues.PartDetail, sender: self)
+        }
     }
 }

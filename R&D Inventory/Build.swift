@@ -11,29 +11,21 @@ import Firebase
 
 public class Build: FIRDataObject {
     
-    private var _date: Date
+    public var scheduledDate: Date
     
-    private var _assemblyID: String
-
-    public var assemblyID: String {
-        return _assemblyID
-    }
-
-    public var scheduledDate: Date {
-        return _date
-    }
+    public var assemblyID: String
     
     public init?(scheduledFor date: Date, with assembly: String) {
         
-        _date = date
-        _assemblyID = assembly
+        scheduledDate = date
+        assemblyID = assembly
 
         super.init()
     }
     
     public init(dict: [String: Any]) {
-        _date = Date(timeIntervalSince1970: TimeInterval(dict[Constants.BuildFields.Date] as! Int))
-        _assemblyID = dict[Constants.BuildFields.AssemblyID] as! String
+        scheduledDate = Date(timeIntervalSince1970: TimeInterval(dict[Constants.BuildFields.Date] as! Int))
+        assemblyID = dict[Constants.BuildFields.AssemblyID] as! String
         
         super.init()
     }
@@ -41,16 +33,16 @@ public class Build: FIRDataObject {
     public override init(snapshot: FIRDataSnapshot) {
         
         let value = snapshot.value as! [String: Any]
-        _date = Date(timeIntervalSince1970: TimeInterval(value[Constants.BuildFields.Date] as! Int))
-        _assemblyID = value[Constants.BuildFields.AssemblyID] as! String
+        scheduledDate = Date(timeIntervalSince1970: TimeInterval(value[Constants.BuildFields.Date] as! Int))
+        assemblyID = value[Constants.BuildFields.AssemblyID] as! String
 
         super.init(snapshot: snapshot)
     }
     
     public func toAnyObject() -> Any {
         return [
-            Constants.BuildFields.AssemblyID    : _assemblyID,
-            Constants.BuildFields.Date          : _date.timeIntervalSince1970,
+            Constants.BuildFields.AssemblyID    : assemblyID,
+            Constants.BuildFields.Date          : scheduledDate.timeIntervalSince1970,
         ]
     }
 }

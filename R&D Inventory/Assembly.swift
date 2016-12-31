@@ -11,26 +11,18 @@ import Firebase
 
 public class Assembly: FIRDataObject {
 
-    private var _name: String
+    public var name: String
 
-    private var _parts: [String: Int] = [:]
-
-    public var name: String {
-        return _name
-    }
-    
-    public var parts: [String: Int] {
-        return _parts
-    }
+    public var parts: [String: Int] = [:]
     
     public init?(name: String, parts: [String: Int]) {
         guard !name.isEmpty else {
             return nil
         }
     
-        _name = name
+        self.name = name
 
-        _parts = parts
+        self.parts = parts
 
         super.init()
     }
@@ -38,17 +30,17 @@ public class Assembly: FIRDataObject {
     public override init(snapshot: FIRDataSnapshot) {
         let value = snapshot.value as! [String: Any]
 
-        _name = value["_name"] as! String
+        self.name = value[Constants.AssemblyFields.Name] as! String
 
-        _parts = value["_parts"] as? [String: Int] ?? [:]
+        self.parts = value[Constants.AssemblyFields.Parts] as? [String: Int] ?? [:]
     
         super.init(snapshot: snapshot)
     }
     
     public func toAnyObject() -> Any {
         return [
-            "_name": name,
-            "_parts": _parts,
+            Constants.AssemblyFields.Name: name,
+            Constants.AssemblyFields.Parts: parts,
         ]
     }
     
