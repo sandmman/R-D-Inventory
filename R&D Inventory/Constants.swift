@@ -19,7 +19,7 @@ struct Constants {
         static let HomeToSignIn = "HomeToSignIn"
         static let PartDetail = "PartDetailSegue"
         static let AssemblyDetail = "AssemblyDetailSegue"
-        
+        static let CreateBuild = "CreateBuildSegue"
     }
     
     struct PartFields {
@@ -33,8 +33,11 @@ struct Constants {
     }
     
     struct BuildFields {
+        static let Title = "title"
+        static let Location = "location"
         static let AssemblyID = "assemblyID"
-        static let Date = "Date"
+        static let Date = "date"
+        static let Notes = "notes"
     }
 
     struct TableViewCells {

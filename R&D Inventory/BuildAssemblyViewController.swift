@@ -35,7 +35,7 @@ class BuildAssemblyViewController: FormViewController {
         
         assembly = a
         
-        FirebaseDataManager.sharedInstance.addAssembly(assembly: a)
+        FirebaseDataManager.sharedInstance.add(assembly: a)
         
         dismiss(animated: true, completion: nil)
     }

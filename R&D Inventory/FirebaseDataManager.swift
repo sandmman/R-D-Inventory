@@ -14,12 +14,24 @@ public protocol AssemblyDelegate {
 }
 
 public protocol DataManager {
-    func addAssembly(assembly: Assembly)
-    func addPart(part: Part)
+
+    func add(assembly: Assembly)
+
+    func add(build: Build)
+
+    func add(part: Part)
+
     func getParts(for assembly: Assembly, onAddPart: @escaping (Part) -> ())
-    func updateAssembly(assembly: Assembly)
-    func updatePart(part: Part)
-    func deleteAssembly(assembly: Assembly)
+
+    func update(assembly: Assembly)
+
+    func update(part: Part)
+
+    func delete(assembly: Assembly)
+    
+    func delete(build: Build)
+    
+    func delete(part: Part)
 }
 
 public class FirebaseDataManager: NSObject {
@@ -79,15 +91,19 @@ extension FirebaseDataManager: DataManager {
         })
     }
 
-    public func addAssembly(assembly: Assembly) {
+    public func add(assembly: Assembly) {
         assemblyRef.childByAutoId().setValue(assembly.toAnyObject())
     }
     
-    public func addPart(part: Part) {
+    public func add(build: Build) {
+        buildsRef.child(build.databaseID).setValue(build.toAnyObject())
+    }
+
+    public func add(part: Part) {
         partsRef.child(part.databaseID).setValue(part.toAnyObject())
     }
     
-    public func getAssemblies(for assembly: Assembly, onAddPart: @escaping (Part) -> ()) {
+    public func get(assembly: Assembly, onAddPart: @escaping (Part) -> ()) {
         
         for (ID, count) in assembly.parts {
             partsRef.child(ID).observeSingleEvent(of: .value, with: { snapshot in
@@ -126,15 +142,15 @@ extension FirebaseDataManager: DataManager {
             })
     }
 
-    public func updateAssembly(assembly: Assembly) {
+    public func update(assembly: Assembly) {
         
     }
 
-    public func updatePart(part: Part) {
+    public func update(part: Part) {
         
     }
 
-    public func deleteAssembly(assembly: Assembly) {
+    public func delete(assembly: Assembly) {
         guard let ref = assembly.ref else {
             return
         }
@@ -144,11 +160,15 @@ extension FirebaseDataManager: DataManager {
         ref.removeValue()
     }
     
-    public func deletePart(part: Part) {
+    public func delete(part: Part) {
         guard let ref = part.ref else {
             return
         }
 
         ref.removeValue()
+    }
+    
+    public func delete(build: Build) {
+        
     }
 }

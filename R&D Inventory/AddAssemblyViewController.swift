@@ -44,7 +44,7 @@ class AddAssemblyViewController: UIViewController, UITableViewDelegate, UITableV
             return
         }
         
-        FirebaseDataManager.sharedInstance.addAssembly(assembly: a)
+        FirebaseDataManager.sharedInstance.add(assembly: a)
         
         dismiss(animated: true, completion: nil)
     }

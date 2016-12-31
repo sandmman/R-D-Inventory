@@ -52,7 +52,7 @@ class AssemblyTableViewController: UITableViewController, AssemblyDelegate {
             
             let assemblyToDelete = FirebaseDataManager.sharedInstance.assemblies[indexPath.row]
 
-            FirebaseDataManager.sharedInstance.deleteAssembly(assembly: assemblyToDelete)
+            FirebaseDataManager.sharedInstance.delete(assembly: assemblyToDelete)
             
             tableView.deleteRows(at: [indexPath], with: .fade)
         }

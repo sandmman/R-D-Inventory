@@ -8,7 +8,6 @@
 
 import UIKit
 import Eureka
-import MapKit
 
 public class BuildPartViewController: FormViewController, TypedRowControllerType {
 
@@ -86,15 +85,17 @@ public class BuildPartViewController: FormViewController, TypedRowControllerType
     }
     
     private func createPart(from rows: [String: Any?]) -> Part? {
-        let part = Part(name: rows[Constants.PartFields.Name]! as? String ?? "",
+        guard let part = Part(name: rows[Constants.PartFields.Name]! as? String ?? "",
                     uid: rows[Constants.PartFields.ID]! as? Int ?? -1,
                     manufacturer: rows[Constants.PartFields.Manufacturer]! as? String ?? "",
                     leadTime: rows[Constants.PartFields.LeadTime]! as? Int ?? -1,
                     countInAssembly: rows[Constants.PartFields.CountInAssembly]! as? Int ?? -1,
                     countInStock: rows[Constants.PartFields.CountInStock]! as? Int ?? -1,
-                    countOnOrder: rows[Constants.PartFields.CountOnOrder]! as? Int ?? -1)
+                    countOnOrder: rows[Constants.PartFields.CountOnOrder]! as? Int ?? -1) else {
+            return nil
+        }
         
-        if let p = part { FirebaseDataManager.sharedInstance.addPart(part: p) }
+        FirebaseDataManager.sharedInstance.add(part: part)
         
         return part
         

@@ -47,15 +47,40 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
             self.tableView.deselectRow(at: row, animated: false)
         }
     }
+    
+    @IBAction func unwindToAssemblyDetail(sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? CreateBuildViewController {
+            
+            guard let a = assembly else {
+                return
+            }
+
+            let rows = sourceViewController.form.values()
+            
+            if let build = Build(scheduledFor: (rows["Date"] as? Date)!, with: a.databaseID) {
+                
+                builds.append(build)
+
+                FirebaseDataManager.sharedInstance.add(build: build)
+            }
+        }
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
-        if (segue.identifier == Constants.Segues.PartDetail) {
-            
+        guard let identifier = segue.identifier else {
+            return
+        }
+
+        switch identifier {
+        case (Constants.Segues.PartDetail):
             let viewController = segue.destination as! PartViewController
             
             viewController.part = selectedPart
-            
+        case Constants.Segues.CreateBuild: break
+
+        default: break
         }
     }
 
@@ -73,17 +98,20 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let v = UITableViewHeaderFooterView()
-        v.textLabel?.text = "Builds"
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-        tapRecognizer.delegate = self
-        tapRecognizer.numberOfTapsRequired = 1
-        tapRecognizer.numberOfTouchesRequired = 1
-        v.addGestureRecognizer(tapRecognizer)
+
+        if ( section == 0) {
+            let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleBuildTap))
+            tapRecognizer.delegate = self
+            tapRecognizer.numberOfTapsRequired = 1
+            tapRecognizer.numberOfTouchesRequired = 1
+            v.addGestureRecognizer(tapRecognizer)
+        }
+
         return v
     }
     
-    func handleTap(gestureRecognizer: UIGestureRecognizer) {
-        print("Tapped")
+    func handleBuildTap(gestureRecognizer: UIGestureRecognizer) {
+         performSegue(withIdentifier: Constants.Segues.CreateBuild, sender: self)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -111,5 +139,4 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
         
         performSegue(withIdentifier: Constants.Segues.PartDetail, sender: self)
     }
-
 }
