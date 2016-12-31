@@ -53,29 +53,47 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
     
     @IBAction func unwindToAssemblyDetail(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? CreateBuildViewController {
-            
-            guard let row: DateRow = sourceViewController.form.rowBy(tag: Constants.BuildFields.Date) else {
+
+            guard let row: DateInlineRow = sourceViewController.form.rowBy(tag: Constants.BuildFields.Date) else {
                 return
             }
-            
+
             guard let date = row.value else {
                 return
             }
-            
+
             guard let a = assembly else {
                 return
             }
 
-            guard let build = Build(scheduledFor: date, with: a.databaseID) else {
+            let partsNeeded: [String: Int] = parts.reduce([:]) {
+                
+                self.buildPartDict(dict: $0, part: $1, form: sourceViewController.form)
+            }
+
+            guard let build = Build(partsNeeded: partsNeeded, scheduledFor: date, withAssembly: a.databaseID) else {
                 return
             }
-                
+
             builds.append(build)
             
             reloadData()
 
             FirebaseDataManager.sharedInstance.add(build: build)
         }
+    }
+    
+    private func buildPartDict(dict: [String: Int], part: Part, form: Form) -> [String: Int] {
+        
+        guard let count = (form.rowBy(tag: part.databaseID) as! StepperRow).value else {
+            return dict
+        }
+        
+        var dict = dict
+
+        dict[part.databaseID] = Int(count)
+
+        return dict
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -90,7 +108,10 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
             let viewController = segue.destination as! PartViewController
             
             viewController.part = selectedPart
-        case Constants.Segues.CreateBuild: break
+        case Constants.Segues.CreateBuild:
+            let viewController = segue.destination as! CreateBuildViewController
+            
+            viewController.parts = parts
 
         default: break
         }
@@ -122,7 +143,22 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
         return v
     }
     
-    func handleBuildTap(gestureRecognizer: UIGestureRecognizer) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            
+            FirebaseDataManager.sharedInstance.delete(build: builds[indexPath.row])
+            
+            builds.remove(at: indexPath.row)
+
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return indexPath.section == 0 ? true : false
+    }
+
+    public func handleBuildTap(gestureRecognizer: UIGestureRecognizer) {
          performSegue(withIdentifier: Constants.Segues.CreateBuild, sender: self)
     }
 

@@ -10,6 +10,8 @@ import UIKit
 import Eureka
 
 class CreateBuildViewController: FormViewController {
+    
+    var parts: [Part] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +22,7 @@ class CreateBuildViewController: FormViewController {
     
     private func instantiateForm() {
         
-        form = Section("")
+        form +++ Section("General")
             <<< TextRow(Constants.BuildFields.Title) {
                 $0.title = "Name"
                 $0.placeholder = ""
@@ -31,13 +33,29 @@ class CreateBuildViewController: FormViewController {
                 $0.title = "Location"
                 $0.placeholder = ""
             }
-            +++ Section("")
-            <<< DateRow(Constants.BuildFields.Date) {
+            <<< DateInlineRow(Constants.BuildFields.Date) {
                 $0.title = "Scheduled Date"
+                $0.value = Date()
             }
-            +++ Section("")
-            <<< TextAreaRow(Constants.BuildFields.Notes) {
-                $0.placeholder = "Notes"
+        
+            /*<<< MultipleSelectorRow(Constants.BuildFields.PartsUsed) {
+                $0.options = ["c","b","a"]
+            }*/
+    
+        var partsSection = Section("Parts Needed")
+        
+        for part in parts {
+            partsSection.append(stepperRow(part: part))
+        }
+        
+        form +++ partsSection
+        
+    }
+    
+    private func stepperRow(part: Part) -> StepperRow {
+        return StepperRow(part.databaseID) {
+            $0.title = part.name
+            $0.value = 0
         }
     }
 

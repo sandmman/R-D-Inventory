@@ -24,7 +24,7 @@ public class FIRDataObject: NSObject {
         super.init()
     }
 
-    public init(snapshot: FIRDataSnapshot) {
+    public init?(snapshot: FIRDataSnapshot) {
         
         self.snapshot = snapshot
         

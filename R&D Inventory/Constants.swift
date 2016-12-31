@@ -39,6 +39,7 @@ struct Constants {
         static let AssemblyID = "assemblyID"
         static let Date = "date"
         static let Notes = "notes"
+        static let PartsNeeded = "parts"
     }
     
     struct AssemblyFields {

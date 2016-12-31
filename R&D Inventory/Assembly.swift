@@ -27,10 +27,14 @@ public class Assembly: FIRDataObject {
         super.init()
     }
     
-    public override init(snapshot: FIRDataSnapshot) {
-        let value = snapshot.value as! [String: Any]
+    public override init?(snapshot: FIRDataSnapshot) {
+        
+        guard let value = snapshot.value as? [String: Any],
+              let name = value[Constants.AssemblyFields.Name] as? String else {
+                return nil
+        }
 
-        self.name = value[Constants.AssemblyFields.Name] as! String
+        self.name = name
 
         self.parts = value[Constants.AssemblyFields.Parts] as? [String: Int] ?? [:]
     

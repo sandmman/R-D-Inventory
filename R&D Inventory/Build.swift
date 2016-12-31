@@ -15,26 +15,31 @@ public class Build: FIRDataObject {
     
     public var assemblyID: String
     
-    public init?(scheduledFor date: Date, with assembly: String) {
+    public var partsNeeded: [String: Int]
+
+    public init?(partsNeeded: [String: Int], scheduledFor date: Date, withAssembly: String) {
         
-        scheduledDate = date
-        assemblyID = assembly
+        self.scheduledDate = date
+        self.assemblyID = withAssembly
+        self.partsNeeded = partsNeeded
 
         super.init()
     }
     
-    public init(dict: [String: Any]) {
-        scheduledDate = Date(timeIntervalSince1970: TimeInterval(dict[Constants.BuildFields.Date] as! Int))
-        assemblyID = dict[Constants.BuildFields.AssemblyID] as! String
-        
-        super.init()
-    }
-    
-    public override init(snapshot: FIRDataSnapshot) {
+    public override init?(snapshot: FIRDataSnapshot) {
         
         let value = snapshot.value as! [String: Any]
-        scheduledDate = Date(timeIntervalSince1970: TimeInterval(value[Constants.BuildFields.Date] as! Int))
-        assemblyID = value[Constants.BuildFields.AssemblyID] as! String
+        
+        guard let timestamp = value[Constants.BuildFields.Date] as? Int,
+              let uid = value[Constants.BuildFields.AssemblyID] as? String else {
+                return nil
+        }
+
+        scheduledDate = Date(timeIntervalSince1970: TimeInterval(timestamp))
+
+        assemblyID = uid
+
+        partsNeeded = (value[Constants.BuildFields.PartsNeeded] as? [String: Int]) ?? [:]
 
         super.init(snapshot: snapshot)
     }
@@ -43,6 +48,7 @@ public class Build: FIRDataObject {
         return [
             Constants.BuildFields.AssemblyID    : assemblyID,
             Constants.BuildFields.Date          : scheduledDate.timeIntervalSince1970,
+            Constants.BuildFields.PartsNeeded   : partsNeeded
         ]
     }
 }

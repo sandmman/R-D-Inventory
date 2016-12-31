@@ -92,8 +92,9 @@ extension FirebaseDataManager: DataManager {
             var newItems: [Assembly] = []
             
             for item in snapshot.children {
-                let assemblyItem = Assembly(snapshot: item as! FIRDataSnapshot)
-                newItems.append(assemblyItem)
+                if let assemblyItem = Assembly(snapshot: item as! FIRDataSnapshot) {
+                    newItems.append(assemblyItem)
+                }
             }
             
             self.assemblies = newItems
@@ -118,9 +119,10 @@ extension FirebaseDataManager: DataManager {
         
         for (ID, count) in assembly.parts {
             partsRef.child(ID).observeSingleEvent(of: .value, with: { snapshot in
-                let part = Part(snapshot: snapshot)
-                part.countInAssembly = count
-                onAddPart(part)
+                if let part = Part(snapshot: snapshot) {
+                    part.countInAssembly = count
+                    onAddPart(part)
+                }
                 
             }) {
                 error in
@@ -198,14 +200,16 @@ extension FirebaseDataManager: DataManager {
         }
         
         ref.removeValue()
+        
+        assemblyRef.child(build.assemblyID).child("builds").child(build.databaseID).removeValue()
     }
 
     public func get(assembly: String, onComplete: @escaping (Assembly) -> ()) {
         partsRef.child(assembly).observeSingleEvent(of: .value, with: { snapshot in
             
-            let assembly = Assembly(snapshot: snapshot)
-            
-            onComplete(assembly)
+            if let assembly = Assembly(snapshot: snapshot) {
+                onComplete(assembly)
+            }
             
         }) {
             error in
@@ -216,9 +220,9 @@ extension FirebaseDataManager: DataManager {
     public func get(build: String, onComplete: @escaping (Build) -> ()) {
         self.buildsRef.child(build).observeSingleEvent(of: .value, with: { snapshot in
             
-            let build = Build(snapshot: snapshot)
-            
-            onComplete(build)
+            if let build = Build(snapshot: snapshot) {
+                onComplete(build)
+            }
             
         }) {
             error in
@@ -229,9 +233,9 @@ extension FirebaseDataManager: DataManager {
     public func get(part: String, onComplete: @escaping (Part) -> ()) {
         self.partsRef.child(part).observeSingleEvent(of: .value, with: { snapshot in
             
-            let part = Part(snapshot: snapshot)
-            
-            onComplete(part)
+            if let part = Part(snapshot: snapshot) {
+                onComplete(part)
+            }
             
         }) {
             error in
