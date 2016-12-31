@@ -32,6 +32,11 @@ struct Constants {
         static let LeadTime = "leadTime"
     }
     
+    struct BuildFields {
+        static let AssemblyID = "assemblyID"
+        static let Date = "Date"
+    }
+
     struct TableViewCells {
         static let assembly = "AssemblyTableViewCell"
         static let part = "PartTableViewCell"

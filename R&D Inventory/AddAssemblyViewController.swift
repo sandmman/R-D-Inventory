@@ -44,7 +44,7 @@ class AddAssemblyViewController: UIViewController, UITableViewDelegate, UITableV
             return
         }
         
-        DataService.sharedInstance.addAssembly(assembly: a)
+        FirebaseDataManager.sharedInstance.addAssembly(assembly: a)
         
         dismiss(animated: true, completion: nil)
     }
@@ -78,7 +78,7 @@ class AddAssemblyViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.parts.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = self.partsTableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.part)! as UITableViewCell
         

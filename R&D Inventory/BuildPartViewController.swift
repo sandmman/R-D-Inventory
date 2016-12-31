@@ -38,7 +38,7 @@ public class BuildPartViewController: FormViewController, TypedRowControllerType
         var part: Part? = nil
         
         if let value = row.value {
-            part = value as? Part
+            part = value as Part
         }
 
         form = Section("Info")
@@ -94,7 +94,7 @@ public class BuildPartViewController: FormViewController, TypedRowControllerType
                     countInStock: rows[Constants.PartFields.CountInStock]! as? Int ?? -1,
                     countOnOrder: rows[Constants.PartFields.CountOnOrder]! as? Int ?? -1)
         
-        if let p = part { DataService.sharedInstance.addPart(part: p) }
+        if let p = part { FirebaseDataManager.sharedInstance.addPart(part: p) }
         
         return part
         

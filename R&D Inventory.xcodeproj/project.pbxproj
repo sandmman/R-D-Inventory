@@ -18,7 +18,7 @@
 		E398F1231E1357E300CD91D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E398F1211E1357E300CD91D4 /* LaunchScreen.storyboard */; };
 		E398F12E1E1357E300CD91D4 /* R_D_InventoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F12D1E1357E300CD91D4 /* R_D_InventoryTests.swift */; };
 		E398F1391E1357E300CD91D4 /* R_D_InventoryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F1381E1357E300CD91D4 /* R_D_InventoryUITests.swift */; };
-		E398F1471E13602E00CD91D4 /* AssemblyDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F1461E13602E00CD91D4 /* AssemblyDetailViewController.swift */; };
+		E398F1471E13602E00CD91D4 /* AssemblyDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F1461E13602E00CD91D4 /* AssemblyDetailTableViewController.swift */; };
 		E398F1491E1360B400CD91D4 /* AddAssemblyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F1481E1360B400CD91D4 /* AddAssemblyViewController.swift */; };
 		E398F14D1E1363A600CD91D4 /* PartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F14C1E1363A600CD91D4 /* PartViewController.swift */; };
 		E398F14F1E1363BA00CD91D4 /* PartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F14E1E1363BA00CD91D4 /* PartTableViewCell.swift */; };
@@ -28,7 +28,8 @@
 		E398F1571E136C2200CD91D4 /* AssemblyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F1561E136C2200CD91D4 /* AssemblyTableViewController.swift */; };
 		E398F1591E15A66400CD91D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E398F1581E15A66400CD91D4 /* Main.storyboard */; };
 		E398F15B1E15B0AF00CD91D4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E398F15A1E15B0AF00CD91D4 /* GoogleService-Info.plist */; };
-		E398F15D1E15B28300CD91D4 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F15C1E15B28300CD91D4 /* DataService.swift */; };
+		E398F15D1E15B28300CD91D4 /* FirebaseDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F15C1E15B28300CD91D4 /* FirebaseDataManager.swift */; };
+		E3AF6CB01E1762E000AE0947 /* Build.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AF6CAF1E1762E000AE0947 /* Build.swift */; };
 		E3ECCE931E15B662009C936D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ECCE921E15B662009C936D /* Constants.swift */; };
 		E3ECCE9A1E15D0DC009C936D /* FIRDataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ECCE991E15D0DC009C936D /* FIRDataObject.swift */; };
 /* End PBXBuildFile section */
@@ -74,7 +75,7 @@
 		E398F1341E1357E300CD91D4 /* R&D InventoryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "R&D InventoryUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E398F1381E1357E300CD91D4 /* R_D_InventoryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = R_D_InventoryUITests.swift; sourceTree = "<group>"; };
 		E398F13A1E1357E300CD91D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E398F1461E13602E00CD91D4 /* AssemblyDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssemblyDetailViewController.swift; sourceTree = "<group>"; };
+		E398F1461E13602E00CD91D4 /* AssemblyDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssemblyDetailTableViewController.swift; sourceTree = "<group>"; };
 		E398F1481E1360B400CD91D4 /* AddAssemblyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAssemblyViewController.swift; sourceTree = "<group>"; };
 		E398F14C1E1363A600CD91D4 /* PartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartViewController.swift; sourceTree = "<group>"; };
 		E398F14E1E1363BA00CD91D4 /* PartTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartTableViewCell.swift; sourceTree = "<group>"; };
@@ -84,7 +85,8 @@
 		E398F1561E136C2200CD91D4 /* AssemblyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssemblyTableViewController.swift; sourceTree = "<group>"; };
 		E398F1581E15A66400CD91D4 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../../../../.Trash/Main.storyboard; sourceTree = "<group>"; };
 		E398F15A1E15B0AF00CD91D4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		E398F15C1E15B28300CD91D4 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		E398F15C1E15B28300CD91D4 /* FirebaseDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseDataManager.swift; sourceTree = "<group>"; };
+		E3AF6CAF1E1762E000AE0947 /* Build.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Build.swift; sourceTree = "<group>"; };
 		E3ECCE921E15B662009C936D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E3ECCE961E15C98A009C936D /* R&D Inventory.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "R&D Inventory.entitlements"; sourceTree = "<group>"; };
 		E3ECCE991E15D0DC009C936D /* FIRDataObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIRDataObject.swift; sourceTree = "<group>"; };
@@ -166,26 +168,17 @@
 		E398F1171E1357E300CD91D4 /* R&D Inventory */ = {
 			isa = PBXGroup;
 			children = (
-				E398F1481E1360B400CD91D4 /* AddAssemblyViewController.swift */,
-				E34FC4941E16B4E50028D36C /* BuildAssemblyViewController.swift */,
+				E3AF6CB41E18036E00AE0947 /* Controllers */,
 				E398F1181E1357E300CD91D4 /* AppDelegate.swift */,
-				E398F1541E136A6500CD91D4 /* Assembly.swift */,
-				E398F1461E13602E00CD91D4 /* AssemblyDetailViewController.swift */,
-				E398F1501E1363C500CD91D4 /* AssemblyTableViewCell.swift */,
-				E398F1561E136C2200CD91D4 /* AssemblyTableViewController.swift */,
+				E3AF6CB11E18031A00AE0947 /* Models */,
+				E3AF6CB51E1808A300AE0947 /* TableViewCells */,
 				E398F11F1E1357E300CD91D4 /* Assets.xcassets */,
-				E32CD1061E161326005A35BD /* BuildPartViewController.swift */,
 				E3ECCE921E15B662009C936D /* Constants.swift */,
 				E34FC4921E16B31F0028D36C /* PartRow.swift */,
-				E398F15C1E15B28300CD91D4 /* DataService.swift */,
-				E3ECCE991E15D0DC009C936D /* FIRDataObject.swift */,
-				E398F15A1E15B0AF00CD91D4 /* GoogleService-Info.plist */,
-				E398F1241E1357E300CD91D4 /* Info.plist */,
+				E3AF6CB21E18032500AE0947 /* DataManagers */,
+				E3AF6CB31E18033F00AE0947 /* Configuration */,
 				E398F1211E1357E300CD91D4 /* LaunchScreen.storyboard */,
 				E398F1581E15A66400CD91D4 /* Main.storyboard */,
-				E398F1521E13684500CD91D4 /* Part.swift */,
-				E398F14E1E1363BA00CD91D4 /* PartTableViewCell.swift */,
-				E398F14C1E1363A600CD91D4 /* PartViewController.swift */,
 				E3ECCE961E15C98A009C936D /* R&D Inventory.entitlements */,
 			);
 			path = "R&D Inventory";
@@ -207,6 +200,56 @@
 				E398F13A1E1357E300CD91D4 /* Info.plist */,
 			);
 			path = "R&D InventoryUITests";
+			sourceTree = "<group>";
+		};
+		E3AF6CB11E18031A00AE0947 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E3ECCE991E15D0DC009C936D /* FIRDataObject.swift */,
+				E398F1541E136A6500CD91D4 /* Assembly.swift */,
+				E398F1521E13684500CD91D4 /* Part.swift */,
+				E3AF6CAF1E1762E000AE0947 /* Build.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		E3AF6CB21E18032500AE0947 /* DataManagers */ = {
+			isa = PBXGroup;
+			children = (
+				E398F15C1E15B28300CD91D4 /* FirebaseDataManager.swift */,
+			);
+			name = DataManagers;
+			sourceTree = "<group>";
+		};
+		E3AF6CB31E18033F00AE0947 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				E398F15A1E15B0AF00CD91D4 /* GoogleService-Info.plist */,
+				E398F1241E1357E300CD91D4 /* Info.plist */,
+			);
+			name = Configuration;
+			sourceTree = "<group>";
+		};
+		E3AF6CB41E18036E00AE0947 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E398F1481E1360B400CD91D4 /* AddAssemblyViewController.swift */,
+				E34FC4941E16B4E50028D36C /* BuildAssemblyViewController.swift */,
+				E398F1461E13602E00CD91D4 /* AssemblyDetailTableViewController.swift */,
+				E398F1561E136C2200CD91D4 /* AssemblyTableViewController.swift */,
+				E32CD1061E161326005A35BD /* BuildPartViewController.swift */,
+				E398F14C1E1363A600CD91D4 /* PartViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		E3AF6CB51E1808A300AE0947 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				E398F1501E1363C500CD91D4 /* AssemblyTableViewCell.swift */,
+				E398F14E1E1363BA00CD91D4 /* PartTableViewCell.swift */,
+			);
+			name = TableViewCells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -503,15 +546,16 @@
 				E398F1551E136A6500CD91D4 /* Assembly.swift in Sources */,
 				E34FC4951E16B4E50028D36C /* BuildAssemblyViewController.swift in Sources */,
 				E398F1511E1363C500CD91D4 /* AssemblyTableViewCell.swift in Sources */,
-				E398F1471E13602E00CD91D4 /* AssemblyDetailViewController.swift in Sources */,
+				E398F1471E13602E00CD91D4 /* AssemblyDetailTableViewController.swift in Sources */,
 				E398F1571E136C2200CD91D4 /* AssemblyTableViewController.swift in Sources */,
+				E3AF6CB01E1762E000AE0947 /* Build.swift in Sources */,
 				E3ECCE9A1E15D0DC009C936D /* FIRDataObject.swift in Sources */,
 				E3ECCE931E15B662009C936D /* Constants.swift in Sources */,
 				E32CD1071E161326005A35BD /* BuildPartViewController.swift in Sources */,
 				E398F14D1E1363A600CD91D4 /* PartViewController.swift in Sources */,
 				E398F1491E1360B400CD91D4 /* AddAssemblyViewController.swift in Sources */,
 				E34FC4931E16B31F0028D36C /* PartRow.swift in Sources */,
-				E398F15D1E15B28300CD91D4 /* DataService.swift in Sources */,
+				E398F15D1E15B28300CD91D4 /* FirebaseDataManager.swift in Sources */,
 				E398F1531E13684500CD91D4 /* Part.swift in Sources */,
 				E398F1191E1357E300CD91D4 /* AppDelegate.swift in Sources */,
 			);

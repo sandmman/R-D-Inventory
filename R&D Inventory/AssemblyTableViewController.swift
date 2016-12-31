@@ -15,7 +15,7 @@ class AssemblyTableViewController: UITableViewController, AssemblyDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DataService.sharedInstance.delegate = self
+        FirebaseDataManager.sharedInstance.delegate = self
     }
     
     public func onItemsAddedToList() {
@@ -28,7 +28,7 @@ class AssemblyTableViewController: UITableViewController, AssemblyDelegate {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return DataService.sharedInstance.allAssemblies.count
+        return FirebaseDataManager.sharedInstance.assemblies.count
     }
     
     
@@ -36,7 +36,7 @@ class AssemblyTableViewController: UITableViewController, AssemblyDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.assembly, for: indexPath)
 
         // Configure the cell...
-        cell.textLabel?.text = DataService.sharedInstance.allAssemblies[indexPath.row].name
+        cell.textLabel?.text = FirebaseDataManager.sharedInstance.assemblies[indexPath.row].name
         
         return cell
     }
@@ -50,9 +50,9 @@ class AssemblyTableViewController: UITableViewController, AssemblyDelegate {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            let assemblyToDelete = DataService.sharedInstance.allAssemblies[indexPath.row]
+            let assemblyToDelete = FirebaseDataManager.sharedInstance.assemblies[indexPath.row]
 
-            DataService.sharedInstance.deleteAssembly(assembly: assemblyToDelete)
+            FirebaseDataManager.sharedInstance.deleteAssembly(assembly: assemblyToDelete)
             
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
@@ -71,7 +71,7 @@ class AssemblyTableViewController: UITableViewController, AssemblyDelegate {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let indexPath = tableView.indexPathForSelectedRow!
         
-        selectedAssembly = DataService.sharedInstance.allAssemblies[indexPath.row]
+        selectedAssembly = FirebaseDataManager.sharedInstance.assemblies[indexPath.row]
         
         performSegue(withIdentifier: Constants.Segues.AssemblyDetail, sender: self)
     }
@@ -81,7 +81,7 @@ class AssemblyTableViewController: UITableViewController, AssemblyDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == Constants.Segues.AssemblyDetail) {
             
-            let viewController = segue.destination as! AssemblyDetailViewController
+            let viewController = segue.destination as! AssemblyDetailTableViewController
             
             viewController.assembly = selectedAssembly
             

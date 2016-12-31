@@ -22,61 +22,63 @@ public protocol DataManager {
     func deleteAssembly(assembly: Assembly)
 }
 
-public class DataService {
+public class FirebaseDataManager: NSObject {
     
-    public static let sharedInstance = DataService()
+    //Make FirebaseDataManager a singlton
+    public static let sharedInstance: FirebaseDataManager = {
+        
+        var manager = FirebaseDataManager()
+        
+        return manager
+    }()
+    
+    
+    public var assemblies = [Assembly]()
 
-    private let _rootRef = FIRDatabase.database().reference()
-    private let _userRef = FIRDatabase.database().reference().child("users")
-    private let _assemblyRef = FIRDatabase.database().reference().child("assemblies")
-    private let _partsRef = FIRDatabase.database().reference().child("parts")
+    public var delegate: AssemblyDelegate!
     
-    public var rootRef: FIRDatabaseReference {
-        return _rootRef
-    }
+
+    // Firebase End Points
+    fileprivate let rootRef = FIRDatabase.database().reference()
+    fileprivate let userRef = FIRDatabase.database().reference().child("users")
+    fileprivate let assemblyRef = FIRDatabase.database().reference().child("assemblies")
+    fileprivate let partsRef = FIRDatabase.database().reference().child("parts")
+    fileprivate let buildsRef = FIRDatabase.database().reference().child("builds")
         
-    public var userRef: FIRDatabaseReference {
-        return _userRef
-    }
-        
-    public var currentUserRef: FIRDatabaseReference? {
+    fileprivate var currentUserRef: FIRDatabaseReference? {
         guard let userID = UserDefaults.standard.string(forKey: "user") else {
             return nil
         }
         
-        let currentUser = _userRef.child(userID)
+        let currentUser = userRef.child(userID)
             
         return currentUser
     }
-        
-    public var assemblyRef: FIRDatabaseReference {
-        return _assemblyRef
-    }
-    
-    public var partsRef: FIRDatabaseReference {
-        return _partsRef
-    }
 
-    public var delegate: AssemblyDelegate!
-    public var allAssemblies: [Assembly] = []
     
-    public init() {
+    
+    fileprivate override init() {
+        super.init()
+        listenForAssemblies()
+    }
+}
+
+extension FirebaseDataManager: DataManager {
+    
+    public func listenForAssemblies() {
         assemblyRef.observe(.value, with: { snapshot in
             var newItems: [Assembly] = []
-
+            
             for item in snapshot.children {
                 let assemblyItem = Assembly(snapshot: item as! FIRDataSnapshot)
                 newItems.append(assemblyItem)
             }
             
-            self.allAssemblies = newItems
+            self.assemblies = newItems
             self.delegate.onItemsAddedToList()
         })
     }
-}
 
-extension DataService: DataManager {
-    
     public func addAssembly(assembly: Assembly) {
         assemblyRef.childByAutoId().setValue(assembly.toAnyObject())
     }
@@ -84,12 +86,12 @@ extension DataService: DataManager {
     public func addPart(part: Part) {
         partsRef.child(part.databaseID).setValue(part.toAnyObject())
     }
-
-    public func getParts(for assembly: Assembly, onAddPart: @escaping (Part) -> ()) {
-
+    
+    public func getAssemblies(for assembly: Assembly, onAddPart: @escaping (Part) -> ()) {
+        
         for (ID, count) in assembly.parts {
             partsRef.child(ID).observeSingleEvent(of: .value, with: { snapshot in
-                var part = Part(snapshot: snapshot)
+                let part = Part(snapshot: snapshot)
                 part.countInAssembly = count
                 onAddPart(part)
                 
@@ -99,6 +101,31 @@ extension DataService: DataManager {
             }
         }
     }
+
+    public func getParts(for assembly: Assembly, onAddPart: @escaping (Part) -> ()) {
+
+        for (ID, count) in assembly.parts {
+            partsRef.child(ID).observeSingleEvent(of: .value, with: { snapshot in
+                let part = Part(snapshot: snapshot)
+                part.countInAssembly = count
+                onAddPart(part)
+                
+            }) {
+                error in
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    public func getBuilds(for assembly: Assembly, onComplete: @escaping ([Build]) -> ()) {
+        
+            buildsRef.child(assembly.databaseID).observeSingleEvent(of: .value, with: { snapshot in
+                //let builds = Build(snapshot: snapshot)
+                onComplete([])
+                
+            })
+    }
+
     public func updateAssembly(assembly: Assembly) {
         
     }
@@ -112,7 +139,7 @@ extension DataService: DataManager {
             return
         }
         
-        allAssemblies = allAssemblies.filter { $0 != assembly}
+        assemblies = assemblies.filter { $0 != assembly}
 
         ref.removeValue()
     }
