@@ -37,12 +37,14 @@ class CreateBuildViewController: FormViewController {
                 $0.title = "Scheduled Date"
                 $0.value = Date()
             }
-        
-            /*<<< MultipleSelectorRow(Constants.BuildFields.PartsUsed) {
+            <<< SwitchRow("Notification") {
+                $0.title = "Receive Notifications"
+            }
+            <<< MultipleSelectorRow(Constants.BuildFields.PartsNeeded) {
                 $0.options = ["c","b","a"]
-            }*/
+            }
     
-        var partsSection = Section("Parts Needed")
+        let partsSection = Section("Parts Needed")
         
         for part in parts {
             partsSection.append(stepperRow(part: part))

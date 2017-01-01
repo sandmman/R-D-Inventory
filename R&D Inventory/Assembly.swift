@@ -27,7 +27,7 @@ public class Assembly: FIRDataObject {
         super.init()
     }
     
-    public override init?(snapshot: FIRDataSnapshot) {
+    required public init?(snapshot: FIRDataSnapshot) {
         
         guard let value = snapshot.value as? [String: Any],
               let name = value[Constants.AssemblyFields.Name] as? String else {
@@ -46,11 +46,5 @@ public class Assembly: FIRDataObject {
             Constants.AssemblyFields.Name: name,
             Constants.AssemblyFields.Parts: parts,
         ]
-    }
-    
-    private func createDict(dict: [String: Bool], partID: String) -> [String: Bool] {
-        var dict = dict
-        dict[partID] = true
-        return dict
     }
 }

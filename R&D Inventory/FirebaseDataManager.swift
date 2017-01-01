@@ -59,7 +59,6 @@ public class FirebaseDataManager: NSObject {
 
     public var delegate: AssemblyDelegate!
     
-
     // Firebase End Points
     fileprivate let rootRef = FIRDatabase.database().reference()
     fileprivate let userRef = FIRDatabase.database().reference().child("users")
@@ -77,8 +76,6 @@ public class FirebaseDataManager: NSObject {
         return currentUser
     }
 
-    
-    
     fileprivate override init() {
         super.init()
         listenForAssemblies()
@@ -88,6 +85,7 @@ public class FirebaseDataManager: NSObject {
 extension FirebaseDataManager: DataManager {
     
     public func listenForAssemblies() {
+        
         assemblyRef.observe(.value, with: { snapshot in
             var newItems: [Assembly] = []
             
@@ -107,7 +105,9 @@ extension FirebaseDataManager: DataManager {
     }
     
     public func add(build: Build) {
+        
         assemblyRef.child(build.assemblyID).child("builds").updateChildValues([build.databaseID: true])
+        
         buildsRef.child(build.databaseID).setValue(build.toAnyObject())
     }
 
@@ -145,9 +145,9 @@ extension FirebaseDataManager: DataManager {
     }
     
     public func getBuilds(for assembly: Assembly, onComplete: @escaping (Build) -> ()) {
-        
+
         assemblyRef.child(assembly.databaseID).child("builds").observeSingleEvent(of: .value, with: { snapshot in
-            
+
             guard let builds = snapshot.value as? [String: Bool] else {
                 return
             }
@@ -177,6 +177,7 @@ extension FirebaseDataManager: DataManager {
     }
 
     public func delete(assembly: Assembly) {
+        
         guard let ref = assembly.ref else {
             return
         }
@@ -187,6 +188,7 @@ extension FirebaseDataManager: DataManager {
     }
     
     public func delete(part: Part) {
+        
         guard let ref = part.ref else {
             return
         }
@@ -195,6 +197,7 @@ extension FirebaseDataManager: DataManager {
     }
     
     public func delete(build: Build) {
+        
         guard let ref = build.ref else {
             return
         }
@@ -205,6 +208,7 @@ extension FirebaseDataManager: DataManager {
     }
 
     public func get(assembly: String, onComplete: @escaping (Assembly) -> ()) {
+        
         partsRef.child(assembly).observeSingleEvent(of: .value, with: { snapshot in
             
             if let assembly = Assembly(snapshot: snapshot) {
@@ -218,8 +222,9 @@ extension FirebaseDataManager: DataManager {
     }
     
     public func get(build: String, onComplete: @escaping (Build) -> ()) {
+        
         self.buildsRef.child(build).observeSingleEvent(of: .value, with: { snapshot in
-            
+
             if let build = Build(snapshot: snapshot) {
                 onComplete(build)
             }
@@ -231,6 +236,7 @@ extension FirebaseDataManager: DataManager {
     }
     
     public func get(part: String, onComplete: @escaping (Part) -> ()) {
+       
         self.partsRef.child(part).observeSingleEvent(of: .value, with: { snapshot in
             
             if let part = Part(snapshot: snapshot) {

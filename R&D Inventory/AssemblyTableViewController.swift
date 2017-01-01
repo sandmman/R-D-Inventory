@@ -18,6 +18,14 @@ class AssemblyTableViewController: UITableViewController, AssemblyDelegate {
         FirebaseDataManager.sharedInstance.delegate = self
     }
     
+    private func instantiateHeader() {
+        let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(BuildPartViewController.tappedDone(_:)))
+        button.title = "Add"
+        
+        navigationItem.rightBarButtonItem = button
+        navigationItem.title = "Assemblies"
+    }
+
     public func onItemsAddedToList() {
         DispatchQueue.main.async {
             self.tableView.reloadData()

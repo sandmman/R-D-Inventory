@@ -9,6 +9,10 @@
 import UIKit
 
 class BuildDetailViewController: UIViewController {
+    
+    var parts = [Part]()
+    
+    var build: Build? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()

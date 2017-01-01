@@ -24,19 +24,12 @@ public class FIRDataObject: NSObject {
         super.init()
     }
 
-    public init?(snapshot: FIRDataSnapshot) {
+    required public init?(snapshot: FIRDataSnapshot) {
         
         self.snapshot = snapshot
         
         self.databaseID = snapshot.key
         
         super.init()
-        
-        /*for child in snapshot.children.allObjects as? [FIRDataSnapshot] ?? [] {
-            if responds(to: Selector(child.key)) {
-                setValue(child.value, forKey: child.key)
-            }
-        }*/
-
     }
 }

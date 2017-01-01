@@ -48,20 +48,7 @@ public class Part: FIRDataObject {
         super.init()
     }
     
-    public init?(dict: [String: Any], countInAssembly: Int) {
-    
-        self.name = dict[Constants.PartFields.Name] as! String
-        self.uid = dict[Constants.PartFields.ID] as! Int
-        self.manufacturer = dict[Constants.PartFields.Manufacturer] as! String
-        self.leadTime = dict[Constants.PartFields.LeadTime] as! Int
-        self.countInAssembly = countInAssembly
-        self.countInStock = dict[Constants.PartFields.CountInStock] as! Int
-        self.countOnOrder = dict[Constants.PartFields.CountOnOrder] as! Int
-        
-        super.init()
-    }
-    
-     public override init?(snapshot: FIRDataSnapshot) {
+     required public init?(snapshot: FIRDataSnapshot) {
         
         let value = snapshot.value as! [String: Any]
         

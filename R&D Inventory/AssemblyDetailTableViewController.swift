@@ -57,8 +57,12 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
             guard let row: DateInlineRow = sourceViewController.form.rowBy(tag: Constants.BuildFields.Date) else {
                 return
             }
+            
+            guard let title_row: TextRow = sourceViewController.form.rowBy(tag: Constants.BuildFields.Title) else {
+                return
+            }
 
-            guard let date = row.value else {
+            guard let date = row.value, let title = title_row.value else {
                 return
             }
 
@@ -71,7 +75,7 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
                 self.buildPartDict(dict: $0, part: $1, form: sourceViewController.form)
             }
 
-            guard let build = Build(partsNeeded: partsNeeded, scheduledFor: date, withAssembly: a.databaseID) else {
+            guard let build = Build(title: title, partsNeeded: partsNeeded, scheduledFor: date, withAssembly: a.databaseID) else {
                 return
             }
 
@@ -95,6 +99,13 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
 
         return dict
     }
+    
+    private func formatDate(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = DateFormatter.Style.medium
+        
+        return formatter.string(from: date)
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
@@ -108,6 +119,13 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
             let viewController = segue.destination as! PartViewController
             
             viewController.part = selectedPart
+
+        case Constants.Segues.BuildDetail:
+            let viewController = segue.destination as! BuildDetailViewController
+            
+            viewController.build = selectedBuild
+            viewController.parts = parts
+
         case Constants.Segues.CreateBuild:
             let viewController = segue.destination as! CreateBuildViewController
             
@@ -174,8 +192,9 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
         let cell: UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.part)! as UITableViewCell
         
         if indexPath.section == 0 {
-            cell.textLabel?.text = ""
-            cell.detailTextLabel?.text = builds[indexPath.row].scheduledDate.description
+            cell.textLabel?.text = builds[indexPath.row].title
+            cell.detailTextLabel?.text = formatDate(date: builds[indexPath.row].scheduledDate)
+            
         } else {
             cell.textLabel?.text = parts[indexPath.row].name
             cell.detailTextLabel?.text = parts[indexPath.row].manufacturer

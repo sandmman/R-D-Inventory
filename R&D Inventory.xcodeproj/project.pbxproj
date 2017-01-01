@@ -32,6 +32,8 @@
 		E3AF6CB01E1762E000AE0947 /* Build.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AF6CAF1E1762E000AE0947 /* Build.swift */; };
 		E3AF6CB71E18135E00AE0947 /* CreateBuildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AF6CB61E18135E00AE0947 /* CreateBuildViewController.swift */; };
 		E3AF6CB91E1840EF00AE0947 /* BuildDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AF6CB81E1840EF00AE0947 /* BuildDetailViewController.swift */; };
+		E3AFE9BD1E195775008DA196 /* InventoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AFE9BC1E195775008DA196 /* InventoryTableViewController.swift */; };
+		E3AFE9BF1E19AB94008DA196 /* BuildTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AFE9BE1E19AB94008DA196 /* BuildTableViewController.swift */; };
 		E3ECCE931E15B662009C936D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ECCE921E15B662009C936D /* Constants.swift */; };
 		E3ECCE9A1E15D0DC009C936D /* FIRDataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ECCE991E15D0DC009C936D /* FIRDataObject.swift */; };
 /* End PBXBuildFile section */
@@ -91,6 +93,8 @@
 		E3AF6CAF1E1762E000AE0947 /* Build.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Build.swift; sourceTree = "<group>"; };
 		E3AF6CB61E18135E00AE0947 /* CreateBuildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateBuildViewController.swift; sourceTree = "<group>"; };
 		E3AF6CB81E1840EF00AE0947 /* BuildDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildDetailViewController.swift; sourceTree = "<group>"; };
+		E3AFE9BC1E195775008DA196 /* InventoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InventoryTableViewController.swift; sourceTree = "<group>"; };
+		E3AFE9BE1E19AB94008DA196 /* BuildTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildTableViewController.swift; sourceTree = "<group>"; };
 		E3ECCE921E15B662009C936D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E3ECCE961E15C98A009C936D /* R&D Inventory.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "R&D Inventory.entitlements"; sourceTree = "<group>"; };
 		E3ECCE991E15D0DC009C936D /* FIRDataObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIRDataObject.swift; sourceTree = "<group>"; };
@@ -177,13 +181,9 @@
 				E3AF6CB11E18031A00AE0947 /* Models */,
 				E3AF6CB51E1808A300AE0947 /* TableViewCells */,
 				E398F11F1E1357E300CD91D4 /* Assets.xcassets */,
-				E3ECCE921E15B662009C936D /* Constants.swift */,
-				E34FC4921E16B31F0028D36C /* PartRow.swift */,
 				E3AF6CB21E18032500AE0947 /* DataManagers */,
 				E3AF6CB31E18033F00AE0947 /* Configuration */,
-				E398F1211E1357E300CD91D4 /* LaunchScreen.storyboard */,
-				E398F1581E15A66400CD91D4 /* Main.storyboard */,
-				E3ECCE961E15C98A009C936D /* R&D Inventory.entitlements */,
+				E3AFE9C01E19AC82008DA196 /* Storyboards */,
 			);
 			path = "R&D Inventory";
 			sourceTree = "<group>";
@@ -220,6 +220,7 @@
 		E3AF6CB21E18032500AE0947 /* DataManagers */ = {
 			isa = PBXGroup;
 			children = (
+				E3ECCE921E15B662009C936D /* Constants.swift */,
 				E398F15C1E15B28300CD91D4 /* FirebaseDataManager.swift */,
 			);
 			name = DataManagers;
@@ -228,6 +229,7 @@
 		E3AF6CB31E18033F00AE0947 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
+				E3ECCE961E15C98A009C936D /* R&D Inventory.entitlements */,
 				E398F15A1E15B0AF00CD91D4 /* GoogleService-Info.plist */,
 				E398F1241E1357E300CD91D4 /* Info.plist */,
 			);
@@ -241,6 +243,8 @@
 				E34FC4941E16B4E50028D36C /* BuildAssemblyViewController.swift */,
 				E398F1461E13602E00CD91D4 /* AssemblyDetailTableViewController.swift */,
 				E398F1561E136C2200CD91D4 /* AssemblyTableViewController.swift */,
+				E3AFE9BC1E195775008DA196 /* InventoryTableViewController.swift */,
+				E3AFE9BE1E19AB94008DA196 /* BuildTableViewController.swift */,
 				E32CD1061E161326005A35BD /* BuildPartViewController.swift */,
 				E398F14C1E1363A600CD91D4 /* PartViewController.swift */,
 				E3AF6CB61E18135E00AE0947 /* CreateBuildViewController.swift */,
@@ -252,10 +256,20 @@
 		E3AF6CB51E1808A300AE0947 /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
+				E34FC4921E16B31F0028D36C /* PartRow.swift */,
 				E398F1501E1363C500CD91D4 /* AssemblyTableViewCell.swift */,
 				E398F14E1E1363BA00CD91D4 /* PartTableViewCell.swift */,
 			);
 			name = TableViewCells;
+			sourceTree = "<group>";
+		};
+		E3AFE9C01E19AC82008DA196 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				E398F1211E1357E300CD91D4 /* LaunchScreen.storyboard */,
+				E398F1581E15A66400CD91D4 /* Main.storyboard */,
+			);
+			name = Storyboards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -548,6 +562,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3AFE9BF1E19AB94008DA196 /* BuildTableViewController.swift in Sources */,
 				E398F14F1E1363BA00CD91D4 /* PartTableViewCell.swift in Sources */,
 				E398F1551E136A6500CD91D4 /* Assembly.swift in Sources */,
 				E34FC4951E16B4E50028D36C /* BuildAssemblyViewController.swift in Sources */,
@@ -565,6 +580,7 @@
 				E398F15D1E15B28300CD91D4 /* FirebaseDataManager.swift in Sources */,
 				E3AF6CB71E18135E00AE0947 /* CreateBuildViewController.swift in Sources */,
 				E398F1531E13684500CD91D4 /* Part.swift in Sources */,
+				E3AFE9BD1E195775008DA196 /* InventoryTableViewController.swift in Sources */,
 				E398F1191E1357E300CD91D4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
