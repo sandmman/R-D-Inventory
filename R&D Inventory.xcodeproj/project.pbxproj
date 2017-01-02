@@ -13,6 +13,7 @@
 		E32CD1071E161326005A35BD /* BuildPartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32CD1061E161326005A35BD /* BuildPartViewController.swift */; };
 		E34FC4931E16B31F0028D36C /* PartRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34FC4921E16B31F0028D36C /* PartRow.swift */; };
 		E34FC4951E16B4E50028D36C /* BuildAssemblyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34FC4941E16B4E50028D36C /* BuildAssemblyViewController.swift */; };
+		E370B6871E19F13B00C0E349 /* RegexRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E370B6861E19F13B00C0E349 /* RegexRule.swift */; };
 		E398F1191E1357E300CD91D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F1181E1357E300CD91D4 /* AppDelegate.swift */; };
 		E398F1201E1357E300CD91D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E398F11F1E1357E300CD91D4 /* Assets.xcassets */; };
 		E398F1231E1357E300CD91D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E398F1211E1357E300CD91D4 /* LaunchScreen.storyboard */; };
@@ -34,6 +35,9 @@
 		E3AF6CB91E1840EF00AE0947 /* BuildDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AF6CB81E1840EF00AE0947 /* BuildDetailViewController.swift */; };
 		E3AFE9BD1E195775008DA196 /* InventoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AFE9BC1E195775008DA196 /* InventoryTableViewController.swift */; };
 		E3AFE9BF1E19AB94008DA196 /* BuildTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AFE9BE1E19AB94008DA196 /* BuildTableViewController.swift */; };
+		E3AFE9C51E19B0EB008DA196 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AFE9C41E19B0EB008DA196 /* DataManager.swift */; };
+		E3AFE9C71E19B45B008DA196 /* CreatePartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AFE9C61E19B45B008DA196 /* CreatePartViewController.swift */; };
+		E3AFE9C91E19B9B3008DA196 /* ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AFE9C81E19B9B3008DA196 /* ObjectMapper.swift */; };
 		E3ECCE931E15B662009C936D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ECCE921E15B662009C936D /* Constants.swift */; };
 		E3ECCE9A1E15D0DC009C936D /* FIRDataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ECCE991E15D0DC009C936D /* FIRDataObject.swift */; };
 /* End PBXBuildFile section */
@@ -68,6 +72,7 @@
 		E32CD1061E161326005A35BD /* BuildPartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildPartViewController.swift; sourceTree = "<group>"; };
 		E34FC4921E16B31F0028D36C /* PartRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartRow.swift; sourceTree = "<group>"; };
 		E34FC4941E16B4E50028D36C /* BuildAssemblyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildAssemblyViewController.swift; sourceTree = "<group>"; };
+		E370B6861E19F13B00C0E349 /* RegexRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexRule.swift; sourceTree = "<group>"; };
 		E398F1151E1357E300CD91D4 /* R&D Inventory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "R&D Inventory.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E398F1181E1357E300CD91D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E398F11F1E1357E300CD91D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -95,6 +100,9 @@
 		E3AF6CB81E1840EF00AE0947 /* BuildDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildDetailViewController.swift; sourceTree = "<group>"; };
 		E3AFE9BC1E195775008DA196 /* InventoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InventoryTableViewController.swift; sourceTree = "<group>"; };
 		E3AFE9BE1E19AB94008DA196 /* BuildTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildTableViewController.swift; sourceTree = "<group>"; };
+		E3AFE9C41E19B0EB008DA196 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		E3AFE9C61E19B45B008DA196 /* CreatePartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePartViewController.swift; sourceTree = "<group>"; };
+		E3AFE9C81E19B9B3008DA196 /* ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectMapper.swift; sourceTree = "<group>"; };
 		E3ECCE921E15B662009C936D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E3ECCE961E15C98A009C936D /* R&D Inventory.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "R&D Inventory.entitlements"; sourceTree = "<group>"; };
 		E3ECCE991E15D0DC009C936D /* FIRDataObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIRDataObject.swift; sourceTree = "<group>"; };
@@ -151,6 +159,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		E370B6851E19F0F800C0E349 /* CustomFormFields */ = {
+			isa = PBXGroup;
+			children = (
+				E34FC4921E16B31F0028D36C /* PartRow.swift */,
+				E370B6861E19F13B00C0E349 /* RegexRule.swift */,
+			);
+			name = CustomFormFields;
+			sourceTree = "<group>";
+		};
 		E398F10C1E1357E300CD91D4 = {
 			isa = PBXGroup;
 			children = (
@@ -176,14 +193,15 @@
 		E398F1171E1357E300CD91D4 /* R&D Inventory */ = {
 			isa = PBXGroup;
 			children = (
-				E3AF6CB41E18036E00AE0947 /* Controllers */,
 				E398F1181E1357E300CD91D4 /* AppDelegate.swift */,
-				E3AF6CB11E18031A00AE0947 /* Models */,
-				E3AF6CB51E1808A300AE0947 /* TableViewCells */,
 				E398F11F1E1357E300CD91D4 /* Assets.xcassets */,
-				E3AF6CB21E18032500AE0947 /* DataManagers */,
 				E3AF6CB31E18033F00AE0947 /* Configuration */,
+				E3AF6CB41E18036E00AE0947 /* Controllers */,
+				E370B6851E19F0F800C0E349 /* CustomFormFields */,
+				E3AF6CB21E18032500AE0947 /* DataManagers */,
+				E3AF6CB11E18031A00AE0947 /* Models */,
 				E3AFE9C01E19AC82008DA196 /* Storyboards */,
+				E3AF6CB51E1808A300AE0947 /* TableViewCells */,
 			);
 			path = "R&D Inventory";
 			sourceTree = "<group>";
@@ -220,8 +238,10 @@
 		E3AF6CB21E18032500AE0947 /* DataManagers */ = {
 			isa = PBXGroup;
 			children = (
+				E3AFE9C81E19B9B3008DA196 /* ObjectMapper.swift */,
 				E3ECCE921E15B662009C936D /* Constants.swift */,
 				E398F15C1E15B28300CD91D4 /* FirebaseDataManager.swift */,
+				E3AFE9C41E19B0EB008DA196 /* DataManager.swift */,
 			);
 			name = DataManagers;
 			sourceTree = "<group>";
@@ -240,15 +260,16 @@
 			isa = PBXGroup;
 			children = (
 				E398F1481E1360B400CD91D4 /* AddAssemblyViewController.swift */,
-				E34FC4941E16B4E50028D36C /* BuildAssemblyViewController.swift */,
 				E398F1461E13602E00CD91D4 /* AssemblyDetailTableViewController.swift */,
 				E398F1561E136C2200CD91D4 /* AssemblyTableViewController.swift */,
-				E3AFE9BC1E195775008DA196 /* InventoryTableViewController.swift */,
-				E3AFE9BE1E19AB94008DA196 /* BuildTableViewController.swift */,
-				E32CD1061E161326005A35BD /* BuildPartViewController.swift */,
-				E398F14C1E1363A600CD91D4 /* PartViewController.swift */,
-				E3AF6CB61E18135E00AE0947 /* CreateBuildViewController.swift */,
+				E34FC4941E16B4E50028D36C /* BuildAssemblyViewController.swift */,
 				E3AF6CB81E1840EF00AE0947 /* BuildDetailViewController.swift */,
+				E32CD1061E161326005A35BD /* BuildPartViewController.swift */,
+				E3AFE9BE1E19AB94008DA196 /* BuildTableViewController.swift */,
+				E3AF6CB61E18135E00AE0947 /* CreateBuildViewController.swift */,
+				E3AFE9C61E19B45B008DA196 /* CreatePartViewController.swift */,
+				E3AFE9BC1E195775008DA196 /* InventoryTableViewController.swift */,
+				E398F14C1E1363A600CD91D4 /* PartViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -256,7 +277,6 @@
 		E3AF6CB51E1808A300AE0947 /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
-				E34FC4921E16B31F0028D36C /* PartRow.swift */,
 				E398F1501E1363C500CD91D4 /* AssemblyTableViewCell.swift */,
 				E398F14E1E1363BA00CD91D4 /* PartTableViewCell.swift */,
 			);
@@ -564,6 +584,7 @@
 			files = (
 				E3AFE9BF1E19AB94008DA196 /* BuildTableViewController.swift in Sources */,
 				E398F14F1E1363BA00CD91D4 /* PartTableViewCell.swift in Sources */,
+				E3AFE9C91E19B9B3008DA196 /* ObjectMapper.swift in Sources */,
 				E398F1551E136A6500CD91D4 /* Assembly.swift in Sources */,
 				E34FC4951E16B4E50028D36C /* BuildAssemblyViewController.swift in Sources */,
 				E398F1511E1363C500CD91D4 /* AssemblyTableViewCell.swift in Sources */,
@@ -571,7 +592,9 @@
 				E398F1571E136C2200CD91D4 /* AssemblyTableViewController.swift in Sources */,
 				E3AF6CB01E1762E000AE0947 /* Build.swift in Sources */,
 				E3ECCE9A1E15D0DC009C936D /* FIRDataObject.swift in Sources */,
+				E3AFE9C71E19B45B008DA196 /* CreatePartViewController.swift in Sources */,
 				E3ECCE931E15B662009C936D /* Constants.swift in Sources */,
+				E3AFE9C51E19B0EB008DA196 /* DataManager.swift in Sources */,
 				E32CD1071E161326005A35BD /* BuildPartViewController.swift in Sources */,
 				E398F14D1E1363A600CD91D4 /* PartViewController.swift in Sources */,
 				E398F1491E1360B400CD91D4 /* AddAssemblyViewController.swift in Sources */,
@@ -580,6 +603,7 @@
 				E398F15D1E15B28300CD91D4 /* FirebaseDataManager.swift in Sources */,
 				E3AF6CB71E18135E00AE0947 /* CreateBuildViewController.swift in Sources */,
 				E398F1531E13684500CD91D4 /* Part.swift in Sources */,
+				E370B6871E19F13B00C0E349 /* RegexRule.swift in Sources */,
 				E3AFE9BD1E195775008DA196 /* InventoryTableViewController.swift in Sources */,
 				E398F1191E1357E300CD91D4 /* AppDelegate.swift in Sources */,
 			);

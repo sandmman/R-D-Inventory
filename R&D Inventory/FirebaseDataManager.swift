@@ -13,37 +13,6 @@ public protocol AssemblyDelegate {
     func onItemsAddedToList()
 }
 
-public protocol DataManager {
-
-    func add(assembly: Assembly)
-
-    func add(build: Build)
-
-    func add(part: Part)
-    
-    func get(assembly: String, onComplete: @escaping (Assembly) -> ())
-    
-    func get(build: String, onComplete: @escaping (Build) -> ())
-    
-    func get(part: String, onComplete: @escaping (Part) -> ())
-
-    func update(assembly: Assembly)
-
-    func update(build: Build)
-
-    func update(part: Part)
-
-    func delete(assembly: Assembly)
-    
-    func delete(build: Build)
-    
-    func delete(part: Part)
-    
-    func getParts(for assembly: Assembly, onComplete: @escaping (Part) -> ())
-    
-    func getBuilds(for assembly: Assembly, onComplete: @escaping (Build) -> ())
-}
-
 public class FirebaseDataManager: NSObject {
     
     //Make FirebaseDataManager a singlton
@@ -57,7 +26,7 @@ public class FirebaseDataManager: NSObject {
     
     public var assemblies = [Assembly]()
 
-    public var delegate: AssemblyDelegate!
+    public var delegate: AssemblyDelegate? = nil
     
     // Firebase End Points
     fileprivate let rootRef = FIRDatabase.database().reference()
@@ -82,13 +51,13 @@ public class FirebaseDataManager: NSObject {
     }
 }
 
-extension FirebaseDataManager: DataManager {
+extension FirebaseDataManager {
     
     public func listenForAssemblies() {
         
         assemblyRef.observe(.value, with: { snapshot in
             var newItems: [Assembly] = []
-            
+
             for item in snapshot.children {
                 if let assemblyItem = Assembly(snapshot: item as! FIRDataSnapshot) {
                     newItems.append(assemblyItem)
@@ -96,9 +65,24 @@ extension FirebaseDataManager: DataManager {
             }
             
             self.assemblies = newItems
-            self.delegate.onItemsAddedToList()
+            self.delegate?.onItemsAddedToList()
         })
     }
+    
+    public func listenForParts(onAddPart: @escaping (Part) -> ()) {
+        
+        partsRef.observe(.value, with: { snapshot in
+            
+            for item in snapshot.children {
+                if let part = Part(snapshot: item as! FIRDataSnapshot) {
+                    onAddPart(part)
+                }
+            }
+        })
+    }
+}
+
+extension FirebaseDataManager: DataManager {
 
     public func add(assembly: Assembly) {
         assemblyRef.childByAutoId().setValue(assembly.toAnyObject())

@@ -14,6 +14,9 @@ struct Constants {
         static let SignedIn = "onSignInCompleted"
     }
     
+    struct Patterns {
+        static let PartID = "[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9][0-9]-[0-9][0-9]"
+    }
     struct Segues {
         static let SignInToHome = "SignInToHome"
         static let HomeToSignIn = "HomeToSignIn"
@@ -21,6 +24,7 @@ struct Constants {
         static let BuildDetail = "BuildDetailSegue"
         static let AssemblyDetail = "AssemblyDetailSegue"
         static let CreateBuild = "CreateBuildSegue"
+        static let CreatePart = "CreatePartSegue"
     }
     
     struct PartFields {

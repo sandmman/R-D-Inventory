@@ -9,21 +9,17 @@
 import UIKit
 
 class InventoryTableViewController: UITableViewController {
+    
+    var inventory: [Part] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        instantiateHeader()
     }
 
-    private func instantiateHeader() {
-        let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(BuildPartViewController.tappedDone(_:)))
-        button.title = "Add"
-        
-        navigationItem.rightBarButtonItem = button
-        navigationItem.title = "Inventory"
+    public func addPart(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
     }
-
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
