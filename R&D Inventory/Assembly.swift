@@ -9,7 +9,12 @@
 import UIKit
 import Firebase
 
-public class Assembly: FIRDataObject {
+public struct Assembly: FIRDataObject {
+    
+    // FIRDataObject
+    public var key: String = UUID().description
+    
+    public var ref: FIRDatabaseReference? = nil
 
     public var name: String
 
@@ -23,11 +28,9 @@ public class Assembly: FIRDataObject {
         self.name = name
 
         self.parts = parts
-
-        super.init()
     }
     
-    required public init?(snapshot: FIRDataSnapshot) {
+    public init?(snapshot: FIRDataSnapshot) {
         
         guard let value = snapshot.value as? [String: Any],
               let name = value[Constants.AssemblyFields.Name] as? String else {
@@ -37,11 +40,14 @@ public class Assembly: FIRDataObject {
         self.name = name
 
         self.parts = value[Constants.AssemblyFields.Parts] as? [String: Int] ?? [:]
+
+        self.key = snapshot.key
+        
+        self.ref = snapshot.ref
     
-        super.init(snapshot: snapshot)
     }
     
-    public override func toAnyObject() -> Any {
+    public func toAnyObject() -> Any {
         return [
             Constants.AssemblyFields.Name: name,
             Constants.AssemblyFields.Parts: parts,

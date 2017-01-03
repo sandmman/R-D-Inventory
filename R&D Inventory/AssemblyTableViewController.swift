@@ -35,7 +35,7 @@ class AssemblyTableViewController: UITableViewController {
         var found = false
         
         for i in 0..<self.assemblies.count {
-            if assembly.databaseID == self.assemblies[i].databaseID {
+            if assembly.key == self.assemblies[i].key {
                 found = true
                 self.assemblies[i] = assembly
                 break

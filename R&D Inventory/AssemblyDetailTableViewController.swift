@@ -75,7 +75,7 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
                 self.buildPartDict(dict: $0, part: $1, form: sourceViewController.form)
             }
 
-            guard let build = Build(title: title, partsNeeded: partsNeeded, scheduledFor: date, withAssembly: a.databaseID) else {
+            guard let build = Build(title: title, partsNeeded: partsNeeded, scheduledFor: date, withAssembly: a.key) else {
                 return
             }
 
@@ -89,13 +89,13 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
     
     private func buildPartDict(dict: [String: Int], part: Part, form: Form) -> [String: Int] {
         
-        guard let count = (form.rowBy(tag: part.databaseID) as! StepperRow).value else {
+        guard let count = (form.rowBy(tag: part.key) as! StepperRow).value else {
             return dict
         }
         
         var dict = dict
 
-        dict[part.databaseID] = Int(count)
+        dict[part.key] = Int(count)
 
         return dict
     }

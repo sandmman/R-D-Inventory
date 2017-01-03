@@ -63,7 +63,7 @@ public class BuildPartViewController: FormViewController, TypedRowControllerType
             }
             <<< IntRow(Constants.PartFields.ID){ row in
                 row.title = "ID"
-                row.placeholder = part?.uid.description ?? ""
+                row.placeholder = part?.key.description ?? ""
                 row.add(rule: RuleRequired())
                 row.validationOptions = .validatesOnChangeAfterBlurred
             }.cellUpdate { cell, row in

@@ -15,7 +15,7 @@ public struct ListenerHandler {
         
         // let listener = Listener()
         // listener.listenForAssemblies
-        let ref = projectsRef.child(project.databaseID).child("assemblies")
+        let ref = projectsRef.child(project.key).child("assemblies")
         
         var handles = [UInt]()
         

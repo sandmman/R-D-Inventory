@@ -9,8 +9,12 @@
 import UIKit
 import Firebase
 
-public class Build: FIRDataObject {
+public struct Build: FIRDataObject {
     
+    public var key: String = UUID().description
+    
+    public var ref: FIRDatabaseReference? = nil
+
     public var scheduledDate: Date
     
     public var title: String
@@ -30,10 +34,9 @@ public class Build: FIRDataObject {
         self.assemblyID = withAssembly
         self.partsNeeded = partsNeeded
 
-        super.init()
     }
     
-    required public init?(snapshot: FIRDataSnapshot) {
+    public init?(snapshot: FIRDataSnapshot) {
         
         guard let value = snapshot.value as? [String: Any],
               let timestamp = value[Constants.BuildFields.Date] as? Int,
@@ -50,10 +53,12 @@ public class Build: FIRDataObject {
 
         partsNeeded = (value[Constants.BuildFields.PartsNeeded] as? [String: Int]) ?? [:]
 
-        super.init(snapshot: snapshot)
+        key = snapshot.key
+        
+        ref = snapshot.ref        
     }
     
-    public override func toAnyObject() -> Any {
+    public func toAnyObject() -> Any {
         return [
             Constants.BuildFields.AssemblyID    : assemblyID,
             Constants.BuildFields.Date          : scheduledDate.timeIntervalSince1970,

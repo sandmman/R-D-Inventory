@@ -9,7 +9,11 @@
 import UIKit
 import Firebase
 
-public class Project: FIRDataObject {
+public struct Project: FIRDataObject {
+    
+    public var key: String = UUID().description
+    
+    public var ref: FIRDatabaseReference? = nil
     
     public var name: String
 
@@ -22,12 +26,10 @@ public class Project: FIRDataObject {
         }
         
         self.name = name
-        self.assemblies = assemblies
-        
-        super.init()
+        self.assemblies = assemblies        
     }
     
-    required public init?(snapshot: FIRDataSnapshot) {
+    public init?(snapshot: FIRDataSnapshot) {
 
         guard let value = snapshot.value as? [String: Any],
             let name = value[Constants.ProjectFields.Name] as? String,
@@ -39,10 +41,12 @@ public class Project: FIRDataObject {
         self.name = name
         self.assemblies = [String] ( assemblies.keys )
         
-        super.init(snapshot: snapshot)
+        key = snapshot.key
+        
+        ref = snapshot.ref
     }
     
-    public override func toAnyObject() -> Any {
+    public func toAnyObject() -> Any {
         let assembly: [String: Bool] = assemblies.reduce([String: Bool](), convertToDict)
         
         return [

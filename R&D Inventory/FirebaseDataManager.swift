@@ -36,7 +36,7 @@ extension FirebaseDataManager {
         
         // let listener = Listener()
         // listener.listenForAssemblies
-        let ref = projectsRef.child(project.databaseID).child("assemblies")
+        let ref = projectsRef.child(project.key).child("assemblies")
         
         var handles = [UInt]()
 
@@ -96,17 +96,17 @@ extension FirebaseDataManager: DataManager {
     
     public static func add(build: Build) {
         
-        assemblyRef.child(build.assemblyID).child("builds").updateChildValues([build.databaseID: true])
+        assemblyRef.child(build.assemblyID).child("builds").updateChildValues([build.key: true])
         
-        buildsRef.child(build.databaseID).setValue(build.toAnyObject())
+        buildsRef.child(build.key).setValue(build.toAnyObject())
     }
 
     public static func add(part: Part) {
-        partsRef.child(part.databaseID).setValue(part.toAnyObject())
+        partsRef.child(part.key).setValue(part.toAnyObject())
     }
     
     public static func add(project: Project) {
-        projectsRef.child(project.databaseID).setValue(project.toAnyObject())
+        projectsRef.child(project.key).setValue(project.toAnyObject())
     }
 
     ////////////
@@ -159,7 +159,7 @@ extension FirebaseDataManager: DataManager {
         
         ref.removeValue()
         
-        FirebaseDataManager.assemblyRef.child(build.assemblyID).child("builds").child(build.databaseID).removeValue()
+        FirebaseDataManager.assemblyRef.child(build.assemblyID).child("builds").child(build.key).removeValue()
     }
     
     public static func delete(project: Project) {
@@ -177,10 +177,9 @@ extension FirebaseDataManager: DataManager {
     
     public static func get(assembly: Assembly, onAddPart: @escaping (Part) -> ()) {
         
-        for (ID, count) in assembly.parts {
+        for (ID, _) in assembly.parts {
             partsRef.child(ID).observeSingleEvent(of: .value, with: { snapshot in
                 if let part = Part(snapshot: snapshot) {
-                    part.countInAssembly = count
                     onAddPart(part)
                 }
                 
@@ -193,12 +192,10 @@ extension FirebaseDataManager: DataManager {
     
     public static func getParts(for assembly: Assembly, onComplete: @escaping (Part) -> ()) {
         
-        for (ID, count) in assembly.parts {
+        for (ID, _) in assembly.parts {
             
             get(part: ID) { part in
-                
-                part.countInAssembly = count
-                
+
                 onComplete(part)
             }
         }
@@ -206,7 +203,7 @@ extension FirebaseDataManager: DataManager {
     
     public static func getBuilds(for assembly: Assembly, onComplete: @escaping (Build) -> ()) {
         
-        assemblyRef.child(assembly.databaseID).child("builds").observeSingleEvent(of: .value, with: { snapshot in
+        assemblyRef.child(assembly.key).child("builds").observeSingleEvent(of: .value, with: { snapshot in
             
             guard let builds = snapshot.value as? [String: Bool] else {
                 return

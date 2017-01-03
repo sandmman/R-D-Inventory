@@ -90,7 +90,7 @@ class BuildAssemblyViewController: FormViewController {
         
         var dict = dict
 
-        dict[part.databaseID] = part.countInAssembly
+        dict[part.key] = part.countInAssembly
 
         return dict
         

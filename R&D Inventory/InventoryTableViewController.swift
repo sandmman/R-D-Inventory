@@ -43,7 +43,7 @@ class InventoryTableViewController: UITableViewController {
         var found = false
         
         for i in 0..<self.inventory.count {
-            if part.databaseID == self.inventory[i].databaseID {
+            if part.key == self.inventory[i].key {
                 found = true
                 self.inventory[i] = part
                 break

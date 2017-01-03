@@ -9,41 +9,17 @@
 import UIKit
 import Firebase
 
-public class FIRDataObject: NSObject {
-    
-    public var snapshot: FIRDataSnapshot? = nil
+public protocol FIRDataObject: Equatable {
 
-    public var key: String? { return snapshot?.key }
+    var key: String { get }
 
-    public var ref: FIRDatabaseReference? { return snapshot?.ref }
-    
-    public var databaseID: String
-    
-    override public var hashValue : Int {
-        return databaseID.hashValue
-    }
+    var ref: FIRDatabaseReference? { get }
 
-    override init() {
-        databaseID = UUID().uuidString
-        super.init()
-    }
-
-    required public init?(snapshot: FIRDataSnapshot) {
-        
-        self.snapshot = snapshot
-        
-        self.databaseID = snapshot.key
-        
-        super.init()
-    }
+    init?(snapshot: FIRDataSnapshot)
     
-    public func toAnyObject() -> Any {
-        return [
-            "Default": true
-        ]
-    }
+    func toAnyObject() -> Any
 }
 
-public func ==(lhs: FIRDataObject, rhs: FIRDataObject) -> Bool {
-    return lhs.databaseID == rhs.databaseID
+public func ==<T: FIRDataObject>(lhs: T, rhs: T) -> Bool {
+    return lhs.key == rhs.key
 }

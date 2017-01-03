@@ -98,7 +98,7 @@ class AddAssemblyViewController: UIViewController, UITableViewDelegate, UITableV
     // Helper 
     private func createPartDict(dict: [String: Int], nextPart: Part) -> [String: Int] {
         var dict = dict
-        dict[nextPart.databaseID] = nextPart.countInAssembly
+        dict[nextPart.key] = nextPart.countInAssembly
         return dict
         
     }

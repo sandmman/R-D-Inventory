@@ -30,7 +30,7 @@ class PartViewController: UIViewController {
         }
         
         partNameLabel.text = p.name
-        partIDLabel.text = String(p.uid)
+        partIDLabel.text = String(p.key)
         manufacturerLabel.text = p.manufacturer
         numOnOrderLabel.text = String(p.countOnOrder)
         numInStockLabel.text = String(p.countInStock)

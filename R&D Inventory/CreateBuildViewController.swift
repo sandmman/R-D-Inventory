@@ -55,7 +55,7 @@ class CreateBuildViewController: FormViewController {
     }
     
     private func stepperRow(part: Part) -> StepperRow {
-        return StepperRow(part.databaseID) {
+        return StepperRow(part.key) {
             $0.title = part.name
             $0.value = 0
         }

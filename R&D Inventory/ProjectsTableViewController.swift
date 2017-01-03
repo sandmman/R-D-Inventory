@@ -33,7 +33,7 @@ class ProjectsTableViewController: UITableViewController {
         var found = false
 
         for i in 0..<self.projects.count {
-            if project.databaseID == self.projects[i].databaseID {
+            if project.key == self.projects[i].key {
                 found = true
                 self.projects[i] = project
                 break
