@@ -58,7 +58,6 @@ class AddAssemblyViewController: UIViewController, UITableViewDelegate, UITableV
     }
 
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        // Disable the Save button while editing.
         saveAssemblyButton.isEnabled = false
     }
     

@@ -11,6 +11,8 @@
 		4824DFCA8C3FFC428B679E6B /* Pods_R_D_InventoryUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 033EE9BAD2D7E561D2A2CE08 /* Pods_R_D_InventoryUITests.framework */; };
 		9C16A19B83CE2DEDDDC16B87 /* Pods_R_D_Inventory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 640D7C703A6221D293FF22F1 /* Pods_R_D_Inventory.framework */; };
 		E32CD1071E161326005A35BD /* BuildPartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32CD1061E161326005A35BD /* BuildPartViewController.swift */; };
+		E34DAC071E1B255D00A93215 /* PartIDCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34DAC061E1B255D00A93215 /* PartIDCell.swift */; };
+		E34DAC091E1B397900A93215 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34DAC081E1B397900A93215 /* Validator.swift */; };
 		E34FC4931E16B31F0028D36C /* PartRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34FC4921E16B31F0028D36C /* PartRow.swift */; };
 		E34FC4951E16B4E50028D36C /* BuildAssemblyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34FC4941E16B4E50028D36C /* BuildAssemblyViewController.swift */; };
 		E370B6871E19F13B00C0E349 /* RegexRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E370B6861E19F13B00C0E349 /* RegexRule.swift */; };
@@ -70,6 +72,8 @@
 		687954077D7958893F4A5DE0 /* Pods-R&D InventoryUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-R&D InventoryUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-R&D InventoryUITests/Pods-R&D InventoryUITests.release.xcconfig"; sourceTree = "<group>"; };
 		DDAB533742B9B435D147DCC3 /* Pods-R&D Inventory.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-R&D Inventory.release.xcconfig"; path = "Pods/Target Support Files/Pods-R&D Inventory/Pods-R&D Inventory.release.xcconfig"; sourceTree = "<group>"; };
 		E32CD1061E161326005A35BD /* BuildPartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildPartViewController.swift; sourceTree = "<group>"; };
+		E34DAC061E1B255D00A93215 /* PartIDCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartIDCell.swift; sourceTree = "<group>"; };
+		E34DAC081E1B397900A93215 /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Validator.swift; path = "R&D Inventory/Validator.swift"; sourceTree = "<group>"; };
 		E34FC4921E16B31F0028D36C /* PartRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartRow.swift; sourceTree = "<group>"; };
 		E34FC4941E16B4E50028D36C /* BuildAssemblyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildAssemblyViewController.swift; sourceTree = "<group>"; };
 		E370B6861E19F13B00C0E349 /* RegexRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexRule.swift; sourceTree = "<group>"; };
@@ -102,8 +106,8 @@
 		E3AFE9BE1E19AB94008DA196 /* BuildTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildTableViewController.swift; sourceTree = "<group>"; };
 		E3AFE9C41E19B0EB008DA196 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		E3AFE9C61E19B45B008DA196 /* CreatePartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePartViewController.swift; sourceTree = "<group>"; };
-		E3AFE9C81E19B9B3008DA196 /* ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectMapper.swift; sourceTree = "<group>"; };
-		E3ECCE921E15B662009C936D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		E3AFE9C81E19B9B3008DA196 /* ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ObjectMapper.swift; path = "R&D Inventory/ObjectMapper.swift"; sourceTree = "<group>"; };
+		E3ECCE921E15B662009C936D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = "R&D Inventory/Constants.swift"; sourceTree = "<group>"; };
 		E3ECCE961E15C98A009C936D /* R&D Inventory.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "R&D Inventory.entitlements"; sourceTree = "<group>"; };
 		E3ECCE991E15D0DC009C936D /* FIRDataObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIRDataObject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -164,8 +168,28 @@
 			children = (
 				E34FC4921E16B31F0028D36C /* PartRow.swift */,
 				E370B6861E19F13B00C0E349 /* RegexRule.swift */,
+				E34DAC061E1B255D00A93215 /* PartIDCell.swift */,
 			);
 			name = CustomFormFields;
+			sourceTree = "<group>";
+		};
+		E384849B1E1AFC06007E3DE3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		E384849D1E1AFC3A007E3DE3 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				E3AFE9C81E19B9B3008DA196 /* ObjectMapper.swift */,
+				E3ECCE921E15B662009C936D /* Constants.swift */,
+				E34DAC081E1B397900A93215 /* Validator.swift */,
+			);
+			name = Helpers;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		E398F10C1E1357E300CD91D4 = {
@@ -193,12 +217,14 @@
 		E398F1171E1357E300CD91D4 /* R&D Inventory */ = {
 			isa = PBXGroup;
 			children = (
+				E384849D1E1AFC3A007E3DE3 /* Helpers */,
+				E384849B1E1AFC06007E3DE3 /* Views */,
 				E398F1181E1357E300CD91D4 /* AppDelegate.swift */,
 				E398F11F1E1357E300CD91D4 /* Assets.xcassets */,
 				E3AF6CB31E18033F00AE0947 /* Configuration */,
 				E3AF6CB41E18036E00AE0947 /* Controllers */,
 				E370B6851E19F0F800C0E349 /* CustomFormFields */,
-				E3AF6CB21E18032500AE0947 /* DataManagers */,
+				E3AF6CB21E18032500AE0947 /* Stores */,
 				E3AF6CB11E18031A00AE0947 /* Models */,
 				E3AFE9C01E19AC82008DA196 /* Storyboards */,
 				E3AF6CB51E1808A300AE0947 /* TableViewCells */,
@@ -235,15 +261,13 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
-		E3AF6CB21E18032500AE0947 /* DataManagers */ = {
+		E3AF6CB21E18032500AE0947 /* Stores */ = {
 			isa = PBXGroup;
 			children = (
-				E3AFE9C81E19B9B3008DA196 /* ObjectMapper.swift */,
-				E3ECCE921E15B662009C936D /* Constants.swift */,
 				E398F15C1E15B28300CD91D4 /* FirebaseDataManager.swift */,
 				E3AFE9C41E19B0EB008DA196 /* DataManager.swift */,
 			);
-			name = DataManagers;
+			name = Stores;
 			sourceTree = "<group>";
 		};
 		E3AF6CB31E18033F00AE0947 /* Configuration */ = {
@@ -586,6 +610,7 @@
 				E398F14F1E1363BA00CD91D4 /* PartTableViewCell.swift in Sources */,
 				E3AFE9C91E19B9B3008DA196 /* ObjectMapper.swift in Sources */,
 				E398F1551E136A6500CD91D4 /* Assembly.swift in Sources */,
+				E34DAC091E1B397900A93215 /* Validator.swift in Sources */,
 				E34FC4951E16B4E50028D36C /* BuildAssemblyViewController.swift in Sources */,
 				E398F1511E1363C500CD91D4 /* AssemblyTableViewCell.swift in Sources */,
 				E398F1471E13602E00CD91D4 /* AssemblyDetailTableViewController.swift in Sources */,
@@ -602,6 +627,7 @@
 				E34FC4931E16B31F0028D36C /* PartRow.swift in Sources */,
 				E398F15D1E15B28300CD91D4 /* FirebaseDataManager.swift in Sources */,
 				E3AF6CB71E18135E00AE0947 /* CreateBuildViewController.swift in Sources */,
+				E34DAC071E1B255D00A93215 /* PartIDCell.swift in Sources */,
 				E398F1531E13684500CD91D4 /* Part.swift in Sources */,
 				E370B6871E19F13B00C0E349 /* RegexRule.swift in Sources */,
 				E3AFE9BD1E195775008DA196 /* InventoryTableViewController.swift in Sources */,

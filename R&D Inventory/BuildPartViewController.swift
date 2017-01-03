@@ -110,29 +110,7 @@ public class BuildPartViewController: FormViewController, TypedRowControllerType
 
         let newString = nsString?.replacingCharacters(in: range, with: string)
 
-        return checkPartIDFormat(field: textField, string: string, str: newString)
-    }
-
-    public func checkPartIDFormat(field: UITextField, string: String?, str: String?) -> Bool {
-        
-        if string == "" {
-            
-            return true
-            
-        } else if str!.characters.count == 4 {
-            
-            field.text = field.text! + "-"
-            
-        } else if str!.characters.count == 10 {
-            
-            field.text = field.text! + "-"
-            
-        } else if str!.characters.count > 12 {
-            
-            return false
-        }
-        
-        return true
+        return Validator.checkPartIDFormat(field: textField, string: string, str: newString)
     }
 
     // Navigation

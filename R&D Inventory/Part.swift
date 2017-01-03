@@ -13,7 +13,7 @@ public class Part: FIRDataObject {
     
     public var name: String
 
-    public var uid: Int
+    public var uid: String
 
     public var manufacturer: String
 
@@ -25,7 +25,7 @@ public class Part: FIRDataObject {
 
     public var countOnOrder: Int
 
-    public init?(name: String, uid: Int, manufacturer: String, leadTime: Int, countInAssembly: Int, countInStock: Int, countOnOrder: Int) {
+    public init?(name: String, uid: String, manufacturer: String, leadTime: Int, countInAssembly: Int, countInStock: Int, countOnOrder: Int) {
         
         // The name must not be empty
         guard !name.isEmpty else {
@@ -53,7 +53,7 @@ public class Part: FIRDataObject {
         let value = snapshot.value as! [String: Any]
         
         self.name = value[Constants.PartFields.Name] as! String
-        self.uid = value[Constants.PartFields.ID] as! Int
+        self.uid = value[Constants.PartFields.ID] as! String
         self.manufacturer = value[Constants.PartFields.Manufacturer] as! String
         self.leadTime = value[Constants.PartFields.LeadTime] as! Int
         self.countInAssembly = 0

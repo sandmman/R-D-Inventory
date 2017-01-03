@@ -8,17 +8,40 @@
 
 import UIKit
 
-class PartTableViewCell: UITableViewCell {
+import UIKit
 
+protocol PartTableViewCellDelegate {
+    func didIncrementCellAtIndexPath(indexPath: IndexPath)
+    func didDecrementCellAtIndexPath(indexPath: IndexPath)
+}
+
+class PartTableViewCell: UITableViewCell {
+    
+    @IBOutlet var partCountLabel: UILabel!
+    
+    var delegate: PartTableViewCellDelegate?
+    var indexPath: IndexPath?
+    
+    @IBAction func incrementButtonPressed(sender: UIButton) {
+        if let indexPath = indexPath, let delegate = delegate {
+            delegate.didIncrementCellAtIndexPath(indexPath: indexPath)
+        }
+    }
+    @IBAction func decrementButtonPressed(sender: UIButton) {
+        if let indexPath = indexPath, let delegate = delegate {
+            delegate.didDecrementCellAtIndexPath(indexPath: indexPath)
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
-
+    
 }

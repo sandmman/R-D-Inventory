@@ -19,6 +19,10 @@ public class FIRDataObject: NSObject {
     
     public var databaseID: String
     
+    override public var hashValue : Int {
+        return databaseID.hashValue
+    }
+
     override init() {
         databaseID = UUID().uuidString
         super.init()
@@ -32,4 +36,9 @@ public class FIRDataObject: NSObject {
         
         super.init()
     }
+}
+
+public func ==(lhs: FIRDataObject, rhs: FIRDataObject) -> Bool {
+    print(lhs,rhs)
+    return lhs.databaseID == rhs.databaseID
 }

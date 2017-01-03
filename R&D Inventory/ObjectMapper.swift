@@ -29,13 +29,13 @@ public class ObjectMapper: Mapper {
         let rows = form.values()
 
         guard let name = rows[Constants.PartFields.Name] as? String,
-              let uid  = rows[Constants.PartFields.ID] as? Int,
+              let uid  = rows[Constants.PartFields.ID] as? String,
               let manufacturer = rows[Constants.PartFields.Manufacturer] as? String,
               let leadTime = rows[Constants.PartFields.LeadTime] as? Int,
               let countInAssembly = rows[Constants.PartFields.CountInAssembly] as? Int,
               let countInStock = rows[Constants.PartFields.CountInStock] as? Int,
               let countOnOrder = rows[Constants.PartFields.CountOnOrder] as? Int else {
-
+                print("aahhhh")
                 return nil
         }
 

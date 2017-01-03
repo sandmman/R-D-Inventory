@@ -53,9 +53,9 @@ public class FirebaseDataManager: NSObject {
 
 extension FirebaseDataManager {
     
-    public func listenForAssemblies() {
+    public func listenForAssemblies() -> UInt {
         
-        assemblyRef.observe(.value, with: { snapshot in
+        return assemblyRef.observe(.value, with: { snapshot in
             var newItems: [Assembly] = []
 
             for item in snapshot.children {
@@ -69,16 +69,24 @@ extension FirebaseDataManager {
         })
     }
     
-    public func listenForParts(onAddPart: @escaping (Part) -> ()) {
-        
-        partsRef.observe(.value, with: { snapshot in
-            
-            for item in snapshot.children {
-                if let part = Part(snapshot: item as! FIRDataSnapshot) {
-                    onAddPart(part)
-                }
+    public func listenForParts(onComplete: @escaping (Part) -> ()) -> (UInt, UInt)  {
+        let h1 = partsRef.observe(.childAdded, with: { snapshot in
+            if let part = Part(snapshot: snapshot) {
+                onComplete(part)
             }
         })
+
+        let h2 = partsRef.observe(.childChanged, with: { snapshot in
+            if let part = Part(snapshot: snapshot) {
+                onComplete(part)
+            }
+        })
+    
+        return (h1, h2)
+    }
+    
+    public func removeListener(handle: UInt) {
+        partsRef.removeObserver(withHandle: handle)
     }
 }
 

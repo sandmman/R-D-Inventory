@@ -31,6 +31,7 @@ class AssemblyTableViewController: UITableViewController, AssemblyDelegate {
             self.tableView.reloadData()
         }
     }
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

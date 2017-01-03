@@ -21,16 +21,16 @@ public class RegexRule: RuleType {
         self.allowsEmpty = allowsEmpty
     }
     
-    public func isValid(value: Int?) -> ValidationError? {
-        print("testing", value)
+    public func isValid(value: String?) -> ValidationError? {
         if let v = value {
-            print("testing", v)
+
             let value = String(v)
             let predicate = NSPredicate(format: "SELF MATCHES %@", regExpr)
-            print(value, predicate)
+            
             guard predicate.evaluate(with: value) else {
                 return validationError
             }
+
             return nil
         }
         else if !allowsEmpty {

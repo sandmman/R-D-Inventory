@@ -54,5 +54,6 @@ struct Constants {
     struct TableViewCells {
         static let assembly = "AssemblyTableViewCell"
         static let part = "PartTableViewCell"
+        static let Part = "PartTableViewCell"
     }
 }
