@@ -8,16 +8,53 @@
 
 import UIKit
 
-class AssemblyTableViewController: UITableViewController, AssemblyDelegate {
+class AssemblyTableViewController: UITableViewController {
     
+    var project: Project!
+    
+    var handles: (UInt, UInt)!
+
     var selectedAssembly: Assembly? = nil
+    
+    var assemblies = [Assembly]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        FirebaseDataManager.sharedInstance.delegate = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        handles = FirebaseDataManager.sharedInstance.listenForAssemblies(for: project, onComplete: receivedAssembly)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        FirebaseDataManager.sharedInstance.removeListener(handle: handles.0)
+        FirebaseDataManager.sharedInstance.removeListener(handle: handles.1)
+    }
+    
+    private func receivedAssembly(assembly: Assembly) {
+        var found = false
+        
+        for i in 0..<self.assemblies.count {
+            if assembly.databaseID == self.assemblies[i].databaseID {
+                found = true
+                self.assemblies[i] = assembly
+                break
+            }
+        }
+        
+        if !found {
+            self.assemblies.append(assembly)
+        }
+        
+        self.reloadTable()
+    }
+    
+    private func reloadTable() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+
     private func instantiateHeader() {
         let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(BuildPartViewController.tappedDone(_:)))
         button.title = "Add"
@@ -37,7 +74,7 @@ class AssemblyTableViewController: UITableViewController, AssemblyDelegate {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return FirebaseDataManager.sharedInstance.assemblies.count
+        return assemblies.count
     }
     
     
@@ -45,7 +82,7 @@ class AssemblyTableViewController: UITableViewController, AssemblyDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.assembly, for: indexPath)
 
         // Configure the cell...
-        cell.textLabel?.text = FirebaseDataManager.sharedInstance.assemblies[indexPath.row].name
+        cell.textLabel?.text = assemblies[indexPath.row].name
         
         return cell
     }
@@ -59,7 +96,7 @@ class AssemblyTableViewController: UITableViewController, AssemblyDelegate {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            let assemblyToDelete = FirebaseDataManager.sharedInstance.assemblies[indexPath.row]
+            let assemblyToDelete = assemblies[indexPath.row]
 
             FirebaseDataManager.sharedInstance.delete(assembly: assemblyToDelete)
             
@@ -80,7 +117,7 @@ class AssemblyTableViewController: UITableViewController, AssemblyDelegate {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let indexPath = tableView.indexPathForSelectedRow!
         
-        selectedAssembly = FirebaseDataManager.sharedInstance.assemblies[indexPath.row]
+        selectedAssembly = assemblies[indexPath.row]
         
         performSegue(withIdentifier: Constants.Segues.AssemblyDetail, sender: self)
     }
@@ -94,10 +131,6 @@ class AssemblyTableViewController: UITableViewController, AssemblyDelegate {
             
             viewController.assembly = selectedAssembly
             
-        } else {
         }
     }
-
-    
-
 }

@@ -16,11 +16,15 @@ public protocol DataManager {
     
     func add(part: Part)
     
+    func add(project: Project)
+
     func get(assembly: String, onComplete: @escaping (Assembly) -> ())
     
     func get(build: String, onComplete: @escaping (Build) -> ())
     
     func get(part: String, onComplete: @escaping (Part) -> ())
+    
+    func get(project: String, onComplete: @escaping (Project) -> ())
     
     func update(assembly: Assembly)
     
@@ -28,14 +32,17 @@ public protocol DataManager {
     
     func update(part: Part)
     
+    func update(project: Project)
+    
     func delete(assembly: Assembly)
     
     func delete(build: Build)
     
     func delete(part: Part)
     
+    func delete(project: Project)
+    
     func getParts(for assembly: Assembly, onComplete: @escaping (Part) -> ())
     
     func getBuilds(for assembly: Assembly, onComplete: @escaping (Build) -> ())
-
 }

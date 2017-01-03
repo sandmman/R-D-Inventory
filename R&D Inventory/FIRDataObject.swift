@@ -36,6 +36,12 @@ public class FIRDataObject: NSObject {
         
         super.init()
     }
+    
+    public func toAnyObject() -> Any {
+        return [
+            "Default": true
+        ]
+    }
 }
 
 public func ==(lhs: FIRDataObject, rhs: FIRDataObject) -> Bool {

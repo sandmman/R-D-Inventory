@@ -41,7 +41,7 @@ public class Assembly: FIRDataObject {
         super.init(snapshot: snapshot)
     }
     
-    public func toAnyObject() -> Any {
+    public override func toAnyObject() -> Any {
         return [
             Constants.AssemblyFields.Name: name,
             Constants.AssemblyFields.Parts: parts,

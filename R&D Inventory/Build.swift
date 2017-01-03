@@ -53,7 +53,7 @@ public class Build: FIRDataObject {
         super.init(snapshot: snapshot)
     }
     
-    public func toAnyObject() -> Any {
+    public override func toAnyObject() -> Any {
         return [
             Constants.BuildFields.AssemblyID    : assemblyID,
             Constants.BuildFields.Date          : scheduledDate.timeIntervalSince1970,

@@ -63,7 +63,7 @@ public class Part: FIRDataObject {
         super.init(snapshot: snapshot)
     }
 
-    public func toAnyObject() -> Any {
+    public override func toAnyObject() -> Any {
         return [
             Constants.PartFields.Name           : name,
             Constants.PartFields.ID             : uid,

@@ -9,10 +9,6 @@
 import Foundation
 import Firebase
 
-public protocol AssemblyDelegate {
-    func onItemsAddedToList()
-}
-
 public class FirebaseDataManager: NSObject {
     
     //Make FirebaseDataManager a singlton
@@ -23,18 +19,14 @@ public class FirebaseDataManager: NSObject {
         return manager
     }()
     
-    
-    public var assemblies = [Assembly]()
-
-    public var delegate: AssemblyDelegate? = nil
-    
     // Firebase End Points
     fileprivate let rootRef = FIRDatabase.database().reference()
     fileprivate let userRef = FIRDatabase.database().reference().child("users")
-    fileprivate let assemblyRef = FIRDatabase.database().reference().child("assemblies")
     fileprivate let partsRef = FIRDatabase.database().reference().child("parts")
     fileprivate let buildsRef = FIRDatabase.database().reference().child("builds")
-        
+    fileprivate let projectsRef = FIRDatabase.database().reference().child("projects")
+    fileprivate let assemblyRef = FIRDatabase.database().reference().child("assemblies")
+
     fileprivate var currentUserRef: FIRDatabaseReference? {
         guard let userID = UserDefaults.standard.string(forKey: "user") else {
             return nil
@@ -47,50 +39,62 @@ public class FirebaseDataManager: NSObject {
 
     fileprivate override init() {
         super.init()
-        listenForAssemblies()
     }
 }
 
 extension FirebaseDataManager {
     
-    public func listenForAssemblies() -> UInt {
+    public func listenForAssemblies(for project: Project, onComplete: @escaping (Assembly) -> ()) -> (UInt, UInt) {
         
-        return assemblyRef.observe(.value, with: { snapshot in
-            var newItems: [Assembly] = []
+        let ref = projectsRef.child(project.databaseID).child("assemblies")
 
-            for item in snapshot.children {
-                if let assemblyItem = Assembly(snapshot: item as! FIRDataSnapshot) {
-                    newItems.append(assemblyItem)
-                }
-            }
+        let h1 = ref.observe(.childAdded, with: { snapshot in
             
-            self.assemblies = newItems
-            self.delegate?.onItemsAddedToList()
+            self.get(assembly: snapshot.key, onComplete: onComplete)
         })
-    }
-    
-    public func listenForParts(onComplete: @escaping (Part) -> ()) -> (UInt, UInt)  {
-        let h1 = partsRef.observe(.childAdded, with: { snapshot in
-            if let part = Part(snapshot: snapshot) {
-                onComplete(part)
+        
+        let h2 = ref.observe(.childChanged, with: { snapshot in
+            if let project = T(snapshot: snapshot) {
+                onComplete(project)
             }
         })
-
-        let h2 = partsRef.observe(.childChanged, with: { snapshot in
-            if let part = Part(snapshot: snapshot) {
-                onComplete(part)
-            }
-        })
-    
+        
         return (h1, h2)
     }
     
+    public func listenForParts(onComplete: @escaping (Part) -> ()) -> (UInt, UInt)  {
+        return setupListenerPair(ref: partsRef, onComplete: onComplete)
+    }
+    
+    public func listenForProjects(onComplete: @escaping (Project) -> ()) -> (UInt, UInt)  {
+        return setupListenerPair(ref: projectsRef, onComplete: onComplete)
+    }
+
     public func removeListener(handle: UInt) {
         partsRef.removeObserver(withHandle: handle)
     }
 }
 
 extension FirebaseDataManager: DataManager {
+    
+    /*public func add(object: FIRDataObject) {
+     
+     var ref: FIRDatabaseReference? = nil
+     
+     switch (object) {
+     case is Assembly: ref = assemblyRef
+     case is Build: ref = buildsRef
+     case is Part: ref = partsRef
+     case is Project: ref = projectsRef
+     default: break
+     }
+     
+     
+     }*/
+    
+    //////////
+    // ADD //
+    /////////
 
     public func add(assembly: Assembly) {
         assemblyRef.childByAutoId().setValue(assembly.toAnyObject())
@@ -107,54 +111,13 @@ extension FirebaseDataManager: DataManager {
         partsRef.child(part.databaseID).setValue(part.toAnyObject())
     }
     
-    public func get(assembly: Assembly, onAddPart: @escaping (Part) -> ()) {
-        
-        for (ID, count) in assembly.parts {
-            partsRef.child(ID).observeSingleEvent(of: .value, with: { snapshot in
-                if let part = Part(snapshot: snapshot) {
-                    part.countInAssembly = count
-                    onAddPart(part)
-                }
-                
-            }) {
-                error in
-                print(error.localizedDescription)
-            }
-        }
+    public func add(project: Project) {
+        projectsRef.child(project.databaseID).setValue(project.toAnyObject())
     }
 
-    public func getParts(for assembly: Assembly, onComplete: @escaping (Part) -> ()) {
-
-        for (ID, count) in assembly.parts {
-            
-            get(part: ID) { part in
-                
-                part.countInAssembly = count
-
-                onComplete(part)
-            }
-        }
-    }
-    
-    public func getBuilds(for assembly: Assembly, onComplete: @escaping (Build) -> ()) {
-
-        assemblyRef.child(assembly.databaseID).child("builds").observeSingleEvent(of: .value, with: { snapshot in
-
-            guard let builds = snapshot.value as? [String: Bool] else {
-                return
-            }
-            
-            for (id, _) in builds {
-                self.get(build: id) { build in
-                    onComplete(build)
-                }
-            }
-        
-        }) {
-            error in
-            print(error.localizedDescription)
-        }
-    }
+    ////////////
+    // Update //
+    ////////////
 
     public func update(assembly: Assembly) {
         
@@ -167,14 +130,20 @@ extension FirebaseDataManager: DataManager {
     public func update(part: Part) {
         
     }
+    
+    public func update(project: Project) {
+        
+    }
+
+    ////////////
+    // Delete //
+    ////////////
 
     public func delete(assembly: Assembly) {
         
         guard let ref = assembly.ref else {
             return
         }
-        
-        assemblies = assemblies.filter { $0 != assembly}
 
         ref.removeValue()
     }
@@ -197,6 +166,68 @@ extension FirebaseDataManager: DataManager {
         ref.removeValue()
         
         assemblyRef.child(build.assemblyID).child("builds").child(build.databaseID).removeValue()
+    }
+    
+    public func delete(project: Project) {
+        
+        guard let ref = project.ref else {
+            return
+        }
+        
+        ref.removeValue()
+    }
+    
+    //////////
+    // GET //
+    /////////
+    
+    public func get(assembly: Assembly, onAddPart: @escaping (Part) -> ()) {
+        
+        for (ID, count) in assembly.parts {
+            partsRef.child(ID).observeSingleEvent(of: .value, with: { snapshot in
+                if let part = Part(snapshot: snapshot) {
+                    part.countInAssembly = count
+                    onAddPart(part)
+                }
+                
+            }) {
+                error in
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    public func getParts(for assembly: Assembly, onComplete: @escaping (Part) -> ()) {
+        
+        for (ID, count) in assembly.parts {
+            
+            get(part: ID) { part in
+                
+                part.countInAssembly = count
+                
+                onComplete(part)
+            }
+        }
+    }
+    
+    public func getBuilds(for assembly: Assembly, onComplete: @escaping (Build) -> ()) {
+        
+        assemblyRef.child(assembly.databaseID).child("builds").observeSingleEvent(of: .value, with: { snapshot in
+            
+            guard let builds = snapshot.value as? [String: Bool] else {
+                return
+            }
+            
+            for (id, _) in builds {
+                self.get(build: id) { build in
+                    onComplete(build)
+                }
+            }
+            
+        }) {
+            error in
+            print(error.localizedDescription)
+        }
     }
 
     public func get(assembly: String, onComplete: @escaping (Assembly) -> ()) {
@@ -239,5 +270,40 @@ extension FirebaseDataManager: DataManager {
             error in
             print(error.localizedDescription)
         }
+    }
+    
+    public func get(project: String, onComplete: @escaping (Project) -> ()) {
+        
+        self.projectsRef.child(project).observeSingleEvent(of: .value, with: { snapshot in
+            
+            if let project = Project(snapshot: snapshot) {
+                onComplete(project)
+            }
+            
+        }) {
+            error in
+            print(error.localizedDescription)
+        }
+    }
+}
+
+extension FirebaseDataManager {
+    
+    internal func setupListenerPair<T: FIRDataObject>(ref: FIRDatabaseReference, onComplete: @escaping (T) -> ()) -> (UInt, UInt)  {
+        
+        let h1 = ref.observe(.childAdded, with: { snapshot in
+            if let project = T(snapshot: snapshot) {
+                print(project)
+                onComplete(project)
+            }
+        })
+        
+        let h2 = ref.observe(.childChanged, with: { snapshot in
+            if let project = T(snapshot: snapshot) {
+                onComplete(project)
+            }
+        })
+        
+        return (h1, h2)
     }
 }

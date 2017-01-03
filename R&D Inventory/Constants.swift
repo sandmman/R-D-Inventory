@@ -25,6 +25,7 @@ struct Constants {
         static let AssemblyDetail = "AssemblyDetailSegue"
         static let CreateBuild = "CreateBuildSegue"
         static let CreatePart = "CreatePartSegue"
+        static let ProjectDetail = "ProjectDetailSegue"
     }
     
     struct PartFields {
@@ -50,10 +51,16 @@ struct Constants {
         static let Name = "name"
         static let Parts = "parts"
     }
+    
+    struct ProjectFields {
+        static let Name = "name"
+        static let Assemblies = "assemblies"
+    }
 
     struct TableViewCells {
         static let assembly = "AssemblyTableViewCell"
         static let part = "PartTableViewCell"
         static let Part = "PartTableViewCell"
+        static let Project = "ProjectTableViewCell"
     }
 }
