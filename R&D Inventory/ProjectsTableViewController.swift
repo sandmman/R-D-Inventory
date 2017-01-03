@@ -15,23 +15,25 @@ class ProjectsTableViewController: UITableViewController {
     var projects = [Project]()
     
     var selectedProject: Project? = nil
+    
+    var listener: ListenerHandler!
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        handles = FirebaseDataManager.listenForProjects(onComplete: receivedProject)
+        listener = ListenerHandler()
+        listener.listenForProjects(onComplete: receivedProject)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        FirebaseDataManager.removeListener(handle: handles.0)
-        FirebaseDataManager.removeListener(handle: handles.1)
+        listener.removeListeners()
     }
 
     private func receivedProject(project: Project) {
         var found = false
-
+        print("hello", project)
         for i in 0..<self.projects.count {
             if project.key == self.projects[i].key {
                 found = true

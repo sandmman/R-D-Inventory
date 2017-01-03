@@ -12,7 +12,7 @@ class InventoryTableViewController: UITableViewController {
     
     var inventory: [Part] = []
     
-    var handles: (UInt, UInt)!
+    var listener: ListenerHandler!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,15 +22,15 @@ class InventoryTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        handles = FirebaseDataManager.listenForParts(onComplete: receivedPart)
+        listener = ListenerHandler()
+        listener.listenForParts(onComplete: receivedPart)
 
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        FirebaseDataManager.removeListener(handle: handles.0)
-        FirebaseDataManager.removeListener(handle: handles.1)
+        listener.removeListeners()
     }
     
     private func reloadTable() {

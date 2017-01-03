@@ -17,7 +17,7 @@ public struct Project: FIRDataObject {
     
     public var name: String
 
-    public var assemblies: [String]
+    public var assemblies = [String]()
     
     public init?(name: String, assemblies: [String] = []) {
         
@@ -32,14 +32,16 @@ public struct Project: FIRDataObject {
     public init?(snapshot: FIRDataSnapshot) {
 
         guard let value = snapshot.value as? [String: Any],
-            let name = value[Constants.ProjectFields.Name] as? String,
-            let assemblies = value[Constants.ProjectFields.Assemblies] as? [String: Bool] else {
+            let name = value[Constants.ProjectFields.Name] as? String else {
 
                 return nil
         }
         
         self.name = name
-        self.assemblies = [String] ( assemblies.keys )
+        
+        if let assemblies = value[Constants.ProjectFields.Assemblies] as? [String: Bool] {
+            self.assemblies = [String] ( assemblies.keys )
+        }
         
         key = snapshot.key
         

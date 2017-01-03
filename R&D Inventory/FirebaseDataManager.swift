@@ -12,12 +12,12 @@ import Firebase
 public struct FirebaseDataManager {
     
     // Firebase End Points
-    fileprivate static let rootRef = FIRDatabase.database().reference()
-    fileprivate static let userRef = FIRDatabase.database().reference().child("users")
-    fileprivate static let partsRef = FIRDatabase.database().reference().child("parts")
-    fileprivate static let buildsRef = FIRDatabase.database().reference().child("builds")
-    fileprivate static let projectsRef = FIRDatabase.database().reference().child("projects")
-    fileprivate static let assemblyRef = FIRDatabase.database().reference().child("assemblies")
+    static let rootRef = FIRDatabase.database().reference()
+    static let userRef = FIRDatabase.database().reference().child("users")
+    static let partsRef = FIRDatabase.database().reference().child("parts")
+    static let buildsRef = FIRDatabase.database().reference().child("builds")
+    static let projectsRef = FIRDatabase.database().reference().child("projects")
+    static let assemblyRef = FIRDatabase.database().reference().child("assemblies")
 
     fileprivate static var currentUserRef: FIRDatabaseReference? {
         guard let userID = UserDefaults.standard.string(forKey: "user") else {
@@ -31,41 +31,8 @@ public struct FirebaseDataManager {
 }
 
 extension FirebaseDataManager {
-    
-    public static func listenForAssemblies(for project: Project, onComplete: @escaping (Assembly) -> ()) -> (UInt, UInt) {
-        
-        // let listener = Listener()
-        // listener.listenForAssemblies
-        let ref = projectsRef.child(project.key).child("assemblies")
-        
-        var handles = [UInt]()
-
-        let h1 = ref.observe(.childAdded, with: { snapshot in
-            
-            let h2 = assemblyRef.child(snapshot.key).observe(.value, with: { snap in
-                if let assembly = Assembly(snapshot: snap) {
-                    onComplete(assembly)
-                }
-            })
-            
-            handles.append(h2)
-        })
-        
-        handles.append(h1)
-        
-        return (h1, h1)
-    }
-    
-    public static func listenForParts(onComplete: @escaping (Part) -> ()) -> (UInt, UInt)  {
-        return setupListenerPair(ref: partsRef, onComplete: onComplete)
-    }
-    
-    public static func listenForProjects(onComplete: @escaping (Project) -> ()) -> (UInt, UInt)  {
-        return setupListenerPair(ref: projectsRef, onComplete: onComplete)
-    }
-
     public static func removeListener(handle: UInt) {
-        partsRef.removeObserver(withHandle: handle)
+        FirebaseDataManager.partsRef.removeObserver(withHandle: handle)
     }
 }
 
@@ -275,25 +242,5 @@ extension FirebaseDataManager: DataManager {
             error in
             print(error.localizedDescription)
         }
-    }
-}
-
-extension FirebaseDataManager {
-    
-    internal static func setupListenerPair<T: FIRDataObject>(ref: FIRDatabaseReference, onComplete: @escaping (T) -> ()) -> (UInt, UInt)  {
-        
-        let h1 = ref.observe(.childAdded, with: { snapshot in
-            if let project = T(snapshot: snapshot) {
-                onComplete(project)
-            }
-        })
-        
-        let h2 = ref.observe(.childChanged, with: { snapshot in
-            if let project = T(snapshot: snapshot) {
-                onComplete(project)
-            }
-        })
-        
-        return (h1, h2)
     }
 }

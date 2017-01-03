@@ -12,7 +12,7 @@ class AssemblyTableViewController: UITableViewController {
     
     var project: Project!
     
-    var handles: (UInt, UInt)!
+    var listener: ListenerHandler!
 
     var selectedAssembly: Assembly? = nil
     
@@ -23,12 +23,12 @@ class AssemblyTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        handles = FirebaseDataManager.listenForAssemblies(for: project, onComplete: receivedAssembly)
+        listener = ListenerHandler()
+        listener.listenForAssemblies(for: project, onComplete: receivedAssembly)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        FirebaseDataManager.removeListener(handle: handles.0)
-        FirebaseDataManager.removeListener(handle: handles.1)
+        listener.removeListeners()
     }
     
     private func receivedAssembly(assembly: Assembly) {

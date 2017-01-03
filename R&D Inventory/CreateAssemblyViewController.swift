@@ -1,5 +1,5 @@
 //
-//  BuildAssemblyViewController.swift
+//  CreateAssemblyViewController.swift
 //  R&D Inventory
 //
 //  Created by Aaron Liberatore on 12/30/16.
@@ -9,7 +9,7 @@
 import UIKit
 import Eureka
 
-class BuildAssemblyViewController: FormViewController {
+class CreateAssemblyViewController: FormViewController {
     
     var assembly: Assembly? = nil
 
