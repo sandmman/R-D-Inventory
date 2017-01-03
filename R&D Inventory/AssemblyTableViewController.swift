@@ -23,12 +23,12 @@ class AssemblyTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        handles = FirebaseDataManager.sharedInstance.listenForAssemblies(for: project, onComplete: receivedAssembly)
+        handles = FirebaseDataManager.listenForAssemblies(for: project, onComplete: receivedAssembly)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        FirebaseDataManager.sharedInstance.removeListener(handle: handles.0)
-        FirebaseDataManager.sharedInstance.removeListener(handle: handles.1)
+        FirebaseDataManager.removeListener(handle: handles.0)
+        FirebaseDataManager.removeListener(handle: handles.1)
     }
     
     private func receivedAssembly(assembly: Assembly) {
@@ -98,7 +98,7 @@ class AssemblyTableViewController: UITableViewController {
             
             let assemblyToDelete = assemblies[indexPath.row]
 
-            FirebaseDataManager.sharedInstance.delete(assembly: assemblyToDelete)
+            FirebaseDataManager.delete(assembly: assemblyToDelete)
             
             tableView.deleteRows(at: [indexPath], with: .fade)
         }

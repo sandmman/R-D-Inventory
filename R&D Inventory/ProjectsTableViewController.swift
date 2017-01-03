@@ -21,12 +21,12 @@ class ProjectsTableViewController: UITableViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        handles = FirebaseDataManager.sharedInstance.listenForProjects(onComplete: receivedProject)
+        handles = FirebaseDataManager.listenForProjects(onComplete: receivedProject)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        FirebaseDataManager.sharedInstance.removeListener(handle: handles.0)
-        FirebaseDataManager.sharedInstance.removeListener(handle: handles.1)
+        FirebaseDataManager.removeListener(handle: handles.0)
+        FirebaseDataManager.removeListener(handle: handles.1)
     }
 
     private func receivedProject(project: Project) {
@@ -84,7 +84,7 @@ class ProjectsTableViewController: UITableViewController {
     
             projects.remove(at: indexPath.row)
             
-            FirebaseDataManager.sharedInstance.delete(project: project)
+            FirebaseDataManager.delete(project: project)
         }
     }
     

@@ -35,7 +35,7 @@ public class BuildPartViewController: FormViewController, TypedRowControllerType
 
         row.value = part
 
-        FirebaseDataManager.sharedInstance.add(part: part)
+        FirebaseDataManager.add(part: part)
 
         onDismissCallback?(self)
     }

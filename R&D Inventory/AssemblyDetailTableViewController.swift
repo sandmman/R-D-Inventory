@@ -30,14 +30,14 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
         
         self.title = a.name
         
-        FirebaseDataManager.sharedInstance.getParts(for: a) {
+        FirebaseDataManager.getParts(for: a) {
             part in
 
             self.parts.append(part)
             self.reloadData()
         }
         
-        FirebaseDataManager.sharedInstance.getBuilds(for: a) {
+        FirebaseDataManager.getBuilds(for: a) {
             build in
             
             self.builds.append(build)
@@ -83,7 +83,7 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
             
             reloadData()
 
-            FirebaseDataManager.sharedInstance.add(build: build)
+            FirebaseDataManager.add(build: build)
         }
     }
     
@@ -164,7 +164,7 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            FirebaseDataManager.sharedInstance.delete(build: builds[indexPath.row])
+            FirebaseDataManager.delete(build: builds[indexPath.row])
             
             builds.remove(at: indexPath.row)
 

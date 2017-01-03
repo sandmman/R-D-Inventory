@@ -35,7 +35,7 @@ public class ObjectMapper: Mapper {
               let countInAssembly = rows[Constants.PartFields.CountInAssembly] as? Int,
               let countInStock = rows[Constants.PartFields.CountInStock] as? Int,
               let countOnOrder = rows[Constants.PartFields.CountOnOrder] as? Int else {
-                print("aahhhh")
+
                 return nil
         }
 

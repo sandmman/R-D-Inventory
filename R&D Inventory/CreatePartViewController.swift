@@ -19,12 +19,12 @@ class CreatePartViewController: FormViewController, UITextFieldDelegate {
     }
     
     public func tappedDone(_ sender: UIBarButtonItem) {
-        print("hello")
+
         guard let part = ObjectMapper.createPart(from: form) else {
             return
         }
-        print(part)
-        FirebaseDataManager.sharedInstance.add(part: part)
+
+        FirebaseDataManager.add(part: part)
         
         navigationController?.popViewController(animated: true)        
     }

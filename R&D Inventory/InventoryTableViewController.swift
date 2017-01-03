@@ -22,15 +22,15 @@ class InventoryTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        handles = FirebaseDataManager.sharedInstance.listenForParts(onComplete: receivedPart)
+        handles = FirebaseDataManager.listenForParts(onComplete: receivedPart)
 
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        FirebaseDataManager.sharedInstance.removeListener(handle: handles.0)
-        FirebaseDataManager.sharedInstance.removeListener(handle: handles.1)
+        FirebaseDataManager.removeListener(handle: handles.0)
+        FirebaseDataManager.removeListener(handle: handles.1)
     }
     
     private func reloadTable() {
@@ -91,7 +91,7 @@ class InventoryTableViewController: UITableViewController {
             
             inventory.remove(at: indexPath.row)
             
-            FirebaseDataManager.sharedInstance.delete(part: part)
+            FirebaseDataManager.delete(part: part)
         }
     }
 }

@@ -45,6 +45,5 @@ public class FIRDataObject: NSObject {
 }
 
 public func ==(lhs: FIRDataObject, rhs: FIRDataObject) -> Bool {
-    print(lhs,rhs)
     return lhs.databaseID == rhs.databaseID
 }

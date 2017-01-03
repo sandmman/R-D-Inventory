@@ -10,39 +10,39 @@ import Foundation
 
 public protocol DataManager {
     
-    func add(assembly: Assembly)
+    static func add(assembly: Assembly)
     
-    func add(build: Build)
+    static func add(build: Build)
     
-    func add(part: Part)
+    static func add(part: Part)
     
-    func add(project: Project)
+    static func add(project: Project)
 
-    func get(assembly: String, onComplete: @escaping (Assembly) -> ())
+    static func get(assembly: String, onComplete: @escaping (Assembly) -> ())
     
-    func get(build: String, onComplete: @escaping (Build) -> ())
+    static func get(build: String, onComplete: @escaping (Build) -> ())
     
-    func get(part: String, onComplete: @escaping (Part) -> ())
+    static func get(part: String, onComplete: @escaping (Part) -> ())
     
-    func get(project: String, onComplete: @escaping (Project) -> ())
+    static func get(project: String, onComplete: @escaping (Project) -> ())
     
-    func update(assembly: Assembly)
+    static func update(assembly: Assembly)
     
-    func update(build: Build)
+    static func update(build: Build)
     
-    func update(part: Part)
+    static func update(part: Part)
     
-    func update(project: Project)
+    static func update(project: Project)
     
-    func delete(assembly: Assembly)
+    static func delete(assembly: Assembly)
     
-    func delete(build: Build)
+    static func delete(build: Build)
     
-    func delete(part: Part)
+    static func delete(part: Part)
     
-    func delete(project: Project)
+    static func delete(project: Project)
     
-    func getParts(for assembly: Assembly, onComplete: @escaping (Part) -> ())
+    static func getParts(for assembly: Assembly, onComplete: @escaping (Part) -> ())
     
-    func getBuilds(for assembly: Assembly, onComplete: @escaping (Build) -> ())
+    static func getBuilds(for assembly: Assembly, onComplete: @escaping (Build) -> ())
 }
