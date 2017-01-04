@@ -31,8 +31,8 @@ public struct FirebaseDataManager {
 }
 
 extension FirebaseDataManager {
-    public static func removeListener(handle: UInt) {
-        FirebaseDataManager.partsRef.removeObserver(withHandle: handle)
+    public static func removeListener(handle: UInt, ref: FIRDatabaseReference) {
+        ref.removeObserver(withHandle: handle)
     }
 }
 
@@ -65,8 +65,20 @@ extension FirebaseDataManager: DataManager {
         
         assemblyRef.child(build.assemblyID).child("builds").updateChildValues([build.key: true])
         
+        //projectsRef.child(build.projectID).child("builds").updateChildValues([build.key: true])
+        
         buildsRef.child(build.key).setValue(build.toAnyObject())
     }
+    
+    public static func add(build: Build, to project: String) {
+        
+        assemblyRef.child(build.assemblyID).child("builds").updateChildValues([build.key: true])
+        
+        projectsRef.child(project).child("builds").updateChildValues([build.key: true])
+        
+        buildsRef.child(build.key).setValue(build.toAnyObject())
+    }
+
 
     public static func add(part: Part) {
         partsRef.child(part.key).setValue(part.toAnyObject())
@@ -142,21 +154,6 @@ extension FirebaseDataManager: DataManager {
     // GET //
     /////////
     
-    public static func get(assembly: Assembly, onAddPart: @escaping (Part) -> ()) {
-        
-        for (ID, _) in assembly.parts {
-            partsRef.child(ID).observeSingleEvent(of: .value, with: { snapshot in
-                if let part = Part(snapshot: snapshot) {
-                    onAddPart(part)
-                }
-                
-            }) {
-                error in
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
     public static func getParts(for assembly: Assembly, onComplete: @escaping (Part) -> ()) {
         
         for (ID, _) in assembly.parts {
@@ -188,54 +185,37 @@ extension FirebaseDataManager: DataManager {
         }
     }
 
-    public static func get(assembly: String, onComplete: @escaping (Assembly) -> ()) {
-        
-        partsRef.child(assembly).observeSingleEvent(of: .value, with: { snapshot in
-            
-            if let assembly = Assembly(snapshot: snapshot) {
+    public static func getAssemblies(for project: Project, onComplete: @escaping (Assembly) -> ()) {
+        for id in project.assemblies {
+            self.get(assembly: id) { assembly in
                 onComplete(assembly)
             }
-            
-        }) {
-            error in
-            print(error.localizedDescription)
         }
     }
     
-    public static func get(build: String, onComplete: @escaping (Build) -> ()) {
-        
-        self.buildsRef.child(build).observeSingleEvent(of: .value, with: { snapshot in
+    public static func get(build ID: String, onComplete: @escaping (Build) -> ()) {
+        self.get(ref: buildsRef.child(ID), onComplete: onComplete)
+    }
+    
+    public static func get(part ID: String, onComplete: @escaping (Part) -> ()) {
+        self.get(ref: partsRef.child(ID), onComplete: onComplete)
+    }
+    
+    public static func get(assembly ID: String, onComplete: @escaping (Assembly) -> ()) {
+        self.get(ref: assemblyRef.child(ID), onComplete: onComplete)
+    }
 
-            if let build = Build(snapshot: snapshot) {
-                onComplete(build)
-            }
-            
-        }) {
-            error in
-            print(error.localizedDescription)
-        }
+    public static func get(project ID: String, onComplete: @escaping (Project) -> ()) {
+        self.get(ref: projectsRef.child(ID), onComplete: onComplete)
     }
-    
-    public static func get(part: String, onComplete: @escaping (Part) -> ()) {
-       
-        self.partsRef.child(part).observeSingleEvent(of: .value, with: { snapshot in
+}
+
+extension FirebaseDataManager {
+    internal static func get<T: FIRDataObject>(ref: FIRDatabaseReference, onComplete: @escaping (T) -> ()) {
+        ref.observeSingleEvent(of: .value, with: { snapshot in
             
-            if let part = Part(snapshot: snapshot) {
-                onComplete(part)
-            }
-            
-        }) {
-            error in
-            print(error.localizedDescription)
-        }
-    }
-    
-    public static func get(project: String, onComplete: @escaping (Project) -> ()) {
-        
-        self.projectsRef.child(project).observeSingleEvent(of: .value, with: { snapshot in
-            
-            if let project = Project(snapshot: snapshot) {
-                onComplete(project)
+            if let item = T(snapshot: snapshot) {
+                onComplete(item)
             }
             
         }) {

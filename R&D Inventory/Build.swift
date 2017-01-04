@@ -9,27 +9,38 @@
 import UIKit
 import Firebase
 
+public enum BuildType: String {
+    case Standard = "standard"
+    case Custom = "custom"
+}
+
 public struct Build: FIRDataObject {
     
     public var key: String = UUID().description
     
     public var ref: FIRDatabaseReference? = nil
-
-    public var scheduledDate: Date
     
+    public var type: BuildType
+
     public var title: String
+    
+    public var quantity: Int
 
     public var assemblyID: String
     
+    public var scheduledDate: Date
+    
     public var partsNeeded = [String: Int]()
 
-    public init?(title: String, partsNeeded: [String: Int], scheduledFor date: Date, withAssembly: String) {
+    public init?(type: BuildType, title: String, quantity: Int, partsNeeded: [String: Int], scheduledFor date: Date, withAssembly: String) {
         
-        guard date >= Date() else {
+        guard Calendar.current.compare(date, to: Date(), toGranularity: .day) != .orderedAscending else {
             return nil
         }
         
+        self.type = type
         self.title = title
+        self.quantity = quantity
         self.scheduledDate = date
         self.assemblyID = withAssembly
         self.partsNeeded = partsNeeded
@@ -39,13 +50,20 @@ public struct Build: FIRDataObject {
     public init?(snapshot: FIRDataSnapshot) {
         
         guard let value = snapshot.value as? [String: Any],
+              let str_type = value[Constants.BuildFields.BType] as? String,
+              let type = BuildType(rawValue: str_type),
+              let quantity = value[Constants.BuildFields.Quantity] as? Int,
               let timestamp = value[Constants.BuildFields.Date] as? Int,
               let uid = value[Constants.BuildFields.AssemblyID] as? String,
               let title = value[Constants.BuildFields.Title] as? String else {
                 return nil
         }
         
+        self.type = type
+        
         self.title = title
+        
+        self.quantity = quantity
 
         scheduledDate = Date(timeIntervalSince1970: TimeInterval(timestamp))
 
@@ -63,7 +81,9 @@ public struct Build: FIRDataObject {
             Constants.BuildFields.AssemblyID    : assemblyID,
             Constants.BuildFields.Date          : scheduledDate.timeIntervalSince1970,
             Constants.BuildFields.PartsNeeded   : partsNeeded,
-            Constants.BuildFields.Title         : title
+            Constants.BuildFields.Title         : title,
+            Constants.BuildFields.BType         : type.rawValue,
+            Constants.BuildFields.Quantity      : quantity,
         ]
     }
 }

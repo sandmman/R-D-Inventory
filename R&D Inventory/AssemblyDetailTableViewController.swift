@@ -10,6 +10,8 @@ import UIKit
 import Eureka
 
 class AssemblyDetailTableViewController: UITableViewController, UIGestureRecognizerDelegate {
+    
+    var project: Project!
 
     var assembly: Assembly? = nil
     
@@ -52,52 +54,10 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
     }
     
     @IBAction func unwindToAssemblyDetail(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.source as? CreateBuildViewController {
-
-            guard let row: DateInlineRow = sourceViewController.form.rowBy(tag: Constants.BuildFields.Date) else {
-                return
-            }
-            
-            guard let title_row: TextRow = sourceViewController.form.rowBy(tag: Constants.BuildFields.Title) else {
-                return
-            }
-
-            guard let date = row.value, let title = title_row.value else {
-                return
-            }
-
-            guard let a = assembly else {
-                return
-            }
-
-            let partsNeeded: [String: Int] = parts.reduce([:]) {
-                
-                self.buildPartDict(dict: $0, part: $1, form: sourceViewController.form)
-            }
-
-            guard let build = Build(title: title, partsNeeded: partsNeeded, scheduledFor: date, withAssembly: a.key) else {
-                return
-            }
-
-            builds.append(build)
+        if let _ = sender.source as? CreateBuildViewController {
             
             reloadData()
-
-            FirebaseDataManager.add(build: build)
         }
-    }
-    
-    private func buildPartDict(dict: [String: Int], part: Part, form: Form) -> [String: Int] {
-        
-        guard let count = (form.rowBy(tag: part.key) as! StepperRow).value else {
-            return dict
-        }
-        
-        var dict = dict
-
-        dict[part.key] = Int(count)
-
-        return dict
     }
     
     private func formatDate(date: Date) -> String {
@@ -105,34 +65,6 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
         formatter.dateStyle = DateFormatter.Style.medium
         
         return formatter.string(from: date)
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        super.prepare(for: segue, sender: sender)
-        
-        guard let identifier = segue.identifier else {
-            return
-        }
-
-        switch identifier {
-        case (Constants.Segues.PartDetail):
-            let viewController = segue.destination as! PartViewController
-            
-            viewController.part = selectedPart
-
-        case Constants.Segues.BuildDetail:
-            let viewController = segue.destination as! BuildDetailViewController
-            
-            viewController.build = selectedBuild
-            viewController.parts = parts
-
-        case Constants.Segues.CreateBuild:
-            let viewController = segue.destination as! CreateBuildViewController
-            
-            viewController.parts = parts
-
-        default: break
-        }
     }
 
     // Table view
@@ -218,6 +150,37 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
             selectedPart = parts[indexPath.row]
             
             performSegue(withIdentifier: Constants.Segues.PartDetail, sender: self)
+        }
+    }
+    
+    // Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        guard let identifier = segue.identifier else {
+            return
+        }
+        
+        switch identifier {
+        case (Constants.Segues.PartDetail):
+            let viewController = segue.destination as! PartViewController
+            
+            viewController.part = selectedPart
+            
+        case Constants.Segues.BuildDetail:
+            let viewController = segue.destination as! BuildDetailViewController
+            
+            viewController.build = selectedBuild
+            viewController.parts = parts
+            
+        case Constants.Segues.CreateBuild:
+            let viewController = segue.destination as! CreateBuildViewController
+            
+            viewController.parts = parts
+            viewController.project = project
+
+        default: break
         }
     }
 }

@@ -41,6 +41,8 @@ struct Constants {
     
     struct BuildFields {
         static let Title = "title"
+        static let Quantity = "quantity"
+        static let BType = "type"
         static let Location = "location"
         static let AssemblyID = "assemblyID"
         static let Date = "date"

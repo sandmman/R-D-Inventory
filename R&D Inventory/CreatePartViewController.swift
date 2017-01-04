@@ -26,7 +26,7 @@ class CreatePartViewController: FormViewController, UITextFieldDelegate {
 
         FirebaseDataManager.add(part: part)
         
-        navigationController?.popViewController(animated: true)        
+        _ = navigationController?.popViewController(animated: true)
     }
     
     private func instantiateForm() {

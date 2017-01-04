@@ -13,7 +13,7 @@ private protocol Mapper {
 
     static func createAssembly(from form: Form) -> Assembly?
 
-    static func createBuild(from form: Form) -> Build?
+    static func createBuild(from form: Form, parts: [Part]) -> Build?
 
     static func createPart(from form: Form) -> Part?
 }
@@ -42,11 +42,50 @@ public class ObjectMapper: Mapper {
         return Part(name: name, uid: uid, manufacturer: manufacturer, leadTime: leadTime, countInAssembly: countInAssembly, countInStock: countInStock, countOnOrder: countOnOrder)
     }
 
-    static func createBuild(from form: Form) -> Build? {
-        return nil
+    static func createBuild(from form: Form, parts: [Part]) -> Build? {
+
+        guard let dateRow: DateInlineRow = form.rowBy(tag: Constants.BuildFields.Date),
+            let quantityRow: IntRow = form.rowBy(tag: Constants.BuildFields.Quantity),
+            let titleRow: TextRow = form.rowBy(tag: Constants.BuildFields.Title),
+            let checkRow: SwitchRow = form.rowBy(tag: Constants.BuildFields.BType),
+            let pushRow: PushRow<Assembly> = form.rowBy(tag: Constants.BuildFields.AssemblyID) else {
+                return nil
+        }
+
+        guard let date = dateRow.value, let title = titleRow.value, let quantity = quantityRow.value, let type_bool = checkRow.value, let assembly = pushRow.value else {
+            return nil
+        }
+        
+        let type = type_bool ? BuildType.Custom : BuildType.Standard
+        
+        var partsNeeded = [String: Int]()
+        
+        for part in parts {
+            if let row = form.rowBy(tag: part.key) as? StepperRow, let value = row.value {
+                partsNeeded[part.key] = Int(value)
+            }
+        }
+        
+        return Build(type: type, title: title, quantity: quantity, partsNeeded: partsNeeded, scheduledFor: date, withAssembly: assembly.key)
     }
 
     static func createAssembly(from form: Form) -> Assembly? {
         return nil
+    }
+}
+
+extension ObjectMapper {
+    
+    internal static func buildPartDict(dict: [String: Int], row: BaseRow, form: Form) -> [String: Int] {
+        
+        /*guard let count = (row as! StepperRow).value else {
+            return dict
+        }
+        
+        var dict = dict
+        
+        dict[row.key] = Int(count)*/
+        
+        return dict
     }
 }

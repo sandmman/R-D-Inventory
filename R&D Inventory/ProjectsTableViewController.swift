@@ -33,7 +33,7 @@ class ProjectsTableViewController: UITableViewController {
 
     private func receivedProject(project: Project) {
         var found = false
-        print("hello", project)
+
         for i in 0..<self.projects.count {
             if project.key == self.projects[i].key {
                 found = true
@@ -103,10 +103,18 @@ class ProjectsTableViewController: UITableViewController {
             return
         }
         
-        guard let tabBarController = segue.destination as? UITabBarController, let navController = tabBarController.viewControllers![1] as? UINavigationController, let vc = navController.topViewController as? AssemblyTableViewController else {
+        guard let tabBarController = segue.destination as? UITabBarController, let navController0 = tabBarController.viewControllers![0] as? UINavigationController, let vc0 = navController0.topViewController as? BuildTableViewController else {
+            return
+        }
+        guard let navController1 = tabBarController.viewControllers![1] as? UINavigationController, let vc1 = navController1.topViewController as? AssemblyTableViewController else {
+            return
+        }
+        guard let navController2 = tabBarController.viewControllers![2] as? UINavigationController, let vc2 = navController2.topViewController as? InventoryTableViewController else {
             return
         }
         
-        vc.project = project
+        vc0.project = project
+        vc1.project = project
+        vc2.project = project
     }
 }

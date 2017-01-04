@@ -33,7 +33,7 @@ class AssemblyTableViewController: UITableViewController {
     
     private func receivedAssembly(assembly: Assembly) {
         var found = false
-        
+
         for i in 0..<self.assemblies.count {
             if assembly.key == self.assemblies[i].key {
                 found = true
@@ -50,20 +50,6 @@ class AssemblyTableViewController: UITableViewController {
     }
     
     private func reloadTable() {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
-
-    private func instantiateHeader() {
-        let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(BuildPartViewController.tappedDone(_:)))
-        button.title = "Add"
-        
-        navigationItem.rightBarButtonItem = button
-        navigationItem.title = "Assemblies"
-    }
-
-    public func onItemsAddedToList() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
@@ -130,6 +116,7 @@ class AssemblyTableViewController: UITableViewController {
             let viewController = segue.destination as! AssemblyDetailTableViewController
             
             viewController.assembly = selectedAssembly
+            viewController.project = project
             
         }
     }

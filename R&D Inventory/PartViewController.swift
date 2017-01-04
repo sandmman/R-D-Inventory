@@ -17,7 +17,7 @@ class PartViewController: UIViewController {
     @IBOutlet weak var numInStockLabel: UILabel!
     @IBOutlet weak var orderLeadTimeLabel: UILabel!
     @IBOutlet weak var numPartsNeededLabel: UILabel!
-    
+
     public var part: Part? = nil
 
     override func viewDidLoad() {

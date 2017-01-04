@@ -12,23 +12,85 @@ import Eureka
 class CreateBuildViewController: FormViewController {
     
     var parts: [Part] = []
+    
+    var project: Project!
+    
+    var assembly: Assembly? = nil
+    
+    var generic = false
+
+    private var assemblies: [Assembly] = []
+    
+    private(set) var newBuild: Build? = nil
+
+    private var partsNeededTag = "Parts Needed"
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        guard let proj = project else {
+            instantiateView()
+            return
+        }
+
+        FirebaseDataManager.getAssemblies(for: proj, onComplete: didReceiveAssembly)
+
+        instantiateView()
+    }
+    
+    private func instantiateView() {
         instantiateForm()
         instantiateDoneButton()
     }
-    
+
+    private func didReceiveAssembly(assembly: Assembly) {
+        assemblies.append(assembly)
+        
+        if let cell: PushRow<Assembly> = form.rowBy(tag: Constants.BuildFields.AssemblyID) {
+            cell.options = assemblies
+            cell.reload()
+        }
+    }
+
     private func instantiateForm() {
         
-        form +++ Section("General")
+        form +++ Section("Please Choose Assembly for Build") {
+                $0.hidden = Condition.function([""], { form in
+                    return !self.generic
+                })
+            }
+            <<< PushRow<Assembly>(Constants.BuildFields.AssemblyID) {
+                $0.title = "Assembly"
+                $0.options = assemblies
+                $0.value = assemblies.count > 0 ? assemblies[0] : nil
+                $0.selectorTitle = "Choose an Assembly!"
+                $0.add(rule: RuleRequired())
+                $0.validationOptions = .validatesOnChangeAfterBlurred
+                $0.displayValueFor  = {
+                    if let t = $0 {
+                        return t.name
+                    }
+                    return nil
+                    }
+                }
+                .onChange { row in
+                
+                    self.updateSection(assembly: row.value)
+                    
+                }
+            +++ Section("General")
             <<< TextRow(Constants.BuildFields.Title) {
                 $0.title = "Name"
                 $0.placeholder = ""
                 $0.add(rule: RuleRequired())
-                $0.validationOptions = .validatesOnChange
-            }
+                $0.validationOptions = .validatesOnChangeAfterBlurred
+            }.onRowValidationChanged(Validator.onValidationChanged)
+            <<< IntRow(Constants.BuildFields.Quantity) {
+                $0.title = "Quantity"
+                $0.placeholder = ""
+                $0.add(rule: RuleRequired())
+                $0.validationOptions = .validatesOnChangeAfterBlurred
+            }.onRowValidationChanged(Validator.onValidationChanged)
             <<< TextRow(Constants.BuildFields.Location) {
                 $0.title = "Location"
                 $0.placeholder = ""
@@ -40,11 +102,12 @@ class CreateBuildViewController: FormViewController {
             <<< SwitchRow("Notification") {
                 $0.title = "Receive Notifications"
             }
-            <<< MultipleSelectorRow(Constants.BuildFields.PartsNeeded) {
-                $0.options = ["c","b","a"]
+            <<< SwitchRow(Constants.BuildFields.BType) {
+                $0.title = "Custom Build?"
+                $0.value = false
             }
     
-        let partsSection = Section("Parts Needed")
+        let partsSection = Section(partsNeededTag) { $0.hidden = "$type == false" }
         
         for part in parts {
             partsSection.append(stepperRow(part: part))
@@ -54,6 +117,33 @@ class CreateBuildViewController: FormViewController {
         
     }
     
+    private func updateSection(assembly: Assembly?) {
+
+        guard let section = form.allSections.last else {
+            return
+        }
+
+        section.removeAll()
+        
+        guard let assembly = assembly else {
+            return
+        }
+
+        FirebaseDataManager.getParts(for: assembly, onComplete: didAddPartToSection)
+    }
+    
+    private func didAddPartToSection(part: Part) {
+        guard let section = form.allSections.last else {
+            return
+        }
+
+        parts.append(part)
+
+        section.append(stepperRow(part: part))
+        
+        section.reload()
+    }
+
     private func stepperRow(part: Part) -> StepperRow {
         return StepperRow(part.key) {
             $0.title = part.name
@@ -63,12 +153,24 @@ class CreateBuildViewController: FormViewController {
 
     private func instantiateDoneButton() {
         let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(CreateBuildViewController.completedForm(_:)))
-        button.title = "Add"
+        button.title = "Save"
         navigationItem.rightBarButtonItem = button
     }
     
     public func completedForm(_ sender: UIBarButtonItem){
-        self.performSegue(withIdentifier: "unwindToAssemblyDetail", sender: self)
+        
+        // Todo Clean this up to work straight from the form without the parts
+        guard let build = ObjectMapper.createBuild(from: form, parts: parts), let proj = project else {
+            return
+        }
+        
+        newBuild = build
+        
+        FirebaseDataManager.add(build: build, to: proj.key)
+
+        let segue = generic ? "unwindToBuildTableViewController" : "unwindToAssemblyDetail"
+
+        self.performSegue(withIdentifier: segue, sender: self)
     }
     
     // Navigation

@@ -181,6 +181,16 @@
 			name = Forms;
 			sourceTree = "<group>";
 		};
+		E30E055F1E1C8D9D0048539B /* Project Views */ = {
+			isa = PBXGroup;
+			children = (
+				E3AFE9BC1E195775008DA196 /* InventoryTableViewController.swift */,
+				E398F1561E136C2200CD91D4 /* AssemblyTableViewController.swift */,
+				E3AFE9BE1E19AB94008DA196 /* BuildTableViewController.swift */,
+			);
+			name = "Project Views";
+			sourceTree = "<group>";
+		};
 		E370B6851E19F0F800C0E349 /* CustomFormFields */ = {
 			isa = PBXGroup;
 			children = (
@@ -303,13 +313,11 @@
 		E3AF6CB41E18036E00AE0947 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				E30E055E1E1C63690048539B /* Forms */,
 				E398F1461E13602E00CD91D4 /* AssemblyDetailTableViewController.swift */,
-				E398F1561E136C2200CD91D4 /* AssemblyTableViewController.swift */,
 				E3AF6CB81E1840EF00AE0947 /* BuildDetailViewController.swift */,
-				E3AFE9BE1E19AB94008DA196 /* BuildTableViewController.swift */,
-				E3AFE9BC1E195775008DA196 /* InventoryTableViewController.swift */,
+				E30E055E1E1C63690048539B /* Forms */,
 				E398F14C1E1363A600CD91D4 /* PartViewController.swift */,
+				E30E055F1E1C8D9D0048539B /* Project Views */,
 				E34DAC0A1E1B477900A93215 /* ProjectsTableViewController.swift */,
 			);
 			name = Controllers;
@@ -716,6 +724,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -766,6 +775,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -795,6 +805,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0672CE23FAA7C122D880215E /* Pods-R&D Inventory.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "R&D Inventory/R&D Inventory.entitlements";
 				DEVELOPMENT_TEAM = HNACG3848H;
@@ -810,6 +821,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DDAB533742B9B435D147DCC3 /* Pods-R&D Inventory.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "R&D Inventory/R&D Inventory.entitlements";
 				DEVELOPMENT_TEAM = HNACG3848H;

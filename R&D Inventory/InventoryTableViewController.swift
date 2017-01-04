@@ -13,6 +13,8 @@ class InventoryTableViewController: UITableViewController {
     var inventory: [Part] = []
     
     var listener: ListenerHandler!
+    
+    var project: Project!
 
     override func viewDidLoad() {
         super.viewDidLoad()
