@@ -27,6 +27,9 @@ struct Constants {
         static let CreateBuild = "CreateBuildSegue"
         static let CreatePart = "CreatePartSegue"
         static let ProjectDetail = "ProjectDetailSegue"
+        static let PageController = "PageControllerSegue"
+        static let TabBarController = "TabBarControllerSegue"
+        static let UnwindToProjectDetail = "UnwindToProjectDetailSegue"
     }
     
     struct PartFields {

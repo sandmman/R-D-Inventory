@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BuildTableViewController: UITableViewController {
+class BuildTableViewController: UITableViewController, TabBarViewController {
     
     var project: Project!
     
@@ -28,24 +28,20 @@ class BuildTableViewController: UITableViewController {
     override func viewDidDisappear(_ animated: Bool) {
         listener.removeListeners()
     }
+    
+    public func didChangeProject(project: Project) {
+        self.project = project
+        builds = []
+    }
 
     private func didReceiveBuild(build: Build) {
-        // MARK -- improve efficiency
-        var found = false
-    
-        for i in 0..<builds.count {
-            if build.key == self.builds[i].key {
-                found = true
-                self.builds[i] = build
-                break
-            }
-        }
-    
-        if !found {
+        if let index = builds.index(of: build) {
+            self.builds[index] = build
+        } else {
             self.builds.append(build)
         }
-    
-        self.reloadData()
+        
+        self.reloadTable()
     }
     // MARK: - Table view data source
 
@@ -78,7 +74,7 @@ class BuildTableViewController: UITableViewController {
         }
     }
 
-    func reloadData() {
+    func reloadTable() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
@@ -95,7 +91,7 @@ class BuildTableViewController: UITableViewController {
             
             builds.append(build)
             
-            reloadData()
+            reloadTable()
         }
     }
 

@@ -15,12 +15,6 @@ class CreateProjectViewController: FormViewController {
     
     @IBOutlet weak var saveProjectButton: UIBarButtonItem!
     
-    @IBOutlet weak var cancelButton: UIBarButtonItem!
-    
-    @IBAction func cancel(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
-    }
-    
     @IBAction func save(_ sender: UIBarButtonItem) {
         guard sender === saveProjectButton else {
             return
@@ -37,7 +31,7 @@ class CreateProjectViewController: FormViewController {
         
         FirebaseDataManager.add(project: proj)
         
-        dismiss(animated: true, completion: nil)
+        _ = navigationController?.popViewController(animated: true)
     }
     
     override func viewDidLoad() {

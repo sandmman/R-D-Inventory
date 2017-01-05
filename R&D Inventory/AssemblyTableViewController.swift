@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AssemblyTableViewController: UITableViewController {
+class AssemblyTableViewController: UITableViewController, TabBarViewController {
     
     var project: Project!
     
@@ -17,32 +17,39 @@ class AssemblyTableViewController: UITableViewController {
     var selectedAssembly: Assembly? = nil
     
     var assemblies = [Assembly]()
+    
+    @IBOutlet weak var AddAssemblyButton: UIBarButtonItem!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        instantiateDoneButton()
     }
     
+    public func didChangeProject(project: Project) {
+        self.project = project
+        assemblies = []
+    }
+
+    private func instantiateDoneButton() {
+        let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(BuildPartViewController.tappedDone(_:)))
+        button.title = "Done"
+        navigationItem.rightBarButtonItem = button
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         listener = ListenerHandler()
-        listener.listenForAssemblies(for: project, onComplete: receivedAssembly)
+        listener.listenForAssemblies(for: project, onComplete: didReceiveAssembly)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         listener.removeListeners()
     }
     
-    private func receivedAssembly(assembly: Assembly) {
-        var found = false
-
-        for i in 0..<self.assemblies.count {
-            if assembly.key == self.assemblies[i].key {
-                found = true
-                self.assemblies[i] = assembly
-                break
-            }
-        }
-        
-        if !found {
+    private func didReceiveAssembly(assembly: Assembly) {
+        if let index = assemblies.index(of: assembly) {
+            self.assemblies[index] = assembly
+        } else {
             self.assemblies.append(assembly)
         }
         

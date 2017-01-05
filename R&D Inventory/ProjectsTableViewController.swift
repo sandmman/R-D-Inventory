@@ -17,6 +17,10 @@ class ProjectsTableViewController: UITableViewController {
     var selectedProject: Project? = nil
     
     var listener: ListenerHandler!
+    
+    @IBAction func cancel(sender: UIButton) {
+        _ = navigationController?.popViewController(animated: true)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,25 +28,17 @@ class ProjectsTableViewController: UITableViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         listener = ListenerHandler()
-        listener.listenForProjects(onComplete: receivedProject)
+        listener.listenForProjects(onComplete: didReceiveProject)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         listener.removeListeners()
     }
 
-    private func receivedProject(project: Project) {
-        var found = false
-
-        for i in 0..<self.projects.count {
-            if project.key == self.projects[i].key {
-                found = true
-                self.projects[i] = project
-                break
-            }
-        }
-        
-        if !found {
+    private func didReceiveProject(project: Project) {
+        if let index = projects.index(of: project) {
+            self.projects[index] = project
+        } else {
             self.projects.append(project)
         }
         
@@ -93,28 +89,11 @@ class ProjectsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         selectedProject = projects[indexPath.row]
-
-        performSegue(withIdentifier: Constants.Segues.ProjectDetail, sender: nil)
+        
+        performSegue(withIdentifier: Constants.Segues.UnwindToProjectDetail, sender: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        guard let project = selectedProject else {
-            return
-        }
-        
-        guard let tabBarController = segue.destination as? UITabBarController, let navController0 = tabBarController.viewControllers![0] as? UINavigationController, let vc0 = navController0.topViewController as? BuildTableViewController else {
-            return
-        }
-        guard let navController1 = tabBarController.viewControllers![1] as? UINavigationController, let vc1 = navController1.topViewController as? AssemblyTableViewController else {
-            return
-        }
-        guard let navController2 = tabBarController.viewControllers![2] as? UINavigationController, let vc2 = navController2.topViewController as? InventoryTableViewController else {
-            return
-        }
-        
-        vc0.project = project
-        vc1.project = project
-        vc2.project = project
+
     }
 }

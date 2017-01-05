@@ -8,9 +8,9 @@
 
 import UIKit
 
-class InventoryTableViewController: UITableViewController {
+class InventoryTableViewController: UITableViewController, TabBarViewController {
     
-    var inventory: [Part] = []
+    var inventory = [Part]()
     
     var listener: ListenerHandler!
     
@@ -25,7 +25,7 @@ class InventoryTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         listener = ListenerHandler()
-        listener.listenForParts(onComplete: receivedPart)
+        listener.listenForParts(onComplete: didReceivedPart)
 
     }
     
@@ -34,25 +34,22 @@ class InventoryTableViewController: UITableViewController {
         
         listener.removeListeners()
     }
-    
+
+    public func didChangeProject(project: Project) {
+        self.project = project
+        inventory = []
+    }
+
     private func reloadTable() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
     }
     
-    private func receivedPart(part: Part) {
-        var found = false
-        
-        for i in 0..<self.inventory.count {
-            if part.key == self.inventory[i].key {
-                found = true
-                self.inventory[i] = part
-                break
-            }
-        }
-        
-        if !found {
+    private func didReceivedPart(part: Part) {
+        if let index = inventory.index(of: part) {
+            self.inventory[index] = part
+        } else {
             self.inventory.append(part)
         }
         

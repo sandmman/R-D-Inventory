@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Bf3-Tz-b9F">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+    </dependencies>
+    <scenes>
+        <!--My Page View Controller-->
+        <scene sceneID="MhT-2w-8ZW">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" modalPresentationStyle="currentContext" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Bf3-Tz-b9F" customClass="MyPageViewController" customModule="R_D_Inventory" customModuleProvider="target" sceneMemberID="viewController">
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                </pageViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ru7-DP-K5p" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-383" y="-1912"/>
+        </scene>
+        <!--Assemblies-->
+        <scene sceneID="r1r-jN-edF">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Assemblies" id="xWa-pX-DJY" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="70i-Sb-E4D" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="158" y="-1969"/>
+        </scene>
+        <!--Builds-->
+        <scene sceneID="d27-Mh-tEo">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Builds" id="KGZ-BL-Zf0" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jrz-ov-Qpp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="131" y="-1928"/>
+        </scene>
+        <!--Inventory-->
+        <scene sceneID="08j-21-Y3z">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Inventory" id="UXc-Dd-hGV" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nkr-mL-KUZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="147" y="-1884"/>
+        </scene>
+    </scenes>
+</document>

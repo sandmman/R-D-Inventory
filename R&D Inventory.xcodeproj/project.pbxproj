@@ -19,6 +19,15 @@
 		E34DAC0D1E1B48A000A93215 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34DAC0C1E1B48A000A93215 /* Project.swift */; };
 		E34FC4931E16B31F0028D36C /* PartRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34FC4921E16B31F0028D36C /* PartRow.swift */; };
 		E34FC4951E16B4E50028D36C /* CreateAssemblyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34FC4941E16B4E50028D36C /* CreateAssemblyViewController.swift */; };
+		E36412081E1D9C0200F4A5A2 /* Project.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E36412071E1D9C0200F4A5A2 /* Project.storyboard */; };
+		E364120A1E1D9C7600F4A5A2 /* Inventory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E36412091E1D9C7600F4A5A2 /* Inventory.storyboard */; };
+		E364120E1E1D9CB200F4A5A2 /* Assembly.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E364120D1E1D9CB200F4A5A2 /* Assembly.storyboard */; };
+		E36412141E1D9D7100F4A5A2 /* Builds.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E36412131E1D9D7100F4A5A2 /* Builds.storyboard */; };
+		E36412161E1D9DD300F4A5A2 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E36412151E1D9DD300F4A5A2 /* TabBar.storyboard */; };
+		E36412181E1DA9AF00F4A5A2 /* Assemblies.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E36412171E1DA9AF00F4A5A2 /* Assemblies.storyboard */; };
+		E364121A1E1DB77A00F4A5A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E36412191E1DB77A00F4A5A2 /* Main.storyboard */; };
+		E364121C1E1DE99E00F4A5A2 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E364121B1E1DE99E00F4A5A2 /* PageViewController.swift */; };
+		E364121E1E1DF13C00F4A5A2 /* ProjectPageView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E364121D1E1DF13C00F4A5A2 /* ProjectPageView.storyboard */; };
 		E370B6871E19F13B00C0E349 /* RegexRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E370B6861E19F13B00C0E349 /* RegexRule.swift */; };
 		E398F1191E1357E300CD91D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F1181E1357E300CD91D4 /* AppDelegate.swift */; };
 		E398F1201E1357E300CD91D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E398F11F1E1357E300CD91D4 /* Assets.xcassets */; };
@@ -32,7 +41,6 @@
 		E398F1531E13684500CD91D4 /* Part.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F1521E13684500CD91D4 /* Part.swift */; };
 		E398F1551E136A6500CD91D4 /* Assembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F1541E136A6500CD91D4 /* Assembly.swift */; };
 		E398F1571E136C2200CD91D4 /* AssemblyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F1561E136C2200CD91D4 /* AssemblyTableViewController.swift */; };
-		E398F1591E15A66400CD91D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E398F1581E15A66400CD91D4 /* Main.storyboard */; };
 		E398F15B1E15B0AF00CD91D4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E398F15A1E15B0AF00CD91D4 /* GoogleService-Info.plist */; };
 		E398F15D1E15B28300CD91D4 /* FirebaseDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F15C1E15B28300CD91D4 /* FirebaseDataManager.swift */; };
 		E3AF6CB01E1762E000AE0947 /* Build.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AF6CAF1E1762E000AE0947 /* Build.swift */; };
@@ -43,8 +51,10 @@
 		E3AFE9C51E19B0EB008DA196 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AFE9C41E19B0EB008DA196 /* DataManager.swift */; };
 		E3AFE9C71E19B45B008DA196 /* CreatePartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AFE9C61E19B45B008DA196 /* CreatePartViewController.swift */; };
 		E3AFE9C91E19B9B3008DA196 /* ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AFE9C81E19B9B3008DA196 /* ObjectMapper.swift */; };
+		E3E080B01E1DFF1D00455D15 /* ProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E080AF1E1DFF1D00455D15 /* ProjectViewController.swift */; };
 		E3ECCE931E15B662009C936D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ECCE921E15B662009C936D /* Constants.swift */; };
 		E3ECCE9A1E15D0DC009C936D /* FIRDataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ECCE991E15D0DC009C936D /* FIRDataObject.swift */; };
+		E3FD60611E1E0F1200E614EE /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FD60601E1E0F1200E614EE /* TabBarViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +93,15 @@
 		E34DAC0C1E1B48A000A93215 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		E34FC4921E16B31F0028D36C /* PartRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartRow.swift; sourceTree = "<group>"; };
 		E34FC4941E16B4E50028D36C /* CreateAssemblyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CreateAssemblyViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		E36412071E1D9C0200F4A5A2 /* Project.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Project.storyboard; sourceTree = "<group>"; };
+		E36412091E1D9C7600F4A5A2 /* Inventory.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Inventory.storyboard; sourceTree = "<group>"; };
+		E364120D1E1D9CB200F4A5A2 /* Assembly.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Assembly.storyboard; sourceTree = "<group>"; };
+		E36412131E1D9D7100F4A5A2 /* Builds.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Builds.storyboard; sourceTree = "<group>"; };
+		E36412151E1D9DD300F4A5A2 /* TabBar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
+		E36412171E1DA9AF00F4A5A2 /* Assemblies.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Assemblies.storyboard; sourceTree = "<group>"; };
+		E36412191E1DB77A00F4A5A2 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		E364121B1E1DE99E00F4A5A2 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		E364121D1E1DF13C00F4A5A2 /* ProjectPageView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProjectPageView.storyboard; sourceTree = "<group>"; };
 		E370B6861E19F13B00C0E349 /* RegexRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexRule.swift; sourceTree = "<group>"; };
 		E398F1151E1357E300CD91D4 /* R&D Inventory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "R&D Inventory.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E398F1181E1357E300CD91D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -102,7 +121,6 @@
 		E398F1521E13684500CD91D4 /* Part.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Part.swift; sourceTree = "<group>"; };
 		E398F1541E136A6500CD91D4 /* Assembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
 		E398F1561E136C2200CD91D4 /* AssemblyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AssemblyTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		E398F1581E15A66400CD91D4 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../../../../.Trash/Main.storyboard; sourceTree = "<group>"; };
 		E398F15A1E15B0AF00CD91D4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E398F15C1E15B28300CD91D4 /* FirebaseDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseDataManager.swift; sourceTree = "<group>"; };
 		E3AF6CAF1E1762E000AE0947 /* Build.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Build.swift; sourceTree = "<group>"; };
@@ -113,9 +131,11 @@
 		E3AFE9C41E19B0EB008DA196 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		E3AFE9C61E19B45B008DA196 /* CreatePartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CreatePartViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E3AFE9C81E19B9B3008DA196 /* ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ObjectMapper.swift; path = "R&D Inventory/ObjectMapper.swift"; sourceTree = "<group>"; };
+		E3E080AF1E1DFF1D00455D15 /* ProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectViewController.swift; sourceTree = "<group>"; };
 		E3ECCE921E15B662009C936D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = "R&D Inventory/Constants.swift"; sourceTree = "<group>"; };
 		E3ECCE961E15C98A009C936D /* R&D Inventory.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "R&D Inventory.entitlements"; sourceTree = "<group>"; };
 		E3ECCE991E15D0DC009C936D /* FIRDataObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIRDataObject.swift; sourceTree = "<group>"; };
+		E3FD60601E1E0F1200E614EE /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,14 +201,27 @@
 			name = Forms;
 			sourceTree = "<group>";
 		};
-		E30E055F1E1C8D9D0048539B /* Project Views */ = {
+		E30E055F1E1C8D9D0048539B /* Table Views */ = {
 			isa = PBXGroup;
 			children = (
+				E34DAC0A1E1B477900A93215 /* ProjectsTableViewController.swift */,
 				E3AFE9BC1E195775008DA196 /* InventoryTableViewController.swift */,
 				E398F1561E136C2200CD91D4 /* AssemblyTableViewController.swift */,
 				E3AFE9BE1E19AB94008DA196 /* BuildTableViewController.swift */,
+				E3FD60601E1E0F1200E614EE /* TabBarViewController.swift */,
 			);
-			name = "Project Views";
+			name = "Table Views";
+			sourceTree = "<group>";
+		};
+		E364121F1E1DFB7300F4A5A2 /* Detail Views */ = {
+			isa = PBXGroup;
+			children = (
+				E398F1461E13602E00CD91D4 /* AssemblyDetailTableViewController.swift */,
+				E3AF6CB81E1840EF00AE0947 /* BuildDetailViewController.swift */,
+				E398F14C1E1363A600CD91D4 /* PartViewController.swift */,
+				E3E080AF1E1DFF1D00455D15 /* ProjectViewController.swift */,
+			);
+			name = "Detail Views";
 			sourceTree = "<group>";
 		};
 		E370B6851E19F0F800C0E349 /* CustomFormFields */ = {
@@ -313,12 +346,10 @@
 		E3AF6CB41E18036E00AE0947 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				E398F1461E13602E00CD91D4 /* AssemblyDetailTableViewController.swift */,
-				E3AF6CB81E1840EF00AE0947 /* BuildDetailViewController.swift */,
+				E364121F1E1DFB7300F4A5A2 /* Detail Views */,
 				E30E055E1E1C63690048539B /* Forms */,
-				E398F14C1E1363A600CD91D4 /* PartViewController.swift */,
-				E30E055F1E1C8D9D0048539B /* Project Views */,
-				E34DAC0A1E1B477900A93215 /* ProjectsTableViewController.swift */,
+				E30E055F1E1C8D9D0048539B /* Table Views */,
+				E364121B1E1DE99E00F4A5A2 /* PageViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -336,7 +367,14 @@
 			isa = PBXGroup;
 			children = (
 				E398F1211E1357E300CD91D4 /* LaunchScreen.storyboard */,
-				E398F1581E15A66400CD91D4 /* Main.storyboard */,
+				E36412191E1DB77A00F4A5A2 /* Main.storyboard */,
+				E36412151E1D9DD300F4A5A2 /* TabBar.storyboard */,
+				E364121D1E1DF13C00F4A5A2 /* ProjectPageView.storyboard */,
+				E36412131E1D9D7100F4A5A2 /* Builds.storyboard */,
+				E364120D1E1D9CB200F4A5A2 /* Assembly.storyboard */,
+				E36412171E1DA9AF00F4A5A2 /* Assemblies.storyboard */,
+				E36412091E1D9C7600F4A5A2 /* Inventory.storyboard */,
+				E36412071E1D9C0200F4A5A2 /* Project.storyboard */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -465,10 +503,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E398F1591E15A66400CD91D4 /* Main.storyboard in Resources */,
+				E36412161E1D9DD300F4A5A2 /* TabBar.storyboard in Resources */,
+				E36412141E1D9D7100F4A5A2 /* Builds.storyboard in Resources */,
 				E398F15B1E15B0AF00CD91D4 /* GoogleService-Info.plist in Resources */,
+				E36412081E1D9C0200F4A5A2 /* Project.storyboard in Resources */,
+				E364121A1E1DB77A00F4A5A2 /* Main.storyboard in Resources */,
+				E364120E1E1D9CB200F4A5A2 /* Assembly.storyboard in Resources */,
+				E36412181E1DA9AF00F4A5A2 /* Assemblies.storyboard in Resources */,
 				E398F1231E1357E300CD91D4 /* LaunchScreen.storyboard in Resources */,
 				E398F1201E1357E300CD91D4 /* Assets.xcassets in Resources */,
+				E364121E1E1DF13C00F4A5A2 /* ProjectPageView.storyboard in Resources */,
+				E364120A1E1D9C7600F4A5A2 /* Inventory.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -652,14 +697,17 @@
 				E3AF6CB91E1840EF00AE0947 /* BuildDetailViewController.swift in Sources */,
 				E30E055D1E1C61A40048539B /* CreateProjectViewController.swift in Sources */,
 				E34DAC0D1E1B48A000A93215 /* Project.swift in Sources */,
+				E364121C1E1DE99E00F4A5A2 /* PageViewController.swift in Sources */,
 				E34FC4931E16B31F0028D36C /* PartRow.swift in Sources */,
 				E398F15D1E15B28300CD91D4 /* FirebaseDataManager.swift in Sources */,
 				E3AF6CB71E18135E00AE0947 /* CreateBuildViewController.swift in Sources */,
 				E34DAC071E1B255D00A93215 /* PartIDCell.swift in Sources */,
 				E398F1531E13684500CD91D4 /* Part.swift in Sources */,
+				E3FD60611E1E0F1200E614EE /* TabBarViewController.swift in Sources */,
 				E370B6871E19F13B00C0E349 /* RegexRule.swift in Sources */,
 				E3AFE9BD1E195775008DA196 /* InventoryTableViewController.swift in Sources */,
 				E398F1191E1357E300CD91D4 /* AppDelegate.swift in Sources */,
+				E3E080B01E1DFF1D00455D15 /* ProjectViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

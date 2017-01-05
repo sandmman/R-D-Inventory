@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ba6-Hm-N9B">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Assemblies-->
+        <scene sceneID="qsF-j7-Bk4">
+            <objects>
+                <navigationController id="ba6-Hm-N9B" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Assemblies" id="C6u-BH-oQ2"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="v3Q-hh-rAN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="fks-MT-Urc" kind="relationship" relationship="rootViewController" id="XSg-z2-CX7"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xyH-1C-sB2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-710" y="81"/>
+        </scene>
+        <!--Assembly Table View Controller-->
+        <scene sceneID="cb6-ko-UkU">
+            <objects>
+                <tableViewController storyboardIdentifier="AssemblyTableViewController" id="fks-MT-Urc" customClass="AssemblyTableViewController" customModule="R_D_Inventory" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Yzh-B5-CjL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="AssemblyTableViewCell" textLabel="JuT-En-XCh" detailTextLabel="SbD-eu-K0z" style="IBUITableViewCellStyleSubtitle" id="wgj-q2-Bi1">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wgj-q2-Bi1" id="bsZ-K7-2BN">
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JuT-En-XCh">
+                                            <rect key="frame" x="15" y="4" width="34" height="21"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SbD-eu-K0z">
+                                            <rect key="frame" x="15" y="25" width="44" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="fks-MT-Urc" id="Cp1-gK-A16"/>
+                            <outlet property="delegate" destination="fks-MT-Urc" id="bEZ-OX-oLr"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="hs7-h3-rVy">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="CJV-i7-L1v"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="AddAssemblyButton" destination="CJV-i7-L1v" id="pdt-d4-Z2Z"/>
+                        <segue destination="AGk-kh-kMX" kind="show" identifier="AssemblyDetailSegue" id="N5u-u7-J4d"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="u2n-D6-tpj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="78" y="82"/>
+        </scene>
+        <!--Assembly-->
+        <scene sceneID="5aI-U4-1VL">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Assembly" id="AGk-kh-kMX" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DHP-Hw-2l2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="684" y="81"/>
+        </scene>
+    </scenes>
+</document>
