@@ -39,6 +39,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.85490196080000003" green="0.92156862750000001" blue="0.61568627450000002" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <navigationItem key="navigationItem" id="SpY-ry-PL3"/>
                     <connections>
                         <outlet property="signInButton" destination="vW0-6i-vSY" id="wpJ-2b-891"/>
                         <segue destination="dRs-6S-pan" kind="show" identifier="SignInToHomeSegue" id="Z3W-5r-kKg"/>

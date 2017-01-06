@@ -59,13 +59,6 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
             reloadData()
         }
     }
-    
-    private func formatDate(date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = DateFormatter.Style.medium
-        
-        return formatter.string(from: date)
-    }
 
     // Table view
     func reloadData() {
@@ -125,7 +118,7 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
         
         if indexPath.section == 0 {
             cell.textLabel?.text = builds[indexPath.row].title
-            cell.detailTextLabel?.text = formatDate(date: builds[indexPath.row].scheduledDate)
+            cell.detailTextLabel?.text = builds[indexPath.row].displayDate
             
         } else {
             cell.textLabel?.text = parts[indexPath.row].name

@@ -15,7 +15,7 @@ class CurrentUser: NSObject {
     fileprivate static let fullNameKey = "user_full_name"
     fileprivate static let emailKey = "user_email"
 
-    /// Grab facebook user id of user from UserDefaults
+    /// Grab google user id of user from UserDefaults
     class var googleUserId: String {
         get {
             if let userId = UserDefaults.standard.object(forKey: googleUserIDKey) as? String {

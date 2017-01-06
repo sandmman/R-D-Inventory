@@ -57,7 +57,7 @@ class BuildTableViewController: UITableViewController, TabBarViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BuildTableViewCell", for: indexPath)
 
         cell.textLabel?.text = builds[indexPath.row].title
-        cell.detailTextLabel?.text = builds[indexPath.row].scheduledDate.description
+        cell.detailTextLabel?.text = builds[indexPath.row].displayDate
 
         return cell
     }

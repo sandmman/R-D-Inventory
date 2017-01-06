@@ -8,19 +8,23 @@
 
 import UIKit
 
-class ProjectViewController: UIViewController {
+class ProjectViewController: UIViewController, TabBarViewController {
     
+    @IBOutlet var projectLabel: UILabel!
+
     var project: Project!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        projectLabel.text = "Project Name"
     }
+    
+    public func didChangeProject(project: Project) {
+        self.project = project
+        
+        projectLabel.text = project.name
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func unwindToTabBarController(sender: UIStoryboardSegue) {
@@ -47,9 +51,11 @@ class ProjectViewController: UIViewController {
                     return
             }
             
-            vc0.project = project
-            vc1.project = project
-            vc2.project = project
+            vc0.didChangeProject(project: project)
+            vc1.didChangeProject(project: project)
+            vc2.didChangeProject(project: project)
+            
+            didChangeProject(project: project)
         }
     }
 }

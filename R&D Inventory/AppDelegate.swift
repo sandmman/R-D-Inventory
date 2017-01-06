@@ -11,7 +11,7 @@ import Firebase
 import GoogleSignIn
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSignInUIDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 
     var window: UIWindow?
 
@@ -74,9 +74,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         let credential = FIRGoogleAuthProvider.credential(withIDToken: authentication.idToken,
                                                                      accessToken: authentication.accessToken)
         
-        FIRAuth.auth()?.signIn(with: credential) { (user, error) in
+        FIRAuth.auth()?.signIn(with: credential) { (usr, error) in
             
-            guard let user = user else {
+            guard usr != nil else {
                 return
             }
 
@@ -86,10 +86,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
 
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
                 withError error: Error!) {
-        // Perform any operations when the user disconnects from app here.
-        // ...
+
+        CurrentUser.logOut()
     }
     
+    private func onSignInApproved(user: GIDGoogleUser) {
+        if let name = user.profile.name {
+            CurrentUser.fullName = name
+        }
+        if let email = user.profile.email {
+            CurrentUser.email = email
+        }
+        if let idToken = user.authentication.idToken {
+            CurrentUser.googleUserId = idToken
+        }
+        navigateToHomeScreen()
+    }
+
     private func onSignInApproved(user: FIRUser) {
         if let name = user.displayName {
             CurrentUser.fullName = name
@@ -97,9 +110,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
         if let email = user.email {
             CurrentUser.email = email
         }
-        
+
         navigateToHomeScreen()
     }
+
     private func navigateToHomeScreen() {
        
         let storyboard:UIStoryboard = UIStoryboard(name: "TabBar", bundle: nil)
@@ -108,6 +122,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSig
 
         self.window?.rootViewController = navigationController
     }
-
 }
 

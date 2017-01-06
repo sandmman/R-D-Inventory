@@ -8,34 +8,34 @@
 
 import UIKit
 
-import UIKit
-
 protocol PartTableViewCellDelegate {
-    func didIncrementCellAtIndexPath(indexPath: IndexPath)
-    func didDecrementCellAtIndexPath(indexPath: IndexPath)
+    func didChangeQuantityInStock(at indexPath: IndexPath)
 }
 
-class PartTableViewCell: UITableViewCell {
+class PartTableViewCell: UITableViewCell, UITextFieldDelegate {
+
+    @IBOutlet var nameTextLabel: UILabel!
+
+    @IBOutlet var manufacturerTextLabel: UILabel!
+
+    @IBOutlet var textField: UITextField!
+
+    public var indexPath: IndexPath?
     
-    @IBOutlet var partCountLabel: UILabel!
-    
-    var delegate: PartTableViewCellDelegate?
-    var indexPath: IndexPath?
-    
-    @IBAction func incrementButtonPressed(sender: UIButton) {
-        if let indexPath = indexPath, let delegate = delegate {
-            delegate.didIncrementCellAtIndexPath(indexPath: indexPath)
-        }
-    }
-    @IBAction func decrementButtonPressed(sender: UIButton) {
-        if let indexPath = indexPath, let delegate = delegate {
-            delegate.didDecrementCellAtIndexPath(indexPath: indexPath)
+    public var delegate: PartTableViewCellDelegate?
+
+    public var count: Int! {
+        didSet {
+            textField.text = nil
+            textField.placeholder = String(count)
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        textField.delegate = self
+
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -44,4 +44,21 @@ class PartTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let allowedCharacters = CharacterSet.decimalDigits
+        let characterSet = CharacterSet(charactersIn: string)
+        return allowedCharacters.isSuperset(of: characterSet)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let indexPath = indexPath, let delegate = delegate {
+            guard let str = textField.text, !str.isEmpty else {
+                return
+            }
+            
+            count = Int(str)!
+            
+            delegate.didChangeQuantityInStock(at: indexPath)
+        }
+    }
 }

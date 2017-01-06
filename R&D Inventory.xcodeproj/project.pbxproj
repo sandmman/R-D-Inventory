@@ -274,17 +274,17 @@
 		E398F1171E1357E300CD91D4 /* R&D Inventory */ = {
 			isa = PBXGroup;
 			children = (
-				E384849D1E1AFC3A007E3DE3 /* Helpers */,
-				E384849B1E1AFC06007E3DE3 /* Views */,
 				E398F1181E1357E300CD91D4 /* AppDelegate.swift */,
 				E398F11F1E1357E300CD91D4 /* Assets.xcassets */,
 				E3AF6CB31E18033F00AE0947 /* Configuration */,
 				E3AF6CB41E18036E00AE0947 /* Controllers */,
 				E370B6851E19F0F800C0E349 /* CustomFormFields */,
-				E3AF6CB21E18032500AE0947 /* Stores */,
+				E384849D1E1AFC3A007E3DE3 /* Helpers */,
 				E3AF6CB11E18031A00AE0947 /* Models */,
+				E3AF6CB21E18032500AE0947 /* Stores */,
 				E3AFE9C01E19AC82008DA196 /* Storyboards */,
 				E3AF6CB51E1808A300AE0947 /* TableViewCells */,
+				E384849B1E1AFC06007E3DE3 /* Views */,
 			);
 			path = "R&D Inventory";
 			sourceTree = "<group>";

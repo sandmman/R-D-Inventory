@@ -8,7 +8,7 @@
 
 import UIKit
 
-class InventoryTableViewController: UITableViewController, TabBarViewController {
+class InventoryTableViewController: UITableViewController, TabBarViewController, PartTableViewCellDelegate {
     
     var inventory = [Part]()
     
@@ -55,6 +55,15 @@ class InventoryTableViewController: UITableViewController, TabBarViewController 
         
         self.reloadTable()
     }
+    
+    public func didChangeQuantityInStock(at indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? PartTableViewCell {
+            let value = cell.count
+            var part = inventory[indexPath.row]
+            part.countInStock = value!
+            FirebaseDataManager.update(object: part)
+        }
+    }
 
     // MARK: - Table view data source
 
@@ -69,9 +78,11 @@ class InventoryTableViewController: UITableViewController, TabBarViewController 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.Part, for: indexPath) as! PartTableViewCell
 
-        cell.textLabel?.text = inventory[indexPath.row].name
-        cell.detailTextLabel?.text = String(inventory[indexPath.row].countInStock)
-        cell.partCountLabel.text = String(inventory[indexPath.row].countInStock)
+        cell.nameTextLabel?.text = inventory[indexPath.row].name
+        cell.manufacturerTextLabel?.text = inventory[indexPath.row].manufacturer
+        cell.count = inventory[indexPath.row].countInStock
+        cell.indexPath = indexPath
+        cell.delegate = self
 
         return cell
     }

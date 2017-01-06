@@ -30,6 +30,13 @@ public struct Build: FIRDataObject {
     
     public var scheduledDate: Date
     
+    public var displayDate: String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .full
+        
+        return formatter.string(from: scheduledDate)
+    }
+    
     public var partsNeeded = [String: Int]()
 
     public init?(type: BuildType, title: String, quantity: Int, partsNeeded: [String: Int], scheduledFor date: Date, withAssembly: String) {
@@ -75,7 +82,7 @@ public struct Build: FIRDataObject {
         
         ref = snapshot.ref        
     }
-    
+
     public func toAnyObject() -> Any {
         return [
             Constants.BuildFields.AssemblyID    : assemblyID,

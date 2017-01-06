@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import GoogleSignIn
 
-class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate {
+class LoginViewController: UIViewController, GIDSignInUIDelegate {
 
     
     @IBOutlet weak var signInButton: GIDSignInButton!
@@ -27,40 +27,16 @@ class LoginViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDeleg
         super.viewDidLoad()
         
         GIDSignIn.sharedInstance().uiDelegate = self
-        GIDSignIn.sharedInstance().signIn()
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
-        if let error = error {
-            print("Sign In Error", error)
-            return
+    
+    private func onSignInApproved(user: FIRUser) {
+        if let name = user.displayName {
+            CurrentUser.fullName = name
+        }
+        if let email = user.email {
+            CurrentUser.email = email
         }
         
-        guard let authentication = user.authentication else { return }
-        let credential = FIRGoogleAuthProvider.credential(withIDToken: authentication.idToken,
-                                                          accessToken: authentication.accessToken)
-    
         performSegue(withIdentifier: Constants.Segues.SignInToHome, sender: nil)
-    }
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        print("Signed Out")
-    }
-    
-    // Present a view that prompts the user to sign in with Google
-    func sign(_ signIn: GIDSignIn!,
-              present viewController: UIViewController!) {
-        print("Sign in!")
-        self.present(self, animated: true, completion: nil)
-    }
-    
-    // Dismiss the "Sign in with Google" view
-    func sign(_ signIn: GIDSignIn!,
-              dismiss viewController: UIViewController!) {
-        self.dismiss(animated: true, completion: nil)
-        print("Sign in dismissed")
     }
 }

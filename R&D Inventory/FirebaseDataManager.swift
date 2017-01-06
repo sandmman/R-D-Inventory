@@ -99,9 +99,13 @@ extension FirebaseDataManager: DataManager {
     public static func update(build: Build) {
         
     }
-
+    
     public static func update(part: Part) {
         
+    }
+
+    public static func update<T: FIRDataObject>(object: T) {
+        object.ref?.updateChildValues(object.toAnyObject() as! [AnyHashable : Any])
     }
     
     public static func update(project: Project) {
