@@ -13,7 +13,7 @@
         <scene sceneID="qsF-j7-Bk4">
             <objects>
                 <navigationController id="ba6-Hm-N9B" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Assemblies" id="C6u-BH-oQ2"/>
+                    <tabBarItem key="tabBarItem" title="Assemblies" image="Assemblies" selectedImage="Assemblies" id="C6u-BH-oQ2"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="v3Q-hh-rAN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -87,4 +87,7 @@
             <point key="canvasLocation" x="684" y="81"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Assemblies" width="15" height="15"/>
+    </resources>
 </document>

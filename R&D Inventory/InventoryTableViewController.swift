@@ -23,9 +23,9 @@ class InventoryTableViewController: UITableViewController, TabBarViewController 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         listener = ListenerHandler()
-        listener.listenForParts(onComplete: didReceivedPart)
+        listener.listenForParts(for: project, onComplete: didReceivedPart)
 
     }
     

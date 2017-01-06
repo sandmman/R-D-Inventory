@@ -9,17 +9,8 @@ target 'R&D Inventory' do
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'Firebase/Auth'
+  pod 'GoogleSignIn'
   pod 'Eureka', :git => 'https://github.com/xmartlabs/Eureka.git', :branch => 'master'
   # Pods for R&D Inventory
-
-  target 'R&D InventoryTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'R&D InventoryUITests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
+ 
 end

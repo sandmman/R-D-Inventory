@@ -97,10 +97,10 @@
         <scene sceneID="F7e-lK-DOJ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="WVS-DF-Qbf" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Inventory" id="JcF-ot-aRY"/>
+                    <tabBarItem key="tabBarItem" title="Inventory" image="Parts" selectedImage="Parts" id="JcF-ot-aRY"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qwB-2N-9Ad">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="qwB-2N-9Ad">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -114,4 +114,7 @@
             <point key="canvasLocation" x="665" y="-1952"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Parts" width="15" height="15"/>
+    </resources>
 </document>

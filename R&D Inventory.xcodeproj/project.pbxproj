@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		287C95AF5B3FA7110137599D /* Pods_R_D_InventoryTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47048ECE232CB2FB9BDC8B8F /* Pods_R_D_InventoryTests.framework */; };
-		4824DFCA8C3FFC428B679E6B /* Pods_R_D_InventoryUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 033EE9BAD2D7E561D2A2CE08 /* Pods_R_D_InventoryUITests.framework */; };
 		9C16A19B83CE2DEDDDC16B87 /* Pods_R_D_Inventory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 640D7C703A6221D293FF22F1 /* Pods_R_D_Inventory.framework */; };
 		E30E055B1E1B63E70048539B /* Listener.swift in Sources */ = {isa = PBXBuildFile; fileRef = E30E055A1E1B63E70048539B /* Listener.swift */; };
 		E30E055D1E1C61A40048539B /* CreateProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E30E055C1E1C61A40048539B /* CreateProjectViewController.swift */; };
 		E32CD1071E161326005A35BD /* BuildPartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32CD1061E161326005A35BD /* BuildPartViewController.swift */; };
+		E345076E1E1F0ED700C5D8EA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E345076D1E1F0ED700C5D8EA /* User.swift */; };
+		E34507701E1F109300C5D8EA /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E345076F1E1F109300C5D8EA /* CurrentUser.swift */; };
 		E34DAC071E1B255D00A93215 /* PartIDCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34DAC061E1B255D00A93215 /* PartIDCell.swift */; };
 		E34DAC091E1B397900A93215 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34DAC081E1B397900A93215 /* Validator.swift */; };
 		E34DAC0B1E1B477900A93215 /* ProjectsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34DAC0A1E1B477900A93215 /* ProjectsTableViewController.swift */; };
@@ -55,6 +55,8 @@
 		E3ECCE931E15B662009C936D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ECCE921E15B662009C936D /* Constants.swift */; };
 		E3ECCE9A1E15D0DC009C936D /* FIRDataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ECCE991E15D0DC009C936D /* FIRDataObject.swift */; };
 		E3FD60611E1E0F1200E614EE /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FD60601E1E0F1200E614EE /* TabBarViewController.swift */; };
+		E3FD60631E1EF74300E614EE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FD60621E1EF74200E614EE /* LoginViewController.swift */; };
+		E3FD60651E1EF77100E614EE /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3FD60641E1EF77100E614EE /* Login.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,16 +79,14 @@
 /* Begin PBXFileReference section */
 		033EE9BAD2D7E561D2A2CE08 /* Pods_R_D_InventoryUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_R_D_InventoryUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0672CE23FAA7C122D880215E /* Pods-R&D Inventory.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-R&D Inventory.debug.xcconfig"; path = "Pods/Target Support Files/Pods-R&D Inventory/Pods-R&D Inventory.debug.xcconfig"; sourceTree = "<group>"; };
-		33A89F1E6C98F1273EC4D482 /* Pods-R&D InventoryTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-R&D InventoryTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-R&D InventoryTests/Pods-R&D InventoryTests.release.xcconfig"; sourceTree = "<group>"; };
 		47048ECE232CB2FB9BDC8B8F /* Pods_R_D_InventoryTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_R_D_InventoryTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		58FE34DAC5A2BCDD419706D0 /* Pods-R&D InventoryUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-R&D InventoryUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-R&D InventoryUITests/Pods-R&D InventoryUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		5BEE89E3F4372B2134EBF118 /* Pods-R&D InventoryTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-R&D InventoryTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-R&D InventoryTests/Pods-R&D InventoryTests.debug.xcconfig"; sourceTree = "<group>"; };
 		640D7C703A6221D293FF22F1 /* Pods_R_D_Inventory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_R_D_Inventory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		687954077D7958893F4A5DE0 /* Pods-R&D InventoryUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-R&D InventoryUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-R&D InventoryUITests/Pods-R&D InventoryUITests.release.xcconfig"; sourceTree = "<group>"; };
 		DDAB533742B9B435D147DCC3 /* Pods-R&D Inventory.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-R&D Inventory.release.xcconfig"; path = "Pods/Target Support Files/Pods-R&D Inventory/Pods-R&D Inventory.release.xcconfig"; sourceTree = "<group>"; };
 		E30E055A1E1B63E70048539B /* Listener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Listener.swift; sourceTree = "<group>"; };
 		E30E055C1E1C61A40048539B /* CreateProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateProjectViewController.swift; sourceTree = "<group>"; };
 		E32CD1061E161326005A35BD /* BuildPartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = BuildPartViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		E345076D1E1F0ED700C5D8EA /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		E345076F1E1F109300C5D8EA /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		E34DAC061E1B255D00A93215 /* PartIDCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartIDCell.swift; sourceTree = "<group>"; };
 		E34DAC081E1B397900A93215 /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Validator.swift; path = "R&D Inventory/Validator.swift"; sourceTree = "<group>"; };
 		E34DAC0A1E1B477900A93215 /* ProjectsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectsTableViewController.swift; sourceTree = "<group>"; };
@@ -136,6 +136,8 @@
 		E3ECCE961E15C98A009C936D /* R&D Inventory.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "R&D Inventory.entitlements"; sourceTree = "<group>"; };
 		E3ECCE991E15D0DC009C936D /* FIRDataObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIRDataObject.swift; sourceTree = "<group>"; };
 		E3FD60601E1E0F1200E614EE /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		E3FD60621E1EF74200E614EE /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		E3FD60641E1EF77100E614EE /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,7 +153,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				287C95AF5B3FA7110137599D /* Pods_R_D_InventoryTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,7 +160,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4824DFCA8C3FFC428B679E6B /* Pods_R_D_InventoryUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,10 +181,6 @@
 			children = (
 				0672CE23FAA7C122D880215E /* Pods-R&D Inventory.debug.xcconfig */,
 				DDAB533742B9B435D147DCC3 /* Pods-R&D Inventory.release.xcconfig */,
-				5BEE89E3F4372B2134EBF118 /* Pods-R&D InventoryTests.debug.xcconfig */,
-				33A89F1E6C98F1273EC4D482 /* Pods-R&D InventoryTests.release.xcconfig */,
-				58FE34DAC5A2BCDD419706D0 /* Pods-R&D InventoryUITests.debug.xcconfig */,
-				687954077D7958893F4A5DE0 /* Pods-R&D InventoryUITests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -319,6 +315,8 @@
 				E398F1521E13684500CD91D4 /* Part.swift */,
 				E3AF6CAF1E1762E000AE0947 /* Build.swift */,
 				E34DAC0C1E1B48A000A93215 /* Project.swift */,
+				E345076D1E1F0ED700C5D8EA /* User.swift */,
+				E345076F1E1F109300C5D8EA /* CurrentUser.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -346,6 +344,7 @@
 		E3AF6CB41E18036E00AE0947 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E3FBFBDD1E1EFA27007AEB01 /* Login */,
 				E364121F1E1DFB7300F4A5A2 /* Detail Views */,
 				E30E055E1E1C63690048539B /* Forms */,
 				E30E055F1E1C8D9D0048539B /* Table Views */,
@@ -375,8 +374,17 @@
 				E36412171E1DA9AF00F4A5A2 /* Assemblies.storyboard */,
 				E36412091E1D9C7600F4A5A2 /* Inventory.storyboard */,
 				E36412071E1D9C0200F4A5A2 /* Project.storyboard */,
+				E3FD60641E1EF77100E614EE /* Login.storyboard */,
 			);
 			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		E3FBFBDD1E1EFA27007AEB01 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				E3FD60621E1EF74200E614EE /* LoginViewController.swift */,
+			);
+			name = Login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -406,12 +414,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E398F1401E1357E300CD91D4 /* Build configuration list for PBXNativeTarget "R&D InventoryTests" */;
 			buildPhases = (
-				998A3D901D51DCD5977560BC /* [CP] Check Pods Manifest.lock */,
 				E398F1251E1357E300CD91D4 /* Sources */,
 				E398F1261E1357E300CD91D4 /* Frameworks */,
 				E398F1271E1357E300CD91D4 /* Resources */,
-				2E6607C27878D512EFBC87D4 /* [CP] Embed Pods Frameworks */,
-				82A580A73B4A55118A49E446 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -427,12 +432,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E398F1431E1357E300CD91D4 /* Build configuration list for PBXNativeTarget "R&D InventoryUITests" */;
 			buildPhases = (
-				66F84BFE338C1836B860FE56 /* [CP] Check Pods Manifest.lock */,
 				E398F1301E1357E300CD91D4 /* Sources */,
 				E398F1311E1357E300CD91D4 /* Frameworks */,
 				E398F1321E1357E300CD91D4 /* Resources */,
-				875F51F8A71F72117F350B5A /* [CP] Copy Pods Resources */,
-				E4514746850A5BE7BB7149B5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -511,6 +513,7 @@
 				E364120E1E1D9CB200F4A5A2 /* Assembly.storyboard in Resources */,
 				E36412181E1DA9AF00F4A5A2 /* Assemblies.storyboard in Resources */,
 				E398F1231E1357E300CD91D4 /* LaunchScreen.storyboard in Resources */,
+				E3FD60651E1EF77100E614EE /* Login.storyboard in Resources */,
 				E398F1201E1357E300CD91D4 /* Assets.xcassets in Resources */,
 				E364121E1E1DF13C00F4A5A2 /* ProjectPageView.storyboard in Resources */,
 				E364120A1E1D9C7600F4A5A2 /* Inventory.storyboard in Resources */,
@@ -534,81 +537,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2E6607C27878D512EFBC87D4 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-R&D InventoryTests/Pods-R&D InventoryTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		66F84BFE338C1836B860FE56 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		82A580A73B4A55118A49E446 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-R&D InventoryTests/Pods-R&D InventoryTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		875F51F8A71F72117F350B5A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-R&D InventoryUITests/Pods-R&D InventoryUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		998A3D901D51DCD5977560BC /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 		A00D7DF31D974A64D4204E62 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -654,21 +582,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-R&D Inventory/Pods-R&D Inventory-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E4514746850A5BE7BB7149B5 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-R&D InventoryUITests/Pods-R&D InventoryUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -681,6 +594,7 @@
 				E34DAC0B1E1B477900A93215 /* ProjectsTableViewController.swift in Sources */,
 				E30E055B1E1B63E70048539B /* Listener.swift in Sources */,
 				E3AFE9C91E19B9B3008DA196 /* ObjectMapper.swift in Sources */,
+				E34507701E1F109300C5D8EA /* CurrentUser.swift in Sources */,
 				E398F1551E136A6500CD91D4 /* Assembly.swift in Sources */,
 				E34DAC091E1B397900A93215 /* Validator.swift in Sources */,
 				E34FC4951E16B4E50028D36C /* CreateAssemblyViewController.swift in Sources */,
@@ -697,8 +611,10 @@
 				E3AF6CB91E1840EF00AE0947 /* BuildDetailViewController.swift in Sources */,
 				E30E055D1E1C61A40048539B /* CreateProjectViewController.swift in Sources */,
 				E34DAC0D1E1B48A000A93215 /* Project.swift in Sources */,
+				E3FD60631E1EF74300E614EE /* LoginViewController.swift in Sources */,
 				E364121C1E1DE99E00F4A5A2 /* PageViewController.swift in Sources */,
 				E34FC4931E16B31F0028D36C /* PartRow.swift in Sources */,
+				E345076E1E1F0ED700C5D8EA /* User.swift in Sources */,
 				E398F15D1E15B28300CD91D4 /* FirebaseDataManager.swift in Sources */,
 				E3AF6CB71E18135E00AE0947 /* CreateBuildViewController.swift in Sources */,
 				E34DAC071E1B255D00A93215 /* PartIDCell.swift in Sources */,
@@ -757,6 +673,7 @@
 		E398F13B1E1357E300CD91D4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -808,6 +725,7 @@
 		E398F13C1E1357E300CD91D4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -883,7 +801,6 @@
 		};
 		E398F1411E1357E300CD91D4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5BEE89E3F4372B2134EBF118 /* Pods-R&D InventoryTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -899,7 +816,6 @@
 		};
 		E398F1421E1357E300CD91D4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 33A89F1E6C98F1273EC4D482 /* Pods-R&D InventoryTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -915,7 +831,6 @@
 		};
 		E398F1441E1357E300CD91D4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 58FE34DAC5A2BCDD419706D0 /* Pods-R&D InventoryUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = HNACG3848H;
@@ -930,7 +845,6 @@
 		};
 		E398F1451E1357E300CD91D4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 687954077D7958893F4A5DE0 /* Pods-R&D InventoryUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = HNACG3848H;

@@ -27,8 +27,9 @@ extension ListenerHandler {
         setupListenerSet(parentRef: parentRef, itemRef: FirebaseDataManager.buildsRef, onComplete: onComplete)
     }
 
-    public func listenForParts(onComplete: @escaping (Part) -> ())  {
-        setupListenerPair(ref: FirebaseDataManager.partsRef, onComplete: onComplete)
+    public func listenForParts(for project: Project, onComplete: @escaping (Part) -> ())  {
+        let parentRef = FirebaseDataManager.projectsRef.child(project.key).child("parts")
+        setupListenerSet(parentRef: parentRef, itemRef: FirebaseDataManager.partsRef, onComplete: onComplete)
     }
     
     public func listenForProjects(onComplete: @escaping (Project) -> ())  {

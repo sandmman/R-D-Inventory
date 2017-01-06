@@ -8,17 +8,26 @@
 
 import UIKit
 import Firebase
+import GoogleSignIn
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, GIDSignInUIDelegate {
 
     var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+
         FIRApp.configure()
         //FIRDatabase.database().persistenceEnabled = true
+
+        GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
+        GIDSignIn.sharedInstance().delegate = self
+        
+        if let user = FIRAuth.auth()?.currentUser {
+            onSignInApproved(user: user)
+        }
+
         return true
     }
 
@@ -43,7 +52,62 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    @available(iOS 9.0, *)
+    func application(_ application: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any])
+        -> Bool {
+            return GIDSignIn.sharedInstance().handle(url,
+                                                        sourceApplication:options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,
+                                                        annotation: [:])
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+        if let error = error {
+            print(error.localizedDescription)
+            return
+        }
 
+        guard let authentication = user.authentication else {
+            return
+        }
+
+        let credential = FIRGoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                                     accessToken: authentication.accessToken)
+        
+        FIRAuth.auth()?.signIn(with: credential) { (user, error) in
+            
+            guard let user = user else {
+                return
+            }
+
+            self.onSignInApproved(user: user)
+        }
+    }
+
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
+                withError error: Error!) {
+        // Perform any operations when the user disconnects from app here.
+        // ...
+    }
+    
+    private func onSignInApproved(user: FIRUser) {
+        if let name = user.displayName {
+            CurrentUser.fullName = name
+        }
+        if let email = user.email {
+            CurrentUser.email = email
+        }
+        
+        navigateToHomeScreen()
+    }
+    private func navigateToHomeScreen() {
+       
+        let storyboard:UIStoryboard = UIStoryboard(name: "TabBar", bundle: nil)
+        
+        let navigationController:UINavigationController = storyboard.instantiateInitialViewController() as! UINavigationController
+
+        self.window?.rootViewController = navigationController
+    }
 
 }
 

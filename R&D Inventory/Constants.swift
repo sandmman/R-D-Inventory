@@ -19,8 +19,8 @@ struct Constants {
     }
 
     struct Segues {
-        static let SignInToHome = "SignInToHome"
-        static let HomeToSignIn = "HomeToSignIn"
+        static let SignInToHome = "SignInToHomeSegue"
+        static let HomeToSignIn = "HomeToSignInSegue"
         static let PartDetail = "PartDetailSegue"
         static let BuildDetail = "BuildDetailSegue"
         static let AssemblyDetail = "AssemblyDetailSegue"
@@ -61,6 +61,12 @@ struct Constants {
     struct ProjectFields {
         static let Name = "name"
         static let Assemblies = "assemblies"
+    }
+    
+    struct UserFields {
+        static let Name = "name"
+        static let Company = "company"
+        static let Projects = "projects"
     }
 
     struct TableViewCells {
