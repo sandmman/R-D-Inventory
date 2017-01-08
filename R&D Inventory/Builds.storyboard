@@ -107,8 +107,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <segue destination="RUO-hP-ntK" kind="unwind" identifier="UnwindToAssemblyDetailSegue" unwindAction="unwindToAssemblyDetailWithSender:" id="66c-zA-lx8"/>
+                        <segue destination="RUO-hP-ntK" kind="unwind" identifier="UnwindToBuildCalendarSegue" unwindAction="unwindToBuildCalendarWithSender:" id="9lA-JC-w6R"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L20-uz-g5h" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="RUO-hP-ntK" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-615" y="-1254"/>
         </scene>

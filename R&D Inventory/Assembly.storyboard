@@ -77,7 +77,7 @@
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <segue destination="biT-Hl-lag" kind="unwind" identifier="unwindToAssemblyDetail" unwindAction="unwindToAssemblyDetailWithSender:" id="Tdw-Tm-PCo"/>
+                        <segue destination="biT-Hl-lag" kind="unwind" identifier="UnwindToAssemblyDetailSegue" unwindAction="unwindToAssemblyDetailWithSender:" id="Tdw-Tm-PCo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vcl-dD-qVg" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -9,11 +9,13 @@
 import UIKit
 import Eureka
 
-public class BuildPartViewController: FormViewController, TypedRowControllerType, UITextFieldDelegate {
+public class CreatePartRowViewController: FormViewController, TypedRowControllerType, UITextFieldDelegate {
 
     public var row: RowOf<Part>!
     
     public var onDismissCallback: ((UIViewController) -> ())?
+    
+    public var project: Project!
 
     convenience public init(_ callback: ((UIViewController) -> ())?){
         self.init(nibName: nil, bundle: nil)
@@ -28,14 +30,15 @@ public class BuildPartViewController: FormViewController, TypedRowControllerType
     }
     
     public func tappedDone(_ sender: UIBarButtonItem) {
-
+        print("done")
         guard let part = ObjectMapper.createPart(from: form) else {
             return
         }
 
         row.value = part
-
-        FirebaseDataManager.add(part: part)
+        print(part)
+        print(project)
+        FirebaseDataManager.save(part: part, to: project)
 
         onDismissCallback?(self)
     }
@@ -51,55 +54,56 @@ public class BuildPartViewController: FormViewController, TypedRowControllerType
         form = Section("Info")
             <<< TextRow(Constants.PartFields.Name){ row in
                 row.title = "Name"
-                row.placeholder = part?.name ?? ""
+                row.placeholder = ""
                 row.add(rule: RuleRequired())
                 row.validationOptions = .validatesOnChangeAfterBlurred
-            }
+                }.onRowValidationChanged(Validator.onValidationChanged)
             <<< TextRow(Constants.PartFields.Manufacturer){ row in
                 row.title = "Manufacturer"
-                row.placeholder = part?.manufacturer ?? ""
+                row.placeholder = ""
                 row.add(rule: RuleRequired())
                 row.validationOptions = .validatesOnChangeAfterBlurred
-            }
-            <<< IntRow(Constants.PartFields.ID){ row in
+                }.onRowValidationChanged(Validator.onValidationChanged)
+            <<< PartIDRow(Constants.PartFields.ID){ row in
                 row.title = "ID"
-                row.placeholder = part?.key.description ?? ""
+                row.placeholder = ""
                 row.add(rule: RuleRequired())
+                row.add(rule: RegexRule(regExpr: Constants.Patterns.PartID, allowsEmpty: true))
                 row.validationOptions = .validatesOnChangeAfterBlurred
-            }.cellUpdate { cell, row in
-                cell.textField.tag = 1
-                cell.textField.delegate = self
-                
+                }.onRowValidationChanged(Validator.onValidationChanged)
+                .cellUpdate { cell, row in
+                    cell.textField.tag = 1
+                    cell.textField.delegate = self
             }
             +++ Section("Detail")
             <<< IntRow(Constants.PartFields.CountInAssembly) {
                 $0.title = "# in Assembly"
-                $0.placeholder = part?.countInAssembly.description ?? ""
-                $0.add(rule: RuleGreaterThan(min: 0, msg: "Count must be greater than 0"))
+                $0.placeholder = ""
+                $0.add(rule: RuleGreaterOrEqualThan(min: 0, msg: "Value Must Be Positive"))
                 $0.validationOptions = .validatesOnChangeAfterBlurred
-            }
+                }.onRowValidationChanged(Validator.onValidationChanged)
             <<< IntRow(Constants.PartFields.CountInStock) {
                 $0.title = "# In Stock"
-                $0.placeholder = part?.countInStock.description ?? ""
-                $0.add(rule: RuleGreaterThan(min: 0, msg: "Count must not be negative"))
+                $0.placeholder = ""
+                $0.add(rule: RuleGreaterOrEqualThan(min: 0, msg: "Value Must Be Positive"))
                 $0.validationOptions = .validatesOnChangeAfterBlurred
-            }
+                }.onRowValidationChanged(Validator.onValidationChanged)
             <<< IntRow(Constants.PartFields.CountOnOrder) {
                 $0.title = "# On Order"
-                $0.placeholder = part?.countOnOrder.description ?? ""
-                $0.add(rule: RuleGreaterThan(min: 0, msg: "Count must not be negative"))
+                $0.placeholder = ""
+                $0.add(rule: RuleGreaterOrEqualThan(min: 0, msg: "Value Must Be Positive"))
                 $0.validationOptions = .validatesOnChangeAfterBlurred
-            }
+                }.onRowValidationChanged(Validator.onValidationChanged)
             <<< IntRow(Constants.PartFields.LeadTime) {
                 $0.title = "Lead Time for Order (Days)"
-                $0.placeholder = part?.leadTime.description ?? ""
-                $0.add(rule: RuleGreaterThan(min: 0, msg: "Count must not be negative"))
+                $0.placeholder = ""
+                $0.add(rule: RuleGreaterOrEqualThan(min: 0, msg: "Value Must Be Positive"))
                 $0.validationOptions = .validatesOnChangeAfterBlurred
-            }
+                }.onRowValidationChanged(Validator.onValidationChanged)
     }
     
     private func instantiateDoneButton() {
-        let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(BuildPartViewController.tappedDone(_:)))
+        let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(CreatePartRowViewController.tappedDone(_:)))
         button.title = "Done"
         navigationItem.rightBarButtonItem = button
     }

@@ -67,7 +67,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="CJV-i7-L1v">
                             <connections>
-                                <segue destination="5cN-3M-dVj" kind="show" id="7g4-uH-0Mz"/>
+                                <segue destination="5cN-3M-dVj" kind="show" identifier="CreateAssemblySegue" id="7g4-uH-0Mz"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -96,7 +96,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="epu-rO-2Lh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1172" y="81"/>
+            <point key="canvasLocation" x="1113" y="81"/>
         </scene>
         <!--SideMenu-->
         <scene sceneID="BCI-nx-uMO">

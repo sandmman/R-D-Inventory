@@ -13,7 +13,7 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
     
     var project: Project!
 
-    var assembly: Assembly? = nil
+    var assembly: Assembly!
     
     var parts: [Part] = []
     
@@ -150,13 +150,13 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        
+
         guard let identifier = segue.identifier else {
             return
         }
         
         switch identifier {
-        case (Constants.Segues.PartDetail):
+        case Constants.Segues.PartDetail:
             let viewController = segue.destination as! PartViewController
             
             viewController.part = selectedPart
@@ -172,6 +172,7 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
             
             viewController.parts = parts
             viewController.project = project
+            viewController.assembly = assembly
 
         default: break
         }

@@ -59,7 +59,6 @@ class BuildsCalendarViewController: UIViewController, FSCalendarDataSource, FSCa
     public func didChangeProject(project: Project) {
         self.project = project
         builds = [:]
-        print(project, "hello")
     }
     
     private func didReceiveBuild(build: Build) {
@@ -104,7 +103,7 @@ class BuildsCalendarViewController: UIViewController, FSCalendarDataSource, FSCa
     
     // MARK: - Navigation
     
-    @IBAction func unwindToBuildTableViewController(sender: UIStoryboardSegue) {
+    @IBAction func unwindToBuildCalendar(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? CreateBuildViewController {
             
             guard let build = sourceViewController.newBuild else {

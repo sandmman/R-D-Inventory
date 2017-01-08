@@ -13,11 +13,11 @@ public struct FirebaseDataManager {
     
     // Firebase End Points
     static let rootRef = FIRDatabase.database().reference()
-    static let userRef = FIRDatabase.database().reference().child("users")
-    static let partsRef = FIRDatabase.database().reference().child("parts")
-    static let buildsRef = FIRDatabase.database().reference().child("builds")
-    static let projectsRef = FIRDatabase.database().reference().child("projects")
-    static let assemblyRef = FIRDatabase.database().reference().child("assemblies")
+    static let userRef = FIRDatabase.database().reference().child(Constants.Types.User)
+    static let partsRef = FIRDatabase.database().reference().child(Constants.Types.Part)
+    static let buildsRef = FIRDatabase.database().reference().child(Constants.Types.Build)
+    static let projectsRef = FIRDatabase.database().reference().child(Constants.Types.Project)
+    static let assemblyRef = FIRDatabase.database().reference().child(Constants.Types.Assembly)
 
     fileprivate static var currentUserRef: FIRDatabaseReference? {
         guard let userID = UserDefaults.standard.string(forKey: "user") else {
@@ -38,56 +38,48 @@ extension FirebaseDataManager {
 
 extension FirebaseDataManager: DataManager {
     
-    /*public func add(object: FIRDataObject) {
-     
-     var ref: FIRDatabaseReference? = nil
-     
-     switch (object) {
-     case is Assembly: ref = assemblyRef
-     case is Build: ref = buildsRef
-     case is Part: ref = partsRef
-     case is Project: ref = projectsRef
-     default: break
-     }
-     
-     
-     }*/
-    
-    //////////
-    // ADD //
-    /////////
-
-    public static func add(assembly: Assembly) {
-        assemblyRef.childByAutoId().setValue(assembly.toAnyObject())
-    }
-    
-    public static func add(build: Build) {
-        
-        assemblyRef.child(build.assemblyID).child("builds").updateChildValues([build.key: true])
-        
-        //projectsRef.child(build.projectID).child("builds").updateChildValues([build.key: true])
-        
-        buildsRef.child(build.key).setValue(build.toAnyObject())
-    }
-    
-    public static func add(build: Build, to project: String) {
-        
-        assemblyRef.child(build.assemblyID).child("builds").updateChildValues([build.key: true])
-        
-        projectsRef.child(project).child("builds").updateChildValues([build.key: true])
-        
-        buildsRef.child(build.key).setValue(build.toAnyObject())
-    }
-
-
-    public static func add(part: Part) {
-        partsRef.child(part.key).setValue(part.toAnyObject())
-    }
-    
-    public static func add(project: Project) {
+    public static func save(project: Project) {
         projectsRef.child(project.key).setValue(project.toAnyObject())
     }
-
+    
+    public static func save(assembly: Assembly, to project: Project) {
+        guard let ref = project.ref else { return }
+        rootRef.updateChildValues(["/projects/\(project.key)/assemblies/\(assembly.key)": true,
+                                   "/assemblies/\(assembly.key)": assembly.toAnyObject()])
+        add(item: assembly, to: ref)
+    }
+    
+    public static func save(build: Build, to project: Project) {
+        guard let ref = project.ref else { return }
+        add(item: build, to: ref)
+    }
+    
+    public static func save(part: Part, to project: Project) {
+        guard let ref = project.ref else { return }
+        add(item: part, to: ref)
+    }
+    
+    public static func save(build: Build, to assembly: Assembly, within project: Project) {
+        save(build: build, to: project)
+        add(build: build, to: assembly)
+    }
+    
+    public static func save(part: Part, to assembly: Assembly, within project: Project) {
+        save(part: part, to: project)
+        add(part: part, to: assembly)
+    }
+    
+    public static func add(build: Build, to assembly: Assembly) {
+        guard let ref = assembly.ref else { return }
+        ref.child(Constants.Types.Build).updateChildValues([build.key: true])
+    }
+    
+    public static func add(part: Part, to assembly: Assembly) {
+        guard let ref = assembly.ref else { return }
+        ref.child(Constants.Types.Part).updateChildValues([part.key: true])
+        
+    }
+    
     ////////////
     // Update //
     ////////////
@@ -142,7 +134,7 @@ extension FirebaseDataManager: DataManager {
         
         ref.removeValue()
         
-        FirebaseDataManager.assemblyRef.child(build.assemblyID).child("builds").child(build.key).removeValue()
+        FirebaseDataManager.assemblyRef.child(build.assemblyID).child(Constants.Types.Build).child(build.key).removeValue()
     }
     
     public static func delete(project: Project) {
@@ -225,6 +217,30 @@ extension FirebaseDataManager {
         }) {
             error in
             print(error.localizedDescription)
+        }
+    }
+    
+    internal static func add<T: FIRDataObject> (item: T, to projectRef: FIRDatabaseReference) {
+        switch item {
+        case is Part:
+            
+            partsRef.child(item.key).setValue(item.toAnyObject())
+            
+            projectRef.child(Constants.Types.Part).updateChildValues([item.key: true])
+            
+        case is Build:
+            
+            buildsRef.child(item.key).setValue(item.toAnyObject())
+            
+            projectRef.child(Constants.Types.Build).updateChildValues([item.key: true])
+            
+        case is Assembly:
+            
+            assemblyRef.child(item.key).setValue(item.toAnyObject())
+            
+            projectRef.child(Constants.Types.Assembly).updateChildValues([item.key: true])
+            
+        default: break
         }
     }
 }

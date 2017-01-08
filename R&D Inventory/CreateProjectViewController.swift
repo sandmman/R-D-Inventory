@@ -29,7 +29,7 @@ class CreateProjectViewController: FormViewController {
         
         project = proj
         
-        FirebaseDataManager.add(project: proj)
+        FirebaseDataManager.save(project: proj)
         
         _ = navigationController?.popViewController(animated: true)
     }

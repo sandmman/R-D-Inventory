@@ -104,4 +104,13 @@ class InventoryTableViewController: UITableViewController, TabBarViewController,
             FirebaseDataManager.delete(part: part)
         }
     }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.Segues.CreatePart, let dest = segue.destination as? CreatePartViewController {
+            
+            dest.project = project
+            
+        }
+    }
 }

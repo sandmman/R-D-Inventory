@@ -111,13 +111,14 @@ class AssemblyTableViewController: UITableViewController, TabBarViewController {
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == Constants.Segues.AssemblyDetail) {
-            
-            let viewController = segue.destination as! AssemblyDetailTableViewController
-            
+        if segue.identifier == Constants.Segues.AssemblyDetail, let viewController = segue.destination as? AssemblyDetailTableViewController {
+
             viewController.assembly = selectedAssembly
             viewController.project = project
             
+        } else if (segue.identifier == Constants.Segues.CreateAssembly), let viewController = segue.destination as? CreateAssemblyViewController {
+            
+            viewController.project = project
         }
     }
 }

@@ -17,6 +17,8 @@ class CreateBuildViewController: FormViewController {
     
     var assembly: Assembly? = nil
     
+    // Generic == true, if build is created from project home
+    // Generic == true, if build is created from assembly home
     var generic = false
 
     private var assemblies: [Assembly] = []
@@ -62,7 +64,7 @@ class CreateBuildViewController: FormViewController {
             <<< PushRow<Assembly>(Constants.BuildFields.AssemblyID) {
                 $0.title = "Assembly"
                 $0.options = assemblies
-                $0.value = assemblies.count > 0 ? assemblies[0] : nil
+                $0.value = defaultAssemblyValue()
                 $0.selectorTitle = "Choose an Assembly!"
                 $0.add(rule: RuleRequired())
                 $0.validationOptions = .validatesOnChangeAfterBlurred
@@ -117,6 +119,13 @@ class CreateBuildViewController: FormViewController {
         
     }
     
+    private func defaultAssemblyValue() -> Assembly? {
+        if let assem = assembly {
+            return assem
+        }
+        return assemblies.count > 0 ? assemblies[0] : nil
+    }
+
     private func updateSection(assembly: Assembly?) {
 
         guard let section = form.allSections.last else {
@@ -158,7 +167,7 @@ class CreateBuildViewController: FormViewController {
     }
     
     public func completedForm(_ sender: UIBarButtonItem){
-        
+        print(assembly)
         // Todo Clean this up to work straight from the form without the parts
         guard let build = ObjectMapper.createBuild(from: form, parts: parts), let proj = project else {
             return
@@ -166,9 +175,22 @@ class CreateBuildViewController: FormViewController {
         
         newBuild = build
         
-        FirebaseDataManager.add(build: build, to: proj.key)
+        if generic {
+            
+            guard let row: PushRow<Assembly> = form.rowBy(tag:  Constants.BuildFields.AssemblyID), let val = row.value else {
+                return
+            }
 
-        let segue = generic ? "unwindToBuildTableViewController" : "unwindToAssemblyDetail"
+            FirebaseDataManager.save(build: build, to: val, within: proj)
+
+        } else {
+
+            guard let assem = assembly else { return }
+
+            FirebaseDataManager.save(build: build, to: assem, within: proj)
+        }
+        
+        let segue = generic ? Constants.Segues.UnwindToBuildCalendar : Constants.Segues.UnwindToAssemblyDetail
 
         self.performSegue(withIdentifier: segue, sender: self)
     }

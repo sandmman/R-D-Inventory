@@ -10,7 +10,7 @@
 		9C16A19B83CE2DEDDDC16B87 /* Pods_R_D_Inventory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 640D7C703A6221D293FF22F1 /* Pods_R_D_Inventory.framework */; };
 		E30E055B1E1B63E70048539B /* Listener.swift in Sources */ = {isa = PBXBuildFile; fileRef = E30E055A1E1B63E70048539B /* Listener.swift */; };
 		E30E055D1E1C61A40048539B /* CreateProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E30E055C1E1C61A40048539B /* CreateProjectViewController.swift */; };
-		E32CD1071E161326005A35BD /* BuildPartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32CD1061E161326005A35BD /* BuildPartViewController.swift */; };
+		E32CD1071E161326005A35BD /* CreatePartRowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32CD1061E161326005A35BD /* CreatePartRowViewController.swift */; };
 		E345076E1E1F0ED700C5D8EA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E345076D1E1F0ED700C5D8EA /* User.swift */; };
 		E34507701E1F109300C5D8EA /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E345076F1E1F109300C5D8EA /* CurrentUser.swift */; };
 		E34DAC071E1B255D00A93215 /* PartIDCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34DAC061E1B255D00A93215 /* PartIDCell.swift */; };
@@ -87,7 +87,7 @@
 		DDAB533742B9B435D147DCC3 /* Pods-R&D Inventory.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-R&D Inventory.release.xcconfig"; path = "Pods/Target Support Files/Pods-R&D Inventory/Pods-R&D Inventory.release.xcconfig"; sourceTree = "<group>"; };
 		E30E055A1E1B63E70048539B /* Listener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Listener.swift; sourceTree = "<group>"; };
 		E30E055C1E1C61A40048539B /* CreateProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateProjectViewController.swift; sourceTree = "<group>"; };
-		E32CD1061E161326005A35BD /* BuildPartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = BuildPartViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		E32CD1061E161326005A35BD /* CreatePartRowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CreatePartRowViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E345076D1E1F0ED700C5D8EA /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E345076F1E1F109300C5D8EA /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		E34DAC061E1B255D00A93215 /* PartIDCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartIDCell.swift; sourceTree = "<group>"; };
@@ -196,7 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				E34FC4941E16B4E50028D36C /* CreateAssemblyViewController.swift */,
-				E32CD1061E161326005A35BD /* BuildPartViewController.swift */,
+				E32CD1061E161326005A35BD /* CreatePartRowViewController.swift */,
 				E3AF6CB61E18135E00AE0947 /* CreateBuildViewController.swift */,
 				E3AFE9C61E19B45B008DA196 /* CreatePartViewController.swift */,
 				E30E055C1E1C61A40048539B /* CreateProjectViewController.swift */,
@@ -207,10 +207,10 @@
 		E30E055F1E1C8D9D0048539B /* Table Views */ = {
 			isa = PBXGroup;
 			children = (
-				E34DAC0A1E1B477900A93215 /* ProjectsTableViewController.swift */,
-				E3AFE9BC1E195775008DA196 /* InventoryTableViewController.swift */,
 				E398F1561E136C2200CD91D4 /* AssemblyTableViewController.swift */,
 				E3AFE9BE1E19AB94008DA196 /* BuildTableViewController.swift */,
+				E3AFE9BC1E195775008DA196 /* InventoryTableViewController.swift */,
+				E34DAC0A1E1B477900A93215 /* ProjectsTableViewController.swift */,
 				E3FD60601E1E0F1200E614EE /* TabBarViewController.swift */,
 			);
 			name = "Table Views";
@@ -395,13 +395,13 @@
 		E3AFE9C01E19AC82008DA196 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				E398F1211E1357E300CD91D4 /* LaunchScreen.storyboard */,
-				E36412151E1D9DD300F4A5A2 /* TabBar.storyboard */,
-				E37DC4841E21DFB300A42792 /* Tab Bar */,
 				E364120D1E1D9CB200F4A5A2 /* Assembly.storyboard */,
-				E36412071E1D9C0200F4A5A2 /* Project.storyboard */,
+				E398F1211E1357E300CD91D4 /* LaunchScreen.storyboard */,
 				E3FD60641E1EF77100E614EE /* Login.storyboard */,
+				E36412071E1D9C0200F4A5A2 /* Project.storyboard */,
 				E37DC4801E21D79500A42792 /* SideMenu.storyboard */,
+				E37DC4841E21DFB300A42792 /* Tab Bar */,
+				E36412151E1D9DD300F4A5A2 /* TabBar.storyboard */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -637,7 +637,7 @@
 				E3AFE9C71E19B45B008DA196 /* CreatePartViewController.swift in Sources */,
 				E3ECCE931E15B662009C936D /* Constants.swift in Sources */,
 				E3AFE9C51E19B0EB008DA196 /* DataManager.swift in Sources */,
-				E32CD1071E161326005A35BD /* BuildPartViewController.swift in Sources */,
+				E32CD1071E161326005A35BD /* CreatePartRowViewController.swift in Sources */,
 				E398F14D1E1363A600CD91D4 /* PartViewController.swift in Sources */,
 				E3AF6CB91E1840EF00AE0947 /* BuildDetailViewController.swift in Sources */,
 				E30E055D1E1C61A40048539B /* CreateProjectViewController.swift in Sources */,

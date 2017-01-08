@@ -10,6 +10,14 @@ import Foundation
 
 struct Constants {
     
+    struct Types {
+        static var Assembly = "assemblies"
+        static var Build = "builds"
+        static var Part = "parts"
+        static var Project = "projects"
+        static var User = "users"
+    }
+
     struct NotificationKeys {
         static let SignedIn = "onSignInCompleted"
     }
@@ -21,15 +29,21 @@ struct Constants {
     struct Segues {
         static let SignInToHome = "SignInToHomeSegue"
         static let HomeToSignIn = "HomeToSignInSegue"
+
         static let PartDetail = "PartDetailSegue"
         static let BuildDetail = "BuildDetailSegue"
+        static let ProjectDetail = "ProjectDetailSegue"
         static let AssemblyDetail = "AssemblyDetailSegue"
+
         static let CreateBuild = "CreateBuildSegue"
         static let CreatePart = "CreatePartSegue"
-        static let ProjectDetail = "ProjectDetailSegue"
-        static let PageController = "PageControllerSegue"
+        static let CreateAssembly = "CreateAssemblySegue"
+
         static let TabBarController = "TabBarControllerSegue"
+
         static let UnwindToProjectDetail = "UnwindToProjectDetailSegue"
+        static let UnwindToAssemblyDetail = "UnwindToAssemblyDetailSegue"
+        static let UnwindToBuildCalendar = "UnwindToBuildCalendarSegue"
     }
     
     struct PartFields {

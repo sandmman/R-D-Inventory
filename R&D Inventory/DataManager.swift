@@ -7,16 +7,28 @@
 //
 
 import Foundation
+import Firebase
 
 public protocol DataManager {
     
-    static func add(assembly: Assembly)
+    static func save(project: Project)
     
-    static func add(build: Build)
+    static func save(assembly: Assembly, to project: Project)
     
-    static func add(part: Part)
+    static func save(build: Build, to project: Project)
     
-    static func add(project: Project)
+    static func save(part: Part, to project: Project)
+
+    static func save(build: Build, to assembly: Assembly, within project: Project)
+    
+    static func save(part: Part, to assembly: Assembly, within project: Project)
+    
+    static func add(build: Build, to assembly: Assembly)
+    
+    static func add(part: Part, to assembly: Assembly)
+    
+    
+
 
     static func get(assembly: String, onComplete: @escaping (Assembly) -> ())
     

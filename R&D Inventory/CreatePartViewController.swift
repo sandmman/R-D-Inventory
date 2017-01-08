@@ -10,6 +10,8 @@ import UIKit
 import Eureka
 
 class CreatePartViewController: FormViewController, UITextFieldDelegate {
+    
+    var project: Project!
 
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -20,11 +22,11 @@ class CreatePartViewController: FormViewController, UITextFieldDelegate {
     
     public func tappedDone(_ sender: UIBarButtonItem) {
 
-        guard let part = ObjectMapper.createPart(from: form) else {
+        guard let part = ObjectMapper.createPart(from: form), let proj = project else {
             return
         }
 
-        FirebaseDataManager.add(part: part)
+        FirebaseDataManager.save(part: part, to: proj)
         
         _ = navigationController?.popViewController(animated: true)
     }
@@ -83,7 +85,7 @@ class CreatePartViewController: FormViewController, UITextFieldDelegate {
     }
 
     private func instantiateDoneButton() {
-        let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(BuildPartViewController.tappedDone(_:)))
+        let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(CreatePartRowViewController.tappedDone(_:)))
         button.title = "Done"
         navigationItem.rightBarButtonItem = button
     }

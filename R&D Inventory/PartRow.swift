@@ -8,20 +8,29 @@
 
 import Foundation
 import Eureka
-import MapKit
 
-public final class PartRow: SelectorRow<PushSelectorCell<Part>, BuildPartViewController>, RowType {
+public final class PartRow: SelectorRow<PushSelectorCell<Part>, CreatePartRowViewController>, RowType {
+    
+    var project: Project!
 
     public required init(tag: String?) {
         super.init(tag: tag)
+    }
+    
+    public func setupVC(proj: Project) {
 
         presentationMode = .show(
             controllerProvider: ControllerProvider.callback {
-                    return BuildPartViewController(){ _ in }
-                }, onDismiss: {
-                    vc in _ = vc.navigationController?.popViewController(animated: true)
+                
+                let vc =  CreatePartRowViewController(){ _ in }
+                
+                vc.project = proj
+                
+                return vc
+            }, onDismiss: {
+                vc in _ = vc.navigationController?.popViewController(animated: true)
         })
-
+        
         displayValueFor = { part in
             return part?.name ?? "unset"
         }

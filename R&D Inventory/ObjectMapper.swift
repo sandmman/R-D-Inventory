@@ -70,22 +70,39 @@ public class ObjectMapper: Mapper {
     }
 
     static func createAssembly(from form: Form) -> Assembly? {
-        return nil
+        
+        guard let row: TextRow = form.rowBy(tag: Constants.AssemblyFields.Name),
+              let name = row.value,
+              let assem = Assembly(name: name, parts: self.getAssemblyParts(form)) else {
+                return nil
+        }
+        
+        return assem
     }
 }
 
 extension ObjectMapper {
     
-    internal static func buildPartDict(dict: [String: Int], row: BaseRow, form: Form) -> [String: Int] {
+    // Helper
+    
+    fileprivate static func getAssemblyParts(_ form: Form) -> [String: Int] {
         
-        /*guard let count = (row as! StepperRow).value else {
+        guard let partRows = form.allSections.last else {
+            return [:]
+        }
+        return partRows.reduce([String: Int](), createPartDict)
+    }
+    
+    fileprivate static func createPartDict(dict: [String: Int], nextPartRow: BaseRow) -> [String: Int] {
+        guard let partRow = nextPartRow as? PartRow, let part = partRow.value else {
             return dict
         }
         
         var dict = dict
         
-        dict[row.key] = Int(count)*/
+        dict[part.key] = part.countInAssembly
         
         return dict
+        
     }
 }
