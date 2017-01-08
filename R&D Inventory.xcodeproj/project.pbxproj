@@ -19,16 +19,18 @@
 		E34DAC0D1E1B48A000A93215 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34DAC0C1E1B48A000A93215 /* Project.swift */; };
 		E34FC4931E16B31F0028D36C /* PartRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34FC4921E16B31F0028D36C /* PartRow.swift */; };
 		E34FC4951E16B4E50028D36C /* CreateAssemblyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34FC4941E16B4E50028D36C /* CreateAssemblyViewController.swift */; };
+		E3589E321E21B6A500EC1D39 /* bridged_header.m in Sources */ = {isa = PBXBuildFile; fileRef = E3589E311E21B6A500EC1D39 /* bridged_header.m */; };
+		E3589E351E21C67B00EC1D39 /* CalendarViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3589E341E21C67B00EC1D39 /* CalendarViewCell.swift */; };
+		E3589E371E21CFCB00EC1D39 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3589E361E21CFCB00EC1D39 /* EventView.swift */; };
 		E36412081E1D9C0200F4A5A2 /* Project.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E36412071E1D9C0200F4A5A2 /* Project.storyboard */; };
 		E364120A1E1D9C7600F4A5A2 /* Inventory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E36412091E1D9C7600F4A5A2 /* Inventory.storyboard */; };
 		E364120E1E1D9CB200F4A5A2 /* Assembly.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E364120D1E1D9CB200F4A5A2 /* Assembly.storyboard */; };
 		E36412141E1D9D7100F4A5A2 /* Builds.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E36412131E1D9D7100F4A5A2 /* Builds.storyboard */; };
 		E36412161E1D9DD300F4A5A2 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E36412151E1D9DD300F4A5A2 /* TabBar.storyboard */; };
 		E36412181E1DA9AF00F4A5A2 /* Assemblies.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E36412171E1DA9AF00F4A5A2 /* Assemblies.storyboard */; };
-		E364121A1E1DB77A00F4A5A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E36412191E1DB77A00F4A5A2 /* Main.storyboard */; };
-		E364121C1E1DE99E00F4A5A2 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E364121B1E1DE99E00F4A5A2 /* PageViewController.swift */; };
-		E364121E1E1DF13C00F4A5A2 /* ProjectPageView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E364121D1E1DF13C00F4A5A2 /* ProjectPageView.storyboard */; };
 		E370B6871E19F13B00C0E349 /* RegexRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E370B6861E19F13B00C0E349 /* RegexRule.swift */; };
+		E37DC4811E21D79500A42792 /* SideMenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E37DC4801E21D79500A42792 /* SideMenu.storyboard */; };
+		E37DC4831E21DB0A00A42792 /* ProjectOverview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E37DC4821E21DB0A00A42792 /* ProjectOverview.storyboard */; };
 		E398F1191E1357E300CD91D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F1181E1357E300CD91D4 /* AppDelegate.swift */; };
 		E398F1201E1357E300CD91D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E398F11F1E1357E300CD91D4 /* Assets.xcassets */; };
 		E398F1231E1357E300CD91D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E398F1211E1357E300CD91D4 /* LaunchScreen.storyboard */; };
@@ -57,6 +59,7 @@
 		E3FD60611E1E0F1200E614EE /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FD60601E1E0F1200E614EE /* TabBarViewController.swift */; };
 		E3FD60631E1EF74300E614EE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FD60621E1EF74200E614EE /* LoginViewController.swift */; };
 		E3FD60651E1EF77100E614EE /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3FD60641E1EF77100E614EE /* Login.storyboard */; };
+		E3FEED001E21B4EB00F5F7F4 /* BuildsCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FEECFF1E21B4EB00F5F7F4 /* BuildsCalendarViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,16 +96,19 @@
 		E34DAC0C1E1B48A000A93215 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		E34FC4921E16B31F0028D36C /* PartRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartRow.swift; sourceTree = "<group>"; };
 		E34FC4941E16B4E50028D36C /* CreateAssemblyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CreateAssemblyViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		E3589E301E21B6A500EC1D39 /* R&D Inventory-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "R&D Inventory-Bridging-Header.h"; sourceTree = "<group>"; };
+		E3589E311E21B6A500EC1D39 /* bridged_header.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bridged_header.m; sourceTree = "<group>"; };
+		E3589E341E21C67B00EC1D39 /* CalendarViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewCell.swift; sourceTree = "<group>"; };
+		E3589E361E21CFCB00EC1D39 /* EventView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
 		E36412071E1D9C0200F4A5A2 /* Project.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Project.storyboard; sourceTree = "<group>"; };
 		E36412091E1D9C7600F4A5A2 /* Inventory.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Inventory.storyboard; sourceTree = "<group>"; };
 		E364120D1E1D9CB200F4A5A2 /* Assembly.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Assembly.storyboard; sourceTree = "<group>"; };
 		E36412131E1D9D7100F4A5A2 /* Builds.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Builds.storyboard; sourceTree = "<group>"; };
 		E36412151E1D9DD300F4A5A2 /* TabBar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
 		E36412171E1DA9AF00F4A5A2 /* Assemblies.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Assemblies.storyboard; sourceTree = "<group>"; };
-		E36412191E1DB77A00F4A5A2 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		E364121B1E1DE99E00F4A5A2 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
-		E364121D1E1DF13C00F4A5A2 /* ProjectPageView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProjectPageView.storyboard; sourceTree = "<group>"; };
 		E370B6861E19F13B00C0E349 /* RegexRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexRule.swift; sourceTree = "<group>"; };
+		E37DC4801E21D79500A42792 /* SideMenu.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SideMenu.storyboard; sourceTree = "<group>"; };
+		E37DC4821E21DB0A00A42792 /* ProjectOverview.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProjectOverview.storyboard; sourceTree = "<group>"; };
 		E398F1151E1357E300CD91D4 /* R&D Inventory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "R&D Inventory.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E398F1181E1357E300CD91D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E398F11F1E1357E300CD91D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -138,6 +144,7 @@
 		E3FD60601E1E0F1200E614EE /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		E3FD60621E1EF74200E614EE /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E3FD60641E1EF77100E614EE /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		E3FEECFF1E21B4EB00F5F7F4 /* BuildsCalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildsCalendarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,6 +216,16 @@
 			name = "Table Views";
 			sourceTree = "<group>";
 		};
+		E3589E331E21B78700EC1D39 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				E3FEECFF1E21B4EB00F5F7F4 /* BuildsCalendarViewController.swift */,
+				E3589E341E21C67B00EC1D39 /* CalendarViewCell.swift */,
+				E3589E361E21CFCB00EC1D39 /* EventView.swift */,
+			);
+			name = Calendar;
+			sourceTree = "<group>";
+		};
 		E364121F1E1DFB7300F4A5A2 /* Detail Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,6 +245,17 @@
 				E34DAC061E1B255D00A93215 /* PartIDCell.swift */,
 			);
 			name = CustomFormFields;
+			sourceTree = "<group>";
+		};
+		E37DC4841E21DFB300A42792 /* Tab Bar */ = {
+			isa = PBXGroup;
+			children = (
+				E37DC4821E21DB0A00A42792 /* ProjectOverview.storyboard */,
+				E36412131E1D9D7100F4A5A2 /* Builds.storyboard */,
+				E36412171E1DA9AF00F4A5A2 /* Assemblies.storyboard */,
+				E36412091E1D9C7600F4A5A2 /* Inventory.storyboard */,
+			);
+			name = "Tab Bar";
 			sourceTree = "<group>";
 		};
 		E384849B1E1AFC06007E3DE3 /* Views */ = {
@@ -337,6 +365,8 @@
 				E3ECCE961E15C98A009C936D /* R&D Inventory.entitlements */,
 				E398F15A1E15B0AF00CD91D4 /* GoogleService-Info.plist */,
 				E398F1241E1357E300CD91D4 /* Info.plist */,
+				E3589E311E21B6A500EC1D39 /* bridged_header.m */,
+				E3589E301E21B6A500EC1D39 /* R&D Inventory-Bridging-Header.h */,
 			);
 			name = Configuration;
 			sourceTree = "<group>";
@@ -344,11 +374,11 @@
 		E3AF6CB41E18036E00AE0947 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E3589E331E21B78700EC1D39 /* Calendar */,
 				E3FBFBDD1E1EFA27007AEB01 /* Login */,
 				E364121F1E1DFB7300F4A5A2 /* Detail Views */,
 				E30E055E1E1C63690048539B /* Forms */,
 				E30E055F1E1C8D9D0048539B /* Table Views */,
-				E364121B1E1DE99E00F4A5A2 /* PageViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -366,15 +396,12 @@
 			isa = PBXGroup;
 			children = (
 				E398F1211E1357E300CD91D4 /* LaunchScreen.storyboard */,
-				E36412191E1DB77A00F4A5A2 /* Main.storyboard */,
 				E36412151E1D9DD300F4A5A2 /* TabBar.storyboard */,
-				E364121D1E1DF13C00F4A5A2 /* ProjectPageView.storyboard */,
-				E36412131E1D9D7100F4A5A2 /* Builds.storyboard */,
+				E37DC4841E21DFB300A42792 /* Tab Bar */,
 				E364120D1E1D9CB200F4A5A2 /* Assembly.storyboard */,
-				E36412171E1DA9AF00F4A5A2 /* Assemblies.storyboard */,
-				E36412091E1D9C7600F4A5A2 /* Inventory.storyboard */,
 				E36412071E1D9C0200F4A5A2 /* Project.storyboard */,
 				E3FD60641E1EF77100E614EE /* Login.storyboard */,
+				E37DC4801E21D79500A42792 /* SideMenu.storyboard */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -459,6 +486,7 @@
 					E398F1141E1357E300CD91D4 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = HNACG3848H;
+						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
@@ -509,14 +537,14 @@
 				E36412141E1D9D7100F4A5A2 /* Builds.storyboard in Resources */,
 				E398F15B1E15B0AF00CD91D4 /* GoogleService-Info.plist in Resources */,
 				E36412081E1D9C0200F4A5A2 /* Project.storyboard in Resources */,
-				E364121A1E1DB77A00F4A5A2 /* Main.storyboard in Resources */,
 				E364120E1E1D9CB200F4A5A2 /* Assembly.storyboard in Resources */,
 				E36412181E1DA9AF00F4A5A2 /* Assemblies.storyboard in Resources */,
 				E398F1231E1357E300CD91D4 /* LaunchScreen.storyboard in Resources */,
+				E37DC4811E21D79500A42792 /* SideMenu.storyboard in Resources */,
 				E3FD60651E1EF77100E614EE /* Login.storyboard in Resources */,
 				E398F1201E1357E300CD91D4 /* Assets.xcassets in Resources */,
-				E364121E1E1DF13C00F4A5A2 /* ProjectPageView.storyboard in Resources */,
 				E364120A1E1D9C7600F4A5A2 /* Inventory.storyboard in Resources */,
+				E37DC4831E21DB0A00A42792 /* ProjectOverview.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -589,6 +617,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3589E351E21C67B00EC1D39 /* CalendarViewCell.swift in Sources */,
 				E3AFE9BF1E19AB94008DA196 /* BuildTableViewController.swift in Sources */,
 				E398F14F1E1363BA00CD91D4 /* PartTableViewCell.swift in Sources */,
 				E34DAC0B1E1B477900A93215 /* ProjectsTableViewController.swift in Sources */,
@@ -601,7 +630,9 @@
 				E398F1511E1363C500CD91D4 /* AssemblyTableViewCell.swift in Sources */,
 				E398F1471E13602E00CD91D4 /* AssemblyDetailTableViewController.swift in Sources */,
 				E398F1571E136C2200CD91D4 /* AssemblyTableViewController.swift in Sources */,
+				E3589E321E21B6A500EC1D39 /* bridged_header.m in Sources */,
 				E3AF6CB01E1762E000AE0947 /* Build.swift in Sources */,
+				E3589E371E21CFCB00EC1D39 /* EventView.swift in Sources */,
 				E3ECCE9A1E15D0DC009C936D /* FIRDataObject.swift in Sources */,
 				E3AFE9C71E19B45B008DA196 /* CreatePartViewController.swift in Sources */,
 				E3ECCE931E15B662009C936D /* Constants.swift in Sources */,
@@ -612,8 +643,8 @@
 				E30E055D1E1C61A40048539B /* CreateProjectViewController.swift in Sources */,
 				E34DAC0D1E1B48A000A93215 /* Project.swift in Sources */,
 				E3FD60631E1EF74300E614EE /* LoginViewController.swift in Sources */,
-				E364121C1E1DE99E00F4A5A2 /* PageViewController.swift in Sources */,
 				E34FC4931E16B31F0028D36C /* PartRow.swift in Sources */,
+				E3FEED001E21B4EB00F5F7F4 /* BuildsCalendarViewController.swift in Sources */,
 				E345076E1E1F0ED700C5D8EA /* User.swift in Sources */,
 				E398F15D1E15B28300CD91D4 /* FirebaseDataManager.swift in Sources */,
 				E3AF6CB71E18135E00AE0947 /* CreateBuildViewController.swift in Sources */,
@@ -773,12 +804,15 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "R&D Inventory/R&D Inventory.entitlements";
 				DEVELOPMENT_TEAM = HNACG3848H;
 				INFOPLIST_FILE = "R&D Inventory/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "ME.R-D-Inventory";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "R&D Inventory/R&D Inventory-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -789,12 +823,14 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "R&D Inventory/R&D Inventory.entitlements";
 				DEVELOPMENT_TEAM = HNACG3848H;
 				INFOPLIST_FILE = "R&D Inventory/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "ME.R-D-Inventory";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "R&D Inventory/R&D Inventory-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

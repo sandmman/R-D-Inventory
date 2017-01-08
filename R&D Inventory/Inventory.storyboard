@@ -9,6 +9,14 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--SideMenu-->
+        <scene sceneID="oYi-eZ-uTv">
+            <objects>
+                <viewControllerPlaceholder storyboardName="SideMenu" id="SPr-v0-YuC" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ejv-7s-i1x" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2020" y="-2360"/>
+        </scene>
         <!--Inventory-->
         <scene sceneID="SRa-0v-iEo">
             <objects>
@@ -74,6 +82,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Inventory" id="IBg-Wq-dr4">
+                        <barButtonItem key="leftBarButtonItem" image="sidebar" id="hdN-Qz-akS">
+                            <connections>
+                                <segue destination="SPr-v0-YuC" kind="presentation" id="j5Y-Rh-kHj"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="O7v-qL-vIJ">
                             <connections>
                                 <segue destination="9dO-LO-AkT" kind="show" identifier="CreatePartSegue" id="ly7-Ma-wxi"/>
@@ -111,7 +124,7 @@
                     <tabBarItem key="tabBarItem" title="Inventory" image="Parts" selectedImage="Parts" id="JcF-ot-aRY"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="qwB-2N-9Ad">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qwB-2N-9Ad">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -127,5 +140,6 @@
     </scenes>
     <resources>
         <image name="Parts" width="15" height="15"/>
+        <image name="sidebar" width="15" height="15"/>
     </resources>
 </document>

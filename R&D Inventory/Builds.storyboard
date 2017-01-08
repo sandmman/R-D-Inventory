@@ -20,62 +20,101 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="dkf-rk-d6N" kind="relationship" relationship="rootViewController" id="148-vw-Xms"/>
+                        <segue destination="Ybe-0K-skv" kind="relationship" relationship="rootViewController" id="xwL-ca-u0O"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aAj-qq-1D6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2170" y="-1254"/>
         </scene>
-        <!--Build Table View Controller-->
-        <scene sceneID="3pY-Lz-rfg">
+        <!--SideMenu-->
+        <scene sceneID="xzI-Kq-2DU">
             <objects>
-                <tableViewController storyboardIdentifier="BuildTableViewController" id="dkf-rk-d6N" customClass="BuildTableViewController" customModule="R_D_Inventory" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="28" sectionFooterHeight="28" id="rmF-0p-baq">
+                <viewControllerPlaceholder storyboardName="SideMenu" id="hfl-Bt-Bz4" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ib9-Mz-XoP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-841" y="-1644"/>
+        </scene>
+        <!--Data Source-->
+        <scene sceneID="RMb-S3-ewJ">
+            <objects>
+                <viewController id="Ybe-0K-skv" customClass="BuildsCalendarViewController" customModule="R_D_Inventory" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FsR-hP-Ma6"/>
+                        <viewControllerLayoutGuide type="bottom" id="QiC-9r-Vyv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="RiF-5r-xsd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dcj-q0-hNW" customClass="FSCalendar">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="eventColor">
+                                        <color key="value" red="0.76357317869999997" green="0.28366938660000002" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="headerTitleColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="adjustsFontSizeToFitContentSize" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="headerDateFormat" value="MMMM"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Ybe-0K-skv" id="mQo-x8-cUb"/>
+                                    <outlet property="delegate" destination="Ybe-0K-skv" id="k5J-ia-ey4"/>
+                                </connections>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dcj-q0-hNW" firstAttribute="leading" secondItem="RiF-5r-xsd" secondAttribute="leading" id="52N-PT-8IH"/>
+                            <constraint firstItem="QiC-9r-Vyv" firstAttribute="top" secondItem="dcj-q0-hNW" secondAttribute="bottom" id="FFW-7L-rk4"/>
+                            <constraint firstItem="dcj-q0-hNW" firstAttribute="top" secondItem="FsR-hP-Ma6" secondAttribute="bottom" constant="-64" id="LGQ-hF-mKb"/>
+                            <constraint firstAttribute="trailing" secondItem="dcj-q0-hNW" secondAttribute="trailing" id="xHK-pZ-IGS"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="iF3-6b-A4s">
+                        <barButtonItem key="leftBarButtonItem" image="sidebar" id="PYi-vg-H3c">
+                            <connections>
+                                <segue destination="hfl-Bt-Bz4" kind="presentation" id="YcJ-XQ-JqO"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="IqH-G2-hsh">
+                            <connections>
+                                <segue destination="IvD-ZE-pyn" kind="show" id="Gr2-xp-itQ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="calendar" destination="dcj-q0-hNW" id="OJt-5S-V8f"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g9g-8w-OW4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1433" y="-1254"/>
+        </scene>
+        <!--Create Build View Controller-->
+        <scene sceneID="pln-dd-2tc">
+            <objects>
+                <viewController id="IvD-ZE-pyn" customClass="CreateBuildViewController" customModule="R_D_Inventory" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Y8d-qS-HIb"/>
+                        <viewControllerLayoutGuide type="bottom" id="TtY-FF-u2K"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xdh-QQ-g03">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="BuildTableViewCell" textLabel="clG-NJ-c2V" detailTextLabel="enk-T1-cix" rowHeight="65" style="IBUITableViewCellStyleSubtitle" id="i8u-RR-g0R">
-                                <rect key="frame" x="0.0" y="28" width="375" height="65"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="i8u-RR-g0R" id="X9v-BM-Fhk">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="64"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="clG-NJ-c2V">
-                                            <rect key="frame" x="15" y="14" width="34" height="21"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="enk-T1-cix">
-                                            <rect key="frame" x="15" y="35" width="44" height="15"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="dkf-rk-d6N" id="zkO-dU-rsM"/>
-                            <outlet property="delegate" destination="dkf-rk-d6N" id="w8d-TY-acF"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="Dne-SX-nXO">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="lD1-ck-DYf"/>
-                    </navigationItem>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5hi-cC-Oay" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L20-uz-g5h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1338.4000000000001" y="-1254.4227886056972"/>
+            <point key="canvasLocation" x="-615" y="-1254"/>
         </scene>
     </scenes>
     <resources>
         <image name="Builds" width="15" height="15"/>
+        <image name="sidebar" width="15" height="15"/>
     </resources>
 </document>

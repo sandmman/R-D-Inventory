@@ -60,7 +60,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="hs7-h3-rVy">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="CJV-i7-L1v"/>
+                        <barButtonItem key="leftBarButtonItem" image="sidebar" id="bgC-8o-h7b">
+                            <connections>
+                                <segue destination="XVN-3U-hXB" kind="presentation" id="Ffp-TE-k17"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="CJV-i7-L1v">
+                            <connections>
+                                <segue destination="5cN-3M-dVj" kind="show" id="7g4-uH-0Mz"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="AddAssemblyButton" destination="CJV-i7-L1v" id="pdt-d4-Z2Z"/>
@@ -71,16 +80,43 @@
             </objects>
             <point key="canvasLocation" x="77.599999999999994" y="81.409295352323838"/>
         </scene>
+        <!--Create Assembly View Controller-->
+        <scene sceneID="heA-Pc-41e">
+            <objects>
+                <viewController id="5cN-3M-dVj" customClass="CreateAssemblyViewController" customModule="R_D_Inventory" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Rfz-yl-CyX"/>
+                        <viewControllerLayoutGuide type="bottom" id="AH4-xe-rWj"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="36X-gZ-X51">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="epu-rO-2Lh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1172" y="81"/>
+        </scene>
+        <!--SideMenu-->
+        <scene sceneID="BCI-nx-uMO">
+            <objects>
+                <viewControllerPlaceholder storyboardName="SideMenu" id="XVN-3U-hXB" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nIK-RC-CeN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="683" y="-98"/>
+        </scene>
         <!--Assembly-->
         <scene sceneID="5aI-U4-1VL">
             <objects>
                 <viewControllerPlaceholder storyboardName="Assembly" id="AGk-kh-kMX" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DHP-Hw-2l2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="684" y="81"/>
+            <point key="canvasLocation" x="684" y="-52"/>
         </scene>
     </scenes>
     <resources>
         <image name="Assemblies" width="15" height="15"/>
+        <image name="sidebar" width="15" height="15"/>
     </resources>
 </document>

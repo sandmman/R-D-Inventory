@@ -38,16 +38,16 @@ class ProjectViewController: UIViewController, TabBarViewController {
                 return
             }
             
-            guard let navController0 = tabBar.viewControllers![1] as? UINavigationController,let vc0 = navController0.topViewController as? InventoryTableViewController else {
+            guard let navController0 = tabBar.viewControllers![1] as? UINavigationController,let vc0 = navController0.topViewController as? TabBarViewController else {
                 return
             }
             
-            guard let navController1 = tabBar.viewControllers![2] as? UINavigationController, let vc1 = navController1.topViewController as? BuildTableViewController else {
+            guard let navController1 = tabBar.viewControllers![2] as? UINavigationController, let vc1 = navController1.topViewController as? TabBarViewController else {
                 return
             }
             
             guard let navController2 = tabBar.viewControllers![3] as? UINavigationController,
-                let vc2 = navController2.topViewController as? AssemblyTableViewController else {
+                let vc2 = navController2.topViewController as? TabBarViewController else {
                     return
             }
             

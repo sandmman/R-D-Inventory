@@ -118,7 +118,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
        
         let storyboard:UIStoryboard = UIStoryboard(name: "TabBar", bundle: nil)
         
-        let navigationController:UINavigationController = storyboard.instantiateInitialViewController() as! UINavigationController
+        let navigationController: UITabBarController = storyboard.instantiateInitialViewController() as! UITabBarController
 
         self.window?.rootViewController = navigationController
     }

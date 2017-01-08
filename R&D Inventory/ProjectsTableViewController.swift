@@ -89,7 +89,7 @@ class ProjectsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         selectedProject = projects[indexPath.row]
-        
+
         performSegue(withIdentifier: Constants.Segues.UnwindToProjectDetail, sender: nil)
     }
     

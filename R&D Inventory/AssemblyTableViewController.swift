@@ -23,18 +23,11 @@ class AssemblyTableViewController: UITableViewController, TabBarViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        instantiateDoneButton()
     }
     
     public func didChangeProject(project: Project) {
         self.project = project
         assemblies = []
-    }
-
-    private func instantiateDoneButton() {
-        let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(BuildPartViewController.tappedDone(_:)))
-        button.title = "Done"
-        navigationItem.rightBarButtonItem = button
     }
 
     override func viewWillAppear(_ animated: Bool) {

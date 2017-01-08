@@ -10,6 +10,9 @@ target 'R&D Inventory' do
   pod 'Firebase/Database'
   pod 'Firebase/Auth'
   pod 'GoogleSignIn'
+  pod 'SideMenu', :git => 'https://github.com/jonkykong/SideMenu.git', :branch => '2.1.3' 
+  use_frameworks!
+  pod 'FSCalendar'
   pod 'Eureka', :git => 'https://github.com/xmartlabs/Eureka.git', :branch => 'master'
   # Pods for R&D Inventory
  
