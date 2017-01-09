@@ -1,0 +1,5 @@
+version: "Apple Swift version 3.0.2 (swiftlang-800.0.63 clang-800.0.42.1)"
+options: "33849402b1c81783881ea4b7be01fc5a"
+build_time: [537316359, 225908000]
+inputs:
+  "/Users/aaronliberatore/Documents/Projects/R&D Inventory/R&D Inventory - Server/Tests/R&D Inventory - ServerTests/R_D_Inventory___ServerTests.swift": [537316336, 0]

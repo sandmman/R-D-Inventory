@@ -1,0 +1,11 @@
+{
+  "": {
+    "swift-dependencies": "/Users/aaronliberatore/Documents/Projects/R&D Inventory/R&D Inventory - Server/.build/debug/R_D_Inventory___Server.build/master.swiftdeps"
+  },
+  "/Users/aaronliberatore/Documents/Projects/R&D Inventory/R&D Inventory - Server/Sources/R_D_Inventory___Server.swift": {
+    "dependencies": "/Users/aaronliberatore/Documents/Projects/R&D Inventory/R&D Inventory - Server/.build/debug/R_D_Inventory___Server.build/R_D_Inventory___Server.d",
+    "object": "/Users/aaronliberatore/Documents/Projects/R&D Inventory/R&D Inventory - Server/.build/debug/R_D_Inventory___Server.build/R_D_Inventory___Server.swift.o",
+    "swiftmodule": "/Users/aaronliberatore/Documents/Projects/R&D Inventory/R&D Inventory - Server/.build/debug/R_D_Inventory___Server.build/R_D_Inventory___Server~partial.swiftmodule",
+    "swift-dependencies": "/Users/aaronliberatore/Documents/Projects/R&D Inventory/R&D Inventory - Server/.build/debug/R_D_Inventory___Server.build/R_D_Inventory___Server.swiftdeps"
+  }
+}
