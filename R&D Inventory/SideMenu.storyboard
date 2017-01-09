@@ -9,20 +9,74 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Projects Table View Controller-->
-        <scene sceneID="rFW-BU-0q8">
+        <!--Side View Controller-->
+        <scene sceneID="9LY-n2-eeN">
             <objects>
-                <tableViewController id="pep-q4-3Mi" customClass="ProjectsTableViewController" customModule="R_D_Inventory" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="7NG-j4-fou">
+                <viewController id="3B4-eS-NeS" customClass="SideViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="SuG-cr-8lc"/>
+                        <viewControllerLayoutGuide type="bottom" id="JY5-3D-pVh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Sll-0l-d2w">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="V1r-xo-ojw"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZfN-pz-Sh4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-111" y="-499"/>
+        </scene>
+        <!--Side Bar Table View Controller-->
+        <scene sceneID="rFW-BU-0q8">
+            <objects>
+                <tableViewController id="pep-q4-3Mi" customClass="SideBarTableViewController" customModule="R_D_Inventory" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="7NG-j4-fou">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProjectTableViewCell" id="eMQ-Dz-y3r">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SideBarTableViewCell" rowHeight="160" id="eMQ-Dz-y3r" customClass="SideBarTableViewCell" customModule="R_D_Inventory" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="160"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eMQ-Dz-y3r" id="u6e-wA-06o">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="160"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="geo" translatesAutoresizingMaskIntoConstraints="NO" id="SoX-RS-SUz">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="160"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="Lr5-pl-s8R">
+                                            <rect key="frame" x="8" y="131" width="359" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="User name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="sbU-Hr-Eqr">
+                                            <rect key="frame" x="8" y="111" width="367" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="backgrounImageView" destination="SoX-RS-SUz" id="vZf-Hf-LPQ"/>
+                                    <outlet property="emailLabel" destination="Lr5-pl-s8R" id="vX4-JP-Nmm"/>
+                                    <outlet property="nameLabel" destination="sbU-Hr-Eqr" id="t7g-OR-fGM"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProjectTableViewCell" id="D6e-dk-Ddb">
+                                <rect key="frame" x="0.0" y="188" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="D6e-dk-Ddb" id="BWw-id-mja">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -33,6 +87,8 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="cVK-Q5-aUF"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <segue destination="hRn-8N-6Wl" kind="unwind" identifier="UnwindToProjectDetailSegue" unwindAction="unwindToTabBarControllerWithSender:" id="WoW-Gf-j9Y"/>
                     </connections>
@@ -40,7 +96,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Odt-N8-bmT" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="hRn-8N-6Wl" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-110" y="145"/>
+            <point key="canvasLocation" x="-111.2" y="144.3778110944528"/>
         </scene>
         <!--Side Menu Navigation Controller-->
         <scene sceneID="BWC-0c-h2r">
@@ -54,7 +110,7 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="leftSide" value="YES"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <segue destination="pep-q4-3Mi" kind="relationship" relationship="rootViewController" id="0B3-Pp-A8q"/>
+                        <segue destination="pep-q4-3Mi" kind="relationship" relationship="rootViewController" id="r9F-LN-J1Y"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jrX-Or-R9K" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -62,4 +118,7 @@
             <point key="canvasLocation" x="-828" y="144"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="geo" width="1325" height="750"/>
+    </resources>
 </document>

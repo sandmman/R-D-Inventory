@@ -88,5 +88,6 @@ struct Constants {
         static let part = "PartTableViewCell"
         static let Part = "PartTableViewCell"
         static let Project = "ProjectTableViewCell"
+        static let BuildWarning = "BuildWarningTableViewCell"
     }
 }

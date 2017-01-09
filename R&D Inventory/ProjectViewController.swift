@@ -8,9 +8,13 @@
 
 import UIKit
 
-class ProjectViewController: UIViewController, TabBarViewController {
+class ProjectViewController: UIViewController, TabBarViewController, UITableViewDelegate,UITableViewDataSource {
     
     @IBOutlet var projectLabel: UILabel!
+    
+    @IBOutlet var warningsTableView: UITableView!
+    
+    private var buildWarnings = [Build]()
 
     var project: Project!
 
@@ -20,6 +24,10 @@ class ProjectViewController: UIViewController, TabBarViewController {
         projectLabel.text = "Project Name"
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        warningsTableView.isHidden = buildWarnings.count == 0
+    }
+
     public func didChangeProject(project: Project) {
         self.project = project
         
@@ -28,7 +36,7 @@ class ProjectViewController: UIViewController, TabBarViewController {
     }
     
     @IBAction func unwindToTabBarController(sender: UIStoryboardSegue) {
-        if let vc = sender.source as? ProjectsTableViewController {
+        if let vc = sender.source as? SideBarTableViewController {
             
             guard let project = vc.selectedProject else {
                 return
@@ -57,5 +65,20 @@ class ProjectViewController: UIViewController, TabBarViewController {
             
             didChangeProject(project: project)
         }
+    }
+    
+    // MARK: TableView
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return buildWarnings.count
+    }
+    
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.BuildWarning, for: indexPath)
+        
+        cell.textLabel?.text = buildWarnings[indexPath.row].assemblyID
+        
+        return cell
     }
 }

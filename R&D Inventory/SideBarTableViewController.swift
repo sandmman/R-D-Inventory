@@ -1,5 +1,5 @@
 //
-//  ProjectsTableViewController.swift
+//  SideBarTableViewController.swift
 //  R&D Inventory
 //
 //  Created by Aaron Liberatore on 1/2/17.
@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import SideMenu
 
-class ProjectsTableViewController: UITableViewController {
+class SideBarTableViewController: UITableViewController {
     
     var handles: (UInt, UInt)!
     
@@ -22,8 +23,22 @@ class ProjectsTableViewController: UITableViewController {
         _ = navigationController?.popViewController(animated: true)
     }
 
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let screenRect = UIScreen.main.bounds
+        let screenWidth = screenRect.size.width;
+    
+        SideMenuManager.menuWidth = screenWidth * 0.70
+
+        SideMenuManager.menuFadeStatusBar = false
+
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -51,11 +66,22 @@ class ProjectsTableViewController: UITableViewController {
         }
     }
     // MARK: - Table view data source
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 160
+    }
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let  headerCell = tableView.dequeueReusableCell(withIdentifier: "SideBarTableViewCell") as! SideBarTableViewCell
+        
+        headerCell.nameLabel.text = CurrentUser.fullName
+        headerCell.emailLabel.text = CurrentUser.email.lowercased()
 
+        return headerCell
+    }
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return projects.count
     }

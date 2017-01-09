@@ -63,6 +63,25 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.0025455236470000001" green="0.46591369449999998" blue="0.96320628159999999" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6b8-IO-qbn">
+                                <rect key="frame" x="0.0" y="374" width="375" height="244"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BuildWarningTableViewCell" id="Gc9-Sb-ckO">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gc9-Sb-ckO" id="wcU-Xy-JxH">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="qxO-sh-onG" id="2YY-Hq-MQK"/>
+                                    <outlet property="delegate" destination="qxO-sh-onG" id="qAx-fK-1vy"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -76,13 +95,14 @@
                     </navigationItem>
                     <connections>
                         <outlet property="projectLabel" destination="cny-YT-plI" id="wFw-Gw-8wE"/>
+                        <outlet property="warningsTableView" destination="6b8-IO-qbn" id="XxO-5y-1RV"/>
                         <segue destination="007-3X-xvn" kind="unwind" identifier="UnwindToProjectDetailSegue" unwindAction="unwindToTabBarControllerWithSender:" id="xcF-lS-YYu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pKa-Mh-0hO" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="007-3X-xvn" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1610" y="-800"/>
+            <point key="canvasLocation" x="1608.8" y="-800.14992503748135"/>
         </scene>
     </scenes>
     <resources>

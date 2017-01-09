@@ -15,7 +15,7 @@
 		E34507701E1F109300C5D8EA /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E345076F1E1F109300C5D8EA /* CurrentUser.swift */; };
 		E34DAC071E1B255D00A93215 /* PartIDCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34DAC061E1B255D00A93215 /* PartIDCell.swift */; };
 		E34DAC091E1B397900A93215 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34DAC081E1B397900A93215 /* Validator.swift */; };
-		E34DAC0B1E1B477900A93215 /* ProjectsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34DAC0A1E1B477900A93215 /* ProjectsTableViewController.swift */; };
+		E34DAC0B1E1B477900A93215 /* SideBarTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34DAC0A1E1B477900A93215 /* SideBarTableViewController.swift */; };
 		E34DAC0D1E1B48A000A93215 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34DAC0C1E1B48A000A93215 /* Project.swift */; };
 		E34FC4931E16B31F0028D36C /* PartRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34FC4921E16B31F0028D36C /* PartRow.swift */; };
 		E34FC4951E16B4E50028D36C /* CreateAssemblyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34FC4941E16B4E50028D36C /* CreateAssemblyViewController.swift */; };
@@ -31,6 +31,7 @@
 		E370B6871E19F13B00C0E349 /* RegexRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E370B6861E19F13B00C0E349 /* RegexRule.swift */; };
 		E37DC4811E21D79500A42792 /* SideMenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E37DC4801E21D79500A42792 /* SideMenu.storyboard */; };
 		E37DC4831E21DB0A00A42792 /* ProjectOverview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E37DC4821E21DB0A00A42792 /* ProjectOverview.storyboard */; };
+		E37DC48A1E2301AC00A42792 /* SideBarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37DC4891E2301AC00A42792 /* SideBarTableViewCell.swift */; };
 		E398F1191E1357E300CD91D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F1181E1357E300CD91D4 /* AppDelegate.swift */; };
 		E398F1201E1357E300CD91D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E398F11F1E1357E300CD91D4 /* Assets.xcassets */; };
 		E398F1231E1357E300CD91D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E398F1211E1357E300CD91D4 /* LaunchScreen.storyboard */; };
@@ -92,7 +93,7 @@
 		E345076F1E1F109300C5D8EA /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		E34DAC061E1B255D00A93215 /* PartIDCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartIDCell.swift; sourceTree = "<group>"; };
 		E34DAC081E1B397900A93215 /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Validator.swift; path = "R&D Inventory/Validator.swift"; sourceTree = "<group>"; };
-		E34DAC0A1E1B477900A93215 /* ProjectsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectsTableViewController.swift; sourceTree = "<group>"; };
+		E34DAC0A1E1B477900A93215 /* SideBarTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideBarTableViewController.swift; sourceTree = "<group>"; };
 		E34DAC0C1E1B48A000A93215 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		E34FC4921E16B31F0028D36C /* PartRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartRow.swift; sourceTree = "<group>"; };
 		E34FC4941E16B4E50028D36C /* CreateAssemblyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CreateAssemblyViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -109,6 +110,7 @@
 		E370B6861E19F13B00C0E349 /* RegexRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegexRule.swift; sourceTree = "<group>"; };
 		E37DC4801E21D79500A42792 /* SideMenu.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SideMenu.storyboard; sourceTree = "<group>"; };
 		E37DC4821E21DB0A00A42792 /* ProjectOverview.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProjectOverview.storyboard; sourceTree = "<group>"; };
+		E37DC4891E2301AC00A42792 /* SideBarTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideBarTableViewCell.swift; sourceTree = "<group>"; };
 		E398F1151E1357E300CD91D4 /* R&D Inventory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "R&D Inventory.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E398F1181E1357E300CD91D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E398F11F1E1357E300CD91D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -210,7 +212,7 @@
 				E398F1561E136C2200CD91D4 /* AssemblyTableViewController.swift */,
 				E3AFE9BE1E19AB94008DA196 /* BuildTableViewController.swift */,
 				E3AFE9BC1E195775008DA196 /* InventoryTableViewController.swift */,
-				E34DAC0A1E1B477900A93215 /* ProjectsTableViewController.swift */,
+				E34DAC0A1E1B477900A93215 /* SideBarTableViewController.swift */,
 				E3FD60601E1E0F1200E614EE /* TabBarViewController.swift */,
 			);
 			name = "Table Views";
@@ -388,6 +390,7 @@
 			children = (
 				E398F1501E1363C500CD91D4 /* AssemblyTableViewCell.swift */,
 				E398F14E1E1363BA00CD91D4 /* PartTableViewCell.swift */,
+				E37DC4891E2301AC00A42792 /* SideBarTableViewCell.swift */,
 			);
 			name = TableViewCells;
 			sourceTree = "<group>";
@@ -620,7 +623,7 @@
 				E3589E351E21C67B00EC1D39 /* CalendarViewCell.swift in Sources */,
 				E3AFE9BF1E19AB94008DA196 /* BuildTableViewController.swift in Sources */,
 				E398F14F1E1363BA00CD91D4 /* PartTableViewCell.swift in Sources */,
-				E34DAC0B1E1B477900A93215 /* ProjectsTableViewController.swift in Sources */,
+				E34DAC0B1E1B477900A93215 /* SideBarTableViewController.swift in Sources */,
 				E30E055B1E1B63E70048539B /* Listener.swift in Sources */,
 				E3AFE9C91E19B9B3008DA196 /* ObjectMapper.swift in Sources */,
 				E34507701E1F109300C5D8EA /* CurrentUser.swift in Sources */,
@@ -638,6 +641,7 @@
 				E3ECCE931E15B662009C936D /* Constants.swift in Sources */,
 				E3AFE9C51E19B0EB008DA196 /* DataManager.swift in Sources */,
 				E32CD1071E161326005A35BD /* CreatePartRowViewController.swift in Sources */,
+				E37DC48A1E2301AC00A42792 /* SideBarTableViewCell.swift in Sources */,
 				E398F14D1E1363A600CD91D4 /* PartViewController.swift in Sources */,
 				E3AF6CB91E1840EF00AE0947 /* BuildDetailViewController.swift in Sources */,
 				E30E055D1E1C61A40048539B /* CreateProjectViewController.swift in Sources */,
