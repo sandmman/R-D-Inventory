@@ -44,12 +44,6 @@ public class CreatePartRowViewController: FormViewController, TypedRowController
     }
 
     private func instantiateForm() {
-        
-        var part: Part? = nil
-        
-        if let value = row.value {
-            part = value as Part
-        }
 
         form = Section("Info")
             <<< TextRow(Constants.PartFields.Name){ row in

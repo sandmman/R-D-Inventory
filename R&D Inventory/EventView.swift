@@ -30,13 +30,13 @@ class EventView: UIView {
         label.isHidden=true
         self.addSubview(label)
         
-        var btn: UIButton = UIButton()
+        let btn: UIButton = UIButton()
         btn.frame = CGRect(x: 50, y: 120, width: 200, height: 100)
         btn.backgroundColor=UIColor.red
         btn.setTitle("Test button", for: UIControlState.normal)
         self.addSubview(btn)
         
-        var txtField : UITextField = UITextField()
+        let txtField : UITextField = UITextField()
         txtField.frame = CGRect(x: 50, y: 10, width: 200, height: 100)
         txtField.backgroundColor = UIColor.gray
         self.addSubview(txtField)

@@ -100,7 +100,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         if let idToken = user.authentication.idToken {
             CurrentUser.googleUserId = idToken
         }
-        navigateToHomeScreen()
+        navigateToInitialScreen()
     }
 
     private func onSignInApproved(user: FIRUser) {
@@ -111,16 +111,65 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             CurrentUser.email = email
         }
 
-        navigateToHomeScreen()
+        navigateToInitialScreen()
     }
 
-    private func navigateToHomeScreen() {
-       
+    private func navigateToInitialScreen() {
+        
+        FirebaseDataManager.getProjects {
+            projects in
+
+            projects.count > 0 ? self.navigateToHome(project: projects[0]) :
+                                 self.navigateToInitialSetup()
+
+        }
+    }
+    
+    private func navigateToInitialSetup() {
+
+        let storyboard:UIStoryboard = UIStoryboard(name: "InitialProjectCreation", bundle: nil)
+        
+        let navigationController: UINavigationController = storyboard.instantiateInitialViewController() as! UINavigationController
+        
+        guard let vc = navigationController.viewControllers[0] as? CreateProjectViewController else {
+            return
+        }
+        
+        vc.isInitialForm = true
+        
+        self.window?.rootViewController = navigationController
+    }
+
+    private func navigateToHome(project: Project) {
+        
         let storyboard:UIStoryboard = UIStoryboard(name: "TabBar", bundle: nil)
         
-        let navigationController: UITabBarController = storyboard.instantiateInitialViewController() as! UITabBarController
-
-        self.window?.rootViewController = navigationController
+        let tabBar: UITabBarController = storyboard.instantiateInitialViewController() as! UITabBarController
+    
+        guard let navController0 = tabBar.viewControllers![0] as? UINavigationController,let vc0 = navController0.topViewController as? TabBarViewController else {
+            return
+        }
+        
+        guard let navController1 = tabBar.viewControllers![1] as? UINavigationController, let vc1 = navController1.topViewController as? TabBarViewController else {
+            return
+        }
+        
+        guard let navController2 = tabBar.viewControllers![2] as? UINavigationController,
+            let vc2 = navController2.topViewController as? TabBarViewController else {
+                return
+        }
+        
+        guard let navController3 = tabBar.viewControllers![3] as? UINavigationController,
+            let vc3 = navController3.topViewController as? TabBarViewController else {
+                return
+        }
+        
+        vc0.didChangeProject(project: project)
+        vc1.didChangeProject(project: project)
+        vc2.didChangeProject(project: project)
+        vc3.didChangeProject(project: project)
+        
+        self.window?.rootViewController = tabBar
     }
 }
 

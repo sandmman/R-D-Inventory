@@ -124,7 +124,7 @@
                     <tabBarItem key="tabBarItem" title="Inventory" image="Parts" selectedImage="Parts" id="JcF-ot-aRY"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qwB-2N-9Ad">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="qwB-2N-9Ad">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

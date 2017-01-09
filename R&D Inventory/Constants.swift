@@ -28,8 +28,10 @@ struct Constants {
 
     struct Segues {
         static let SignInToHome = "SignInToHomeSegue"
+        static let SignInToCreateProject = "SignInToCreateProjectSegue"
         static let HomeToSignIn = "HomeToSignInSegue"
-
+        static let ToHome = "ToHomeSegue"
+        
         static let PartDetail = "PartDetailSegue"
         static let BuildDetail = "BuildDetailSegue"
         static let ProjectDetail = "ProjectDetailSegue"
@@ -38,7 +40,8 @@ struct Constants {
         static let CreateBuild = "CreateBuildSegue"
         static let CreatePart = "CreatePartSegue"
         static let CreateAssembly = "CreateAssemblySegue"
-
+        static let CreateProject = "CreateProjectSegue"
+    
         static let TabBarController = "TabBarControllerSegue"
 
         static let UnwindToProjectDetail = "UnwindToProjectDetailSegue"

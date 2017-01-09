@@ -70,6 +70,11 @@ class SideBarTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 160
     }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 78
+    }
+
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let  headerCell = tableView.dequeueReusableCell(withIdentifier: "SideBarTableViewCell") as! SideBarTableViewCell
         
@@ -78,6 +83,13 @@ class SideBarTableViewController: UITableViewController {
 
         return headerCell
     }
+    
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let  footerCell = tableView.dequeueReusableCell(withIdentifier: "SideBarFooterTableViewCell") as! SideBarFooterTableViewCell
+
+        return footerCell
+    }
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

@@ -57,4 +57,6 @@ public protocol DataManager {
     static func getParts(for assembly: Assembly, onComplete: @escaping (Part) -> ())
     
     static func getBuilds(for assembly: Assembly, onComplete: @escaping (Build) -> ())
+    
+    static func getProjects(onComplete: @escaping ([Project]) -> ())
 }

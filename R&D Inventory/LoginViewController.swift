@@ -37,6 +37,28 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
             CurrentUser.email = email
         }
         
-        performSegue(withIdentifier: Constants.Segues.SignInToHome, sender: nil)
+        FirebaseDataManager.getProjects {
+            projects in
+            print(projects.count)
+            let segue = projects.count == 0 ? Constants.Segues.SignInToCreateProject : Constants.Segues.SignInToHome
+            
+            self.performSegue(withIdentifier: segue, sender: nil)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.Segues.SignInToCreateProject {
+            
+            guard let dest = segue.destination as? CreateProjectViewController else {
+                return
+            }
+            
+            dest.isInitialForm = true
+
+        } else if segue.identifier == Constants.Segues.SignInToHome {
+            guard let dest = segue.destination as? UITabBarController else {
+                return
+            }
+        }
     }
 }

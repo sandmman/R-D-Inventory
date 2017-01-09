@@ -189,6 +189,23 @@ extension FirebaseDataManager: DataManager {
         }
     }
     
+    public static func getProjects(onComplete: @escaping ([Project]) -> ()) {
+        projectsRef.observeSingleEvent(of: .value, with: { snapshot in
+            
+            var projects = [Project]()
+
+            for child in snapshot.children {
+                
+                guard let proj = Project(snapshot: child as! FIRDataSnapshot) else {
+                    continue
+                }
+                projects.append(proj)
+            }
+
+            onComplete(projects)
+        })
+    }
+
     public static func get(build ID: String, onComplete: @escaping (Build) -> ()) {
         self.get(ref: buildsRef.child(ID), onComplete: onComplete)
     }

@@ -24,15 +24,21 @@ class ProjectViewController: UIViewController, TabBarViewController, UITableView
         projectLabel.text = "Project Name"
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         warningsTableView.isHidden = buildWarnings.count == 0
+        
+        if let proj = project {
+            projectLabel.text = proj.name
+
+        }
     }
 
     public func didChangeProject(project: Project) {
         self.project = project
         
-        projectLabel.text = project.name
-
+        if let lbl = projectLabel {
+            lbl.text = project.name
+        }
     }
     
     @IBAction func unwindToTabBarController(sender: UIStoryboardSegue) {

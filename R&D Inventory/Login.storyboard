@@ -43,6 +43,7 @@
                     <connections>
                         <outlet property="signInButton" destination="vW0-6i-vSY" id="wpJ-2b-891"/>
                         <segue destination="dRs-6S-pan" kind="show" identifier="SignInToHomeSegue" id="Z3W-5r-kKg"/>
+                        <segue destination="3WZ-s9-87G" kind="show" identifier="SignInToCreateProjectSegue" id="Xc7-5t-NEY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yw3-Qt-UGI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -55,7 +56,15 @@
                 <viewControllerPlaceholder storyboardName="TabBar" id="dRs-6S-pan" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="unz-HR-04m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="594" y="197"/>
+            <point key="canvasLocation" x="652" y="117"/>
+        </scene>
+        <!--InitialProjectCreation-->
+        <scene sceneID="dJX-Nx-Itv">
+            <objects>
+                <viewControllerPlaceholder storyboardName="InitialProjectCreation" id="3WZ-s9-87G" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CAT-kL-6W7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="721" y="179"/>
         </scene>
     </scenes>
 </document>
