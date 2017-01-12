@@ -31,10 +31,7 @@ public struct Build: FIRDataObject {
     public var scheduledDate: Date
     
     public var displayDate: String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .full
-        
-        return formatter.string(from: scheduledDate)
+        return scheduledDate.display
     }
     
     public var partsNeeded = [String: Int]()

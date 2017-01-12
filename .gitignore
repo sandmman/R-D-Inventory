@@ -6,6 +6,9 @@ Podfile.lock
 xcuserdata/
 *.xcworkspace/
 GoogleService-Info.plist
-/.build
-/Packages
-/*.xcodeproj
+
+
+Server/Packages
+Server/*.xcodeproj
+Server/.build
+

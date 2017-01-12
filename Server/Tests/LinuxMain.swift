@@ -1,6 +1,6 @@
 import XCTest
-@testable import R_D_Inventory___ServerTests
+@testable import ServerTests
 
 XCTMain([
-     testCase(R_D_Inventory___ServerTests.allTests),
+     testCase(ServerTests.allTests),
 ])

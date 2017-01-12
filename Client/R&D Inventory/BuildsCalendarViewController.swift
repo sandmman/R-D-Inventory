@@ -9,28 +9,21 @@
 import UIKit
 import FSCalendar
 
-class BuildsCalendarViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance, TabBarViewController {
+class BuildsCalendarViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance, UITableViewDelegate, UITableViewDataSource, TabBarViewController {
     
     var project: Project!
     
+    private var selectedDate: String? = nil
+
     private var builds = [String: [Build]]()
     
     private var listener: ListenerHandler!
 
     private let gregorian = Calendar(identifier: .gregorian)
     
-    private let formatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeZone = TimeZone(abbreviation: "gmt")
-        dateFormatter.dateFormat = "ccc"
-
-        return dateFormatter
-    }()
-    
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
-    
-    private weak var eventView: EventView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +42,7 @@ class BuildsCalendarViewController: UIViewController, FSCalendarDataSource, FSCa
     
     override func viewWillAppear(_ animated: Bool) {
         listener = ListenerHandler()
-        //listener.listenForBuilds(for: project, onComplete: didReceiveBuild)
+        listener.listenForBuilds(for: project, onComplete: didReceiveBuild)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -58,7 +51,13 @@ class BuildsCalendarViewController: UIViewController, FSCalendarDataSource, FSCa
 
     public func didChangeProject(project: Project) {
         self.project = project
+        
         builds = [:]
+        
+        if calendar != nil && tableView != nil {
+            calendar.reloadData()
+            tableView.reloadData()
+        }
     }
     
     private func didReceiveBuild(build: Build) {
@@ -74,24 +73,20 @@ class BuildsCalendarViewController: UIViewController, FSCalendarDataSource, FSCa
             builds[build.displayDate] = [build]
         }
         
-        print(builds)
         calendar.reloadData()
     }
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        return builds[formatter.string(from: date)]?.count ?? 0
+        return builds[date.display]?.count ?? 0
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date) {
-        calendar.scope = .week
-        
-        let eventView = EventView()
-        view.addSubview(eventView)
+        tableView.reloadData()
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
         
-        let day = formatter.string(from: date)
+        let day = date.display
         return day == "Sun" || day == "Sat" ? UIColor.lightGray : UIColor.darkGray
     }
     
@@ -126,5 +121,31 @@ class BuildsCalendarViewController: UIViewController, FSCalendarDataSource, FSCa
             destination.generic = true
         }
     }
+    
+    // MARK: Tableview
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let builds = builds[calendar.selectedDate.display] else {
+            return 0
+        }
+        return builds.count
+    }
+    
+    public func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
 
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.Builds, for: indexPath)
+        
+        if let buildArr = builds[calendar.selectedDate.display] {
+            // Configure the cell...
+            cell.textLabel?.text = buildArr[indexPath.row].displayDate
+        } else {
+            cell.textLabel?.text = "NONE!"
+        }
+        
+        
+        return cell
+    }
 }

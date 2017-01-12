@@ -38,6 +38,7 @@ class InventoryTableViewController: UITableViewController, TabBarViewController,
     public func didChangeProject(project: Project) {
         self.project = project
         inventory = []
+        tableView.reloadData()
     }
 
     private func reloadTable() {

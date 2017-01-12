@@ -28,6 +28,7 @@ class AssemblyTableViewController: UITableViewController, TabBarViewController {
     public func didChangeProject(project: Project) {
         self.project = project
         assemblies = []
+        tableView.reloadData()
     }
 
     override func viewWillAppear(_ animated: Bool) {

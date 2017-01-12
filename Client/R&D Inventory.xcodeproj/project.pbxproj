@@ -11,6 +11,7 @@
 		E30E055B1E1B63E70048539B /* Listener.swift in Sources */ = {isa = PBXBuildFile; fileRef = E30E055A1E1B63E70048539B /* Listener.swift */; };
 		E30E055D1E1C61A40048539B /* CreateProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E30E055C1E1C61A40048539B /* CreateProjectViewController.swift */; };
 		E32CD1071E161326005A35BD /* CreatePartRowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32CD1061E161326005A35BD /* CreatePartRowViewController.swift */; };
+		E336ED001E271B720000DE15 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = E336ECFF1E271B720000DE15 /* Date.swift */; };
 		E345076E1E1F0ED700C5D8EA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E345076D1E1F0ED700C5D8EA /* User.swift */; };
 		E34507701E1F109300C5D8EA /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E345076F1E1F109300C5D8EA /* CurrentUser.swift */; };
 		E34DAC071E1B255D00A93215 /* PartIDCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34DAC061E1B255D00A93215 /* PartIDCell.swift */; };
@@ -20,8 +21,6 @@
 		E34FC4931E16B31F0028D36C /* PartRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34FC4921E16B31F0028D36C /* PartRow.swift */; };
 		E34FC4951E16B4E50028D36C /* CreateAssemblyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34FC4941E16B4E50028D36C /* CreateAssemblyViewController.swift */; };
 		E3589E321E21B6A500EC1D39 /* bridged_header.m in Sources */ = {isa = PBXBuildFile; fileRef = E3589E311E21B6A500EC1D39 /* bridged_header.m */; };
-		E3589E351E21C67B00EC1D39 /* CalendarViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3589E341E21C67B00EC1D39 /* CalendarViewCell.swift */; };
-		E3589E371E21CFCB00EC1D39 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3589E361E21CFCB00EC1D39 /* EventView.swift */; };
 		E36412081E1D9C0200F4A5A2 /* Project.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E36412071E1D9C0200F4A5A2 /* Project.storyboard */; };
 		E364120A1E1D9C7600F4A5A2 /* Inventory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E36412091E1D9C7600F4A5A2 /* Inventory.storyboard */; };
 		E364120E1E1D9CB200F4A5A2 /* Assembly.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E364120D1E1D9CB200F4A5A2 /* Assembly.storyboard */; };
@@ -52,7 +51,6 @@
 		E3AF6CB71E18135E00AE0947 /* CreateBuildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AF6CB61E18135E00AE0947 /* CreateBuildViewController.swift */; };
 		E3AF6CB91E1840EF00AE0947 /* BuildDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AF6CB81E1840EF00AE0947 /* BuildDetailViewController.swift */; };
 		E3AFE9BD1E195775008DA196 /* InventoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AFE9BC1E195775008DA196 /* InventoryTableViewController.swift */; };
-		E3AFE9BF1E19AB94008DA196 /* BuildTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AFE9BE1E19AB94008DA196 /* BuildTableViewController.swift */; };
 		E3AFE9C51E19B0EB008DA196 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AFE9C41E19B0EB008DA196 /* DataManager.swift */; };
 		E3AFE9C71E19B45B008DA196 /* CreatePartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AFE9C61E19B45B008DA196 /* CreatePartViewController.swift */; };
 		E3AFE9C91E19B9B3008DA196 /* ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AFE9C81E19B9B3008DA196 /* ObjectMapper.swift */; };
@@ -91,6 +89,7 @@
 		E30E055A1E1B63E70048539B /* Listener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Listener.swift; sourceTree = "<group>"; };
 		E30E055C1E1C61A40048539B /* CreateProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateProjectViewController.swift; sourceTree = "<group>"; };
 		E32CD1061E161326005A35BD /* CreatePartRowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CreatePartRowViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		E336ECFF1E271B720000DE15 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		E345076D1E1F0ED700C5D8EA /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E345076F1E1F109300C5D8EA /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		E34DAC061E1B255D00A93215 /* PartIDCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartIDCell.swift; sourceTree = "<group>"; };
@@ -101,8 +100,6 @@
 		E34FC4941E16B4E50028D36C /* CreateAssemblyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CreateAssemblyViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E3589E301E21B6A500EC1D39 /* R&D Inventory-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "R&D Inventory-Bridging-Header.h"; sourceTree = "<group>"; };
 		E3589E311E21B6A500EC1D39 /* bridged_header.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bridged_header.m; sourceTree = "<group>"; };
-		E3589E341E21C67B00EC1D39 /* CalendarViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewCell.swift; sourceTree = "<group>"; };
-		E3589E361E21CFCB00EC1D39 /* EventView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
 		E36412071E1D9C0200F4A5A2 /* Project.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Project.storyboard; sourceTree = "<group>"; };
 		E36412091E1D9C7600F4A5A2 /* Inventory.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Inventory.storyboard; sourceTree = "<group>"; };
 		E364120D1E1D9CB200F4A5A2 /* Assembly.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Assembly.storyboard; sourceTree = "<group>"; };
@@ -139,7 +136,6 @@
 		E3AF6CB61E18135E00AE0947 /* CreateBuildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateBuildViewController.swift; sourceTree = "<group>"; };
 		E3AF6CB81E1840EF00AE0947 /* BuildDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildDetailViewController.swift; sourceTree = "<group>"; };
 		E3AFE9BC1E195775008DA196 /* InventoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = InventoryTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		E3AFE9BE1E19AB94008DA196 /* BuildTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildTableViewController.swift; sourceTree = "<group>"; };
 		E3AFE9C41E19B0EB008DA196 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		E3AFE9C61E19B45B008DA196 /* CreatePartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CreatePartViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E3AFE9C81E19B9B3008DA196 /* ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ObjectMapper.swift; path = "R&D Inventory/ObjectMapper.swift"; sourceTree = "<group>"; };
@@ -214,7 +210,6 @@
 			isa = PBXGroup;
 			children = (
 				E398F1561E136C2200CD91D4 /* AssemblyTableViewController.swift */,
-				E3AFE9BE1E19AB94008DA196 /* BuildTableViewController.swift */,
 				E3AFE9BC1E195775008DA196 /* InventoryTableViewController.swift */,
 				E34DAC0A1E1B477900A93215 /* SideBarTableViewController.swift */,
 				E3FD60601E1E0F1200E614EE /* TabBarViewController.swift */,
@@ -226,8 +221,6 @@
 			isa = PBXGroup;
 			children = (
 				E3FEECFF1E21B4EB00F5F7F4 /* BuildsCalendarViewController.swift */,
-				E3589E341E21C67B00EC1D39 /* CalendarViewCell.swift */,
-				E3589E361E21CFCB00EC1D39 /* EventView.swift */,
 			);
 			name = Calendar;
 			sourceTree = "<group>";
@@ -279,6 +272,7 @@
 				E3AFE9C81E19B9B3008DA196 /* ObjectMapper.swift */,
 				E3ECCE921E15B662009C936D /* Constants.swift */,
 				E34DAC081E1B397900A93215 /* Validator.swift */,
+				E336ECFF1E271B720000DE15 /* Date.swift */,
 			);
 			name = Helpers;
 			path = ..;
@@ -630,8 +624,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E3589E351E21C67B00EC1D39 /* CalendarViewCell.swift in Sources */,
-				E3AFE9BF1E19AB94008DA196 /* BuildTableViewController.swift in Sources */,
 				E398F14F1E1363BA00CD91D4 /* PartTableViewCell.swift in Sources */,
 				E34DAC0B1E1B477900A93215 /* SideBarTableViewController.swift in Sources */,
 				E30E055B1E1B63E70048539B /* Listener.swift in Sources */,
@@ -643,9 +635,9 @@
 				E398F1511E1363C500CD91D4 /* AssemblyTableViewCell.swift in Sources */,
 				E398F1471E13602E00CD91D4 /* AssemblyDetailTableViewController.swift in Sources */,
 				E398F1571E136C2200CD91D4 /* AssemblyTableViewController.swift in Sources */,
+				E336ED001E271B720000DE15 /* Date.swift in Sources */,
 				E3589E321E21B6A500EC1D39 /* bridged_header.m in Sources */,
 				E3AF6CB01E1762E000AE0947 /* Build.swift in Sources */,
-				E3589E371E21CFCB00EC1D39 /* EventView.swift in Sources */,
 				E3ECCE9A1E15D0DC009C936D /* FIRDataObject.swift in Sources */,
 				E3AFE9C71E19B45B008DA196 /* CreatePartViewController.swift in Sources */,
 				E3ECCE931E15B662009C936D /* Constants.swift in Sources */,
