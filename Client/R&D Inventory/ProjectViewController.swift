@@ -58,7 +58,7 @@ class ProjectViewController: UIViewController, TabBarViewController, UITableView
     @IBAction func unwindToTabBarController(sender: UIStoryboardSegue) {
         if let vc = sender.source as? SideBarTableViewController {
             
-            guard let project = vc.selectedProject else {
+            guard let project = vc.viewModel.selectedCell else {
                 return
             }
             

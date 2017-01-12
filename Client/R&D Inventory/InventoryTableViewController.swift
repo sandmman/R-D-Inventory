@@ -8,80 +8,48 @@
 
 import UIKit
 
-class InventoryTableViewController: UITableViewController, TabBarViewController, PartTableViewCellDelegate {
-    
-    var inventory = [Part]()
-    
-    var listener: ListenerHandler!
-    
+class InventoryTableViewController: UITableViewController {
+
     var project: Project!
+    
+    fileprivate var viewModel: ViewModel<Part>!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel = ViewModel<Part>(project: project, reloadCollectionViewCallback: reloadCollectionViewData)
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
 
-        listener = ListenerHandler()
-        listener.listenForParts(for: project, onComplete: didReceivedPart)
+        viewModel.listenForObjects()
 
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
         
-        listener.removeListeners()
+        viewModel.deinitialize()
     }
 
-    public func didChangeProject(project: Project) {
-        self.project = project
-        inventory = []
-        tableView.reloadData()
-    }
-
-    private func reloadTable() {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
-    
-    private func didReceivedPart(part: Part) {
-        if let index = inventory.index(of: part) {
-            self.inventory[index] = part
-        } else {
-            self.inventory.append(part)
-        }
-        
-        self.reloadTable()
-    }
-    
-    public func didChangeQuantityInStock(at indexPath: IndexPath) {
-        if let cell = tableView.cellForRow(at: indexPath) as? PartTableViewCell {
-            let value = cell.count
-            var part = inventory[indexPath.row]
-            part.countInStock = value!
-            FirebaseDataManager.update(object: part)
-        }
-    }
-
-    // MARK: - Table view data source
+    // MARK: - TableView
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return inventory.count
+        return viewModel.numberOfItemsInSection(section: section)
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.Part, for: indexPath) as! PartTableViewCell
+        
+        let obj = viewModel.objects[indexPath.row]
 
-        cell.nameTextLabel?.text = inventory[indexPath.row].name
-        cell.manufacturerTextLabel?.text = inventory[indexPath.row].manufacturer
-        cell.count = inventory[indexPath.row].countInStock
+        cell.nameTextLabel?.text = obj.name
+        cell.manufacturerTextLabel?.text = obj.manufacturer
+        cell.count = obj.countInStock
+
         cell.indexPath = indexPath
         cell.delegate = self
 
@@ -89,24 +57,19 @@ class InventoryTableViewController: UITableViewController, TabBarViewController,
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
         return true
     }
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
-            tableView.deleteRows(at: [indexPath], with: .fade)
             
-            let part = inventory[indexPath.row]
-            
-            inventory.remove(at: indexPath.row)
-            
-            FirebaseDataManager.delete(part: part)
+            viewModel.delete(from: tableView, at: indexPath)
         }
     }
     
-    
+    // MARK: - Navigation
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.Segues.CreatePart, let dest = segue.destination as? CreatePartViewController {
             
@@ -114,4 +77,35 @@ class InventoryTableViewController: UITableViewController, TabBarViewController,
             
         }
     }
+    
+    // MARK: - Private
+    
+    private func reloadCollectionViewData(){
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+}
+
+extension InventoryTableViewController: TabBarViewController, PartTableViewCellDelegate {
+    
+    public func didChangeProject(project: Project) {
+        self.project = project
+        
+        guard let model = viewModel else {
+            return
+        }
+        
+        model.project = project
+    }
+    
+    public func didChangeQuantityInStock(at indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? PartTableViewCell {
+            let value = cell.count
+            var part = viewModel.objects[indexPath.row]
+            part.countInStock = value!
+            FirebaseDataManager.update(object: part)
+        }
+    }
+
 }

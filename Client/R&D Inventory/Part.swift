@@ -15,7 +15,7 @@ public struct Part: FIRDataObject {
     public var key: String = UUID().description
     
     public var ref: FIRDatabaseReference? = nil
-    
+
     // Part
     public var name: String
 
@@ -68,6 +68,14 @@ public struct Part: FIRDataObject {
         self.ref = snapshot.ref
 
     }
+    
+    public func delete() {
+        guard let ref = self.ref else {
+            return
+        }
+        
+        ref.removeValue()
+    }
 
     public func toAnyObject() -> Any {
         return [
@@ -77,5 +85,12 @@ public struct Part: FIRDataObject {
             Constants.PartFields.CountInStock   : countInStock,
             Constants.PartFields.CountOnOrder   : countOnOrder,
         ]
+    }
+    
+    public static func rootRef(with project: Project? = nil) -> FIRDatabaseReference {
+        guard let proj = project else {
+            return FirebaseDataManager.partsRef
+        }
+        return FirebaseDataManager.projectsRef.child(proj.key).child(Constants.Types.Part)
     }
 }

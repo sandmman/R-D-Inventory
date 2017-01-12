@@ -14,7 +14,7 @@ public struct Project: FIRDataObject {
     public var key: String = UUID().description
     
     public var ref: FIRDatabaseReference? = nil
-    
+
     public var name: String
 
     public var assemblies = [String]()
@@ -48,6 +48,14 @@ public struct Project: FIRDataObject {
         ref = snapshot.ref
     }
     
+    public func delete() {
+        guard let ref = self.ref else {
+            return
+        }
+        
+        ref.removeValue()
+    }
+
     public func toAnyObject() -> Any {
         let assembly: [String: Bool] = assemblies.reduce([String: Bool](), convertToDict)
         
@@ -61,5 +69,9 @@ public struct Project: FIRDataObject {
         var dict = dict
         dict[String(describing: e)] = true
         return dict
+    }
+    
+    public static func rootRef(with project: Project? = nil) -> FIRDatabaseReference {
+        return FirebaseDataManager.projectsRef
     }
 }

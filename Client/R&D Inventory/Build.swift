@@ -19,7 +19,7 @@ public struct Build: FIRDataObject {
     public var key: String = UUID().description
     
     public var ref: FIRDatabaseReference? = nil
-    
+
     public var type: BuildType
 
     public var title: String
@@ -79,6 +79,14 @@ public struct Build: FIRDataObject {
         
         ref = snapshot.ref        
     }
+    
+    public func delete() {
+        guard let ref = self.ref else {
+            return
+        }
+        
+        ref.removeValue()
+    }
 
     public func toAnyObject() -> Any {
         return [
@@ -89,5 +97,12 @@ public struct Build: FIRDataObject {
             Constants.BuildFields.BType         : type.rawValue,
             Constants.BuildFields.Quantity      : quantity,
         ]
+    }
+    
+    public static func rootRef(with project: Project? = nil) -> FIRDatabaseReference {
+        guard let proj = project else {
+            return FirebaseDataManager.buildsRef
+        }
+        return FirebaseDataManager.projectsRef.child(proj.key).child(Constants.Types.Build)
     }
 }

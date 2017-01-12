@@ -146,6 +146,10 @@ extension FirebaseDataManager: DataManager {
         ref.removeValue()
     }
     
+    public static func delete<T: FIRDataObject>(obj: T) {
+
+    }
+    
     //////////
     // GET //
     /////////

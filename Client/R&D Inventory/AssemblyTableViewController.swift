@@ -8,68 +8,43 @@
 
 import UIKit
 
-class AssemblyTableViewController: UITableViewController, TabBarViewController {
+class AssemblyTableViewController: UITableViewController {
     
     var project: Project!
-    
-    var listener: ListenerHandler!
 
-    var selectedAssembly: Assembly? = nil
-    
-    var assemblies = [Assembly]()
-    
+    var viewModel: ViewModel<Assembly>!
+
     @IBOutlet weak var AddAssemblyButton: UIBarButtonItem!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-    }
-    
-    public func didChangeProject(project: Project) {
-        self.project = project
-        assemblies = []
-        tableView.reloadData()
+        viewModel = ViewModel<Assembly>(project: project, reloadCollectionViewCallback: reloadCollectionViewData)
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        listener = ListenerHandler()
-        listener.listenForAssemblies(for: project, onComplete: didReceiveAssembly)
+        viewModel.listenForObjects()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        listener.removeListeners()
-    }
-    
-    private func didReceiveAssembly(assembly: Assembly) {
-        if let index = assemblies.index(of: assembly) {
-            self.assemblies[index] = assembly
-        } else {
-            self.assemblies.append(assembly)
-        }
-        
-        self.reloadTable()
-    }
-    
-    private func reloadTable() {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+        viewModel.deinitialize()
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return viewModel.numberOfSectionsInCollectionView()
     }
+    
+    // MARK: TableView
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return assemblies.count
+        return viewModel.numberOfItemsInSection(section: section)
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.assembly, for: indexPath)
 
-        // Configure the cell...
-        cell.textLabel?.text = assemblies[indexPath.row].name
+        cell.textLabel?.text = viewModel.objects[indexPath.row].name
         
         return cell
     }
@@ -79,32 +54,26 @@ class AssemblyTableViewController: UITableViewController, TabBarViewController {
     }
     
 
-    // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+
         if editingStyle == .delete {
             
-            let assemblyToDelete = assemblies[indexPath.row]
-
-            FirebaseDataManager.delete(assembly: assemblyToDelete)
+            viewModel.delete(from: tableView, at: indexPath)
             
-            tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
 
-    // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
 
     }
 
-    // Override to support conditional rearranging of the table view.
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let indexPath = tableView.indexPathForSelectedRow!
         
-        selectedAssembly = assemblies[indexPath.row]
+        viewModel.selectedCell(at: indexPath)
         
         performSegue(withIdentifier: Constants.Segues.AssemblyDetail, sender: self)
     }
@@ -114,12 +83,34 @@ class AssemblyTableViewController: UITableViewController, TabBarViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.Segues.AssemblyDetail, let viewController = segue.destination as? AssemblyDetailTableViewController {
 
-            viewController.assembly = selectedAssembly
-            viewController.project = project
+            viewController.assembly = viewModel.selectedCell
+            viewController.project = viewModel.project
             
         } else if (segue.identifier == Constants.Segues.CreateAssembly), let viewController = segue.destination as? CreateAssemblyViewController {
             
-            viewController.project = project
+            viewController.project = viewModel.project
         }
+    }
+    
+    // MARK: - Private
+
+    private func reloadCollectionViewData(){
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+}
+
+extension AssemblyTableViewController: TabBarViewController {
+    
+    
+    public func didChangeProject(project: Project) {
+        self.project = project
+        
+        guard let model = viewModel else {
+            return
+        }
+
+        model.project = project
     }
 }

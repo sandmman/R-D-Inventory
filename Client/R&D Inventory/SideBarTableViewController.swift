@@ -11,13 +11,7 @@ import SideMenu
 
 class SideBarTableViewController: UITableViewController {
     
-    var handles: (UInt, UInt)!
-    
-    var projects = [Project]()
-    
-    var selectedProject: Project? = nil
-    
-    var listener: ListenerHandler!
+    var viewModel: ViewModel<Project>!
     
     @IBAction func cancel(sender: UIButton) {
         _ = navigationController?.popViewController(animated: true)
@@ -39,33 +33,18 @@ class SideBarTableViewController: UITableViewController {
 
         navigationController?.setNavigationBarHidden(true, animated: true)
         
+        viewModel = ViewModel<Project>(reloadCollectionViewCallback: reloadCollectionViewData)
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        listener = ListenerHandler()
-        listener.listenForProjects(onComplete: didReceiveProject)
+        viewModel.listenForObjects()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        listener.removeListeners()
+        viewModel.deinitialize()
     }
 
-    private func didReceiveProject(project: Project) {
-        if let index = projects.index(of: project) {
-            self.projects[index] = project
-        } else {
-            self.projects.append(project)
-        }
-        
-        self.reloadTable()
-    }
-    
-    private func reloadTable() {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
-    // MARK: - Table view data source
+    // MARK: - TableView
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 160
@@ -98,19 +77,21 @@ class SideBarTableViewController: UITableViewController {
     @objc private func createProject(_ sender: UIGestureRecognizer) {
         performSegue(withIdentifier: Constants.Segues.CreateProject, sender: nil)
     }
+    
+    // MARK: - TableView
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return viewModel.numberOfSectionsInCollectionView()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return projects.count
+        return viewModel.numberOfItemsInSection(section: section)
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.Project, for: indexPath)
 
-        cell.textLabel?.text = projects[indexPath.row].name
+        cell.textLabel?.text = viewModel.objects[indexPath.row].name
 
         return cell
     }
@@ -123,24 +104,23 @@ class SideBarTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
-            tableView.deleteRows(at: [indexPath], with: .fade)
             
-            let project = projects[indexPath.row]
-    
-            projects.remove(at: indexPath.row)
-            
-            FirebaseDataManager.delete(project: project)
+            viewModel.delete(from: tableView, at: indexPath)
         }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        selectedProject = projects[indexPath.row]
+        
+        viewModel.selectedCell(at: indexPath)
 
         performSegue(withIdentifier: Constants.Segues.UnwindToProjectDetail, sender: nil)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
+    // MARK: - Private
+    
+    private func reloadCollectionViewData(){
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 }

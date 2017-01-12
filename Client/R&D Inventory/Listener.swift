@@ -17,9 +17,17 @@ public class ListenerHandler {
 
 extension ListenerHandler {
     
-    public func listenForAssemblies(for project: Project, onComplete: @escaping (Assembly) -> ()) {
-        let parentRef = FirebaseDataManager.projectsRef.child(project.key).child("assemblies")
-        setupListenerSet(parentRef: parentRef, itemRef: FirebaseDataManager.assemblyRef, onComplete: onComplete)
+    public func listenForObjects<T: FIRDataObject>(for project: Project?, onComplete: @escaping (T) -> ()) {
+        
+        guard let project = project else {
+            setupListenerPair(ref: FirebaseDataManager.projectsRef, onComplete: onComplete)
+            return
+        }
+
+        let parentRef = T.rootRef(with: project)
+        let itemRef = T.rootRef(with: nil)
+
+        setupListenerSet(parentRef: parentRef, itemRef: itemRef, onComplete: onComplete)
     }
     
     public func listenForBuilds(for project: Project, onComplete: @escaping (Build) -> ()) {

@@ -47,10 +47,26 @@ public struct Assembly: FIRDataObject {
     
     }
     
+   
+    public func delete() {
+        guard let ref = self.ref else {
+            return
+        }
+
+        ref.removeValue()
+    }
+
     public func toAnyObject() -> Any {
         return [
             Constants.AssemblyFields.Name: name,
             Constants.AssemblyFields.Parts: parts,
         ]
+    }
+    
+    public static func rootRef(with project: Project? = nil) -> FIRDatabaseReference {
+        guard let proj = project else {
+            return FirebaseDataManager.assemblyRef
+        }
+        return FirebaseDataManager.projectsRef.child(proj.key).child(Constants.Types.Assembly)
     }
 }

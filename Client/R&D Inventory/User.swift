@@ -15,7 +15,7 @@ public struct User: FIRDataObject {
     public var key: String = UUID().description
     
     public var ref: FIRDatabaseReference? = nil
-    
+
     public let name: String
     
     public var companies = [String]()
@@ -44,10 +44,21 @@ public struct User: FIRDataObject {
         
     }
     
+    public func delete() {
+        guard let ref = self.ref else {
+            return
+        }
+        
+        ref.removeValue()
+    }
+
     public func toAnyObject() -> Any {
         return [
             Constants.UserFields.Name: name
         ]
     }
     
+    public static func rootRef(with project: Project? = nil) -> FIRDatabaseReference {
+        return FirebaseDataManager.userRef
+    }
 }

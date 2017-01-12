@@ -9,92 +9,29 @@
 import UIKit
 import FSCalendar
 
-class BuildsCalendarViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance, UITableViewDelegate, UITableViewDataSource, TabBarViewController {
+class BuildsCalendarViewController: UIViewController {
     
     var project: Project!
     
-    private var selectedDate: String? = nil
-
-    private var builds = [String: [Build]]()
-    
-    private var listener: ListenerHandler!
-
-    private let gregorian = Calendar(identifier: .gregorian)
+    var viewModel: BuildsViewModel!
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var calendar: FSCalendar!
-    @IBOutlet weak var calendarHeightConstraint: NSLayoutConstraint!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.calendar.appearance.caseOptions = [.headerUsesUpperCase,.weekdayUsesUpperCase]
-
-        self.calendar.select(Date())
-
-        self.calendar.scrollDirection = .vertical
+        initializeCalendar()
         
-        self.calendar.appearance.headerTitleFont = UIFont(name: "Arial", size: 10)
-        
-        self.calendar.appearance.titleFont = UIFont(name: "Arial", size: 8)
-
+        viewModel = BuildsViewModel(project: project, reloadCollectionViewCallback: reloadData)
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        listener = ListenerHandler()
-        listener.listenForBuilds(for: project, onComplete: didReceiveBuild)
+        viewModel.listenForObjects()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        listener.removeListeners()
-    }
-    
-    // MARK: Calendar
-
-    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        return builds[date.display]?.count ?? 0
-    }
-    
-    func calendar(_ calendar: FSCalendar, didSelect date: Date) {
-        tableView.reloadData()
-    }
-    
-    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-        guard let day = date.day else {
-            return UIColor.darkGray
-        }
-
-        return day == 1 || day == 7 ? UIColor.lightGray : UIColor.darkGray
-    }
-    
-    // MARK: Tableview
-    
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let builds = builds[calendar.selectedDate.display] else {
-            return 0
-        }
-        return builds.count
-    }
-    
-    public func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.Builds, for: indexPath)
-        
-        if let buildArr = builds[calendar.selectedDate.display] {
-            
-            cell.textLabel?.text = buildArr[indexPath.row].title
-            cell.detailTextLabel?.text = buildArr[indexPath.row].type.rawValue
-
-        }
-        
-        return cell
-    }
-    
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        return
+        viewModel.deinitialize()
     }
     
     // MARK: - Navigation
@@ -106,13 +43,7 @@ class BuildsCalendarViewController: UIViewController, FSCalendarDataSource, FSCa
                 return
             }
             
-            if builds[build.displayDate] == nil {
-                builds[build.displayDate] = [build]
-            } else {
-                builds[build.displayDate]?.append(build)
-            }
-            
-            reloadData()
+            viewModel.add(build: build)            
         }
     }
     
@@ -125,30 +56,6 @@ class BuildsCalendarViewController: UIViewController, FSCalendarDataSource, FSCa
     
     // MARK: Private Functions
     
-    public func didChangeProject(project: Project) {
-        self.project = project
-        
-        builds = [:]
-        
-        reloadData()
-    }
-    
-    private func didReceiveBuild(build: Build) {
-        if var arr = builds[build.displayDate] {
-            if let index = arr.index(of: build) {
-                arr[index] = build
-            } else {
-                arr.append(build)
-            }
-            builds[build.displayDate] = arr
-            
-        } else {
-            builds[build.displayDate] = [build]
-        }
-        
-        reloadData()
-    }
-    
     private func reloadData() {
         DispatchQueue.main.async {
             if self.tableView != nil && self.calendar != nil {
@@ -157,4 +64,79 @@ class BuildsCalendarViewController: UIViewController, FSCalendarDataSource, FSCa
             }
         }
     }
+}
+
+extension BuildsCalendarViewController: FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance {
+    
+    internal func initializeCalendar() {
+        
+        calendar.appearance.caseOptions = [.headerUsesUpperCase,.weekdayUsesUpperCase]
+        
+        calendar.select(Date())
+        
+        calendar.scrollDirection = .vertical
+        
+        calendar.appearance.headerTitleFont = UIFont(name: "Arial", size: 10)
+        
+        calendar.appearance.titleFont = UIFont(name: "Arial", size: 8)
+    }
+    
+    public func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+        return viewModel.builds[date.display]?.count ?? 0
+    }
+    
+    public func calendar(_ calendar: FSCalendar, didSelect date: Date) {
+        viewModel.selected(date: date)
+    }
+    
+    public func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+        
+        guard let day = date.day else {
+            return UIColor.darkGray
+        }
+        
+        return day == 1 || day == 7 ? UIColor.lightGray : UIColor.darkGray
+    }
+}
+
+extension BuildsCalendarViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.numberOfItemsInSection(section: section)
+    }
+    
+    public func numberOfSections(in tableView: UITableView) -> Int {
+        return viewModel.numberOfSectionsInCollectionView()
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.Builds, for: indexPath)
+        
+        if let buildArr = viewModel.builds[calendar.selectedDate.display] {
+            
+            cell.textLabel?.text = buildArr[indexPath.row].title
+            cell.detailTextLabel?.text = buildArr[indexPath.row].type.rawValue
+            
+        }
+        
+        return cell
+    }
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.selectedCell(at: indexPath)
+    }
+}
+
+extension BuildsCalendarViewController: TabBarViewController {
+    
+    public func didChangeProject(project: Project) {
+        self.project = project
+
+        guard let vm = viewModel else {
+            return
+        }
+        vm.project = project
+    }
+
 }
