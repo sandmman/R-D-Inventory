@@ -48,34 +48,9 @@ class BuildsCalendarViewController: UIViewController, FSCalendarDataSource, FSCa
     override func viewDidDisappear(_ animated: Bool) {
         listener.removeListeners()
     }
-
-    public func didChangeProject(project: Project) {
-        self.project = project
-        
-        builds = [:]
-        
-        if calendar != nil && tableView != nil {
-            calendar.reloadData()
-            tableView.reloadData()
-        }
-    }
     
-    private func didReceiveBuild(build: Build) {
-        if var arr = builds[build.displayDate] {
-            if let index = arr.index(of: build) {
-                arr[index] = build
-            } else {
-                arr.append(build)
-            }
-            builds[build.displayDate] = arr
+    // MARK: Calendar
 
-        } else {
-            builds[build.displayDate] = [build]
-        }
-        
-        calendar.reloadData()
-    }
-    
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
         return builds[date.display]?.count ?? 0
     }
@@ -85,41 +60,11 @@ class BuildsCalendarViewController: UIViewController, FSCalendarDataSource, FSCa
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-        
-        let day = date.display
-        return day == "Sun" || day == "Sat" ? UIColor.lightGray : UIColor.darkGray
-    }
-    
-    // MARK: - Private functions
-    
-    private func configureVisibleCells() {
+        guard let day = date.day else {
+            return UIColor.darkGray
+        }
 
-    }
-    
-    // MARK: - Navigation
-    
-    @IBAction func unwindToBuildCalendar(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.source as? CreateBuildViewController {
-            
-            guard let build = sourceViewController.newBuild else {
-                return
-            }
-            
-            if builds[build.displayDate] == nil {
-                builds[build.displayDate] = [build]
-            } else {
-                 builds[build.displayDate]?.append(build)
-            }
-            
-            calendar.reloadData()
-        }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination = segue.destination as? CreateBuildViewController {
-            destination.project = project
-            destination.generic = true
-        }
+        return day == 1 || day == 7 ? UIColor.lightGray : UIColor.darkGray
     }
     
     // MARK: Tableview
@@ -139,13 +84,77 @@ class BuildsCalendarViewController: UIViewController, FSCalendarDataSource, FSCa
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.Builds, for: indexPath)
         
         if let buildArr = builds[calendar.selectedDate.display] {
-            // Configure the cell...
-            cell.textLabel?.text = buildArr[indexPath.row].displayDate
-        } else {
-            cell.textLabel?.text = "NONE!"
+            
+            cell.textLabel?.text = buildArr[indexPath.row].title
+            cell.detailTextLabel?.text = buildArr[indexPath.row].type.rawValue
+
         }
         
-        
         return cell
+    }
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        return
+    }
+    
+    // MARK: - Navigation
+    
+    @IBAction func unwindToBuildCalendar(sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? CreateBuildViewController {
+            
+            guard let build = sourceViewController.newBuild else {
+                return
+            }
+            
+            if builds[build.displayDate] == nil {
+                builds[build.displayDate] = [build]
+            } else {
+                builds[build.displayDate]?.append(build)
+            }
+            
+            reloadData()
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? CreateBuildViewController {
+            destination.project = project
+            destination.generic = true
+        }
+    }
+    
+    // MARK: Private Functions
+    
+    public func didChangeProject(project: Project) {
+        self.project = project
+        
+        builds = [:]
+        
+        reloadData()
+    }
+    
+    private func didReceiveBuild(build: Build) {
+        if var arr = builds[build.displayDate] {
+            if let index = arr.index(of: build) {
+                arr[index] = build
+            } else {
+                arr.append(build)
+            }
+            builds[build.displayDate] = arr
+            
+        } else {
+            builds[build.displayDate] = [build]
+        }
+        
+        reloadData()
+    }
+    
+    private func reloadData() {
+        DispatchQueue.main.async {
+            if self.tableView != nil && self.calendar != nil {
+                self.tableView.reloadData()
+                self.calendar.reloadData()
+            }
+        }
     }
 }

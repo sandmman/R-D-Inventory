@@ -16,5 +16,8 @@ extension Date {
         
         return formatter.string(from: self)
     }
-
+    
+    public var day: Int? {
+        return Calendar.current.dateComponents([.weekday], from: self).weekday
+    }
 }

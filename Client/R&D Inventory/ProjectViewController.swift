@@ -25,13 +25,15 @@ class ProjectViewController: UIViewController, TabBarViewController, UITableView
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        warningsTableView.isHidden = buildWarnings.count == 0
+        warningsTableView.isHidden = buildWarnings.count == 1
         
         if let proj = project {
             projectLabel.text = proj.name
 
         }
     }
+    
+    // MARK: Private Helpers
 
     public func didChangeProject(project: Project) {
         self.project = project
@@ -39,8 +41,20 @@ class ProjectViewController: UIViewController, TabBarViewController, UITableView
         if let lbl = projectLabel {
             lbl.text = project.name
         }
+        
+        reloadData()
     }
     
+    private func reloadData() {
+        DispatchQueue.main.async {
+            if let table = self.warningsTableView {
+                table.reloadData()
+            }
+        }
+    }
+    
+    // MARK: Navigation
+
     @IBAction func unwindToTabBarController(sender: UIStoryboardSegue) {
         if let vc = sender.source as? SideBarTableViewController {
             
@@ -74,11 +88,23 @@ class ProjectViewController: UIViewController, TabBarViewController, UITableView
     }
     
     // MARK: TableView
+    
+    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return section == 0 ? "Part Warnings": "Upcoming Builds"
+    }
+    
+    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return buildWarnings.count
     }
     
-    
+    public func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.BuildWarning, for: indexPath)

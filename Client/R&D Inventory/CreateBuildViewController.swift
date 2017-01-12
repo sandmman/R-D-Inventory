@@ -167,7 +167,7 @@ class CreateBuildViewController: FormViewController {
     }
     
     public func completedForm(_ sender: UIBarButtonItem){
-        print(assembly)
+
         // Todo Clean this up to work straight from the form without the parts
         guard let build = ObjectMapper.createBuild(from: form, parts: parts), let proj = project else {
             return

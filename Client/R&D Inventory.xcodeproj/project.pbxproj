@@ -12,6 +12,7 @@
 		E30E055D1E1C61A40048539B /* CreateProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E30E055C1E1C61A40048539B /* CreateProjectViewController.swift */; };
 		E32CD1071E161326005A35BD /* CreatePartRowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32CD1061E161326005A35BD /* CreatePartRowViewController.swift */; };
 		E336ED001E271B720000DE15 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = E336ECFF1E271B720000DE15 /* Date.swift */; };
+		E336ED021E27347B0000DE15 /* PartDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E336ED011E27347B0000DE15 /* PartDetailTableViewController.swift */; };
 		E345076E1E1F0ED700C5D8EA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E345076D1E1F0ED700C5D8EA /* User.swift */; };
 		E34507701E1F109300C5D8EA /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E345076F1E1F109300C5D8EA /* CurrentUser.swift */; };
 		E34DAC071E1B255D00A93215 /* PartIDCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E34DAC061E1B255D00A93215 /* PartIDCell.swift */; };
@@ -90,6 +91,7 @@
 		E30E055C1E1C61A40048539B /* CreateProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateProjectViewController.swift; sourceTree = "<group>"; };
 		E32CD1061E161326005A35BD /* CreatePartRowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CreatePartRowViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E336ECFF1E271B720000DE15 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		E336ED011E27347B0000DE15 /* PartDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartDetailTableViewController.swift; sourceTree = "<group>"; };
 		E345076D1E1F0ED700C5D8EA /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E345076F1E1F109300C5D8EA /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		E34DAC061E1B255D00A93215 /* PartIDCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartIDCell.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 				E3AF6CB81E1840EF00AE0947 /* BuildDetailViewController.swift */,
 				E398F14C1E1363A600CD91D4 /* PartViewController.swift */,
 				E3E080AF1E1DFF1D00455D15 /* ProjectViewController.swift */,
+				E336ED011E27347B0000DE15 /* PartDetailTableViewController.swift */,
 			);
 			name = "Detail Views";
 			sourceTree = "<group>";
@@ -657,6 +660,7 @@
 				E3AF6CB71E18135E00AE0947 /* CreateBuildViewController.swift in Sources */,
 				E34DAC071E1B255D00A93215 /* PartIDCell.swift in Sources */,
 				E398F1531E13684500CD91D4 /* Part.swift in Sources */,
+				E336ED021E27347B0000DE15 /* PartDetailTableViewController.swift in Sources */,
 				E3FD60611E1E0F1200E614EE /* TabBarViewController.swift in Sources */,
 				E370B6871E19F13B00C0E349 /* RegexRule.swift in Sources */,
 				E3AFE9BD1E195775008DA196 /* InventoryTableViewController.swift in Sources */,

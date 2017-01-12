@@ -157,7 +157,7 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
         
         switch identifier {
         case Constants.Segues.PartDetail:
-            let viewController = segue.destination as! PartViewController
+            let viewController = segue.destination as! PartDetailTableViewController
             
             viewController.part = selectedPart
             
