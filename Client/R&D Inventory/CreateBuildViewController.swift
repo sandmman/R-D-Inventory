@@ -11,15 +11,9 @@ import Eureka
 
 class CreateBuildViewController: FormViewController {
     
-    var project: Project!
-    
-    var assembly: Assembly? = nil
-
-    // Generic == true, if build is created from project home
-    // Generic == true, if build is created from assembly home
-    var generic = false
-
     var viewModel: FormViewModel!
+    
+    var newBuild: Build? = nil
 
     private var partsNeededTag = "Parts Needed"
 
@@ -28,11 +22,11 @@ class CreateBuildViewController: FormViewController {
 
         instantiateView()
         
-        viewModel = FormViewModel(project: project, assemblyCallback: didUpdateAssemblies)
+        viewModel.assemblyCallback = didUpdateAssemblies
     }
     
     private func instantiateView() {
-        guard project != nil else {
+        guard viewModel.project != nil else {
             return
         }
         instantiateForm()
@@ -51,13 +45,13 @@ class CreateBuildViewController: FormViewController {
         
         form +++ Section("Please Choose Assembly for Build") {
                 $0.hidden = Condition.function([""], { form in
-                    return !self.generic
+                    return !self.viewModel.generic
                 })
             }
             <<< PushRow<Assembly>(Constants.BuildFields.AssemblyID) {
                 $0.title = "Assembly"
                 $0.options = viewModel.assemblies
-                $0.value = viewModel.defaultAssemblyValue()
+                $0.value = viewModel.defaultAssembly()
                 $0.selectorTitle = "Choose an Assembly!"
                 $0.add(rule: RuleRequired())
                 $0.validationOptions = .validatesOnChangeAfterBlurred
@@ -104,7 +98,7 @@ class CreateBuildViewController: FormViewController {
     
         let partsSection = Section(partsNeededTag) { $0.hidden = "$type == false" }
         
-        for part in parts {
+        for part in viewModel.parts {
             partsSection.append(stepperRow(part: part))
         }
         
@@ -132,7 +126,7 @@ class CreateBuildViewController: FormViewController {
             return
         }
 
-        parts.append(part)
+        viewModel.parts.append(part)
 
         section.append(stepperRow(part: part))
         
@@ -155,13 +149,13 @@ class CreateBuildViewController: FormViewController {
     public func completedForm(_ sender: UIBarButtonItem){
 
         // Todo Clean this up to work straight from the form without the parts
-        guard let build = ObjectMapper.createBuild(from: form, parts: parts), let proj = project else {
+        guard let build = ObjectMapper.createBuild(from: form, parts: viewModel.parts), let proj = viewModel.project else {
             return
         }
         
         newBuild = build
         
-        if generic {
+        if viewModel.generic {
             
             guard let row: PushRow<Assembly> = form.rowBy(tag:  Constants.BuildFields.AssemblyID), let val = row.value else {
                 return
@@ -171,17 +165,17 @@ class CreateBuildViewController: FormViewController {
 
         } else {
 
-            guard let assem = assembly else { return }
+            guard let assem = viewModel.assembly else { return }
 
             FirebaseDataManager.save(build: build, to: assem, within: proj)
         }
         
-        let segue = generic ? Constants.Segues.UnwindToBuildCalendar : Constants.Segues.UnwindToAssemblyDetail
+        let segue = viewModel.generic ? Constants.Segues.UnwindToBuildCalendar : Constants.Segues.UnwindToAssemblyDetail
 
         self.performSegue(withIdentifier: segue, sender: self)
     }
     
-    // Navigation
+    // MARK: - Navigation
     
     override public func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)

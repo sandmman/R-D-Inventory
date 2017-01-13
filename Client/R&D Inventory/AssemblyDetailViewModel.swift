@@ -19,12 +19,14 @@ class AssemblyDetailViewModel: NSObject {
     var selectedPart: Part? = nil
     
     var selectedBuild: Build? = nil
+    
+    fileprivate let listener = ListenerHandler()
 
     fileprivate let reloadCollectionViewCallback : (()->())!
     
     fileprivate let kNumberOfSectionsInTableView = 2
     
-    var project: Project? = nil {
+    var project: Project {
         didSet {
             parts = []
             builds = []
@@ -51,12 +53,15 @@ class AssemblyDetailViewModel: NSObject {
     }
     
     public func retreiveData() {
+        listener.listenForObjects(for: project, onComplete: didReceivePart)
+        listener.listenForObjects(for: project, onComplete: didReceiveBuild)
+    }
     
-        FirebaseDataManager.getParts(for: assembly, onComplete: didReceive)
-        FirebaseDataManager.getBuilds(for: assembly, onComplete: didReceive)
+    public func deinitialize() {
+        listener.removeListeners()
     }
 
-    private func didReceive(part: Part) {
+    private func didReceivePart(part: Part) {
         
         if let index = parts.index(of: part) {
             
@@ -71,7 +76,7 @@ class AssemblyDetailViewModel: NSObject {
         reloadCollectionViewCallback()
     }
 
-    private func didReceive(build: Build) {
+    private func didReceiveBuild(build: Build) {
         
         if let index = builds.index(of: build) {
             
@@ -85,9 +90,9 @@ class AssemblyDetailViewModel: NSObject {
         
         reloadCollectionViewCallback()
     }
-    
+
     public func getNextViewModel() -> FormViewModel {
-        
+        return FormViewModel(project: project, assembly: assembly, parts: parts)
     }
 }
 

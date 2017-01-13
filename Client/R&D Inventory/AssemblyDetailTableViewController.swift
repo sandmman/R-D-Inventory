@@ -28,8 +28,13 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
         if let row = tableView.indexPathForSelectedRow {
             self.tableView.deselectRow(at: row, animated: false)
         }
+        viewModel.retreiveData()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        viewModel.deinitialize()
+    }
+
     @IBAction func unwindToAssemblyDetail(sender: UIStoryboardSegue) {
         if let _ = sender.source as? CreateBuildViewController {
             

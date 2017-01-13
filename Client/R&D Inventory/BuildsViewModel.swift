@@ -20,11 +20,11 @@ class BuildsViewModel: NSObject {
 
     internal let listener: ListenerHandler!
     
-    internal let reloadCollectionViewCallback : (()->())!
+    public let reloadCollectionViewCallback : (()->())!
     
     let kNumberOfSectionsInTableView = 1
     
-    var project: Project? = nil {
+    var project: Project {
         didSet {
             builds = [:]
             
@@ -70,6 +70,10 @@ class BuildsViewModel: NSObject {
         reloadCollectionViewCallback()
     }
     
+    public func getNextViewModel(_ assembly: Assembly? = nil) -> FormViewModel {
+        return FormViewModel(project: project, assembly: assembly)
+    }
+
 }
 
 extension BuildsViewModel {
@@ -106,7 +110,12 @@ extension BuildsViewModel {
     
     public func numberOfItemsInSection(section : Int) -> Int {
         guard let selectedDate = selectedDate else {
-            return 0
+    
+            guard let buildArr = builds[Date().display] else {
+                return 0
+            }
+
+            return buildArr.count
         }
 
         guard let buildArr = builds[selectedDate.display] else {

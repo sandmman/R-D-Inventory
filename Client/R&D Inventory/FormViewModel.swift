@@ -18,6 +18,8 @@ class FormViewModel: NSObject {
     
     var parts = [Part]()
     
+    var generic = false
+
     var assemblyCallback: (() -> ())? = nil
 
     public init(project: Project, assemblyCallback: @escaping ()->()) {
@@ -48,6 +50,27 @@ class FormViewModel: NSObject {
     
     public init(project: Project, assembly: Assembly, parts: [Part]) {
         
+        self.project = project
+        
+        self.assembly = assembly
+        
+        self.parts = parts
+        
+        super.init()
+
+        retrieveData()
+    }
+
+    public init(project: Project, assembly: Assembly?) {
+        self.generic = assembly == nil
+        
+        self.assembly = assembly
+
+        self.project = project
+        
+        super.init()
+
+        retrieveData()
     }
 
     public func retrieveData() {
@@ -63,6 +86,7 @@ class FormViewModel: NSObject {
 
     private func didReceive(assembly: Assembly) {
         assemblies.append(assembly)
-        assemblyCallback()
+        
+        assemblyCallback?()
     }
 }
