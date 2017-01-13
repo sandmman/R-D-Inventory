@@ -56,9 +56,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
             dest.isInitialForm = true
 
         } else if segue.identifier == Constants.Segues.SignInToHome {
-            guard let dest = segue.destination as? UITabBarController else {
-                return
-            }
+            
         }
     }
 }

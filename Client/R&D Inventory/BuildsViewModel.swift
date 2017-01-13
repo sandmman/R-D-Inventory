@@ -69,6 +69,7 @@ class BuildsViewModel: NSObject {
         
         reloadCollectionViewCallback()
     }
+    
 }
 
 extension BuildsViewModel {

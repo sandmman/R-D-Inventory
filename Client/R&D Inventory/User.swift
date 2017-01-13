@@ -43,14 +43,6 @@ public struct User: FIRDataObject {
         ref = snapshot.ref
         
     }
-    
-    public func delete() {
-        guard let ref = self.ref else {
-            return
-        }
-        
-        ref.removeValue()
-    }
 
     public func toAnyObject() -> Any {
         return [

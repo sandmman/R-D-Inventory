@@ -39,7 +39,7 @@ class BuildsCalendarViewController: UIViewController {
     @IBAction func unwindToBuildCalendar(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? CreateBuildViewController {
             
-            guard let build = sourceViewController.newBuild else {
+            guard let build = sourceViewController.viewModel.newBuild else {
                 return
             }
             
@@ -48,9 +48,16 @@ class BuildsCalendarViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination = segue.destination as? CreateBuildViewController {
-            destination.project = project
+        guard let identifier = segue.identifier, let destination = segue.destination as? CreateBuildViewController else {
+            return
+        }
+
+        destination.project = project
+
+        if identifier == Constants.Segues.CreateBuild {
             destination.generic = true
+        } else if identifier == Constants.Segues.BuildDetail {
+            destination.generic = false
         }
     }
     
@@ -125,6 +132,7 @@ extension BuildsCalendarViewController: UITableViewDelegate, UITableViewDataSour
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewModel.selectedCell(at: indexPath)
+        performSegue(withIdentifier: Constants.Segues.BuildDetail, sender: nil)
     }
 }
 

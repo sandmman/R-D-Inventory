@@ -83,29 +83,29 @@
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iTo-Vd-4FI">
                                             <rect key="frame" x="0.0" y="60" width="375" height="1"/>
-                                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="1" id="UJB-iM-2bu"/>
+                                                <constraint firstAttribute="height" constant="0.5" id="UJB-iM-2bu"/>
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8rk-gr-pbQ">
                                             <rect key="frame" x="0.0" y="3" width="375" height="1"/>
-                                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="1" id="3be-CT-9zj"/>
+                                                <constraint firstAttribute="height" constant="0.5" id="3be-CT-9zj"/>
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create New Project" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cJb-Y5-6GV">
-                                            <rect key="frame" x="109" y="22" width="157" height="21"/>
+                                            <rect key="frame" x="109" y="22" width="157" height="19"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="157" id="Cbk-IA-tHb"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus" translatesAutoresizingMaskIntoConstraints="NO" id="SNX-N2-2IT">
-                                            <rect key="frame" x="72" y="23" width="20" height="20"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="plus" translatesAutoresizingMaskIntoConstraints="NO" id="SNX-N2-2IT">
+                                            <rect key="frame" x="72" y="21" width="20" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="20" id="4AE-7T-Xrn"/>
                                                 <constraint firstAttribute="height" constant="20" id="JfW-Q2-e0k"/>
@@ -132,18 +132,38 @@
                             <outlet property="delegate" destination="pep-q4-3Mi" id="t7D-Ki-KHj"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="cVK-Q5-aUF"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <segue destination="hRn-8N-6Wl" kind="unwind" identifier="UnwindToProjectDetailSegue" unwindAction="unwindToTabBarControllerWithSender:" id="WoW-Gf-j9Y"/>
                         <segue destination="fdB-Rb-xvi" kind="show" identifier="CreateProjectSegue" id="RTg-b1-ymH"/>
+                        <segue destination="cBr-pH-KDO" kind="show" identifier="SignOut" id="9CA-ac-NVR"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Odt-N8-bmT" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="hRn-8N-6Wl" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-60" y="142.57871064467767"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="sH3-4L-fcS">
+            <objects>
+                <viewController id="cBr-pH-KDO" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="UQZ-9C-JsV"/>
+                        <viewControllerLayoutGuide type="bottom" id="2lX-sg-Chj"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rdW-SQ-EBh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4nd-Xd-7ul" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="726" y="495"/>
         </scene>
         <!--Create Project View Controller-->
         <scene sceneID="SD1-rU-pNN">
@@ -161,7 +181,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SpR-rZ-KOg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="705" y="143"/>
+            <point key="canvasLocation" x="727" y="-171"/>
         </scene>
         <!--Side Menu Navigation Controller-->
         <scene sceneID="BWC-0c-h2r">

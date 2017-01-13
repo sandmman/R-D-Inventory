@@ -30,13 +30,13 @@ class SideBarTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let shadowPath = UIBezierPath(rect: bounds)
+        /*let shadowPath = UIBezierPath(rect: bounds)
 
         layer.masksToBounds = false
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
         layer.shadowOpacity = 0.25
-        layer.shadowPath = shadowPath.cgPath
+        layer.shadowPath = shadowPath.cgPath*/
     }
 
 }

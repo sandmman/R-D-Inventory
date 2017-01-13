@@ -47,14 +47,6 @@ public struct Project: FIRDataObject {
         
         ref = snapshot.ref
     }
-    
-    public func delete() {
-        guard let ref = self.ref else {
-            return
-        }
-        
-        ref.removeValue()
-    }
 
     public func toAnyObject() -> Any {
         let assembly: [String: Bool] = assemblies.reduce([String: Bool](), convertToDict)

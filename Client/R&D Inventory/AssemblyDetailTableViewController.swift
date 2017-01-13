@@ -15,36 +15,13 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
 
     var assembly: Assembly!
     
-    var parts: [Part] = []
-    
-    var builds: [Build] = []
-
-    var selectedPart: Part? = nil
-    
-    var selectedBuild: Build? = nil
+    var viewModel: AssemblyDetailViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let a = assembly else {
-            return
-        }
-        
-        self.title = a.name
-        
-        FirebaseDataManager.getParts(for: a) {
-            part in
-
-            self.parts.append(part)
-            self.reloadData()
-        }
-        
-        FirebaseDataManager.getBuilds(for: a) {
-            build in
-            
-            self.builds.append(build)
-            self.reloadData()
-        }
+        viewModel = AssemblyDetailViewModel(project: project, assembly: assembly, reloadCollectionViewCallback:
+        reloadCollectionViewCallback)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,16 +33,11 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
     @IBAction func unwindToAssemblyDetail(sender: UIStoryboardSegue) {
         if let _ = sender.source as? CreateBuildViewController {
             
-            reloadData()
+            reloadCollectionViewCallback()
         }
     }
-
-    // Table view
-    func reloadData() {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
+    
+    //MARK: - TableView
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return section == 0 ? "Builds" : "Parts"
@@ -89,11 +61,7 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            FirebaseDataManager.delete(build: builds[indexPath.row])
-            
-            builds.remove(at: indexPath.row)
-
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            viewModel.delete(from: tableView, at: indexPath)
         }
     }
 
@@ -106,23 +74,23 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return viewModel.numberOfSectionsInCollectionView()
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? builds.count : parts.count
+        return viewModel.numberOfItemsInSection(section: section)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.part)! as UITableViewCell
         
         if indexPath.section == 0 {
-            cell.textLabel?.text = builds[indexPath.row].title
-            cell.detailTextLabel?.text = builds[indexPath.row].displayDate
+            cell.textLabel?.text = viewModel.builds[indexPath.row].title
+            cell.detailTextLabel?.text = viewModel.builds[indexPath.row].displayDate
             
         } else {
-            cell.textLabel?.text = parts[indexPath.row].name
-            cell.detailTextLabel?.text = parts[indexPath.row].manufacturer
+            cell.textLabel?.text = viewModel.parts[indexPath.row].name
+            cell.detailTextLabel?.text = viewModel.parts[indexPath.row].manufacturer
         }
         
         
@@ -130,23 +98,15 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt: IndexPath) {
+
+        viewModel.selectedCell(at: didSelectRowAt)
         
-        guard let indexPath = tableView.indexPathForSelectedRow else {
-            return
-        }
+        let segue = didSelectRowAt.section == 0 ? Constants.Segues.BuildDetail : Constants.Segues.PartDetail
         
-        if indexPath.section == 0 {
-            selectedBuild = builds[indexPath.row]
-            
-            performSegue(withIdentifier: Constants.Segues.BuildDetail, sender: self)
-        } else {
-            selectedPart = parts[indexPath.row]
-            
-            performSegue(withIdentifier: Constants.Segues.PartDetail, sender: self)
-        }
+        performSegue(withIdentifier: segue, sender: nil)
     }
     
-    // Navigation
+    // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
@@ -158,23 +118,29 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
         switch identifier {
         case Constants.Segues.PartDetail:
             let viewController = segue.destination as! PartDetailTableViewController
-            
-            viewController.part = selectedPart
+
+            viewController.part = viewModel.selectedPart
             
         case Constants.Segues.BuildDetail:
             let viewController = segue.destination as! BuildDetailViewController
             
-            viewController.build = selectedBuild
-            viewController.parts = parts
+            viewController.build = viewModel.selectedBuild
+            viewController.parts = viewModel.parts
             
         case Constants.Segues.CreateBuild:
             let viewController = segue.destination as! CreateBuildViewController
             
-            viewController.parts = parts
-            viewController.project = project
-            viewController.assembly = assembly
+            viewController.viewModel = viewModel.getNextViewModel()
 
         default: break
+        }
+    }
+    
+    // MARK: - Private
+    
+    private func reloadCollectionViewCallback() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
     }
 }

@@ -102,13 +102,14 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="IqH-G2-hsh">
                             <connections>
-                                <segue destination="IvD-ZE-pyn" kind="show" id="Gr2-xp-itQ"/>
+                                <segue destination="IvD-ZE-pyn" kind="show" identifier="CreateBuildSegue" id="Gr2-xp-itQ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="calendar" destination="sGW-sM-nwn" id="1wA-e2-D9L"/>
                         <outlet property="tableView" destination="hto-p9-doo" id="idI-0r-16r"/>
+                        <segue destination="IvD-ZE-pyn" kind="show" identifier="BuildDetailSegue" id="OVA-R9-dIf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g9g-8w-OW4" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -143,4 +144,7 @@
         <image name="Builds" width="15" height="15"/>
         <image name="sidebar" width="15" height="15"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="OVA-R9-dIf"/>
+    </inferredMetricsTieBreakers>
 </document>

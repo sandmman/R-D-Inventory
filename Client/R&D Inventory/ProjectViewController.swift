@@ -8,43 +8,40 @@
 
 import UIKit
 
-class ProjectViewController: UIViewController, TabBarViewController, UITableViewDelegate,UITableViewDataSource {
+class ProjectViewController: UIViewController {
     
     @IBOutlet var projectLabel: UILabel!
     
     @IBOutlet var warningsTableView: UITableView!
     
-    private var buildWarnings = [Build]()
+    var viewModel: ProjectViewModel!
 
     var project: Project!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        configureView()
 
-        projectLabel.text = "Project Name"
+        viewModel = ProjectViewModel(project: project, reloadCollectionViewCallback: reloadData)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        warningsTableView.isHidden = buildWarnings.count == 1
-        
-        if let proj = project {
-            projectLabel.text = proj.name
+        configureView()
 
-        }
     }
     
     // MARK: Private Helpers
-
-    public func didChangeProject(project: Project) {
-        self.project = project
-        
-        if let lbl = projectLabel {
-            lbl.text = project.name
+    
+    internal func configureView() {
+        guard let proj = project else {
+            return
         }
         
-        reloadData()
+        projectLabel?.text = proj.name
     }
-    
+
     private func reloadData() {
         DispatchQueue.main.async {
             if let table = self.warningsTableView {
@@ -86,8 +83,9 @@ class ProjectViewController: UIViewController, TabBarViewController, UITableView
             didChangeProject(project: project)
         }
     }
-    
-    // MARK: TableView
+}
+
+extension ProjectViewController: UITableViewDelegate,UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return section == 0 ? "Part Warnings": "Upcoming Builds"
@@ -96,21 +94,33 @@ class ProjectViewController: UIViewController, TabBarViewController, UITableView
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return UITableViewAutomaticDimension
     }
-
+    
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return buildWarnings.count
+        return viewModel.numberOfItemsInSection(section: section)
     }
     
     public func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return viewModel.numberOfSectionsInCollectionView()
     }
-
+    
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.BuildWarning, for: indexPath)
         
-        cell.textLabel?.text = buildWarnings[indexPath.row].assemblyID
+        cell.textLabel?.text = viewModel.upcoming[indexPath.row].title
         
         return cell
     }
+}
+
+extension ProjectViewController: TabBarViewController {
+    
+    public func didChangeProject(project: Project) {
+        self.project = project
+        
+        configureView()
+        
+        viewModel?.project = project
+    }
+
 }

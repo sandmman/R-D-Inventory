@@ -24,15 +24,8 @@ class SideBarTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let screenRect = UIScreen.main.bounds
-        let screenWidth = screenRect.size.width;
-    
-        SideMenuManager.menuWidth = screenWidth * 0.70
+        configureSideBar()
 
-        SideMenuManager.menuFadeStatusBar = false
-
-        navigationController?.setNavigationBarHidden(true, animated: true)
-        
         viewModel = ViewModel<Project>(reloadCollectionViewCallback: reloadCollectionViewData)
     }
 
@@ -122,5 +115,16 @@ class SideBarTableViewController: UITableViewController {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
+    }
+    
+    private func configureSideBar() {
+        let screenRect = UIScreen.main.bounds
+        let screenWidth = screenRect.size.width;
+        
+        SideMenuManager.menuWidth = screenWidth * 0.70
+        
+        SideMenuManager.menuFadeStatusBar = false
+        
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
 }

@@ -25,7 +25,7 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics">
                         <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </simulatedTabBarMetrics>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="yqt-7I-hWG">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yqt-7I-hWG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -50,21 +50,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fof-tB-1F3">
-                                <rect key="frame" x="0.0" y="64" width="375" height="138"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="117"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Project Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cny-YT-plI">
-                                        <rect key="frame" x="8" y="41" width="273" height="56"/>
+                                        <rect key="frame" x="8" y="53" width="273" height="56"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.0025455236470000001" green="0.46591369449999998" blue="0.96320628159999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.31533023560000001" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6b8-IO-qbn">
-                                <rect key="frame" x="0.0" y="210" width="375" height="408"/>
+                                <rect key="frame" x="0.0" y="189" width="375" height="429"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>

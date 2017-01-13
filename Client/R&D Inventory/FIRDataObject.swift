@@ -18,10 +18,19 @@ public protocol FIRDataObject: Equatable {
     init?(snapshot: FIRDataSnapshot)
     
     func toAnyObject() -> Any
-    
-    func delete()
 
     static func rootRef(with project: Project?) -> FIRDatabaseReference
+}
+
+public extension FIRDataObject {
+    
+    public func delete() {
+        guard let reference = ref else {
+            return
+        }
+        
+        reference.removeValue()
+    }
 }
 
 public func ==<T: FIRDataObject>(lhs: T, rhs: T) -> Bool {

@@ -11,45 +11,38 @@ import Eureka
 
 class CreateBuildViewController: FormViewController {
     
-    var parts: [Part] = []
-    
     var project: Project!
     
     var assembly: Assembly? = nil
-    
+
     // Generic == true, if build is created from project home
     // Generic == true, if build is created from assembly home
     var generic = false
 
-    private var assemblies: [Assembly] = []
-    
-    private(set) var newBuild: Build? = nil
+    var viewModel: FormViewModel!
 
     private var partsNeededTag = "Parts Needed"
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        guard let proj = project else {
-            instantiateView()
-            return
-        }
-
-        FirebaseDataManager.getAssemblies(for: proj, onComplete: didReceiveAssembly)
-
         instantiateView()
+        
+        viewModel = FormViewModel(project: project, assemblyCallback: didUpdateAssemblies)
     }
     
     private func instantiateView() {
+        guard project != nil else {
+            return
+        }
         instantiateForm()
         instantiateDoneButton()
     }
 
-    private func didReceiveAssembly(assembly: Assembly) {
-        assemblies.append(assembly)
-        
+    private func didUpdateAssemblies() {
+    
         if let cell: PushRow<Assembly> = form.rowBy(tag: Constants.BuildFields.AssemblyID) {
-            cell.options = assemblies
+            cell.options = viewModel.assemblies
             cell.reload()
         }
     }
@@ -63,8 +56,8 @@ class CreateBuildViewController: FormViewController {
             }
             <<< PushRow<Assembly>(Constants.BuildFields.AssemblyID) {
                 $0.title = "Assembly"
-                $0.options = assemblies
-                $0.value = defaultAssemblyValue()
+                $0.options = viewModel.assemblies
+                $0.value = viewModel.defaultAssemblyValue()
                 $0.selectorTitle = "Choose an Assembly!"
                 $0.add(rule: RuleRequired())
                 $0.validationOptions = .validatesOnChangeAfterBlurred
@@ -117,13 +110,6 @@ class CreateBuildViewController: FormViewController {
         
         form +++ partsSection
         
-    }
-    
-    private func defaultAssemblyValue() -> Assembly? {
-        if let assem = assembly {
-            return assem
-        }
-        return assemblies.count > 0 ? assemblies[0] : nil
     }
 
     private func updateSection(assembly: Assembly?) {
