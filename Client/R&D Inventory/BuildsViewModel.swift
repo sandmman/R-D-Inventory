@@ -28,6 +28,8 @@ class BuildsViewModel: NSObject {
         didSet {
             builds = [:]
             
+            deinitialize()
+            listenForObjects()
             reloadCollectionViewCallback()
         }
     }
@@ -47,6 +49,8 @@ class BuildsViewModel: NSObject {
     }
 
     public func listenForObjects() {
+        builds = [:]
+        reloadCollectionViewCallback()
         listener.listenForObjects(for: project, onComplete: didReceive)
     }
     
@@ -54,7 +58,21 @@ class BuildsViewModel: NSObject {
         listener.removeListeners()
     }
     
-    private func didReceive(build: Build) {
+    private func didReceive(result: ObserverResult<Build>) {
+        switch result {
+        case .added(_): break
+        case .changed(let build): didUpdate(build: build)
+        case .removed(let ref):
+            for (k,value) in builds {
+                builds[k] = value.filter { $0.ref != ref}
+            }
+            listener.removeListeners(to: ref)
+        }
+        
+        reloadCollectionViewCallback()
+    }
+    
+    private func didUpdate(build: Build) {
         if var arr = builds[build.displayDate] {
             if let index = arr.index(of: build) {
                 arr[index] = build
@@ -66,10 +84,8 @@ class BuildsViewModel: NSObject {
         } else {
             builds[build.displayDate] = [build]
         }
-        
-        reloadCollectionViewCallback()
     }
-    
+
     public func getNextViewModel(_ assembly: Assembly? = nil) -> FormViewModel {
         return FormViewModel(project: project, assembly: assembly)
     }
@@ -94,9 +110,13 @@ extension BuildsViewModel {
 
     public func delete(from tableView: UITableView, at indexPath: IndexPath, with date: Date) {
 
-        if let object = builds[date.display]?.remove(at: indexPath.row) {
-            object.delete()
+        guard let object = builds[date.display]?.remove(at: indexPath.row) else {
+            return
         }
+        
+        object.delete()
+        
+        project.delete(obj: object)
 
         tableView.deleteRows(at: [indexPath], with: .fade)
         

@@ -27,7 +27,7 @@ class AssemblyTableViewController: UITableViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        viewModel.deinitialize()
+        //viewModel.deinitialize()
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -43,6 +43,10 @@ class AssemblyTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.assembly, for: indexPath)
+        
+        guard viewModel.objects.count > indexPath.row else {
+            return cell
+        }
 
         cell.textLabel?.text = viewModel.objects[indexPath.row].name
         

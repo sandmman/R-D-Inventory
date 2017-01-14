@@ -28,9 +28,10 @@ class ProjectViewModel: NSObject {
         didSet {
             warnings = []
             upcoming = []
-
-            reloadCollectionViewCallback()
-        }
+            
+            deinitialize()
+            listenForObjects()
+            reloadCollectionViewCallback()        }
     }
     
     public init(project: Project, reloadCollectionViewCallback : @escaping (()->())) {
@@ -60,6 +61,9 @@ class ProjectViewModel: NSObject {
     }
     
     public func listenForObjects() {
+        warnings = []
+        upcoming = []
+        reloadCollectionViewCallback()
         listener.listenForObjects(for: project, onComplete: didReceive)
     }
     
@@ -67,11 +71,21 @@ class ProjectViewModel: NSObject {
         listener.removeListeners()
     }
     
-    private func didReceive(build: Build) {
+    private func didReceive(result: ObserverResult<Build>) {
+        switch result {
+        case .added(let build)  : upcoming.append(build)
+        case .changed(let build): didUpdate(build: build)
+        case .removed(let ref)  : upcoming = upcoming.filter { $0.ref != ref} ; listener.removeListeners(to: ref)
+        }
+        
+        reloadCollectionViewCallback()
+    }
+    
+    private func didUpdate(build: Build) {
         
         let yesterdayDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
         let nextWeekDate = Calendar.current.date(byAdding: .weekOfYear, value: 1, to: Date())!
-    
+        
         if let index = upcoming.index(of: build) {
             
             self.upcoming[index] = build
@@ -79,13 +93,13 @@ class ProjectViewModel: NSObject {
         } else {
             
             if build.scheduledDate < nextWeekDate && build.scheduledDate > yesterdayDate {
-                self.upcoming.append(build)
+                //self.upcoming.append(build)
             }
+            self.upcoming.append(build)
             
         }
-        
-        reloadCollectionViewCallback()
     }
+
 }
 
 extension ProjectViewModel {
@@ -97,6 +111,8 @@ extension ProjectViewModel {
             let object = upcoming.remove(at: indexPath.row)
             
             object.delete()
+            
+            project?.delete(obj: object)
         }
         
         tableView.deleteRows(at: [indexPath], with: .fade)

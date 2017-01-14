@@ -24,21 +24,25 @@ class ProjectViewController: UIViewController {
         configureView()
 
         viewModel = ProjectViewModel(project: project, reloadCollectionViewCallback: reloadData)
-
+        
+        configureView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        configureView()
-
+        viewModel.listenForObjects()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        viewModel.deinitialize()
+    }
+
     // MARK: Private Helpers
     
     internal func configureView() {
         guard let proj = project else {
             return
         }
-        
+
         projectLabel?.text = proj.name
     }
 
@@ -121,6 +125,7 @@ extension ProjectViewController: TabBarViewController {
         configureView()
         
         viewModel?.project = project
+
     }
 
 }

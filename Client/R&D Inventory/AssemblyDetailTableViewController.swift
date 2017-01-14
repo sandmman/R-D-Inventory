@@ -22,24 +22,25 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
         
         viewModel = AssemblyDetailViewModel(project: project, assembly: assembly, reloadCollectionViewCallback:
         reloadCollectionViewCallback)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         if let row = tableView.indexPathForSelectedRow {
             self.tableView.deselectRow(at: row, animated: false)
         }
-        viewModel.retreiveData()
+        
+        tableView.reloadData()
+
+        viewModel.startSync()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        viewModel.deinitialize()
+        viewModel.stopSync()
     }
 
     @IBAction func unwindToAssemblyDetail(sender: UIStoryboardSegue) {
-        if let _ = sender.source as? CreateBuildViewController {
-            
-            reloadCollectionViewCallback()
-        }
+        
     }
     
     //MARK: - TableView
@@ -90,12 +91,21 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
         let cell: UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.part)! as UITableViewCell
         
         if indexPath.section == 0 {
-            cell.textLabel?.text = viewModel.builds[indexPath.row].title
-            cell.detailTextLabel?.text = viewModel.builds[indexPath.row].displayDate
+            guard viewModel.builds.count > indexPath.row else {
+                return cell
+            }
+            let item = viewModel.builds.list[indexPath.row]
+
+            cell.textLabel?.text = item.title
+            cell.detailTextLabel?.text = item.displayDate
             
         } else {
-            cell.textLabel?.text = viewModel.parts[indexPath.row].name
-            cell.detailTextLabel?.text = viewModel.parts[indexPath.row].manufacturer
+            guard viewModel.parts.count > indexPath.row else {
+                return cell
+            }
+            let item = viewModel.parts.list[indexPath.row]
+            cell.textLabel?.text = item.name
+            cell.detailTextLabel?.text = item.manufacturer
         }
         
         
@@ -130,7 +140,7 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
             let viewController = segue.destination as! BuildDetailViewController
             
             viewController.build = viewModel.selectedBuild
-            viewController.parts = viewModel.parts
+            //viewController.parts = viewModel.parts
             
         case Constants.Segues.CreateBuild:
             let viewController = segue.destination as! CreateBuildViewController

@@ -30,14 +30,12 @@ public class CreatePartRowViewController: FormViewController, TypedRowController
     }
     
     public func tappedDone(_ sender: UIBarButtonItem) {
-        print("done")
         guard let part = ObjectMapper.createPart(from: form) else {
             return
         }
 
         row.value = part
-        print(part)
-        print(project)
+
         FirebaseDataManager.save(part: part, to: project)
 
         onDismissCallback?(self)

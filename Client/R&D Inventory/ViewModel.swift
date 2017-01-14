@@ -24,6 +24,8 @@ class ViewModel<T: FIRDataObject>: NSObject {
         didSet {
             objects = []
 
+            deinitialize()
+            listenForObjects()
             reloadCollectionViewCallback()
         }
     }
@@ -55,26 +57,35 @@ class ViewModel<T: FIRDataObject>: NSObject {
     }
 
     public func listenForObjects() {
+        objects = []
+        reloadCollectionViewCallback()
         listener.listenForObjects(for: project, onComplete: didReceiveObject)
     }
     
     public func deinitialize() {
         listener.removeListeners()
     }
-
-    private func didReceiveObject(object: T) {
-        
-        if let index = objects.index(of: object) {
-
-            self.objects[index] = object
     
-        } else {
-    
-            self.objects.append(object)
-
+    private func didReceiveObject(result: ObserverResult<T>) {
+        switch result {
+        case .added(let object)     : didUpdate(obj: object)
+        case .changed(let object)   : didUpdate(obj: object)
+        case .removed(let ref)      : objects = objects.filter { $0.ref != ref} ; listener.removeListeners(to: ref)
         }
-
+        
         reloadCollectionViewCallback()
+    }
+    
+    private func didUpdate(obj: T) {
+        if let index = objects.index(of: obj) {
+            
+            self.objects[index] = obj
+            
+        } else {
+            
+            self.objects.append(obj)
+            
+        }
     }
 }
 
@@ -84,6 +95,8 @@ extension ViewModel {
         let object = objects.remove(at: indexPath.row)
         
         object.delete()
+        
+        project?.delete(obj: object)
 
         tableView.deleteRows(at: [indexPath], with: .fade)
         

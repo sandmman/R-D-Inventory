@@ -67,3 +67,20 @@ public struct Project: FIRDataObject {
         return FirebaseDataManager.projectsRef
     }
 }
+
+extension Project {
+    
+    public func delete<T: FIRDataObject>(obj: T) {
+        guard let r = ref else {
+            return
+        }
+
+        switch obj {
+        case is Part: r.child(Constants.Types.Part).child(obj.key).removeValue()
+        case is Build: r.child(Constants.Types.Build).child(obj.key).removeValue()
+        case is Assembly: r.child(Constants.Types.Assembly).child(obj.key).removeValue()
+        default: break
+        }
+        
+    }
+}

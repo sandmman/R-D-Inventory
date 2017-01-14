@@ -32,7 +32,7 @@ public struct FirebaseDataManager {
 
 extension FirebaseDataManager {
     public static func removeListener(handle: UInt, ref: FIRDatabaseReference) {
-        ref.removeObserver(withHandle: handle)
+        ref.removeAllObservers()
     }
 }
 
@@ -102,52 +102,6 @@ extension FirebaseDataManager: DataManager {
     
     public static func update(project: Project) {
         
-    }
-
-    ////////////
-    // Delete //
-    ////////////
-
-    public static func delete(assembly: Assembly) {
-        
-        guard let ref = assembly.ref else {
-            return
-        }
-
-        ref.removeValue()
-    }
-    
-    public static func delete(part: Part) {
-        
-        guard let ref = part.ref else {
-            return
-        }
-
-        ref.removeValue()
-    }
-    
-    public static func delete(build: Build) {
-        
-        guard let ref = build.ref else {
-            return
-        }
-        
-        ref.removeValue()
-        
-        FirebaseDataManager.assemblyRef.child(build.assemblyID).child(Constants.Types.Build).child(build.key).removeValue()
-    }
-    
-    public static func delete(project: Project) {
-        
-        guard let ref = project.ref else {
-            return
-        }
-        
-        ref.removeValue()
-    }
-    
-    public static func delete<T: FIRDataObject>(obj: T) {
-
     }
     
     //////////

@@ -84,7 +84,9 @@ public struct Build: FIRDataObject {
         guard let ref = self.ref else {
             return
         }
-        
+
+        Assembly.rootRef().child(assemblyID).child(Constants.Types.Build).child(key).removeValue()
+
         ref.removeValue()
     }
 

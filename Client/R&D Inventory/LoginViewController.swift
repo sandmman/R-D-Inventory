@@ -39,7 +39,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
         
         FirebaseDataManager.getProjects {
             projects in
-            print(projects.count)
+
             let segue = projects.count == 0 ? Constants.Segues.SignInToCreateProject : Constants.Segues.SignInToHome
             
             self.performSegue(withIdentifier: segue, sender: nil)

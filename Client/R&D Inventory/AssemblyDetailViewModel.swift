@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import Firebase
 
 class AssemblyDetailViewModel: NSObject {
     
-    var parts: [Part] = []
+    var parts: FirebaseDataSource<Part>!
     
-    var builds: [Build] = []
+    var builds: FirebaseDataSource<Build>!
     
     var assembly: Assembly
 
@@ -28,12 +29,9 @@ class AssemblyDetailViewModel: NSObject {
     
     var project: Project {
         didSet {
-            parts = []
-            builds = []
     
-            selectedPart = nil
-            selectedBuild = nil
-    
+            stopSync()
+            startSync()
             reloadCollectionViewCallback()
         }
     }
@@ -45,72 +43,54 @@ class AssemblyDetailViewModel: NSObject {
         self.assembly = assembly
 
         self.reloadCollectionViewCallback = reloadCollectionViewCallback
-
+        
         super.init()
         
-        retreiveData()
+        parts = FirebaseDataSource(id: Constants.Types.Part, ref: FirebaseDataManager.partsRef)
+        builds = FirebaseDataSource(id: Constants.Types.Build, ref: FirebaseDataManager.buildsRef)
+
+        parts.delegate = self
+        builds.delegate = self
+
         
     }
     
-    public func retreiveData() {
-        listener.listenForObjects(for: project, onComplete: didReceivePart)
-        listener.listenForObjects(for: project, onComplete: didReceiveBuild)
+    public func startSync() {
+        parts.startSync()
+        builds.startSync()
     }
     
-    public func deinitialize() {
-        listener.removeListeners()
+    public func stopSync() {
+        parts.stopSync()
+        builds.stopSync()
     }
 
-    private func didReceivePart(part: Part) {
-        
-        if let index = parts.index(of: part) {
-            
-            self.parts[index] = part
-            
-        } else {
-            
-            self.parts.append(part)
-            
-        }
-        
-        reloadCollectionViewCallback()
-    }
-
-    private func didReceiveBuild(build: Build) {
-        
-        if let index = builds.index(of: build) {
-            
-            self.builds[index] = build
-            
-        } else {
-            
-            self.builds.append(build)
-            
-        }
-        
-        reloadCollectionViewCallback()
-    }
-
-    public func getNextViewModel() -> FormViewModel {
-        return FormViewModel(project: project, assembly: assembly, parts: parts)
+    public func getNextViewModel() -> FormViewModel? {
+        return nil
+        //return FormViewModel(project: project, assembly: assembly, parts: parts)
     }
 }
 
 extension AssemblyDetailViewModel {
     
     public func delete(from tableView: UITableView, at indexPath: IndexPath) {
+
         if indexPath.section == 0 {
 
-            let object = builds.remove(at: indexPath.row)
+            builds.remove(at: indexPath.row)
     
-            object.delete()
+            //object.delete()
+            
+            //project.delete(obj: object)
             
         } else {
 
-            let object = parts.remove(at: indexPath.row)
+            parts.remove(at: indexPath.row)
 
-            object.delete()
+            //object.delete()
             
+            //project.delete(obj: object)
+        
         }
 
         tableView.deleteRows(at: [indexPath], with: .fade)
@@ -134,9 +114,22 @@ extension AssemblyDetailViewModel {
     
     public func selectedCell(at indexPath: IndexPath) {
         if indexPath.section == 0 {
-            selectedBuild = builds[indexPath.row]
+            selectedBuild = builds.list[indexPath.row]
         } else {
-            selectedPart = parts[indexPath.row]
+            selectedPart = parts.list[indexPath.row]
         }
     }
 }
+
+extension AssemblyDetailViewModel: FirebaseDataSourceDelegate {
+    internal func indexAdded<T : FIRDataObject>(at IndexPath: IndexPath, data: T) {
+        reloadCollectionViewCallback()
+    }
+    internal func indexChanged<T : FIRDataObject>(at IndexPath: IndexPath, data: T) {
+        reloadCollectionViewCallback()
+    }
+    internal func indexRemoved<T : FIRDataObject>(at IndexPath: IndexPath, data: T) {
+        reloadCollectionViewCallback()
+    }
+}
+
