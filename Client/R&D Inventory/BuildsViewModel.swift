@@ -62,11 +62,11 @@ class BuildsViewModel: NSObject {
         switch result {
         case .added(_): break
         case .changed(let build): didUpdate(build: build)
-        case .removed(let ref):
+        case .removed(let obj):
             for (k,value) in builds {
-                builds[k] = value.filter { $0.ref != ref}
+                builds[k] = value.filter { $0 != obj}
             }
-            listener.removeListeners(to: ref)
+            listener.removeListeners(to: obj.ref!)
         }
         
         reloadCollectionViewCallback()

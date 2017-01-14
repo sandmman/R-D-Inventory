@@ -11,7 +11,7 @@ import Firebase
 
 public enum ObserverResult<T: FIRDataObject> {
     case added(T)
-    case removed(FIRDatabaseReference)
+    case removed(T)
     case changed(T)
 }
 
@@ -77,11 +77,18 @@ extension ListenerHandler {
     internal func setupListenerSet<T: FIRDataObject>(parentRef: FIRDatabaseReference, itemRef:  FIRDatabaseReference, onComplete: @escaping (ObserverResult<T>) -> ()) {
         
         let h1 = parentRef.observe(.childAdded, with: { snapshot in
+            
+            var first = true
 
             let h2 = itemRef.child(snapshot.key).observe(.value, with: { snap in
 
                 if let item = T(snapshot: snap) {
-                    onComplete(.changed(item))
+                    if first {
+                        onComplete(.added(item))
+                    } else {
+                        onComplete(.changed(item))
+                        first = false
+                    }
                 }
             })
             
@@ -89,7 +96,9 @@ extension ListenerHandler {
         })
         
         let h3 = parentRef.observe(.childRemoved, with: { snapshot in
-            onComplete(.removed(itemRef.child(snapshot.key)))
+            if let item = T(snapshot: snapshot) {
+                onComplete(.removed(item))
+            }
         })
         
         addRef(ref: parentRef, handle: h1)
@@ -112,7 +121,9 @@ extension ListenerHandler {
         })
         
         let h3 = ref.observe(.childRemoved, with: { snapshot in
-            onComplete(.removed(ref.child(snapshot.key)))
+            if let item = T(snapshot: snapshot) {
+                onComplete(.removed(item))
+            }
         })
 
         addRef(ref: ref, handle: h1)

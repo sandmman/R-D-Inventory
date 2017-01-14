@@ -75,7 +75,7 @@ class ProjectViewModel: NSObject {
         switch result {
         case .added(let build)  : upcoming.append(build)
         case .changed(let build): didUpdate(build: build)
-        case .removed(let ref)  : upcoming = upcoming.filter { $0.ref != ref} ; listener.removeListeners(to: ref)
+        case .removed(let obj)  : upcoming = upcoming.filter { $0 != obj} ; listener.removeListeners(to: obj.ref!)
         }
         
         reloadCollectionViewCallback()

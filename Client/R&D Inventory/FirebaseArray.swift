@@ -19,14 +19,19 @@ class FirebaseArray<T: FIRDataObject> {
     
     var list = [T]()
 
-    let ref: FIRDatabaseReference!
+    let project: Project!
+    
+    let assembly: Assembly?
 
     var delegate: FirebaseArrayDelegate? = nil
+    
+    var listener = ListenerHandler()
 
     // MARK: Initializers
     
-    init(ref: FIRDatabaseReference) {
-        self.ref = ref
+    init(project: Project, assembly: Assembly? = nil) {
+        self.project = project
+        self.assembly = assembly
     }
     
     // MARK: Syncing
@@ -41,66 +46,64 @@ class FirebaseArray<T: FIRDataObject> {
     }
     
     func stopSyncing() {
-        ref.removeAllObservers()
+        listener.removeListeners()
     }
     
     // MARK: Data updates
     
     func append(data: Any!) {
-        let pushIdref = ref.childByAutoId()
+        let pushIdref = T.rootRef(with: nil).childByAutoId()
         pushIdref.setValue(data)
     }
     
-    func remove(at index: Int) {
-        let obj = list[index]
-        let itemRef = ref.child(obj.key)
-        itemRef.removeValue()
+    func remove(at index: Int) -> T {
+        return list.remove(at: index)
     }
     
     func update(at index: Int, data: [NSObject : Any]!) {
         let item = list[index]
-        let itemRef = ref.child(item.key)
-        itemRef.updateChildValues(data)
+        //let itemRef = ref.child(item.key)
+        //itemRef.updateChildValues(data)
     }
     
     // MARK: Event Listeners
     
     private func initializeListeners() {
-        addListenerWithPrevKey(event: .childAdded, method: serverAdd)
-        addListenerWithPrevKey(event: .childMoved, method: serverMove)
-        addListener(event: .childChanged, method: serverChange)
-        addListener(event: .childRemoved, method: serverRemove)
-    }
-    
-    private func addListener(event: FIRDataEventType, method: @escaping (FIRDataSnapshot!) -> Void) {
-        ref.observe(event, with: method)
-    }
-    
-    private func addListenerWithPrevKey(event: FIRDataEventType, method: @escaping (FIRDataSnapshot?, String?) -> Void) {
-        ref.observe(event, andPreviousSiblingKeyWith: method)
-    }
-    
-    private func serverAdd(snap: FIRDataSnapshot?, prevKey: String?) {
-        guard let snap = snap, let item = T(snapshot: snap) else {
-            return
+        if let assem = assembly {
+            listener.listenForObjects(for: assem, onComplete: didReceiveNotification)
+        } else {
+            listener.listenForObjects(for: project, onComplete: didReceiveNotification)
         }
-        let position = moveTo(key: snap.key, data: snap, prevKey: prevKey)
+        
+    }
+
+    private func didReceiveNotification(result: ObserverResult<T>) {
+        switch result {
+        case .added(let obj)    : serverAdd(item: obj, prevKey: obj.key)
+        case .changed(let obj)  : serverChange(item: obj)
+        case .removed(let obj)  : serverRemove(item: obj)
+        }
+    }
+
+    private func serverAdd(item: T, prevKey: String?) {
+        print("added!")
+        let position = moveTo(key: item.key, data: item, prevKey: prevKey)
         delegate?.indexAdded(array: list, at: position, data: item)
     }
     
-    private func serverChange(snap: FIRDataSnapshot!) {
-        let position = findKeyPosition(key: snap.key)
+    private func serverChange(item: T) {
+        print("changed")
+        let position = findKeyPosition(key: item.key)
+        print("position", position)
         if let position = position {
-            guard let item = T(snapshot: snap) else {
-                return
-            }
             list[position] = item
             delegate?.indexChanged(array: list, at: position, data: item)
         }
     }
     
-    private func serverRemove(snap: FIRDataSnapshot!) {
-        let position = findKeyPosition(key: snap.key)
+    private func serverRemove(item: T) {
+        print("removed")
+        let position = findKeyPosition(key: item.key)
         if let position = position {
             let item = list.remove(at: position)
             delegate?.indexRemoved(array: list, at: position, data: item)
@@ -111,12 +114,11 @@ class FirebaseArray<T: FIRDataObject> {
 
     }
     
-    private func moveTo(key: String, data: FIRDataSnapshot, prevKey: String?) -> Int {
+    private func moveTo(key: String, data: T, prevKey: String?) -> Int {
         let position = placeRecord(key: key, prevKey: prevKey)
-        guard let item = T(snapshot: data) else {
-            return -1
-        }
-        list.insert(item, at: position)
+        
+        list.insert(data, at: position)
+
         return position
     }
     

@@ -11,17 +11,15 @@ import Firebase
 
 class AssemblyDetailViewModel: NSObject {
     
-    var parts: FirebaseDataSource<Part>!
+    var parts: AssemblyDataSource<Part>!
     
-    var builds: FirebaseDataSource<Build>!
+    var builds: AssemblyDataSource<Build>!
     
     var assembly: Assembly
 
     var selectedPart: Part? = nil
     
     var selectedBuild: Build? = nil
-    
-    fileprivate let listener = ListenerHandler()
 
     fileprivate let reloadCollectionViewCallback : (()->())!
     
@@ -46,8 +44,8 @@ class AssemblyDetailViewModel: NSObject {
         
         super.init()
         
-        parts = FirebaseDataSource(id: Constants.Types.Part, ref: FirebaseDataManager.partsRef)
-        builds = FirebaseDataSource(id: Constants.Types.Build, ref: FirebaseDataManager.buildsRef)
+        parts = AssemblyDataSource(id: Constants.Types.Part, project: project, assembly: assembly)
+        builds = AssemblyDataSource(id: Constants.Types.Build, project: project, assembly: assembly)
 
         parts.delegate = self
         builds.delegate = self
@@ -77,19 +75,19 @@ extension AssemblyDetailViewModel {
 
         if indexPath.section == 0 {
 
-            builds.remove(at: indexPath.row)
+            let obj = builds.remove(at: indexPath.row)
     
-            //object.delete()
+            obj.delete()
             
-            //project.delete(obj: object)
+            project.delete(obj: obj)
             
         } else {
 
-            parts.remove(at: indexPath.row)
+            let object = parts.remove(at: indexPath.row)
 
-            //object.delete()
+            object.delete()
             
-            //project.delete(obj: object)
+            project.delete(obj: object)
         
         }
 

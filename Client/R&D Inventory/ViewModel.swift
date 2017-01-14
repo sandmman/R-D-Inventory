@@ -70,7 +70,7 @@ class ViewModel<T: FIRDataObject>: NSObject {
         switch result {
         case .added(let object)     : didUpdate(obj: object)
         case .changed(let object)   : didUpdate(obj: object)
-        case .removed(let ref)      : objects = objects.filter { $0.ref != ref} ; listener.removeListeners(to: ref)
+        case .removed(let object)      : objects = objects.filter { $0 != object} ; listener.removeListeners(to: object.ref!)
         }
         
         reloadCollectionViewCallback()
