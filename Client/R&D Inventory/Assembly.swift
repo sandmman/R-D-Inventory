@@ -55,6 +55,14 @@ public struct Assembly: FIRDataObject {
 
         ref.removeValue()
     }
+    
+    public func delete<T: FIRDataObject>(obj: T) {
+        switch obj {
+        case is Part    : Assembly.rootRef().child(Constants.Types.Part).child(obj.key).removeValue()
+        case is Build   : Assembly.rootRef().child(Constants.Types.Build).child(obj.key).removeValue()
+        default: break
+        }
+    }
 
     public func toAnyObject() -> Any {
         return [

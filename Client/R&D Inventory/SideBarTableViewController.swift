@@ -30,11 +30,12 @@ class SideBarTableViewController: UITableViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        viewModel.listenForObjects()
+        reloadCollectionViewData()
+        viewModel.startSync()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        viewModel.deinitialize()
+        viewModel.stopSync()
     }
 
     // MARK: - TableView
@@ -84,7 +85,7 @@ class SideBarTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.Project, for: indexPath)
 
-        cell.textLabel?.text = viewModel.objects[indexPath.row].name
+        cell.textLabel?.text = viewModel.objectDataSource.list[indexPath.row].name
 
         return cell
     }

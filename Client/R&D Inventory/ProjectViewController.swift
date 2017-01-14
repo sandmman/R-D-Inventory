@@ -29,11 +29,14 @@ class ProjectViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        viewModel.listenForObjects()
+        
+        reloadData()
+
+        viewModel.startSync()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        viewModel.deinitialize()
+        viewModel.stopSync()
     }
 
     // MARK: Private Helpers
@@ -111,7 +114,7 @@ extension ProjectViewController: UITableViewDelegate,UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.BuildWarning, for: indexPath)
         
-        cell.textLabel?.text = viewModel.upcoming[indexPath.row].title
+        cell.textLabel?.text = viewModel.upcomingBuildsDataSource.list[indexPath.row].title
         
         return cell
     }

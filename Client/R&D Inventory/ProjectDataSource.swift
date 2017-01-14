@@ -13,18 +13,16 @@ class ProjectDataSource<T: FIRDataObject>: FirebaseDataSource<T> {
 
     var project: Project
 
-    init(id: String, project: Project, ref: FIRDatabaseReference) {
+    init(id: String, project: Project) {
         self.project = project
 
         super.init(id: id, project: project)
     }
     
-    override func remove(at index: Int) -> T {
+    override func remove(at index: Int) {
         let obj = syncArray.remove(at: index)
         
         obj.delete()
-        project.delete(obj: obj)
-        
-        return obj
+        project.delete(obj: obj)        
     }
 }

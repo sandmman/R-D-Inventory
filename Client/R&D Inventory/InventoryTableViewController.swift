@@ -21,14 +21,13 @@ class InventoryTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-
-        viewModel.listenForObjects()
+        reloadCollectionViewData()
+        viewModel.startSync()
 
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        
-        viewModel.deinitialize()
+        viewModel.stopSync()
     }
 
     // MARK: - TableView
@@ -44,7 +43,7 @@ class InventoryTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.Part, for: indexPath) as! PartTableViewCell
         
-        let obj = viewModel.objects[indexPath.row]
+        let obj = viewModel.objectDataSource.list[indexPath.row]
 
         cell.nameTextLabel?.text = obj.name
         cell.manufacturerTextLabel?.text = obj.manufacturer
@@ -102,7 +101,7 @@ extension InventoryTableViewController: TabBarViewController, PartTableViewCellD
     public func didChangeQuantityInStock(at indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? PartTableViewCell {
             let value = cell.count
-            var part = viewModel.objects[indexPath.row]
+            var part = viewModel.objectDataSource.list[indexPath.row]
             part.countInStock = value!
             FirebaseDataManager.update(object: part)
         }

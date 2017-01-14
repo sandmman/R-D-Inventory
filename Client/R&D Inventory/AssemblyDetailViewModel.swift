@@ -75,19 +75,12 @@ extension AssemblyDetailViewModel {
 
         if indexPath.section == 0 {
 
-            let obj = builds.remove(at: indexPath.row)
-    
-            obj.delete()
-            
-            project.delete(obj: obj)
+            builds.remove(at: indexPath.row)
+
             
         } else {
 
-            let object = parts.remove(at: indexPath.row)
-
-            object.delete()
-            
-            project.delete(obj: object)
+            parts.remove(at: indexPath.row)
         
         }
 
@@ -120,13 +113,16 @@ extension AssemblyDetailViewModel {
 }
 
 extension AssemblyDetailViewModel: FirebaseDataSourceDelegate {
+
     internal func indexAdded<T : FIRDataObject>(at IndexPath: IndexPath, data: T) {
         reloadCollectionViewCallback()
     }
+
     internal func indexChanged<T : FIRDataObject>(at IndexPath: IndexPath, data: T) {
         reloadCollectionViewCallback()
     }
-    internal func indexRemoved<T : FIRDataObject>(at IndexPath: IndexPath, data: T) {
+
+    internal func indexRemoved(at IndexPath: IndexPath, key: String) {
         reloadCollectionViewCallback()
     }
 }

@@ -23,12 +23,12 @@ class AssemblyDataSource<T: FIRDataObject>: FirebaseDataSource<T>  {
         super.init(id: id, project: project, assembly: assembly)
     }
     
-    override func remove(at index: Int) -> T {
+    override func remove(at index: Int) {
         let obj = syncArray.remove(at: index)
 
         obj.delete()
+        
         project.delete(obj: obj)
 
-        return obj
     }
 }

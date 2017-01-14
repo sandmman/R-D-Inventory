@@ -12,7 +12,7 @@ import Firebase
 protocol FirebaseDataSourceDelegate {
     func indexAdded<T: FIRDataObject>(at IndexPath: IndexPath, data: T)
     func indexChanged<T: FIRDataObject>(at IndexPath: IndexPath, data: T)
-    func indexRemoved<T: FIRDataObject>(at IndexPath: IndexPath, data: T)
+    func indexRemoved(at IndexPath: IndexPath, key: String)
 }
 
 class FirebaseDataSource<T: FIRDataObject>: NSObject {
@@ -47,6 +47,16 @@ class FirebaseDataSource<T: FIRDataObject>: NSObject {
         syncArray.delegate = self
     }
     
+    public init(id: String) {
+        self.id = id
+        
+        syncArray = FirebaseArray(project: nil)
+        
+        super.init()
+        
+        syncArray.delegate = self
+    }
+    
     // MARK: Data Updates
     
     public func append(data: AnyObject!) {
@@ -57,8 +67,8 @@ class FirebaseDataSource<T: FIRDataObject>: NSObject {
         syncArray.update(at: index, data: data)
     }
     
-   public  func remove(at index: Int) -> T {
-        return syncArray.remove(at: index)
+   public  func remove(at index: Int) {
+        syncArray.remove(at: index)
     }
     
     // MARK: Syncing
@@ -91,9 +101,9 @@ extension FirebaseDataSource: FirebaseArrayDelegate {
         delegate?.indexChanged(at: path, data: data)
     }
     
-    internal func indexRemoved<T : FIRDataObject>(array: [T], at indexPath: Int, data: T) {
+    internal func indexRemoved<T : FIRDataObject>(array: [T], at indexPath: Int, with key: String) {
         let path = createIndexPath(row: indexPath)
-        delegate?.indexRemoved(at: path, data: data)
+        delegate?.indexRemoved(at: path, key: key)
     }
 }
 

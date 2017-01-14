@@ -12,14 +12,14 @@ import Firebase
 protocol FirebaseArrayDelegate {
     func indexAdded<T: FIRDataObject>(array: [T], at indexPath: Int, data: T)
     func indexChanged<T: FIRDataObject>(array: [T], at indexPath: Int, data: T)
-    func indexRemoved<T: FIRDataObject>(array: [T], at indexPath: Int, data: T)
+    func indexRemoved<T: FIRDataObject>(array: [T], at indexPath: Int, with key: String)
 }
 
 class FirebaseArray<T: FIRDataObject> {
     
     var list = [T]()
 
-    let project: Project!
+    let project: Project?
     
     let assembly: Assembly?
 
@@ -29,7 +29,7 @@ class FirebaseArray<T: FIRDataObject> {
 
     // MARK: Initializers
     
-    init(project: Project, assembly: Assembly? = nil) {
+    init(project: Project?, assembly: Assembly? = nil) {
         self.project = project
         self.assembly = assembly
     }
@@ -81,7 +81,7 @@ class FirebaseArray<T: FIRDataObject> {
         switch result {
         case .added(let obj)    : serverAdd(item: obj, prevKey: obj.key)
         case .changed(let obj)  : serverChange(item: obj)
-        case .removed(let obj)  : serverRemove(item: obj)
+        case .removed(let key)  : serverRemove(key: key)
         }
     }
 
@@ -94,19 +94,18 @@ class FirebaseArray<T: FIRDataObject> {
     private func serverChange(item: T) {
         print("changed")
         let position = findKeyPosition(key: item.key)
-        print("position", position)
         if let position = position {
             list[position] = item
             delegate?.indexChanged(array: list, at: position, data: item)
         }
     }
     
-    private func serverRemove(item: T) {
+    private func serverRemove(key: String) {
         print("removed")
-        let position = findKeyPosition(key: item.key)
+        let position = findKeyPosition(key: key)
         if let position = position {
             let item = list.remove(at: position)
-            delegate?.indexRemoved(array: list, at: position, data: item)
+            delegate?.indexRemoved(array: list, at: position, with: key)
         }
     }
     
