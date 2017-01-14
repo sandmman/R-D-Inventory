@@ -23,6 +23,8 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
         viewModel = AssemblyDetailViewModel(project: project, assembly: assembly, reloadCollectionViewCallback:
         reloadCollectionViewCallback)
         
+        viewModel.delegate = self
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -114,7 +116,7 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
     
     override func tableView(_ tableView: UITableView, didSelectRowAt: IndexPath) {
 
-        viewModel.selectedCell(at: didSelectRowAt)
+        viewModel.didSelectCell(at: didSelectRowAt)
         
         let segue = didSelectRowAt.section == 0 ? Constants.Segues.BuildDetail : Constants.Segues.PartDetail
         
@@ -157,5 +159,23 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
+    }
+}
+
+extension AssemblyDetailTableViewController: FirebaseTableViewDelegate {
+    func indexAdded<T: FIRDataObject>(at indexPath: IndexPath, data: T) {
+        tableView.insertRows(at: [indexPath], with: .none)
+    }
+    
+    func indexChange<T: FIRDataObject>(at indexPath: IndexPath, data: T) {
+        tableView.reloadRows(at: [indexPath], with: .none)
+    }
+    
+    func indexRemoved(at indexPath: IndexPath, key: String) {
+        tableView.deleteRows(at: [indexPath], with: .none)
+    }
+    
+    func indexMoved<T: FIRDataObject>(at indexPath: IndexPath, to toIndexPath: IndexPath, data: T) {
+        tableView.moveRow(at: indexPath, to: toIndexPath)
     }
 }

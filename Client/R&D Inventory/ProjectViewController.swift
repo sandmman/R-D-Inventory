@@ -114,7 +114,7 @@ extension ProjectViewController: UITableViewDelegate,UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.BuildWarning, for: indexPath)
         
-        cell.textLabel?.text = viewModel.upcomingBuildsDataSource.list[indexPath.row].title
+        cell.textLabel?.text = viewModel.objectDataSource.list[indexPath.row].title
         
         return cell
     }

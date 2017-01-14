@@ -8,17 +8,13 @@
 
 import UIKit
 
-import UIKit
-
 class BuildsViewModel: NSObject {
     
-    var builds = [String: [Build]]()
+    var buildsDataSource: CalendarDataSource
     
     var selectedCell: Build? = nil
     
     var selectedDate: Date? = nil
-
-    internal let listener: ListenerHandler!
     
     public let reloadCollectionViewCallback : (()->())!
     
@@ -26,10 +22,8 @@ class BuildsViewModel: NSObject {
     
     var project: Project {
         didSet {
-            builds = [:]
-            
-            deinitialize()
-            listenForObjects()
+            stopSync()
+            startSync()
             reloadCollectionViewCallback()
         }
     }
@@ -40,50 +34,16 @@ class BuildsViewModel: NSObject {
         
         self.reloadCollectionViewCallback = reloadCollectionViewCallback
         
-        listener = ListenerHandler()
-        
-        super.init()
-        
-        listenForObjects()
-        
+        buildsDataSource = CalendarDataSource(project: project)
+
     }
 
-    public func listenForObjects() {
-        builds = [:]
-        reloadCollectionViewCallback()
-        listener.listenForObjects(for: project, onComplete: didReceive)
+    public func startSync() {
+        buildsDataSource.startSync()
     }
     
-    public func deinitialize() {
-        listener.removeListeners()
-    }
-    
-    private func didReceive(result: ObserverResult<Build>) {
-        switch result {
-        case .added(_): break
-        case .changed(let build): didUpdate(build: build)
-        case .removed(let obj): break
-            /*for (k,value) in builds {
-                builds[k] = value.filter { $0 != obj}
-            }
-            listener.removeListeners(to: obj.ref!)*/
-        }
-        
-        reloadCollectionViewCallback()
-    }
-    
-    private func didUpdate(build: Build) {
-        if var arr = builds[build.displayDate] {
-            if let index = arr.index(of: build) {
-                arr[index] = build
-            } else {
-                arr.append(build)
-            }
-            builds[build.displayDate] = arr
-            
-        } else {
-            builds[build.displayDate] = [build]
-        }
+    public func stopSync() {
+        buildsDataSource.stopSync()
     }
 
     public func getNextViewModel(_ assembly: Assembly? = nil) -> FormViewModel {
@@ -95,32 +55,18 @@ class BuildsViewModel: NSObject {
 extension BuildsViewModel {
     
     public func add(build: Build) {
-        if builds[build.displayDate] == nil {
-            
-            builds[build.displayDate] = [build]
-    
-        } else {
-           
-            builds[build.displayDate]?.append(build)
-
-        }
-        
         reloadCollectionViewCallback()
     }
 
     public func delete(from tableView: UITableView, at indexPath: IndexPath, with date: Date) {
-
-        guard let object = builds[date.display]?.remove(at: indexPath.row) else {
+        
+        /*guard let object = buildsDataSource.dict[date.display]?.remove(at: indexPath.row) else {
             return
         }
-        
-        object.delete()
-        
-        project.delete(obj: object)
 
         tableView.deleteRows(at: [indexPath], with: .fade)
         
-        reloadCollectionViewCallback()
+        reloadCollectionViewCallback()*/
         
     }
     
@@ -131,14 +77,14 @@ extension BuildsViewModel {
     public func numberOfItemsInSection(section : Int) -> Int {
         guard let selectedDate = selectedDate else {
     
-            guard let buildArr = builds[Date().display] else {
+            guard let buildArr = buildsDataSource.dict[Date().display] else {
                 return 0
             }
 
             return buildArr.count
         }
 
-        guard let buildArr = builds[selectedDate.display] else {
+        guard let buildArr = buildsDataSource.dict[selectedDate.display] else {
             return 0
         }
 
@@ -163,6 +109,6 @@ extension BuildsViewModel {
             return
         }
 
-        selectedCell = builds[date.display]?[indexPath.row]
+        selectedCell = buildsDataSource.dict[date.display]?[indexPath.row]
     }
 }

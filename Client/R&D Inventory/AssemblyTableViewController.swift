@@ -20,10 +20,12 @@ class AssemblyTableViewController: UITableViewController {
         super.viewDidLoad()
         
         viewModel = ViewModel<Assembly>(project: project, reloadCollectionViewCallback: reloadCollectionViewData)
+        viewModel.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
         reloadCollectionViewData()
+        
         viewModel.startSync()
     }
     
@@ -78,7 +80,7 @@ class AssemblyTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        viewModel.selectedCell(at: indexPath)
+        viewModel.didSelectCell(at: indexPath)
         
         performSegue(withIdentifier: Constants.Segues.AssemblyDetail, sender: self)
     }
@@ -117,5 +119,30 @@ extension AssemblyTableViewController: TabBarViewController {
         }
 
         model.project = project
+    }
+}
+
+protocol FirebaseTableViewDelegate: class {
+    func indexAdded<T: FIRDataObject>(at indexPath: IndexPath, data: T)
+    func indexChange<T: FIRDataObject>(at indexPath: IndexPath, data: T)
+    func indexRemoved(at indexPath: IndexPath, key: String)
+    func indexMoved<T: FIRDataObject>(at indexPath: IndexPath, to toIndexPath: IndexPath, data: T)
+}
+
+extension AssemblyTableViewController: FirebaseTableViewDelegate {
+    func indexAdded<T: FIRDataObject>(at indexPath: IndexPath, data: T) {
+        tableView.insertRows(at: [indexPath], with: .none)
+    }
+    
+    func indexChange<T: FIRDataObject>(at indexPath: IndexPath, data: T) {
+        tableView.reloadRows(at: [indexPath], with: .none)
+    }
+    
+    func indexRemoved(at indexPath: IndexPath, key: String) {
+        tableView.deleteRows(at: [indexPath], with: .none)
+    }
+    
+    func indexMoved<T: FIRDataObject>(at indexPath: IndexPath, to toIndexPath: IndexPath, data: T) {
+        tableView.moveRow(at: indexPath, to: toIndexPath)
     }
 }

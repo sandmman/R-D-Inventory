@@ -43,6 +43,8 @@
 		E391B6E61E2A98E0008C2BCE /* ProjectDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E391B6E51E2A98E0008C2BCE /* ProjectDataSource.swift */; };
 		E391B6E81E2A9960008C2BCE /* AssemblyDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E391B6E71E2A9960008C2BCE /* AssemblyDataSource.swift */; };
 		E391B6EB1E2ABC2D008C2BCE /* PViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E391B6EA1E2ABC2D008C2BCE /* PViewModel.swift */; };
+		E391B6ED1E2AC88D008C2BCE /* CalendarDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E391B6EC1E2AC88D008C2BCE /* CalendarDataSource.swift */; };
+		E391B6EF1E2AC9C4008C2BCE /* FirebaseDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = E391B6EE1E2AC9C4008C2BCE /* FirebaseDictionary.swift */; };
 		E393AEB01E293A3800ABF970 /* ViewModelParent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E393AEAF1E293A3800ABF970 /* ViewModelParent.swift */; };
 		E393AEB21E293ECE00ABF970 /* BuildFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E393AEB11E293ECE00ABF970 /* BuildFormViewModel.swift */; };
 		E398F1191E1357E300CD91D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F1181E1357E300CD91D4 /* AppDelegate.swift */; };
@@ -134,6 +136,8 @@
 		E391B6E51E2A98E0008C2BCE /* ProjectDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectDataSource.swift; sourceTree = "<group>"; };
 		E391B6E71E2A9960008C2BCE /* AssemblyDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssemblyDataSource.swift; sourceTree = "<group>"; };
 		E391B6EA1E2ABC2D008C2BCE /* PViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PViewModel.swift; sourceTree = "<group>"; };
+		E391B6EC1E2AC88D008C2BCE /* CalendarDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarDataSource.swift; sourceTree = "<group>"; };
+		E391B6EE1E2AC9C4008C2BCE /* FirebaseDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseDictionary.swift; sourceTree = "<group>"; };
 		E393AEAF1E293A3800ABF970 /* ViewModelParent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelParent.swift; sourceTree = "<group>"; };
 		E393AEB11E293ECE00ABF970 /* BuildFormViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildFormViewModel.swift; sourceTree = "<group>"; };
 		E398F1151E1357E300CD91D4 /* R&D Inventory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "R&D Inventory.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -317,6 +321,7 @@
 				E391B6E31E2A8FD9008C2BCE /* FirebaseDataSource.swift */,
 				E391B6E51E2A98E0008C2BCE /* ProjectDataSource.swift */,
 				E391B6E71E2A9960008C2BCE /* AssemblyDataSource.swift */,
+				E391B6EC1E2AC88D008C2BCE /* CalendarDataSource.swift */,
 			);
 			name = DataSouces;
 			sourceTree = "<group>";
@@ -401,6 +406,7 @@
 				E3AFE9C41E19B0EB008DA196 /* DataManager.swift */,
 				E30E055A1E1B63E70048539B /* Listener.swift */,
 				E391B6E11E29F3EB008C2BCE /* FirebaseArray.swift */,
+				E391B6EE1E2AC9C4008C2BCE /* FirebaseDictionary.swift */,
 				E391B6E91E2AB65A008C2BCE /* DataSouces */,
 			);
 			name = Stores;
@@ -686,6 +692,7 @@
 				E3ECCE9A1E15D0DC009C936D /* FIRDataObject.swift in Sources */,
 				E391B6E21E29F3EB008C2BCE /* FirebaseArray.swift in Sources */,
 				E3AFE9C71E19B45B008DA196 /* CreatePartViewController.swift in Sources */,
+				E391B6EF1E2AC9C4008C2BCE /* FirebaseDictionary.swift in Sources */,
 				E3ECCE931E15B662009C936D /* Constants.swift in Sources */,
 				E3AFE9C51E19B0EB008DA196 /* DataManager.swift in Sources */,
 				E378B6501E28889600F03D00 /* FormViewModel.swift in Sources */,
@@ -715,6 +722,7 @@
 				E3FD60611E1E0F1200E614EE /* TabBarViewControllerProtocol.swift in Sources */,
 				E370B6871E19F13B00C0E349 /* RegexRule.swift in Sources */,
 				E3AFE9BD1E195775008DA196 /* InventoryTableViewController.swift in Sources */,
+				E391B6ED1E2AC88D008C2BCE /* CalendarDataSource.swift in Sources */,
 				E378B64C1E285C2800F03D00 /* AssemblyDetailViewModel.swift in Sources */,
 				E398F1191E1357E300CD91D4 /* AppDelegate.swift in Sources */,
 				E3E080B01E1DFF1D00455D15 /* ProjectViewController.swift in Sources */,

@@ -9,42 +9,35 @@
 import UIKit
 import Firebase
 
-class AssemblyDetailViewModel: NSObject {
+class AssemblyDetailViewModel: PViewModel<Part> {
     
-    var parts: AssemblyDataSource<Part>!
+    var parts: AssemblyDataSource<Part>! {
+        get { return objectDataSource as! AssemblyDataSource<Part> }
+        set { objectDataSource = newValue }
+    }
     
     var builds: AssemblyDataSource<Build>!
     
     var assembly: Assembly
 
-    var selectedPart: Part? = nil
+    var selectedPart: Part? {
+        get { return selectedCell }
+        set { selectedCell = newValue }
+    }
     
     var selectedBuild: Build? = nil
-
-    fileprivate let reloadCollectionViewCallback : (()->())!
-    
-    fileprivate let kNumberOfSectionsInTableView = 2
-    
-    var project: Project {
-        didSet {
-    
-            stopSync()
-            startSync()
-            reloadCollectionViewCallback()
-        }
-    }
     
     public init(project: Project, assembly: Assembly, reloadCollectionViewCallback : @escaping (()->())) {
         
-        self.project = project
-        
         self.assembly = assembly
+        
+        let dataSource = AssemblyDataSource<Part>(id: Constants.Types.Part, project: project, assembly: assembly)
+    
+        super.init(objectDataSource: dataSource, callback: reloadCollectionViewCallback, project: project)
+        
+        kNumberOfSectionsInTableView = 2
 
-        self.reloadCollectionViewCallback = reloadCollectionViewCallback
-        
-        super.init()
-        
-        parts = AssemblyDataSource(id: Constants.Types.Part, project: project, assembly: assembly)
+        parts = dataSource
         builds = AssemblyDataSource(id: Constants.Types.Build, project: project, assembly: assembly)
 
         parts.delegate = self
@@ -53,25 +46,21 @@ class AssemblyDetailViewModel: NSObject {
         
     }
     
-    public func startSync() {
+    public override func startSync() {
         parts.startSync()
         builds.startSync()
     }
     
-    public func stopSync() {
+    public override func stopSync() {
         parts.stopSync()
         builds.stopSync()
     }
 
     public func getNextViewModel() -> FormViewModel? {
-        return nil
-        //return FormViewModel(project: project, assembly: assembly, parts: parts)
+        return FormViewModel(project: project!, assembly: assembly, parts: parts.list)
     }
-}
-
-extension AssemblyDetailViewModel {
     
-    public func delete(from tableView: UITableView, at indexPath: IndexPath) {
+    public override func delete(from tableView: UITableView, at indexPath: IndexPath) {
 
         if indexPath.section == 0 {
 
@@ -87,43 +76,21 @@ extension AssemblyDetailViewModel {
         tableView.deleteRows(at: [indexPath], with: .fade)
     }
     
-}
-
-extension AssemblyDetailViewModel {
     
-    public func numberOfItemsInSection(section : Int) -> Int {
+    // MARK: - TableView
+
+    public override func numberOfItemsInSection(section : Int) -> Int {
         
         return section == 0 ? builds.count : parts.count
         
     }
     
-    public func numberOfSectionsInCollectionView() -> Int {
-        
-        return kNumberOfSectionsInTableView
-        
-    }
-    
-    public func selectedCell(at indexPath: IndexPath) {
+    public override func didSelectCell(at indexPath: IndexPath) {
         if indexPath.section == 0 {
             selectedBuild = builds.list[indexPath.row]
         } else {
             selectedPart = parts.list[indexPath.row]
         }
-    }
-}
-
-extension AssemblyDetailViewModel: FirebaseDataSourceDelegate {
-
-    internal func indexAdded<T : FIRDataObject>(at IndexPath: IndexPath, data: T) {
-        reloadCollectionViewCallback()
-    }
-
-    internal func indexChanged<T : FIRDataObject>(at IndexPath: IndexPath, data: T) {
-        reloadCollectionViewCallback()
-    }
-
-    internal func indexRemoved(at IndexPath: IndexPath, key: String) {
-        reloadCollectionViewCallback()
     }
 }
 

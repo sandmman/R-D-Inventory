@@ -86,27 +86,24 @@ class FirebaseArray<T: FIRDataObject> {
     }
 
     private func serverAdd(item: T, prevKey: String?) {
-        print("added!")
         let position = moveTo(key: item.key, data: item, prevKey: prevKey)
         delegate?.indexAdded(array: list, at: position, data: item)
     }
     
     private func serverChange(item: T) {
-        print("changed")
-        let position = findKeyPosition(key: item.key)
-        if let position = position {
-            list[position] = item
-            delegate?.indexChanged(array: list, at: position, data: item)
+        guard let position = findKeyPosition(key: item.key) else {
+            return
         }
+        list[position] = item
+        delegate?.indexChanged(array: list, at: position, data: item)
     }
     
     private func serverRemove(key: String) {
-        print("removed")
-        let position = findKeyPosition(key: key)
-        if let position = position {
-            let item = list.remove(at: position)
-            delegate?.indexRemoved(array: list, at: position, with: key)
+        guard let position = findKeyPosition(key: key) else {
+            return
         }
+        let _ = list.remove(at: position)
+        delegate?.indexRemoved(array: list, at: position, with: key)
     }
     
     private func serverMove(snap: FIRDataSnapshot?, prevKey: String?) {

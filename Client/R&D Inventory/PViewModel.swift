@@ -12,30 +12,37 @@ class PViewModel<T: FIRDataObject>: NSObject {
     
     public var objectDataSource: FirebaseDataSource<T>!
 
-    public let reloadCollectionViewCallback : (()->()) = () -> ()
+    public var reloadCollectionViewCallback : (()->())!
     
-    public let kNumberOfSectionsInTableView = 1
+    public var kNumberOfSectionsInTableView = 1
     
     public var selectedCell: T? = nil
+    
+    public var delegate: FirebaseTableViewDelegate? = nil
 
     public var project: Project? = nil {
         didSet {
-            startSync()
             stopSync()
+            startSync()
             reloadCollectionViewCallback()
         }
     }
+    
+    public init(objectDataSource: FirebaseDataSource<T>, callback: @escaping (()->()), project: Project? = nil) {
+        self.objectDataSource = objectDataSource
+
+        self.project = project
+
+        self.reloadCollectionViewCallback = callback
+    }
 
     public func startSync() {
-        upcomingBuildsDataSource.startSync()
+        objectDataSource.startSync()
     }
     
     public func stopSync() {
-        upcomingBuildsDataSource.stopSync()
+        objectDataSource.stopSync()
     }
-}
-
-extension PViewModel {
     
     public func numberOfItemsInSection(section : Int) -> Int {
         
@@ -49,22 +56,27 @@ extension PViewModel {
         
     }
     
-    public func selectedCell(at indexPath: IndexPath) {
+    public func didSelectCell(at indexPath: IndexPath) {
         selectedCell = objectDataSource.list[indexPath.row]
     }
+    
+    public func delete(from tableView: UITableView, at indexPath: IndexPath) {
+        objectDataSource.remove(at: indexPath.row)
+    }
+
 }
 
-extension ViewModel: FirebaseDataSourceDelegate {
+extension PViewModel: FirebaseDataSourceDelegate {
     
-    internal func indexAdded<T : FIRDataObject>(at IndexPath: IndexPath, data: T) {
-        reloadCollectionViewCallback()
+    internal func indexAdded<T : FIRDataObject>(at indexPath: IndexPath, data: T) {
+        delegate?.indexAdded(at: indexPath, data: data)
     }
     
-    internal func indexChanged<T : FIRDataObject>(at IndexPath: IndexPath, data: T) {
-        reloadCollectionViewCallback()
+    internal func indexChanged<T : FIRDataObject>(at indexPath: IndexPath, data: T) {
+        delegate?.indexChange(at: indexPath, data: data)
     }
     
-    internal func indexRemoved(at IndexPath: IndexPath, key: String) {
-        reloadCollectionViewCallback()
+    internal func indexRemoved(at indexPath: IndexPath, key: String) {
+        delegate?.indexRemoved(at: indexPath, key: key)
     }
 }

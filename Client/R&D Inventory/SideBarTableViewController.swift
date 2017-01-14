@@ -105,7 +105,7 @@ class SideBarTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        viewModel.selectedCell(at: indexPath)
+        viewModel.didSelectCell(at: indexPath)
 
         performSegue(withIdentifier: Constants.Segues.UnwindToProjectDetail, sender: nil)
     }

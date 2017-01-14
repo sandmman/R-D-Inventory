@@ -27,7 +27,8 @@ class AssemblyDataSource<T: FIRDataObject>: FirebaseDataSource<T>  {
         let obj = syncArray.remove(at: index)
 
         obj.delete()
-        
+        assembly.delete(obj: obj)
+
         project.delete(obj: obj)
 
     }

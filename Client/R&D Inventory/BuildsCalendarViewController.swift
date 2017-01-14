@@ -27,11 +27,11 @@ class BuildsCalendarViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        viewModel.listenForObjects()
+        viewModel.startSync()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        viewModel.deinitialize()
+        viewModel.stopSync()
     }
     
     // MARK: - Navigation
@@ -84,7 +84,7 @@ extension BuildsCalendarViewController: FSCalendarDataSource, FSCalendarDelegate
     }
     
     public func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        return viewModel.builds[date.display]?.count ?? 0
+        return viewModel.buildsDataSource.dict[date.display]?.count ?? 0
     }
     
     public func calendar(_ calendar: FSCalendar, didSelect date: Date) {
@@ -115,7 +115,7 @@ extension BuildsCalendarViewController: UITableViewDelegate, UITableViewDataSour
         
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.Builds, for: indexPath)
         
-        if let buildArr = viewModel.builds[calendar.selectedDate.display] {
+        if let buildArr = viewModel.buildsDataSource.dict[calendar.selectedDate.display] {
             
             cell.textLabel?.text = buildArr[indexPath.row].title
             cell.detailTextLabel?.text = buildArr[indexPath.row].type.rawValue
