@@ -26,15 +26,15 @@ class PartTableViewCell: UITableViewCell, UITextFieldDelegate {
 
     public var count: Int! {
         didSet {
-            textField.text = nil
-            textField.placeholder = String(count)
+            textField?.text = nil
+            textField?.placeholder = String(count)
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        textField.delegate = self
+        textField?.delegate = self
 
     }
     

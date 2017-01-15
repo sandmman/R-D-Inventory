@@ -27,6 +27,8 @@ class SideBarTableViewController: UITableViewController {
         configureSideBar()
 
         viewModel = ViewModel<Project>(reloadCollectionViewCallback: reloadCollectionViewData)
+        
+        viewModel.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -83,11 +85,8 @@ class SideBarTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.Project, for: indexPath)
-
-        cell.textLabel?.text = viewModel.objectDataSource.list[indexPath.row].name
-
-        return cell
+        let model = viewModel.objectDataSources.0.list[indexPath.row]
+        return model.cellForTableView(tableView: tableView, at: indexPath)
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -129,3 +128,24 @@ class SideBarTableViewController: UITableViewController {
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
 }
+
+extension SideBarTableViewController: FirebaseTableViewDelegate {
+    func indexAdded<T: FIRDataObject>(at indexPath: IndexPath, data: T) {
+        tableView.beginUpdates()
+        tableView.insertRows(at: [indexPath], with: .none)
+        tableView.endUpdates()
+    }
+    
+    func indexChange<T: FIRDataObject>(at indexPath: IndexPath, data: T) {
+        tableView.reloadRows(at: [indexPath], with: .none)
+    }
+    
+    func indexRemoved(at indexPath: IndexPath, key: String) {
+        tableView.deleteRows(at: [indexPath], with: .none)
+    }
+    
+    func indexMoved<T: FIRDataObject>(at indexPath: IndexPath, to toIndexPath: IndexPath, data: T) {
+        tableView.moveRow(at: indexPath, to: toIndexPath)
+    }
+}
+

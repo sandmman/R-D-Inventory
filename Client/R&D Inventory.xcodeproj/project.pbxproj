@@ -237,6 +237,7 @@
 		E30E055F1E1C8D9D0048539B /* Table Views */ = {
 			isa = PBXGroup;
 			children = (
+				E3E080AF1E1DFF1D00455D15 /* ProjectViewController.swift */,
 				E398F1461E13602E00CD91D4 /* AssemblyDetailTableViewController.swift */,
 				E3FEECFF1E21B4EB00F5F7F4 /* BuildsCalendarViewController.swift */,
 				E398F1561E136C2200CD91D4 /* AssemblyTableViewController.swift */,
@@ -267,7 +268,6 @@
 			children = (
 				E3AF6CB81E1840EF00AE0947 /* BuildDetailViewController.swift */,
 				E398F14C1E1363A600CD91D4 /* PartViewController.swift */,
-				E3E080AF1E1DFF1D00455D15 /* ProjectViewController.swift */,
 				E336ED011E27347B0000DE15 /* PartDetailTableViewController.swift */,
 			);
 			name = "Detail Views";

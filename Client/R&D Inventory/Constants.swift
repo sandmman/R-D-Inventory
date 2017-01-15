@@ -87,11 +87,10 @@ struct Constants {
     }
 
     struct TableViewCells {
-        static let assembly = "AssemblyTableViewCell"
-        static let part = "PartTableViewCell"
+        static let Assembly = "AssemblyTableViewCell"
         static let Part = "PartTableViewCell"
         static let Project = "ProjectTableViewCell"
         static let BuildWarning = "BuildWarningTableViewCell"
-        static let Builds = "BuildsTableViewCell"
+        static let Build = "BuildTableViewCell"
     }
 }

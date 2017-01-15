@@ -9,9 +9,13 @@
 import UIKit
 import Firebase
 
+public protocol TableViewCompatible {
+    var reuseIdentifier: String { get }
+    func cellForTableView(tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell
+}
+
 public struct Assembly: FIRDataObject {
-    
-    // FIRDataObject
+
     public var key: String = UUID().description
     
     public var ref: FIRDatabaseReference? = nil
@@ -70,11 +74,26 @@ public struct Assembly: FIRDataObject {
             Constants.AssemblyFields.Parts: parts,
         ]
     }
-    
+
     public static func rootRef(with project: Project? = nil) -> FIRDatabaseReference {
         guard let proj = project else {
             return FirebaseDataManager.assemblyRef
         }
         return FirebaseDataManager.projectsRef.child(proj.key).child(Constants.Types.Assembly)
+    }
+}
+
+extension Assembly: TableViewCompatible {
+    
+    public var reuseIdentifier: String {
+        return Constants.TableViewCells.Assembly
+    }
+    
+    public func cellForTableView(tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath)
+        
+        cell.textLabel?.text = name
+        
+        return cell
     }
 }

@@ -45,15 +45,16 @@ class AssemblyTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.assembly, for: indexPath)
-        
-        guard viewModel.objectDataSource.count > indexPath.row else {
-            return cell
-        }
+        let count = viewModel.objectDataSources.0.count
 
-        cell.textLabel?.text = viewModel.objectDataSource.list[indexPath.row].name
+        guard count > indexPath.row else {
+            print("crash")
+            return UITableViewCell()
+        }
         
-        return cell
+        let model = viewModel.objectDataSources.0.list[indexPath.row]
+
+        return model.cellForTableView(tableView: tableView, at: indexPath)
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -90,8 +91,7 @@ class AssemblyTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.Segues.AssemblyDetail, let viewController = segue.destination as? AssemblyDetailTableViewController {
 
-            viewController.assembly = viewModel.selectedCell
-            viewController.project = viewModel.project
+            viewController.viewModel = AssemblyDetailViewModel(project: project, assembly: viewModel.section1SelectedCell!)
             
         } else if (segue.identifier == Constants.Segues.CreateAssembly), let viewController = segue.destination as? CreateAssemblyViewController {
             

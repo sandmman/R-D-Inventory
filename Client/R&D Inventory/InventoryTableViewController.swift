@@ -18,6 +18,8 @@ class InventoryTableViewController: UITableViewController {
         super.viewDidLoad()
         
         viewModel = ViewModel<Part>(project: project, reloadCollectionViewCallback: reloadCollectionViewData)
+        
+        viewModel.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,17 +43,9 @@ class InventoryTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.Part, for: indexPath) as! PartTableViewCell
-        
-        let obj = viewModel.objectDataSource.list[indexPath.row]
-
-        cell.nameTextLabel?.text = obj.name
-        cell.manufacturerTextLabel?.text = obj.manufacturer
-        cell.count = obj.countInStock
-
-        cell.indexPath = indexPath
+        let obj = viewModel.objectDataSources.0.list[indexPath.row]
+        let cell = obj.cellForTableView(tableView: tableView, at: indexPath) as! PartTableViewCell 
         cell.delegate = self
-
         return cell
     }
 
@@ -101,10 +95,27 @@ extension InventoryTableViewController: TabBarViewController, PartTableViewCellD
     public func didChangeQuantityInStock(at indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? PartTableViewCell {
             let value = cell.count
-            var part = viewModel.objectDataSource.list[indexPath.row]
+            var part = viewModel.objectDataSources.0.list[indexPath.row]
             part.countInStock = value!
             FirebaseDataManager.update(object: part)
         }
     }
+}
 
+extension InventoryTableViewController: FirebaseTableViewDelegate {
+    func indexAdded<T: FIRDataObject>(at indexPath: IndexPath, data: T) {
+        tableView.insertRows(at: [indexPath], with: .none)
+    }
+    
+    func indexChange<T: FIRDataObject>(at indexPath: IndexPath, data: T) {
+        tableView.reloadRows(at: [indexPath], with: .none)
+    }
+    
+    func indexRemoved(at indexPath: IndexPath, key: String) {
+        tableView.deleteRows(at: [indexPath], with: .none)
+    }
+    
+    func indexMoved<T: FIRDataObject>(at indexPath: IndexPath, to toIndexPath: IndexPath, data: T) {
+        tableView.moveRow(at: indexPath, to: toIndexPath)
+    }
 }

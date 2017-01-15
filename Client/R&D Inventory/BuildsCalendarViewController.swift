@@ -24,6 +24,7 @@ class BuildsCalendarViewController: UIViewController {
         initializeCalendar()
         
         viewModel = BuildsViewModel(project: project, reloadCollectionViewCallback: reloadData)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -113,16 +114,11 @@ extension BuildsCalendarViewController: UITableViewDelegate, UITableViewDataSour
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.Builds, for: indexPath)
-        
-        if let buildArr = viewModel.buildsDataSource.dict[calendar.selectedDate.display] {
-            
-            cell.textLabel?.text = buildArr[indexPath.row].title
-            cell.detailTextLabel?.text = buildArr[indexPath.row].type.rawValue
-            
+        guard let buildArr = viewModel.buildsDataSource.dict[calendar.selectedDate.display] else {
+            return UITableViewCell()
         }
         
-        return cell
+        return buildArr[indexPath.row].cellForTableView(tableView: tableView, at: indexPath)
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -142,4 +138,22 @@ extension BuildsCalendarViewController: TabBarViewController {
         vm.project = project
     }
 
+}
+
+extension BuildsCalendarViewController: FirebaseTableViewDelegate {
+    func indexAdded<T: FIRDataObject>(at indexPath: IndexPath, data: T) {
+        tableView.insertRows(at: [indexPath], with: .none)
+    }
+    
+    func indexChange<T: FIRDataObject>(at indexPath: IndexPath, data: T) {
+        tableView.reloadRows(at: [indexPath], with: .none)
+    }
+    
+    func indexRemoved(at indexPath: IndexPath, key: String) {
+        tableView.deleteRows(at: [indexPath], with: .none)
+    }
+    
+    func indexMoved<T: FIRDataObject>(at indexPath: IndexPath, to toIndexPath: IndexPath, data: T) {
+        tableView.moveRow(at: indexPath, to: toIndexPath)
+    }
 }

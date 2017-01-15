@@ -8,15 +8,15 @@
 
 import UIKit
 
-class PViewModel<T: FIRDataObject>: NSObject {
+class PViewModel<T: FIRDataObject, S: FIRDataObject>: NSObject {
     
-    public var objectDataSource: FirebaseDataSource<T>!
-
-    public var reloadCollectionViewCallback : (()->())!
+    private(set) var objectDataSources: (FirebaseDataSource<T>, FirebaseDataSource<S>?)
     
     public var kNumberOfSectionsInTableView = 1
     
-    public var selectedCell: T? = nil
+    public var section1SelectedCell: T? = nil
+    
+    public var section2SelectedCell: S? = nil
     
     public var delegate: FirebaseTableViewDelegate? = nil
 
@@ -24,29 +24,35 @@ class PViewModel<T: FIRDataObject>: NSObject {
         didSet {
             stopSync()
             startSync()
-            reloadCollectionViewCallback()
         }
     }
     
-    public init(objectDataSource: FirebaseDataSource<T>, callback: @escaping (()->()), project: Project? = nil) {
-        self.objectDataSource = objectDataSource
+    public init(objectDataSources: (FirebaseDataSource<T>, FirebaseDataSource<S>?), project: Project? = nil) {
+        self.objectDataSources = objectDataSources
+        
+        if let _ = objectDataSources.1 {
+            kNumberOfSectionsInTableView = 2
+        } else {
+            kNumberOfSectionsInTableView = 1
+        }
 
         self.project = project
 
-        self.reloadCollectionViewCallback = callback
     }
 
     public func startSync() {
-        objectDataSource.startSync()
+        objectDataSources.0.startSync()
+        objectDataSources.1?.startSync()
     }
     
     public func stopSync() {
-        objectDataSource.stopSync()
+        objectDataSources.0.stopSync()
+        objectDataSources.1?.stopSync()
     }
     
     public func numberOfItemsInSection(section : Int) -> Int {
         
-        return objectDataSource.count
+        return section == 0 ? objectDataSources.0.count : objectDataSources.1?.count ?? 0
         
     }
     
@@ -57,11 +63,19 @@ class PViewModel<T: FIRDataObject>: NSObject {
     }
     
     public func didSelectCell(at indexPath: IndexPath) {
-        selectedCell = objectDataSource.list[indexPath.row]
+        if indexPath.section == 0 {
+            section1SelectedCell = objectDataSources.0.list[indexPath.row]
+        } else {
+            section2SelectedCell = objectDataSources.1?.list[indexPath.row]
+        }
     }
     
     public func delete(from tableView: UITableView, at indexPath: IndexPath) {
-        objectDataSource.remove(at: indexPath.row)
+        if indexPath.section == 0 {
+            objectDataSources.0.remove(at: indexPath.row)
+        } else {
+            objectDataSources.1?.remove(at: indexPath.row)
+        }
     }
 
 }

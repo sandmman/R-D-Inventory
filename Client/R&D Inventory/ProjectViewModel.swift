@@ -8,28 +8,30 @@
 
 import UIKit
 
-class ProjectViewModel: PViewModel<Build> {
+class ProjectViewModel: PViewModel<Build, Build> {
     
     var warnings = [(Part, Build)]()
     
     var selectedWarning: (Part, Build)? = nil
     
+    var dataSource: ProjectDataSource<Build> {
+        return objectDataSources.0 as! ProjectDataSource<Build>
+    }
+
     public init(project: Project, reloadCollectionViewCallback : @escaping (()->())) {
         
         let dataSource = ProjectDataSource<Build>(id: Constants.Types.Build, project: project)
         
-        super.init(objectDataSource: dataSource, callback: reloadCollectionViewCallback, project: project)
-        
-        kNumberOfSectionsInTableView = 2
-        
-        objectDataSource.delegate = self
+        super.init(objectDataSources: (dataSource, nil), project: project)
+
+        dataSource.delegate = self
     }
     
     public override func delete(from tableView: UITableView, at indexPath: IndexPath) {
         if indexPath.section == 0 {
             
         } else {
-            objectDataSource.remove(at: indexPath.row)
+            dataSource.remove(at: indexPath.row)
             
         }
         
@@ -37,9 +39,13 @@ class ProjectViewModel: PViewModel<Build> {
         
     }
     
+    public override func numberOfSectionsInCollectionView() -> Int {
+        return 2
+    }
+
     public override func numberOfItemsInSection(section : Int) -> Int {
         
-        return section == 0 ? warnings.count : objectDataSource.count
+        return section == 0 ? warnings.count : dataSource.count
         
     }
     
@@ -47,7 +53,7 @@ class ProjectViewModel: PViewModel<Build> {
         if indexPath.section == 0 {
             selectedWarning = warnings[indexPath.row]
         } else {
-            selectedCell = objectDataSource.list[indexPath.row]
+            section2SelectedCell = dataSource.list[indexPath.row]
         }
     }
 }

@@ -68,6 +68,21 @@ public struct Project: FIRDataObject {
     }
 }
 
+extension Project: TableViewCompatible {
+    
+    public var reuseIdentifier: String {
+        return Constants.TableViewCells.Project
+    }
+    
+    public func cellForTableView(tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath)
+        
+        cell.textLabel?.text = name
+        
+        return cell
+    }
+}
+
 extension Project {
     
     public func delete<T: FIRDataObject>(obj: T) {

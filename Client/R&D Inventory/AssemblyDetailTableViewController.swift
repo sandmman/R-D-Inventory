@@ -11,26 +11,15 @@ import Eureka
 
 class AssemblyDetailTableViewController: UITableViewController, UIGestureRecognizerDelegate {
     
-    var project: Project!
-
-    var assembly: Assembly!
-    
     var viewModel: AssemblyDetailViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel = AssemblyDetailViewModel(project: project, assembly: assembly, reloadCollectionViewCallback:
-        reloadCollectionViewCallback)
-        
         viewModel.delegate = self
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if let row = tableView.indexPathForSelectedRow {
-            self.tableView.deselectRow(at: row, animated: false)
-        }
         
         tableView.reloadData()
 
@@ -48,7 +37,7 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
     //MARK: - TableView
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section == 0 ? "Builds" : "Parts"
+        return section == 0 ? "Parts" : "Builds"
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -74,7 +63,7 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return indexPath.section == 0 ? true : false
+        return indexPath.section == 0 ? false : true
     }
 
     public func handleBuildTap(gestureRecognizer: UIGestureRecognizer) {
@@ -82,36 +71,40 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
+        print("Num sections",viewModel.numberOfSectionsInCollectionView())
         return viewModel.numberOfSectionsInCollectionView()
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("section", section,"Num rows",viewModel.numberOfItemsInSection(section: section))
         return viewModel.numberOfItemsInSection(section: section)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.part)! as UITableViewCell
-        
         if indexPath.section == 0 {
-            guard viewModel.builds.count > indexPath.row else {
-                return cell
+            
+            let count = viewModel.parts.list.count
+            
+            guard count > indexPath.row else {
+                return UITableViewCell()
             }
-            let item = viewModel.builds.list[indexPath.row]
-
-            cell.textLabel?.text = item.title
-            cell.detailTextLabel?.text = item.displayDate
+            
+            let part = viewModel.parts.list[indexPath.row]
+            
+            return part.cellForTableView(tableView: tableView, at: indexPath)
             
         } else {
-            guard viewModel.parts.count > indexPath.row else {
-                return cell
+
+            let count = viewModel.builds.list.count
+            
+            guard count > indexPath.row else {
+                return UITableViewCell()
             }
-            let item = viewModel.parts.list[indexPath.row]
-            cell.textLabel?.text = item.name
-            cell.detailTextLabel?.text = item.manufacturer
+            
+            let build = viewModel.builds.list[indexPath.row]
+            
+            return build.cellForTableView(tableView: tableView, at: indexPath)
         }
-        
-        
-        return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt: IndexPath) {

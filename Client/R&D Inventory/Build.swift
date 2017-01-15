@@ -108,3 +108,19 @@ public struct Build: FIRDataObject {
         return FirebaseDataManager.projectsRef.child(proj.key).child(Constants.Types.Build)
     }
 }
+
+extension Build: TableViewCompatible {
+    
+    public var reuseIdentifier: String {
+        return Constants.TableViewCells.Build
+    }
+    
+    public func cellForTableView(tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath)
+        
+        cell.textLabel?.text = title
+        cell.detailTextLabel?.text = type.rawValue
+        
+        return cell
+    }
+}

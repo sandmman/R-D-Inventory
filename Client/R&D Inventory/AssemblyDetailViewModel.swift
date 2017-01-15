@@ -9,88 +9,41 @@
 import UIKit
 import Firebase
 
-class AssemblyDetailViewModel: PViewModel<Part> {
+class AssemblyDetailViewModel: PViewModel<Part, Build> {
     
     var parts: AssemblyDataSource<Part>! {
-        get { return objectDataSource as! AssemblyDataSource<Part> }
-        set { objectDataSource = newValue }
+        return objectDataSources.0 as! AssemblyDataSource<Part>
     }
     
-    var builds: AssemblyDataSource<Build>!
+    var builds: AssemblyDataSource<Build>! {
+        return objectDataSources.1 as! AssemblyDataSource<Build>
+    }
     
     var assembly: Assembly
 
     var selectedPart: Part? {
-        get { return selectedCell }
-        set { selectedCell = newValue }
+        return section1SelectedCell
+    }
+
+    var selectedBuild: Build? {
+        return section2SelectedCell
     }
     
-    var selectedBuild: Build? = nil
-    
-    public init(project: Project, assembly: Assembly, reloadCollectionViewCallback : @escaping (()->())) {
+    public init(project: Project, assembly: Assembly) {
         
         self.assembly = assembly
         
-        let dataSource = AssemblyDataSource<Part>(id: Constants.Types.Part, project: project, assembly: assembly)
+        let partDataSource = AssemblyDataSource<Part>(id: Constants.Types.Part, project: project, assembly: assembly)
+        let buildDataSource = AssemblyDataSource<Build>(id: Constants.Types.Build, project: project, assembly: assembly)
     
-        super.init(objectDataSource: dataSource, callback: reloadCollectionViewCallback, project: project)
-        
-        kNumberOfSectionsInTableView = 2
+        super.init(objectDataSources: (partDataSource, buildDataSource), project: project)
 
-        parts = dataSource
-        builds = AssemblyDataSource(id: Constants.Types.Build, project: project, assembly: assembly)
-
-        parts.delegate = self
-        builds.delegate = self
-
-        
-    }
-    
-    public override func startSync() {
-        parts.startSync()
-        builds.startSync()
-    }
-    
-    public override func stopSync() {
-        parts.stopSync()
-        builds.stopSync()
+        partDataSource.delegate = self
+        buildDataSource.delegate = self
     }
 
     public func getNextViewModel() -> FormViewModel? {
         return FormViewModel(project: project!, assembly: assembly, parts: parts.list)
-    }
-    
-    public override func delete(from tableView: UITableView, at indexPath: IndexPath) {
-
-        if indexPath.section == 0 {
-
-            builds.remove(at: indexPath.row)
-
-            
-        } else {
-
-            parts.remove(at: indexPath.row)
-        
-        }
-
-        tableView.deleteRows(at: [indexPath], with: .fade)
-    }
-    
-    
-    // MARK: - TableView
-
-    public override func numberOfItemsInSection(section : Int) -> Int {
-        
-        return section == 0 ? builds.count : parts.count
-        
-    }
-    
-    public override func didSelectCell(at indexPath: IndexPath) {
-        if indexPath.section == 0 {
-            selectedBuild = builds.list[indexPath.row]
-        } else {
-            selectedPart = parts.list[indexPath.row]
-        }
     }
 }
 

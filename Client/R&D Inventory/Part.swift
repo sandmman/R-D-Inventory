@@ -86,3 +86,30 @@ public struct Part: FIRDataObject {
         return FirebaseDataManager.projectsRef.child(proj.key).child(Constants.Types.Part)
     }
 }
+
+extension Part: TableViewCompatible {
+    
+    public var reuseIdentifier: String {
+        return Constants.TableViewCells.Part
+    }
+    
+    public func cellForTableView(tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath)
+
+        guard let partCell = cell as? PartTableViewCell, tableView.numberOfSections == 1 else {
+
+            cell.textLabel?.text = name
+            cell.textLabel?.text = manufacturer
+
+            return cell
+        }
+
+        partCell.nameTextLabel?.text = name
+        partCell.manufacturerTextLabel?.text = manufacturer
+        partCell.count = countInStock
+        
+        partCell.indexPath = indexPath
+        
+        return partCell
+    }
+}

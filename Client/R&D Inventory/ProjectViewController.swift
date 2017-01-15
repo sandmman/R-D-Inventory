@@ -25,7 +25,7 @@ class ProjectViewController: UIViewController {
 
         viewModel = ProjectViewModel(project: project, reloadCollectionViewCallback: reloadData)
         
-        configureView()
+        viewModel.delegate = self    
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,7 +62,7 @@ class ProjectViewController: UIViewController {
     @IBAction func unwindToTabBarController(sender: UIStoryboardSegue) {
         if let vc = sender.source as? SideBarTableViewController {
             
-            guard let project = vc.viewModel.selectedCell else {
+            guard let project = vc.viewModel.section1SelectedCell else {
                 return
             }
             
@@ -114,7 +114,7 @@ extension ProjectViewController: UITableViewDelegate,UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.BuildWarning, for: indexPath)
         
-        cell.textLabel?.text = viewModel.objectDataSource.list[indexPath.row].title
+        cell.textLabel?.text = viewModel.objectDataSources.0.list[indexPath.row].title
         
         return cell
     }
@@ -131,4 +131,23 @@ extension ProjectViewController: TabBarViewController {
 
     }
 
+}
+
+extension ProjectViewController: FirebaseTableViewDelegate {
+    func indexAdded<T: FIRDataObject>(at indexPath: IndexPath, data: T) {
+        warningsTableView.reloadData()
+        //warningsTableView.insertRows(at: [indexPath], with: .none)
+    }
+    
+    func indexChange<T: FIRDataObject>(at indexPath: IndexPath, data: T) {
+        warningsTableView.reloadRows(at: [indexPath], with: .none)
+    }
+    
+    func indexRemoved(at indexPath: IndexPath, key: String) {
+        warningsTableView.deleteRows(at: [indexPath], with: .none)
+    }
+    
+    func indexMoved<T: FIRDataObject>(at indexPath: IndexPath, to toIndexPath: IndexPath, data: T) {
+        warningsTableView.moveRow(at: indexPath, to: toIndexPath)
+    }
 }

@@ -112,3 +112,18 @@ extension BuildsViewModel {
         selectedCell = buildsDataSource.dict[date.display]?[indexPath.row]
     }
 }
+
+extension BuildsViewModel: FirebaseDictDataSourceDelegate {
+    
+    func indexAdded(data: Build) {
+        
+    }
+
+    func indexChanged(data: Build) {
+        
+    }
+
+    func indexRemoved(key: String) {
+        
+    }
+}
