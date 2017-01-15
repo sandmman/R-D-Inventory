@@ -99,7 +99,7 @@ extension Part: TableViewCompatible {
         guard let partCell = cell as? PartTableViewCell, tableView.numberOfSections == 1 else {
 
             cell.textLabel?.text = name
-            cell.textLabel?.text = manufacturer
+            cell.detailTextLabel?.text = manufacturer
 
             return cell
         }

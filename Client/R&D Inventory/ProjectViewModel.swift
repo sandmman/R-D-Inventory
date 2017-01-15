@@ -18,9 +18,9 @@ class ProjectViewModel: PViewModel<Build, Build> {
         return objectDataSources.0 as! ProjectDataSource<Build>
     }
 
-    public init(project: Project, reloadCollectionViewCallback : @escaping (()->())) {
+    public init(project: Project, section: Int) {
         
-        let dataSource = ProjectDataSource<Build>(id: Constants.Types.Build, project: project)
+        let dataSource = ProjectDataSource<Build>(section: section, project: project)
         
         super.init(objectDataSources: (dataSource, nil), project: project)
 

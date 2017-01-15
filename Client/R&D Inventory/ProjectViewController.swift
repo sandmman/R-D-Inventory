@@ -23,7 +23,7 @@ class ProjectViewController: UIViewController {
         
         configureView()
 
-        viewModel = ProjectViewModel(project: project, reloadCollectionViewCallback: reloadData)
+        viewModel = ProjectViewModel(project: project, section: 0)
         
         viewModel.delegate = self    
     }

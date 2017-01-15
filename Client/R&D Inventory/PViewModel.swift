@@ -12,7 +12,7 @@ class PViewModel<T: FIRDataObject, S: FIRDataObject>: NSObject {
     
     private(set) var objectDataSources: (FirebaseDataSource<T>, FirebaseDataSource<S>?)
     
-    public var kNumberOfSectionsInTableView = 1
+    private(set) var kNumberOfSectionsInTableView = 1
     
     public var section1SelectedCell: T? = nil
     
@@ -32,8 +32,6 @@ class PViewModel<T: FIRDataObject, S: FIRDataObject>: NSObject {
         
         if let _ = objectDataSources.1 {
             kNumberOfSectionsInTableView = 2
-        } else {
-            kNumberOfSectionsInTableView = 1
         }
 
         self.project = project
@@ -51,7 +49,7 @@ class PViewModel<T: FIRDataObject, S: FIRDataObject>: NSObject {
     }
     
     public func numberOfItemsInSection(section : Int) -> Int {
-        
+
         return section == 0 ? objectDataSources.0.count : objectDataSources.1?.count ?? 0
         
     }

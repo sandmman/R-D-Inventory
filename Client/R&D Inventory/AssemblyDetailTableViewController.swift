@@ -71,12 +71,10 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        print("Num sections",viewModel.numberOfSectionsInCollectionView())
         return viewModel.numberOfSectionsInCollectionView()
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("section", section,"Num rows",viewModel.numberOfItemsInSection(section: section))
         return viewModel.numberOfItemsInSection(section: section)
     }
     
@@ -84,25 +82,25 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
         if indexPath.section == 0 {
             
             let count = viewModel.parts.list.count
-            
+
             guard count > indexPath.row else {
                 return UITableViewCell()
             }
             
             let part = viewModel.parts.list[indexPath.row]
-            
+
             return part.cellForTableView(tableView: tableView, at: indexPath)
             
         } else {
 
             let count = viewModel.builds.list.count
-            
+
             guard count > indexPath.row else {
                 return UITableViewCell()
             }
             
             let build = viewModel.builds.list[indexPath.row]
-            
+
             return build.cellForTableView(tableView: tableView, at: indexPath)
         }
     }
@@ -148,7 +146,7 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
     
     // MARK: - Private
     
-    private func reloadCollectionViewCallback() {
+    fileprivate func reloadCollectionViewCallback() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }

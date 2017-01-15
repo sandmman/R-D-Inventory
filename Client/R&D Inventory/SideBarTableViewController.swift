@@ -26,7 +26,7 @@ class SideBarTableViewController: UITableViewController {
         
         configureSideBar()
 
-        viewModel = ViewModel<Project>(reloadCollectionViewCallback: reloadCollectionViewData)
+        viewModel = ViewModel<Project>(section: 0)
         
         viewModel.delegate = self
     }
@@ -131,9 +131,7 @@ class SideBarTableViewController: UITableViewController {
 
 extension SideBarTableViewController: FirebaseTableViewDelegate {
     func indexAdded<T: FIRDataObject>(at indexPath: IndexPath, data: T) {
-        tableView.beginUpdates()
         tableView.insertRows(at: [indexPath], with: .none)
-        tableView.endUpdates()
     }
     
     func indexChange<T: FIRDataObject>(at indexPath: IndexPath, data: T) {

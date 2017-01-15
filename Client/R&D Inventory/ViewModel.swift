@@ -10,18 +10,18 @@ import UIKit
 
 class ViewModel<T: FIRDataObject>: PViewModel<T, T> {
 
-    public init(project: Project, reloadCollectionViewCallback : @escaping (()->())) {
+    public init(project: Project, section: Int) {
         
-        let dataSource = ProjectDataSource<T>(id: "", project: project)
+        let dataSource = ProjectDataSource<T>(section: section, project: project)
 
         super.init(objectDataSources: (dataSource, nil), project: project)
         
         objectDataSources.0.delegate = self
     }
     
-    public init(reloadCollectionViewCallback : @escaping (()->())) {
+    public init(section: Int) {
         
-        let dataSource = FirebaseDataSource<T>(id: Constants.Types.Project)
+        let dataSource = FirebaseDataSource<T>(section: section)
         
         super.init(objectDataSources: (dataSource, nil))
         

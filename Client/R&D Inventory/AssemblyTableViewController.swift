@@ -19,7 +19,7 @@ class AssemblyTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel = ViewModel<Assembly>(project: project, reloadCollectionViewCallback: reloadCollectionViewData)
+        viewModel = ViewModel<Assembly>(project: project, section: 0)
         viewModel.delegate = self
     }
 
@@ -48,7 +48,6 @@ class AssemblyTableViewController: UITableViewController {
         let count = viewModel.objectDataSources.0.count
 
         guard count > indexPath.row else {
-            print("crash")
             return UITableViewCell()
         }
         

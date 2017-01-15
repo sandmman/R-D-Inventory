@@ -17,7 +17,7 @@ class InventoryTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel = ViewModel<Part>(project: project, reloadCollectionViewCallback: reloadCollectionViewData)
+        viewModel = ViewModel<Part>(project: project, section: 0)
         
         viewModel.delegate = self
     }

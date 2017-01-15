@@ -13,10 +13,10 @@ class ProjectDataSource<T: FIRDataObject>: FirebaseDataSource<T> {
 
     var project: Project
 
-    init(id: String, project: Project) {
+    init(section: Int, project: Project) {
         self.project = project
 
-        super.init(id: id, project: project)
+        super.init(section: section, project: project)
     }
     
     override func remove(at index: Int) {

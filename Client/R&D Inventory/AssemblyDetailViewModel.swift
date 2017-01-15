@@ -33,8 +33,8 @@ class AssemblyDetailViewModel: PViewModel<Part, Build> {
         
         self.assembly = assembly
         
-        let partDataSource = AssemblyDataSource<Part>(id: Constants.Types.Part, project: project, assembly: assembly)
-        let buildDataSource = AssemblyDataSource<Build>(id: Constants.Types.Build, project: project, assembly: assembly)
+        let partDataSource = AssemblyDataSource<Part>(section: 0, project: project, assembly: assembly)
+        let buildDataSource = AssemblyDataSource<Build>(section: 1, project: project, assembly: assembly)
     
         super.init(objectDataSources: (partDataSource, buildDataSource), project: project)
 

@@ -15,12 +15,12 @@ class AssemblyDataSource<T: FIRDataObject>: FirebaseDataSource<T>  {
     
     var assembly: Assembly
 
-    init(id: String, project: Project, assembly: Assembly) {
+    init(section: Int, project: Project, assembly: Assembly) {
         self.project = project
         
         self.assembly = assembly
 
-        super.init(id: id, project: project, assembly: assembly)
+        super.init(section: section, project: project, assembly: assembly)
     }
     
     override func remove(at index: Int) {

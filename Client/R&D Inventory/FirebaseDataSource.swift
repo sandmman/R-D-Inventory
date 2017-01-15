@@ -33,12 +33,12 @@ class FirebaseDataSource<T: FIRDataObject>: NSObject {
         return syncArray.list
     }
 
-    public var id: String
+    public var section: Int
 
     // MARK: Initializers
     
-    public init(id: String, project: Project, assembly: Assembly? = nil) {
-        self.id = id
+    public init(section: Int, project: Project, assembly: Assembly? = nil) {
+        self.section = section
 
         syncArray = FirebaseArray(project: project, assembly: assembly)
 
@@ -47,8 +47,8 @@ class FirebaseDataSource<T: FIRDataObject>: NSObject {
         syncArray.delegate = self
     }
     
-    public init(id: String) {
-        self.id = id
+    public init(section: Int) {
+        self.section = section
         
         syncArray = FirebaseArray(project: nil)
         
@@ -83,8 +83,8 @@ class FirebaseDataSource<T: FIRDataObject>: NSObject {
     
     // MARK: IndexPath Helpers
     
-    public func createIndexPath(row: Int, section: Int = 0) -> IndexPath {
-        return IndexPath(row: row, section: section)
+    public func createIndexPath(row: Int) -> IndexPath {
+        return IndexPath(row: row, section: self.section)
     }
 
 }

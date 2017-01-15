@@ -17,7 +17,7 @@ protocol FirebaseArrayDelegate {
 
 class FirebaseArray<T: FIRDataObject> {
     
-    var list = [T]()
+    private(set) var list = [T]()
 
     let project: Project?
     
@@ -25,7 +25,7 @@ class FirebaseArray<T: FIRDataObject> {
 
     var delegate: FirebaseArrayDelegate? = nil
     
-    var listener = ListenerHandler()
+    private(set) var listener = ListenerHandler()
 
     // MARK: Initializers
     
