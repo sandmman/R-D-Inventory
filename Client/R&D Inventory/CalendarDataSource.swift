@@ -20,29 +20,29 @@ protocol FirebaseDictDataSourceDelegate {
 
 class CalendarDataSource: NSObject {
     
-    public var syncArray: FirebaseDictionary
+    public var syncDict: FirebaseDictionary
     
     public var delegate: FirebaseDictDataSourceDelegate?
     
     public var dict: [String: [Build]] {
-        return syncArray.dict
+        return syncDict.dict
     }
     
     // MARK: Initializers
     
     public init(project: Project) {
         
-        syncArray = FirebaseDictionary(project: project)
+        syncDict = FirebaseDictionary(project: project)
         
         super.init()
         
-        syncArray.delegate = self
+        syncDict.delegate = self
     }
     
     // MARK: Data Updates
     
     public func append(data: AnyObject!) {
-        syncArray.append(data: data)
+        syncDict.append(data: data)
     }
     
     public func count(date: String) -> Int {
@@ -50,19 +50,19 @@ class CalendarDataSource: NSObject {
     }
 
     public func update(at index: Int, data: [NSObject: AnyObject?]) {
-        syncArray.update(at: index, data: data)
+        syncDict.update(at: index, data: data)
     }
     
-    public  func remove(build: Build) {
-        _ = syncArray.remove(item: build)
+    public  func remove(at index: Int, for date: Date) -> Build? {
+        return syncDict.remove(at: index, for: date)
     }
 
     public func startSync() {
-        syncArray.sync()
+        syncDict.sync()
     }
     
     public func stopSync() {
-        syncArray.dispose()
+        syncDict.dispose()
     }
     
     public func createIndexPath(row: Int, section: Int = 0) -> IndexPath {

@@ -58,6 +58,7 @@ class InventoryTableViewController: UITableViewController {
         if editingStyle == .delete {
             
             viewModel.delete(from: tableView, at: indexPath)
+            
         }
     }
     

@@ -85,9 +85,9 @@ extension ListenerHandler {
                 if let item = T(snapshot: snap) {
                     if first {
                         onComplete(.added(item))
+                        first = false
                     } else {
                         onComplete(.changed(item))
-                        first = false
                     }
                 }
             })

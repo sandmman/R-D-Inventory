@@ -63,7 +63,7 @@ class FirebaseDataSource<T: FIRDataObject>: NSObject {
         syncArray.append(data: data)
     }
     
-    public func update(at index: Int, data: [NSObject: AnyObject?]) {
+    public func update(at index: Int, data: T) {
         syncArray.update(at: index, data: data)
     }
     

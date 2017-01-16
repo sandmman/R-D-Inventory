@@ -60,10 +60,8 @@ class FirebaseArray<T: FIRDataObject> {
         return list.remove(at: index)
     }
     
-    func update(at index: Int, data: [NSObject : Any]!) {
-        let item = list[index]
-        //let itemRef = ref.child(item.key)
-        //itemRef.updateChildValues(data)
+    func update(at index: Int, data: T) {
+        data.ref?.updateChildValues(data.toAnyObject() as! [AnyHashable : Any])
     }
     
     // MARK: Event Listeners

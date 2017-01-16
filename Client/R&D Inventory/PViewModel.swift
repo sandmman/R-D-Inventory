@@ -74,6 +74,7 @@ class PViewModel<T: FIRDataObject, S: FIRDataObject>: NSObject {
         } else {
             objectDataSources.1?.remove(at: indexPath.row)
         }
+        tableView.deleteRows(at: [indexPath], with: .none)
     }
 
 }

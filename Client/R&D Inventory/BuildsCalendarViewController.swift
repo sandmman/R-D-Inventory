@@ -73,7 +73,7 @@ extension BuildsCalendarViewController: FSCalendarDataSource, FSCalendarDelegate
     }
     
     public func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        return viewModel.buildsDataSource.dict[date.display]?.count ?? 0
+        return viewModel.buildsDataSource.count(date: date.display)
     }
     
     public func calendar(_ calendar: FSCalendar, didSelect date: Date) {
@@ -100,6 +100,13 @@ extension BuildsCalendarViewController: UITableViewDelegate, UITableViewDataSour
         return viewModel.numberOfSectionsInCollectionView()
     }
     
+    public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            
+            viewModel.delete(from: tableView, at: indexPath)
+        }
+    }
+
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let buildArr = viewModel.buildsDataSource.dict[calendar.selectedDate.display] else {

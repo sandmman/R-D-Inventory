@@ -54,7 +54,9 @@ public struct Part: FIRDataObject {
     
     public init?(snapshot: FIRDataSnapshot) {
         
-        let value = snapshot.value as! [String: Any]
+        guard let value = snapshot.value as? [String: Any] else {
+            return nil
+        }
         
         self.name = value[Constants.PartFields.Name] as! String
         self.manufacturer = value[Constants.PartFields.Manufacturer] as! String

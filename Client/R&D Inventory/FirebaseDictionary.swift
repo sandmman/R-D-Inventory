@@ -57,13 +57,13 @@ class FirebaseDictionary {
         pushIdref.setValue(data)
     }
     
-    func remove(item: Build) -> Build? {
-        guard var arr = dict[item.displayDate] else {
+    func remove(at index: Int, for date: Date) -> Build? {
+        guard var arr = dict[date.display] else {
             return nil
         }
-        let obj = arr.filter { $0 != item}
-        dict[item.displayDate] = obj
-        return nil
+        let obj = arr.remove(at: index)
+        dict[date.display] = arr
+        return obj
     }
     
     func update(at index: Int, data: [NSObject : Any]!) {

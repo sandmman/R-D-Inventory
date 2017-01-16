@@ -62,15 +62,17 @@ extension BuildsViewModel {
 
     }
 
-    public func delete(from tableView: UITableView, at indexPath: IndexPath, with date: Date) {
+    public func delete(from tableView: UITableView, at indexPath: IndexPath) {
         
-        /*guard let object = buildsDataSource.dict[date.display]?.remove(at: indexPath.row) else {
+        guard let object = buildsDataSource.remove(at: indexPath.row, for: selectedDate) else {
             return
         }
+        
+        object.delete()
+        
+        project.delete(obj: object)
 
         tableView.deleteRows(at: [indexPath], with: .fade)
-        
-        reloadCollectionViewCallback()*/
         
     }
     
