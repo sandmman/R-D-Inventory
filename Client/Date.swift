@@ -20,4 +20,8 @@ extension Date {
     public var day: Int? {
         return Calendar.current.dateComponents([.weekday], from: self).weekday
     }
+    
+    public var month: Int? {
+        return Calendar.current.dateComponents([.month], from: self).month
+    }
 }

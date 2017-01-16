@@ -23,7 +23,7 @@ class ProjectViewController: UIViewController {
         
         configureView()
 
-        viewModel = ProjectViewModel(project: project, section: 0)
+        viewModel = ProjectViewModel(project: project, section: 1)
         
         viewModel.delegate = self    
     }
@@ -135,8 +135,7 @@ extension ProjectViewController: TabBarViewController {
 
 extension ProjectViewController: FirebaseTableViewDelegate {
     func indexAdded<T: FIRDataObject>(at indexPath: IndexPath, data: T) {
-        warningsTableView.reloadData()
-        //warningsTableView.insertRows(at: [indexPath], with: .none)
+        warningsTableView.insertRows(at: [indexPath], with: .none)
     }
     
     func indexChange<T: FIRDataObject>(at indexPath: IndexPath, data: T) {

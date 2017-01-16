@@ -12,30 +12,34 @@ class BuildsViewModel: NSObject {
     
     var buildsDataSource: CalendarDataSource
     
-    var selectedCell: Build? = nil
+    fileprivate(set) var selectedCell: Build? = nil
     
-    var selectedDate: Date? = nil
+    fileprivate(set) var selectedDate: Date!
     
-    public let reloadCollectionViewCallback : (()->())!
+    fileprivate let kNumberOfSectionsInTableView = 1
     
-    let kNumberOfSectionsInTableView = 1
+    public var delegate: FirebaseTableViewDelegate?
     
+    public var calendarDelegate: CalendarDataSourceDelegate?
+
     var project: Project {
         didSet {
             stopSync()
             startSync()
-            reloadCollectionViewCallback()
         }
     }
     
-    public init(project: Project, reloadCollectionViewCallback : @escaping (()->())) {
+    public init(project: Project) {
         
         self.project = project
         
-        self.reloadCollectionViewCallback = reloadCollectionViewCallback
-        
-        buildsDataSource = CalendarDataSource(project: project)
+        self.selectedDate = Date()
 
+        buildsDataSource = CalendarDataSource(project: project)
+        
+        super.init()
+
+        buildsDataSource.delegate = self
     }
 
     public func startSync() {
@@ -55,7 +59,7 @@ class BuildsViewModel: NSObject {
 extension BuildsViewModel {
     
     public func add(build: Build) {
-        reloadCollectionViewCallback()
+
     }
 
     public func delete(from tableView: UITableView, at indexPath: IndexPath, with date: Date) {
@@ -74,21 +78,8 @@ extension BuildsViewModel {
 
 extension BuildsViewModel {
     
-    public func numberOfItemsInSection(section : Int) -> Int {
-        guard let selectedDate = selectedDate else {
-    
-            guard let buildArr = buildsDataSource.dict[Date().display] else {
-                return 0
-            }
-
-            return buildArr.count
-        }
-
-        guard let buildArr = buildsDataSource.dict[selectedDate.display] else {
-            return 0
-        }
-
-        return buildArr.count
+    public func numberOfItemsInSection(date : Date) -> Int {
+        return buildsDataSource.count(date: date.display)
         
     }
     
@@ -100,8 +91,7 @@ extension BuildsViewModel {
     
     public func selected(date: Date) {
         selectedDate = date
-        
-        reloadCollectionViewCallback()
+        calendarDelegate?.reloadTableView()
     }
 
     public func selectedCell(at indexPath: IndexPath) {
@@ -115,15 +105,23 @@ extension BuildsViewModel {
 
 extension BuildsViewModel: FirebaseDictDataSourceDelegate {
     
-    func indexAdded(data: Build) {
-        
+    internal func indexAdded(at indexPath: IndexPath, data: Build) {
+        guard let date = selectedDate, date.display == data.displayDate else {
+            calendarDelegate?.reloadCalendar()
+            return
+        }
+        delegate?.indexAdded(at: indexPath, data: data)
     }
 
-    func indexChanged(data: Build) {
-        
+    internal func indexChanged(at indexPath: IndexPath, data: Build) {
+        guard let date = selectedDate, date.display == data.displayDate else {
+            calendarDelegate?.reloadCalendar()
+            return
+        }
+        delegate?.indexChange(at: indexPath, data: data)
     }
-
-    func indexRemoved(key: String) {
-        
+    
+    internal func indexRemoved(at indexPath: IndexPath, key: String) {
+        delegate?.indexRemoved(at: indexPath, key: key)
     }
 }

@@ -9,6 +9,11 @@
 import UIKit
 import FSCalendar
 
+public protocol CalendarDataSourceDelegate {
+    func reloadCalendar()
+    func reloadTableView()
+}
+
 class BuildsCalendarViewController: UIViewController {
     
     var project: Project!
@@ -23,8 +28,11 @@ class BuildsCalendarViewController: UIViewController {
         
         initializeCalendar()
         
-        viewModel = BuildsViewModel(project: project, reloadCollectionViewCallback: reloadData)
-
+        viewModel = BuildsViewModel(project: project)
+        
+        viewModel.delegate = self
+        
+        viewModel.calendarDelegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,16 +45,7 @@ class BuildsCalendarViewController: UIViewController {
     
     // MARK: - Navigation
     
-    @IBAction func unwindToBuildCalendar(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.source as? CreateBuildViewController {
-            
-            guard let build = sourceViewController.newBuild else {
-                return
-            }
-            
-            viewModel.add(build: build)            
-        }
-    }
+    @IBAction func unwindToBuildCalendar(sender: UIStoryboardSegue) {}
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let _ = segue.identifier, let destination = segue.destination as? CreateBuildViewController else {
@@ -55,17 +54,6 @@ class BuildsCalendarViewController: UIViewController {
 
         destination.viewModel = viewModel.getNextViewModel(nil)
 
-    }
-    
-    // MARK: Private Functions
-    
-    private func reloadData() {
-        DispatchQueue.main.async {
-            if self.tableView != nil && self.calendar != nil {
-                self.tableView.reloadData()
-                self.calendar.reloadData()
-            }
-        }
     }
 }
 
@@ -94,8 +82,8 @@ extension BuildsCalendarViewController: FSCalendarDataSource, FSCalendarDelegate
     
     public func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
         
-        guard let day = date.day else {
-            return UIColor.darkGray
+        guard let day = date.day, date.month == Date().month else {
+            return UIColor.lightGray
         }
         
         return day == 1 || day == 7 ? UIColor.lightGray : UIColor.darkGray
@@ -105,7 +93,7 @@ extension BuildsCalendarViewController: FSCalendarDataSource, FSCalendarDelegate
 extension BuildsCalendarViewController: UITableViewDelegate, UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfItemsInSection(section: section)
+        return viewModel.numberOfItemsInSection(date: calendar.selectedDate)
     }
     
     public func numberOfSections(in tableView: UITableView) -> Int {
@@ -140,7 +128,8 @@ extension BuildsCalendarViewController: TabBarViewController {
 
 }
 
-extension BuildsCalendarViewController: FirebaseTableViewDelegate {
+extension BuildsCalendarViewController: FirebaseTableViewDelegate, CalendarDataSourceDelegate {
+    
     func indexAdded<T: FIRDataObject>(at indexPath: IndexPath, data: T) {
         tableView.insertRows(at: [indexPath], with: .none)
     }
@@ -155,5 +144,17 @@ extension BuildsCalendarViewController: FirebaseTableViewDelegate {
     
     func indexMoved<T: FIRDataObject>(at indexPath: IndexPath, to toIndexPath: IndexPath, data: T) {
         tableView.moveRow(at: indexPath, to: toIndexPath)
+    }
+    
+    public func reloadTableView() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    public func reloadCalendar() {
+        DispatchQueue.main.async {
+            self.calendar.reloadData()
+        }
     }
 }

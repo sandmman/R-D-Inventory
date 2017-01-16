@@ -10,9 +10,13 @@ import UIKit
 import Firebase
 
 protocol FirebaseDictionaryDelegate {
-    func indexAdded(dict: [String: [Build]], data: Build)
-    func indexChanged(dict: [String: [Build]], data: Build)
-    func indexRemoved(dict: [String: [Build]], with key: String)
+
+    func indexAdded(dict: [String: [Build]], at indexPath: Int, data: Build)
+
+    func indexChanged(dict: [String: [Build]], at indexPath: Int, data: Build)
+
+    func indexRemoved(dict: [String: [Build]], at indexPath: Int, with key: String)
+
 }
 
 class FirebaseDictionary {
@@ -89,7 +93,7 @@ class FirebaseDictionary {
         } else {
             dict[item.displayDate] = [item]
         }
-        delegate?.indexAdded(dict: dict, data: item)
+        delegate?.indexAdded(dict: dict, at: dict[item.displayDate]!.count - 1, data: item)
     }
     
     private func serverChange(item: Build) {
@@ -97,7 +101,7 @@ class FirebaseDictionary {
             return
         }
         dict[k]?[position] = item
-        delegate?.indexChanged(dict: dict, data: item)
+        delegate?.indexChanged(dict: dict, at: position,  data: item)
     }
     
     private func serverRemove(key: String) {
@@ -108,7 +112,7 @@ class FirebaseDictionary {
         arr.remove(at: position)
         dict[k] = arr
 
-        delegate?.indexRemoved(dict: dict, with: key)
+        delegate?.indexRemoved(dict: dict, at: position, with: key)
     }
     
     private func findKeyPosition(key: String) -> (String, Int)? {

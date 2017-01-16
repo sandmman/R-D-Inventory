@@ -23,6 +23,7 @@ class ProjectDataSource<T: FIRDataObject>: FirebaseDataSource<T> {
         let obj = syncArray.remove(at: index)
         
         obj.delete()
+
         project.delete(obj: obj)        
     }
 }

@@ -56,7 +56,7 @@ class SideBarTableViewController: UITableViewController {
         headerCell.nameLabel.text = CurrentUser.fullName
         headerCell.emailLabel.text = CurrentUser.email.lowercased()
 
-        return headerCell
+        return headerCell.contentView
     }
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -67,7 +67,7 @@ class SideBarTableViewController: UITableViewController {
         tapGesture.numberOfTapsRequired = 1
         footerCell.addGestureRecognizer(tapGesture)
         
-        return footerCell
+        return footerCell.contentView
     }
     
     @objc private func createProject(_ sender: UIGestureRecognizer) {

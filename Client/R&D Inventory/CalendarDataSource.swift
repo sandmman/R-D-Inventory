@@ -9,25 +9,20 @@
 import UIKit
 
 protocol FirebaseDictDataSourceDelegate {
-    func indexAdded(data: Build)
-    func indexChanged(data: Build)
-    func indexRemoved(key: String)
+
+    func indexAdded(at indexPath: IndexPath, data: Build)
+
+    func indexChanged(at indexPath: IndexPath, data: Build)
+
+    func indexRemoved(at indexPath: IndexPath, key: String)
+
 }
 
-
 class CalendarDataSource: NSObject {
-    
-    // MARK: Properties
     
     public var syncArray: FirebaseDictionary
     
     public var delegate: FirebaseDictDataSourceDelegate?
-    
-    // MARK: Computed properties
-    
-    public var count: Int {
-        return 0//syncArray.list.count
-    }
     
     public var dict: [String: [Build]] {
         return syncArray.dict
@@ -50,6 +45,10 @@ class CalendarDataSource: NSObject {
         syncArray.append(data: data)
     }
     
+    public func count(date: String) -> Int {
+        return dict[date]?.count ?? 0
+    }
+
     public func update(at index: Int, data: [NSObject: AnyObject?]) {
         syncArray.update(at: index, data: data)
     }
@@ -57,9 +56,7 @@ class CalendarDataSource: NSObject {
     public  func remove(build: Build) {
         _ = syncArray.remove(item: build)
     }
-    
-    // MARK: Syncing
-    
+
     public func startSync() {
         syncArray.sync()
     }
@@ -67,20 +64,23 @@ class CalendarDataSource: NSObject {
     public func stopSync() {
         syncArray.dispose()
     }
-
+    
+    public func createIndexPath(row: Int, section: Int = 0) -> IndexPath {
+        return IndexPath(row: row, section: section)
+    }
 }
 
 extension CalendarDataSource: FirebaseDictionaryDelegate {
 
-    func indexAdded(dict: [String: [Build]], data: Build) {
-        delegate?.indexAdded(data: data)
+    func indexAdded(dict: [String: [Build]], at indexPath: Int,  data: Build) {
+        delegate?.indexAdded(at: createIndexPath(row: indexPath), data: data)
     }
 
-    func indexChanged(dict: [String: [Build]], data: Build) {
-        delegate?.indexChanged(data: data)
+    func indexChanged(dict: [String: [Build]], at indexPath: Int,  data: Build) {
+        delegate?.indexChanged(at: createIndexPath(row: indexPath), data: data)
     }
 
-    func indexRemoved(dict: [String: [Build]], with key: String) {
-        delegate?.indexRemoved(key: key)
+    func indexRemoved(dict: [String: [Build]], at indexPath: Int,  with key: String) {
+        delegate?.indexRemoved(at: createIndexPath(row: indexPath), key: key)
     }
 }
