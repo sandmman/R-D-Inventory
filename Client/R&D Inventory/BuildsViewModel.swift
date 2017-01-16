@@ -118,7 +118,7 @@ extension BuildsViewModel: FirebaseDictDataSourceDelegate {
             calendarDelegate?.reloadCalendar()
             return
         }
-        delegate?.indexChange(at: indexPath, data: data)
+        delegate?.indexChanged(at: indexPath, data: data)
     }
     
     internal func indexRemoved(at indexPath: IndexPath, key: String) {

@@ -138,7 +138,7 @@ extension ProjectViewController: FirebaseTableViewDelegate {
         warningsTableView.insertRows(at: [indexPath], with: .none)
     }
     
-    func indexChange<T: FIRDataObject>(at indexPath: IndexPath, data: T) {
+    func indexChanged<T: FIRDataObject>(at indexPath: IndexPath, data: T) {
         warningsTableView.reloadRows(at: [indexPath], with: .none)
     }
     

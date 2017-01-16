@@ -158,7 +158,7 @@ extension AssemblyDetailTableViewController: FirebaseTableViewDelegate {
         tableView.insertRows(at: [indexPath], with: .none)
     }
     
-    func indexChange<T: FIRDataObject>(at indexPath: IndexPath, data: T) {
+    func indexChanged<T: FIRDataObject>(at indexPath: IndexPath, data: T) {
         tableView.reloadRows(at: [indexPath], with: .none)
     }
     

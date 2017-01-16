@@ -85,7 +85,7 @@ extension PViewModel: FirebaseDataSourceDelegate {
     }
     
     internal func indexChanged<T : FIRDataObject>(at indexPath: IndexPath, data: T) {
-        delegate?.indexChange(at: indexPath, data: data)
+        delegate?.indexChanged(at: indexPath, data: data)
     }
     
     internal func indexRemoved(at indexPath: IndexPath, key: String) {

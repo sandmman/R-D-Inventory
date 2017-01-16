@@ -123,7 +123,7 @@ extension AssemblyTableViewController: TabBarViewController {
 
 protocol FirebaseTableViewDelegate: class {
     func indexAdded<T: FIRDataObject>(at indexPath: IndexPath, data: T)
-    func indexChange<T: FIRDataObject>(at indexPath: IndexPath, data: T)
+    func indexChanged<T: FIRDataObject>(at indexPath: IndexPath, data: T)
     func indexRemoved(at indexPath: IndexPath, key: String)
     func indexMoved<T: FIRDataObject>(at indexPath: IndexPath, to toIndexPath: IndexPath, data: T)
 }
@@ -133,7 +133,7 @@ extension AssemblyTableViewController: FirebaseTableViewDelegate {
         tableView.insertRows(at: [indexPath], with: .none)
     }
     
-    func indexChange<T: FIRDataObject>(at indexPath: IndexPath, data: T) {
+    func indexChanged<T: FIRDataObject>(at indexPath: IndexPath, data: T) {
         tableView.reloadRows(at: [indexPath], with: .none)
     }
     
