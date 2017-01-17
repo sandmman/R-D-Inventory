@@ -14,9 +14,9 @@ class ProjectViewController: UIViewController {
     
     @IBOutlet var tableView: UITableView!
     
-    var viewModel: ProjectViewModel!
+    fileprivate(set) var viewModel: ProjectViewModel!
 
-    var project: Project!
+    fileprivate(set) var project: Project!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,24 +37,6 @@ class ProjectViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         viewModel.stopSync()
-    }
-
-    // MARK: Private Helpers
-    
-    internal func configureView() {
-        guard let proj = project else {
-            return
-        }
-
-        projectLabel?.text = proj.name
-    }
-
-    private func reloadData() {
-        DispatchQueue.main.async {
-            if let table = self.tableView {
-                table.reloadData()
-            }
-        }
     }
     
     // MARK: Navigation
@@ -86,8 +68,26 @@ class ProjectViewController: UIViewController {
             vc0.didChangeProject(project: project)
             vc1.didChangeProject(project: project)
             vc2.didChangeProject(project: project)
-            
+    
             didChangeProject(project: project)
+        }
+    }
+    
+    // MARK: Private Helpers
+    
+    fileprivate func configureView() {
+        guard let proj = project else {
+            return
+        }
+        
+        projectLabel?.text = proj.name
+    }
+    
+    fileprivate func reloadData() {
+        DispatchQueue.main.async {
+            if let table = self.tableView {
+                table.reloadData()
+            }
         }
     }
 }
@@ -126,9 +126,11 @@ extension ProjectViewController: TabBarViewController, FirebaseTableViewDelegate
         self.project = project
         
         configureView()
-        
-        viewModel?.project = project
 
+        viewModel?.project = project
+        viewModel?.stopSync()
+
+        reloadData()
     }
 
 }

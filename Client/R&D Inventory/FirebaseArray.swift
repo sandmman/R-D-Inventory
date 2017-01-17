@@ -19,7 +19,7 @@ class FirebaseArray<T: FIRDataObject> {
     
     private(set) var list = [T]()
 
-    let project: Project?
+    var project: Project?
     
     let assembly: Assembly?
 

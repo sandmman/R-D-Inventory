@@ -36,6 +36,10 @@ class BuildsCalendarViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        reloadTableView()
+        reloadCalendar()
+
         viewModel.startSync()
     }
     
@@ -126,11 +130,8 @@ extension BuildsCalendarViewController: TabBarViewController {
     
     public func didChangeProject(project: Project) {
         self.project = project
-
-        guard let vm = viewModel else {
-            return
-        }
-        vm.project = project
+        
+        viewModel?.project = project
     }
 
 }

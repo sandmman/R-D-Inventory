@@ -65,6 +65,10 @@ class CalendarDataSource: NSObject {
         syncDict.dispose()
     }
     
+    public func updateProject(project: Project) {
+        syncDict.project = project
+    }
+
     public func createIndexPath(row: Int, section: Int = 0) -> IndexPath {
         return IndexPath(row: row, section: section)
     }

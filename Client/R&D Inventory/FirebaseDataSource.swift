@@ -68,7 +68,7 @@ class FirebaseDataSource<T: FIRDataObject>: NSObject {
     }
     
    public  func remove(at index: Int) {
-        syncArray.remove(at: index)
+        let _ = syncArray.remove(at: index)
     }
     
     // MARK: Syncing
@@ -81,6 +81,10 @@ class FirebaseDataSource<T: FIRDataObject>: NSObject {
         syncArray.dispose()
     }
     
+    public func updateProject(project: Project) {
+        syncArray.project = project
+    }
+
     // MARK: IndexPath Helpers
     
     public func createIndexPath(row: Int) -> IndexPath {

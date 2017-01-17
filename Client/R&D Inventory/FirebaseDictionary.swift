@@ -21,43 +21,43 @@ protocol FirebaseDictionaryDelegate {
 
 class FirebaseDictionary {
     
-    var dict = [String: [Build]]()
+    private(set) var dict = [String: [Build]]()
     
-    let project: Project?
+    public var project: Project?
     
-    var delegate: FirebaseDictionaryDelegate? = nil
+    public var delegate: FirebaseDictionaryDelegate? = nil
     
-    var listener = ListenerHandler()
+    private var listener = ListenerHandler()
     
     // MARK: Initializers
     
-    init(project: Project) {
+    public init(project: Project) {
         self.project = project
     }
     
     // MARK: Syncing
     
-    func sync() {
+    public func sync() {
         initializeListeners()
     }
     
-    func dispose() {
+    public func dispose() {
         stopSyncing()
         dict.removeAll(keepingCapacity: false)
     }
     
-    func stopSyncing() {
+    public func stopSyncing() {
         listener.removeListeners()
     }
     
     // MARK: Data updates
     
-    func append(data: Any!) {
+    public func append(data: Any!) {
         let pushIdref = Build.rootRef(with: nil).childByAutoId()
         pushIdref.setValue(data)
     }
     
-    func remove(at index: Int, for date: Date) -> Build? {
+    public func remove(at index: Int, for date: Date) -> Build? {
         guard var arr = dict[date.display] else {
             return nil
         }
@@ -66,7 +66,7 @@ class FirebaseDictionary {
         return obj
     }
     
-    func update(at index: Int, data: [NSObject : Any]!) {
+    public func update(at index: Int, data: [NSObject : Any]!) {
         //let item = list[index]
         //let itemRef = ref.child(item.key)
         //itemRef.updateChildValues(data)

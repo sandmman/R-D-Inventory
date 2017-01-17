@@ -10,7 +10,7 @@ import UIKit
 
 class BuildsViewModel: NSObject {
     
-    var buildsDataSource: CalendarDataSource
+    private(set) var buildsDataSource: CalendarDataSource
     
     fileprivate(set) var selectedCell: Build? = nil
     
@@ -22,10 +22,9 @@ class BuildsViewModel: NSObject {
     
     public var calendarDelegate: CalendarDataSourceDelegate?
 
-    var project: Project {
+    public var project: Project {
         didSet {
-            stopSync()
-            startSync()
+            buildsDataSource.updateProject(project: project)
         }
     }
     

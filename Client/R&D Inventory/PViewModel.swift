@@ -22,8 +22,8 @@ class PViewModel<T: FIRDataObject, S: FIRDataObject>: NSObject {
 
     public var project: Project? = nil {
         didSet {
-            stopSync()
-            startSync()
+            objectDataSources.0.updateProject(project: project!)
+            objectDataSources.1?.updateProject(project: project!)
         }
     }
     
