@@ -9,7 +9,7 @@
 import UIKit
 import SideMenu
 
-class SideBarTableViewController: UITableViewController {
+class SideBarTableViewController: UITableViewController, FirebaseTableViewDelegate {
     
     var viewModel: ViewModel<Project>!
     
@@ -126,24 +126,6 @@ class SideBarTableViewController: UITableViewController {
         SideMenuManager.menuFadeStatusBar = false
         
         navigationController?.setNavigationBarHidden(true, animated: true)
-    }
-}
-
-extension SideBarTableViewController: FirebaseTableViewDelegate {
-    func indexAdded<T: FIRDataObject>(at indexPath: IndexPath, data: T) {
-        tableView.insertRows(at: [indexPath], with: .none)
-    }
-    
-    func indexChanged<T: FIRDataObject>(at indexPath: IndexPath, data: T) {
-        tableView.reloadRows(at: [indexPath], with: .none)
-    }
-    
-    func indexRemoved(at indexPath: IndexPath, key: String) {
-        tableView.deleteRows(at: [indexPath], with: .none)
-    }
-    
-    func indexMoved<T: FIRDataObject>(at indexPath: IndexPath, to toIndexPath: IndexPath, data: T) {
-        tableView.moveRow(at: indexPath, to: toIndexPath)
     }
 }
 

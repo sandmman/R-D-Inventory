@@ -9,7 +9,7 @@
 import UIKit
 import Eureka
 
-class AssemblyDetailTableViewController: UITableViewController, UIGestureRecognizerDelegate {
+class AssemblyDetailTableViewController: UITableViewController, UIGestureRecognizerDelegate, FirebaseTableViewDelegate {
     
     var viewModel: AssemblyDetailViewModel!
 
@@ -150,23 +150,5 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
-    }
-}
-
-extension AssemblyDetailTableViewController: FirebaseTableViewDelegate {
-    func indexAdded<T: FIRDataObject>(at indexPath: IndexPath, data: T) {
-        tableView.insertRows(at: [indexPath], with: .none)
-    }
-    
-    func indexChanged<T: FIRDataObject>(at indexPath: IndexPath, data: T) {
-        tableView.reloadRows(at: [indexPath], with: .none)
-    }
-    
-    func indexRemoved(at indexPath: IndexPath, key: String) {
-        tableView.deleteRows(at: [indexPath], with: .none)
-    }
-    
-    func indexMoved<T: FIRDataObject>(at indexPath: IndexPath, to toIndexPath: IndexPath, data: T) {
-        tableView.moveRow(at: indexPath, to: toIndexPath)
     }
 }

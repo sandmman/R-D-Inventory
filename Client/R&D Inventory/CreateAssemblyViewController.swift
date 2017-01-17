@@ -10,9 +10,7 @@ import UIKit
 import Eureka
 
 class CreateAssemblyViewController: FormViewController {
-    
-    var assembly: Assembly? = nil
-    
+
     var project: Project!
     
     func save() {

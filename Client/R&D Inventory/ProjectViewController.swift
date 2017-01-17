@@ -12,7 +12,7 @@ class ProjectViewController: UIViewController {
     
     @IBOutlet var projectLabel: UILabel!
     
-    @IBOutlet var warningsTableView: UITableView!
+    @IBOutlet var tableView: UITableView!
     
     var viewModel: ProjectViewModel!
 
@@ -51,7 +51,7 @@ class ProjectViewController: UIViewController {
 
     private func reloadData() {
         DispatchQueue.main.async {
-            if let table = self.warningsTableView {
+            if let table = self.tableView {
                 table.reloadData()
             }
         }
@@ -92,7 +92,7 @@ class ProjectViewController: UIViewController {
     }
 }
 
-extension ProjectViewController: UITableViewDelegate,UITableViewDataSource {
+extension ProjectViewController: UITableViewDelegate, UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return section == 0 ? "Part Warnings": "Upcoming Builds"
@@ -120,7 +120,7 @@ extension ProjectViewController: UITableViewDelegate,UITableViewDataSource {
     }
 }
 
-extension ProjectViewController: TabBarViewController {
+extension ProjectViewController: TabBarViewController, FirebaseTableViewDelegate {
     
     public func didChangeProject(project: Project) {
         self.project = project
@@ -131,22 +131,4 @@ extension ProjectViewController: TabBarViewController {
 
     }
 
-}
-
-extension ProjectViewController: FirebaseTableViewDelegate {
-    func indexAdded<T: FIRDataObject>(at indexPath: IndexPath, data: T) {
-        warningsTableView.insertRows(at: [indexPath], with: .none)
-    }
-    
-    func indexChanged<T: FIRDataObject>(at indexPath: IndexPath, data: T) {
-        warningsTableView.reloadRows(at: [indexPath], with: .none)
-    }
-    
-    func indexRemoved(at indexPath: IndexPath, key: String) {
-        warningsTableView.deleteRows(at: [indexPath], with: .none)
-    }
-    
-    func indexMoved<T: FIRDataObject>(at indexPath: IndexPath, to toIndexPath: IndexPath, data: T) {
-        warningsTableView.moveRow(at: indexPath, to: toIndexPath)
-    }
 }

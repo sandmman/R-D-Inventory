@@ -111,13 +111,11 @@ public class CreatePartRowViewController: FormViewController, TypedRowController
 
     // Navigation
     
-    // This method lets you configure a view controller before it's presented.
     override public func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
         self.tableView?.endEditing(true)
 
-        //_ = createPart(from: form.values())
     }
 }
 

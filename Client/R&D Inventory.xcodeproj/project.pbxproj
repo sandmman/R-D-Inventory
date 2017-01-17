@@ -71,6 +71,7 @@
 		E3E080B01E1DFF1D00455D15 /* ProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E080AF1E1DFF1D00455D15 /* ProjectViewController.swift */; };
 		E3ECCE931E15B662009C936D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ECCE921E15B662009C936D /* Constants.swift */; };
 		E3ECCE9A1E15D0DC009C936D /* FIRDataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ECCE991E15D0DC009C936D /* FIRDataObject.swift */; };
+		E3F2171E1E2DE19D00ECD407 /* FirebaseTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F2171D1E2DE19D00ECD407 /* FirebaseTableViewDelegate.swift */; };
 		E3FD60611E1E0F1200E614EE /* TabBarViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FD60601E1E0F1200E614EE /* TabBarViewControllerProtocol.swift */; };
 		E3FD60631E1EF74300E614EE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FD60621E1EF74200E614EE /* LoginViewController.swift */; };
 		E3FD60651E1EF77100E614EE /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3FD60641E1EF77100E614EE /* Login.storyboard */; };
@@ -171,6 +172,7 @@
 		E3ECCE921E15B662009C936D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = "R&D Inventory/Constants.swift"; sourceTree = "<group>"; };
 		E3ECCE961E15C98A009C936D /* R&D Inventory.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "R&D Inventory.entitlements"; sourceTree = "<group>"; };
 		E3ECCE991E15D0DC009C936D /* FIRDataObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIRDataObject.swift; sourceTree = "<group>"; };
+		E3F2171D1E2DE19D00ECD407 /* FirebaseTableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseTableViewDelegate.swift; sourceTree = "<group>"; };
 		E3FD60601E1E0F1200E614EE /* TabBarViewControllerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewControllerProtocol.swift; sourceTree = "<group>"; };
 		E3FD60621E1EF74200E614EE /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E3FD60641E1EF77100E614EE /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
@@ -243,7 +245,6 @@
 				E398F1561E136C2200CD91D4 /* AssemblyTableViewController.swift */,
 				E3AFE9BC1E195775008DA196 /* InventoryTableViewController.swift */,
 				E34DAC0A1E1B477900A93215 /* SideBarTableViewController.swift */,
-				E3FD60601E1E0F1200E614EE /* TabBarViewControllerProtocol.swift */,
 			);
 			name = "Table Views";
 			sourceTree = "<group>";
@@ -351,6 +352,7 @@
 		E398F1171E1357E300CD91D4 /* R&D Inventory */ = {
 			isa = PBXGroup;
 			children = (
+				E3F2171F1E2DE1C500ECD407 /* Protocols */,
 				E398F1181E1357E300CD91D4 /* AppDelegate.swift */,
 				E398F11F1E1357E300CD91D4 /* Assets.xcassets */,
 				E3AF6CB31E18033F00AE0947 /* Configuration */,
@@ -457,6 +459,15 @@
 				E37DC4841E21DFB300A42792 /* Tab Bar */,
 			);
 			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		E3F2171F1E2DE1C500ECD407 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				E3FD60601E1E0F1200E614EE /* TabBarViewControllerProtocol.swift */,
+				E3F2171D1E2DE19D00ECD407 /* FirebaseTableViewDelegate.swift */,
+			);
+			name = Protocols;
 			sourceTree = "<group>";
 		};
 		E3FBFBDD1E1EFA27007AEB01 /* Login */ = {
@@ -710,6 +721,7 @@
 				E391B6E41E2A8FD9008C2BCE /* FirebaseDataSource.swift in Sources */,
 				E3FEED001E21B4EB00F5F7F4 /* BuildsCalendarViewController.swift in Sources */,
 				E345076E1E1F0ED700C5D8EA /* User.swift in Sources */,
+				E3F2171E1E2DE19D00ECD407 /* FirebaseTableViewDelegate.swift in Sources */,
 				E37DC48E1E23336B00A42792 /* SideBarFooterTableViewCell.swift in Sources */,
 				E398F15D1E15B28300CD91D4 /* FirebaseDataManager.swift in Sources */,
 				E336ED051E27F3080000DE15 /* ViewModel.swift in Sources */,

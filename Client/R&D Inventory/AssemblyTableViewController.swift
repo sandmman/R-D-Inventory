@@ -107,7 +107,7 @@ class AssemblyTableViewController: UITableViewController {
     }
 }
 
-extension AssemblyTableViewController: TabBarViewController {
+extension AssemblyTableViewController: TabBarViewController, FirebaseTableViewDelegate {
     
     
     public func didChangeProject(project: Project) {
@@ -118,30 +118,5 @@ extension AssemblyTableViewController: TabBarViewController {
         }
 
         model.project = project
-    }
-}
-
-protocol FirebaseTableViewDelegate: class {
-    func indexAdded<T: FIRDataObject>(at indexPath: IndexPath, data: T)
-    func indexChanged<T: FIRDataObject>(at indexPath: IndexPath, data: T)
-    func indexRemoved(at indexPath: IndexPath, key: String)
-    func indexMoved<T: FIRDataObject>(at indexPath: IndexPath, to toIndexPath: IndexPath, data: T)
-}
-
-extension AssemblyTableViewController: FirebaseTableViewDelegate {
-    func indexAdded<T: FIRDataObject>(at indexPath: IndexPath, data: T) {
-        tableView.insertRows(at: [indexPath], with: .none)
-    }
-    
-    func indexChanged<T: FIRDataObject>(at indexPath: IndexPath, data: T) {
-        tableView.reloadRows(at: [indexPath], with: .none)
-    }
-    
-    func indexRemoved(at indexPath: IndexPath, key: String) {
-        tableView.deleteRows(at: [indexPath], with: .none)
-    }
-    
-    func indexMoved<T: FIRDataObject>(at indexPath: IndexPath, to toIndexPath: IndexPath, data: T) {
-        tableView.moveRow(at: indexPath, to: toIndexPath)
     }
 }

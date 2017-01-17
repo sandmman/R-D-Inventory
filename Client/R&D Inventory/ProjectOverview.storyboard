@@ -103,7 +103,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="projectLabel" destination="cny-YT-plI" id="wFw-Gw-8wE"/>
-                        <outlet property="warningsTableView" destination="6b8-IO-qbn" id="XxO-5y-1RV"/>
+                        <outlet property="tableView" destination="6b8-IO-qbn" id="Qzf-PK-5Ju"/>
                         <segue destination="007-3X-xvn" kind="unwind" identifier="UnwindToProjectDetailSegue" unwindAction="unwindToTabBarControllerWithSender:" id="xcF-lS-YYu"/>
                     </connections>
                 </viewController>
