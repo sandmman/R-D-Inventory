@@ -70,6 +70,7 @@
 		E3ECCE931E15B662009C936D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ECCE921E15B662009C936D /* Constants.swift */; };
 		E3ECCE9A1E15D0DC009C936D /* FIRDataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ECCE991E15D0DC009C936D /* FIRDataObject.swift */; };
 		E3F2171E1E2DE19D00ECD407 /* FirebaseTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F2171D1E2DE19D00ECD407 /* FirebaseTableViewDelegate.swift */; };
+		E3F217281E2FDF9800ECD407 /* PartFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F217271E2FDF9800ECD407 /* PartFormModel.swift */; };
 		E3FD60611E1E0F1200E614EE /* TabBarViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FD60601E1E0F1200E614EE /* TabBarViewControllerProtocol.swift */; };
 		E3FD60631E1EF74300E614EE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FD60621E1EF74200E614EE /* LoginViewController.swift */; };
 		E3FD60651E1EF77100E614EE /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3FD60641E1EF77100E614EE /* Login.storyboard */; };
@@ -169,6 +170,7 @@
 		E3ECCE961E15C98A009C936D /* R&D Inventory.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "R&D Inventory.entitlements"; sourceTree = "<group>"; };
 		E3ECCE991E15D0DC009C936D /* FIRDataObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIRDataObject.swift; sourceTree = "<group>"; };
 		E3F2171D1E2DE19D00ECD407 /* FirebaseTableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseTableViewDelegate.swift; sourceTree = "<group>"; };
+		E3F217271E2FDF9800ECD407 /* PartFormModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartFormModel.swift; sourceTree = "<group>"; };
 		E3FD60601E1E0F1200E614EE /* TabBarViewControllerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewControllerProtocol.swift; sourceTree = "<group>"; };
 		E3FD60621E1EF74200E614EE /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E3FD60641E1EF77100E614EE /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
@@ -468,6 +470,7 @@
 			children = (
 				E378B64F1E28889600F03D00 /* FormViewModel.swift */,
 				E393AEB11E293ECE00ABF970 /* BuildFormViewModel.swift */,
+				E3F217271E2FDF9800ECD407 /* PartFormModel.swift */,
 			);
 			name = Forms;
 			sourceTree = "<group>";
@@ -726,6 +729,7 @@
 				E398F15D1E15B28300CD91D4 /* FirebaseDataManager.swift in Sources */,
 				E336ED051E27F3080000DE15 /* ViewModel.swift in Sources */,
 				E3AF6CB71E18135E00AE0947 /* CreateBuildViewController.swift in Sources */,
+				E3F217281E2FDF9800ECD407 /* PartFormModel.swift in Sources */,
 				E34DAC071E1B255D00A93215 /* PartIDCell.swift in Sources */,
 				E398F1531E13684500CD91D4 /* Part.swift in Sources */,
 				E336ED021E27347B0000DE15 /* PartDetailTableViewController.swift in Sources */,

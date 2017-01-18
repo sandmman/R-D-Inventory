@@ -44,7 +44,7 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
         
         let v = UITableViewHeaderFooterView()
 
-        if ( section == 0) {
+        if ( section == 1) {
             let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleBuildTap))
             tapRecognizer.delegate = self
             tapRecognizer.numberOfTapsRequired = 1
@@ -67,7 +67,7 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
     }
 
     public func handleBuildTap(gestureRecognizer: UIGestureRecognizer) {
-         performSegue(withIdentifier: Constants.Segues.CreateBuild, sender: self)
+         performSegue(withIdentifier: Constants.Segues.CreateBuild, sender: nil)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -109,7 +109,7 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
 
         viewModel.didSelectCell(at: didSelectRowAt)
         
-        let segue = didSelectRowAt.section == 0 ? Constants.Segues.BuildDetail : Constants.Segues.PartDetail
+        let segue = didSelectRowAt.section == 0 ? Constants.Segues.PartDetail : Constants.Segues.BuildDetail
         
         performSegue(withIdentifier: segue, sender: nil)
     }
@@ -124,23 +124,30 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
         }
         
         switch identifier {
+        
         case Constants.Segues.PartDetail:
-            let viewController = segue.destination as! PartDetailTableViewController
-
-            viewController.part = viewModel.selectedPart
             
-        case Constants.Segues.BuildDetail:
-            
-            guard let viewController = segue.destination as? CreateBuildViewController, let build = viewModel.selectedBuild else {
+            guard let viewController = segue.destination as? CreatePartViewController else {
                 return
             }
 
-            viewController.viewModel = BuildFormViewModel(project: viewModel.project!, build: build, callback: reloadCollectionViewCallback)
+            viewController.viewModel = viewModel.getPartFormViewModel()
+            
+        case Constants.Segues.BuildDetail:
+            
+            guard let viewController = segue.destination as? CreateBuildViewController else {
+                return
+            }
+
+            viewController.viewModel = viewModel.getBuildFormViewModel()
             
         case Constants.Segues.CreateBuild:
-            let viewController = segue.destination as! CreateBuildViewController
             
-            viewController.viewModel = viewModel.getNextViewModel()
+            guard let viewController = segue.destination as? CreateBuildViewController else {
+                return
+            }
+            
+            viewController.viewModel = viewModel.getBuildFormViewModel()
 
         default: break
         }

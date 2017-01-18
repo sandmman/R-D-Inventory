@@ -9,7 +9,7 @@
 import UIKit
 import Eureka
 
-class FormViewModel<T: FIRDataObject>: NSObject {
+class FormViewModel<T: FIRDataObject>: NSObject, UITextFieldDelegate {
     
     public var obj: T? = nil
     
@@ -29,19 +29,26 @@ class FormViewModel<T: FIRDataObject>: NSObject {
         
     }
     
-    public func textRow(for label: String) -> TextRow {
+    public func textRow(for label: String, isRequired: Bool = false) -> TextRow {
         return TextRow(label) {
+            $0.add(rule: RuleRequired())
                     $0.title = setDefaultTitle(for: label)
                     $0.placeholder = setDefaultValue(for: label) as? String ?? ""
                     $0.validationOptions = .validatesOnChangeAfterBlurred
+                    if isRequired {
+                        $0.add(rule: RuleRequired())
+                    }
                 }.onRowValidationChanged(Validator.onValidationChanged)
     }
     
-    public func intRow(for label: String) -> IntRow {
+    public func intRow(for label: String, isRequired: Bool = false) -> IntRow {
         return IntRow(label) {
                     $0.title = setDefaultTitle(for: label)
                     $0.placeholder = setDefaultValue(for: label) as? String ?? ""
                     $0.validationOptions = .validatesOnChangeAfterBlurred
+                    if isRequired {
+                        $0.add(rule: RuleRequired())
+                    }
                 }.onRowValidationChanged(Validator.onValidationChanged)
     }
     
@@ -58,6 +65,20 @@ class FormViewModel<T: FIRDataObject>: NSObject {
                     $0.value = setDefaultValue(for: label) as? Date ?? Date()
                 }
     }
+    
+    public func partIDRow(for label: String) -> PartIDRow {
+        return PartIDRow(Constants.PartFields.ID){ row in
+                    row.title = setDefaultTitle(for: Constants.PartFields.ID)
+                    row.placeholder = setDefaultValue(for: Constants.PartFields.ID) as? String ?? ""
+                    row.add(rule: RuleRequired())
+                    row.add(rule: RegexRule(regExpr: Constants.Patterns.PartID, allowsEmpty: true))
+                    row.validationOptions = .validatesOnChangeAfterBlurred
+            }.onRowValidationChanged(Validator.onValidationChanged)
+            .cellUpdate { cell, row in
+                cell.textField.tag = 1
+                cell.textField.delegate = self
+            }
+    }
 
     public func setDefaultTitle(for label: String) -> String {
         return ""
@@ -66,9 +87,18 @@ class FormViewModel<T: FIRDataObject>: NSObject {
     public func setDefaultValue(for label: String) -> Any {
         return ""
     }
-    
+
     public func completed(form: Form) -> Bool {
         return false
+    }
+    
+    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        let nsString = textField.text as NSString?
+        
+        let newString = nsString?.replacingCharacters(in: range, with: string)
+        
+        return Validator.checkPartIDFormat(field: textField, string: string, str: newString)
     }
 }
 

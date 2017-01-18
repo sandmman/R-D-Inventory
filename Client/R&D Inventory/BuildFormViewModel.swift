@@ -65,6 +65,11 @@ class BuildFormViewModel: FormViewModel<Build> {
         self.init(project: project, assembly: nil, assemblies: [], parts: [], build: build, callback: nil)
     }
     
+    public convenience init(project: Project, assembly: Assembly, build: Build) {
+        
+        self.init(project: project, assembly: assembly, assemblies: [], parts: [], build: build, callback: nil)
+    }
+    
     // MARK: - Form Overrides
     
     override func setDefaultValue(for label: String) -> Any {
