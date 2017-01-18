@@ -41,8 +41,8 @@ class CreateProjectViewController: FormViewController {
     }
 
     private func instantiateDoneButton() {
-        let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(CreateProjectViewController.save(_:)))
-        button.title = "Done"
+        let button = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(CreateProjectViewController.save(_:)))
+        button.title = "Save"
         navigationItem.rightBarButtonItem = button
     }
 

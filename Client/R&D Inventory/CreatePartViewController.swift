@@ -85,8 +85,8 @@ class CreatePartViewController: FormViewController, UITextFieldDelegate {
     }
 
     private func instantiateDoneButton() {
-        let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(CreatePartRowViewController.tappedDone(_:)))
-        button.title = "Done"
+        let button = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(CreatePartRowViewController.tappedDone(_:)))
+        button.title = "Save"
         navigationItem.rightBarButtonItem = button
     }
     

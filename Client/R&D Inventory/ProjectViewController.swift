@@ -73,6 +73,14 @@ class ProjectViewController: UIViewController {
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let _ = segue.identifier, let destination = segue.destination as? BuildDetailViewController else {
+            return
+        }
+
+        destination.build = viewModel.section2SelectedCell
+    }
+
     // MARK: Private Helpers
     
     fileprivate func configureView() {
@@ -102,6 +110,15 @@ extension ProjectViewController: UITableViewDelegate, UITableViewDataSource {
         return UITableViewAutomaticDimension
     }
     
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        if indexPath.section == 1 {
+            viewModel.didSelectCell(at: indexPath)
+            performSegue(withIdentifier: Constants.Segues.BuildDetail, sender: nil)
+        }
+        
+    }
+
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfItemsInSection(section: section)
     }
@@ -115,7 +132,8 @@ extension ProjectViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.BuildWarning, for: indexPath)
         
         cell.textLabel?.text = viewModel.objectDataSources.0.list[indexPath.row].title
-        
+        cell.detailTextLabel?.text = viewModel.objectDataSources.0.list[indexPath.row].type.rawValue
+
         return cell
     }
 }

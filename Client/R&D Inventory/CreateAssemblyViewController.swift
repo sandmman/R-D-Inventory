@@ -32,7 +32,7 @@ class CreateAssemblyViewController: FormViewController {
     }
     
     private func instantiateDoneButton() {
-        let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(CreateAssemblyViewController.save))
+        let button = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(CreateAssemblyViewController.save))
         button.title = "Save"
         navigationItem.rightBarButtonItem = button
     }

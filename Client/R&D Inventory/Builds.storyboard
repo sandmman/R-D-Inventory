@@ -15,7 +15,7 @@
                 <navigationController id="fV3-Mp-eQc" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Builds" image="Builds" selectedImage="Builds" id="IcZ-dT-Cyr"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="UKv-tz-MLR">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="UKv-tz-MLR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -56,18 +56,18 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="66"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VzX-p8-fPL" id="Lg9-Mj-tk3">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="65.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="65"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2AB-WH-Qs6">
-                                                    <rect key="frame" x="15" y="16" width="33.5" height="20.5"/>
+                                                    <rect key="frame" x="15" y="15" width="34" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3rG-U5-d8z">
-                                                    <rect key="frame" x="15" y="36.5" width="44" height="14.5"/>
+                                                    <rect key="frame" x="15" y="36" width="44" height="15"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
