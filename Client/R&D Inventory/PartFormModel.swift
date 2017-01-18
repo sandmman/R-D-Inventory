@@ -67,23 +67,34 @@ class PartFormModel: FormViewModel<Part> {
         }
     }
 
-    public override func completed(form: Form) -> Bool {
+    public override func completed(form: Form) -> Part? {
         
         return isEditing ? updatePart(from: form) : savePart(from: form)
     }
     
-    private func updatePart(from form: Form) -> Bool {
-        return true
+    public func instantiateForm() -> Form {
+        return Section("Info")
+            <<< textRow(for: Constants.PartFields.Name, isRequired: true)
+            <<< textRow(for: Constants.PartFields.Manufacturer, isRequired: true)
+            <<< partIDRow(for: Constants.PartFields.ID)
+            +++ Section("Detail")
+            <<< intRow(for: Constants.PartFields.CountInAssembly)
+            <<< intRow(for: Constants.PartFields.CountInStock)
+            <<< intRow(for: Constants.PartFields.CountOnOrder)
+            <<< intRow(for: Constants.PartFields.LeadTime)
+    }
+    private func updatePart(from form: Form) -> Part? {
+        return nil
     }
     
-    private func savePart(from form: Form) -> Bool {
+    private func savePart(from form: Form) -> Part? {
         
         guard let part = ObjectMapper.createPart(from: form), let proj = project else {
-            return false
+            return nil
         }
         
         FirebaseDataManager.save(part: part, to: proj)
 
-        return true
+        return part
     }
 }

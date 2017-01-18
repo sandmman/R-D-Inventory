@@ -98,41 +98,41 @@ class BuildFormViewModel: FormViewModel<Build> {
         }
     }
     
-    public override func completed(form: Form) -> Bool {
+    public override func completed(form: Form) -> Build? {
 
         return isEditing ? updateBuild(from: form) : saveBuild(from: form)
     }
     
     // MARK: - Save
 
-    private func saveBuild(from form: Form) -> Bool {
+    private func saveBuild(from form: Form) -> Build? {
         
         guard let build = ObjectMapper.createBuild(from: form, parts: parts) else {
-            return false
+            return nil
         }
         
         guard let assembly = assembly, let project = project else {
-            return false
+            return nil
         }
         
         FirebaseDataManager.save(build: build, to: assembly, within: project)
 
-        return true
+        return build
     }
     
-    private func updateBuild(from form: Form) -> Bool {
+    private func updateBuild(from form: Form) -> Build? {
         
         guard let oldBuild = obj else {
-            return false
+            return nil
         }
         
         guard let newBuild = ObjectMapper.update(build: oldBuild, from: form, parts: parts) else {
-            return false
+            return nil
         }
         
         FirebaseDataManager.update(build: newBuild)
 
-        return true
+        return newBuild
     }
 
     // MARK: - Callbacks

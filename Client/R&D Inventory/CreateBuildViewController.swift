@@ -111,7 +111,7 @@ class CreateBuildViewController: FormViewController {
 
     public func completedForm(_ sender: UIBarButtonItem) {
 
-        guard viewModel.completed(form: form) else {
+        guard let _ = viewModel.completed(form: form) else {
             return
         }
 

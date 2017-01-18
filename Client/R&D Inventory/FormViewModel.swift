@@ -88,8 +88,8 @@ class FormViewModel<T: FIRDataObject>: NSObject, UITextFieldDelegate {
         return ""
     }
 
-    public func completed(form: Form) -> Bool {
-        return false
+    public func completed(form: Form) -> T? {
+        return nil
     }
     
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

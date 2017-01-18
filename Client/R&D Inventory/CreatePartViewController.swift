@@ -18,30 +18,18 @@ class CreatePartViewController: FormViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         
-        self.instantiateForm()
+        form = viewModel.instantiateForm()
+
         self.instantiateDoneButton()
     }
     
     public func completedForm(_ sender: UIBarButtonItem) {
         
-        guard viewModel.completed(form: form) else {
+        guard let _ = viewModel.completed(form: form) else {
             return
         }
         
         _ = navigationController?.popViewController(animated: true)
-    }
-    
-    private func instantiateForm() {
-
-        form = Section("Info")
-            <<< viewModel.textRow(for: Constants.PartFields.Name, isRequired: true)
-            <<< viewModel.textRow(for: Constants.PartFields.Manufacturer, isRequired: true)
-            <<< viewModel.partIDRow(for: Constants.PartFields.ID)
-            +++ Section("Detail")
-            <<< viewModel.intRow(for: Constants.PartFields.CountInAssembly)
-            <<< viewModel.intRow(for: Constants.PartFields.CountInStock)
-            <<< viewModel.intRow(for: Constants.PartFields.CountOnOrder)
-            <<< viewModel.intRow(for: Constants.PartFields.LeadTime)
     }
 
     private func instantiateDoneButton() {
