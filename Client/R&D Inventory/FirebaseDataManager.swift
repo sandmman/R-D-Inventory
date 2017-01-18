@@ -118,7 +118,7 @@ extension FirebaseDataManager: DataManager {
             }
         }
     }
-    
+
     public static func getBuilds(for assembly: Assembly, onComplete: @escaping (Build) -> ()) {
         
         assemblyRef.child(assembly.key).child("builds").observeSingleEvent(of: .value, with: { snapshot in

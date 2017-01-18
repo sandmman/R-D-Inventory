@@ -129,10 +129,10 @@
             </objects>
             <point key="canvasLocation" x="1608.8" y="-800.14992503748135"/>
         </scene>
-        <!--Build Detail View Controller-->
+        <!--Create Build View Controller-->
         <scene sceneID="9pI-nN-NlL">
             <objects>
-                <viewController id="zh6-3e-Kp0" customClass="BuildDetailViewController" customModule="R_D_Inventory" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="zh6-3e-Kp0" customClass="CreateBuildViewController" customModule="R_D_Inventory" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Kw8-uA-KhC"/>
                         <viewControllerLayoutGuide type="bottom" id="9tT-2s-0JL"/>

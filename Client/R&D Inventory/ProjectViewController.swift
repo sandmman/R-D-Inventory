@@ -74,11 +74,12 @@ class ProjectViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let _ = segue.identifier, let destination = segue.destination as? BuildDetailViewController else {
+        guard let _ = segue.identifier, let destination = segue.destination as? CreateBuildViewController, let build = viewModel.section2SelectedCell   else {
             return
         }
 
-        destination.build = viewModel.section2SelectedCell
+        destination.viewModel = BuildFormViewModel(project: project, build: build)
+        
     }
 
     // MARK: Private Helpers

@@ -79,6 +79,63 @@ public class ObjectMapper: Mapper {
         
         return assem
     }
+    
+    static func update(build: Build, from form: Form, parts: [Part]) -> Build? {
+        
+        var build = build
+        
+        var updated = false
+        
+        
+        guard let dateRow: DateInlineRow = form.rowBy(tag: Constants.BuildFields.Date),
+            let quantityRow: IntRow = form.rowBy(tag: Constants.BuildFields.Quantity),
+            let titleRow: TextRow = form.rowBy(tag: Constants.BuildFields.Title),
+            let checkRow: SwitchRow = form.rowBy(tag: Constants.BuildFields.BType),
+            let pushRow: PushRow<Assembly> = form.rowBy(tag: Constants.BuildFields.AssemblyID) else {
+                return nil
+            }
+        
+        if let title = titleRow.value {
+            if build.title != title {
+                build.title = title
+                updated = true
+            }
+        }
+        if let quantity = quantityRow.value {
+            if build.quantity != quantity {
+                build.quantity = quantity
+                updated = true
+            }
+        }
+        if let date = dateRow.value {
+            if build.scheduledDate != date {
+                build.scheduledDate = date
+                updated = true
+            }
+        }
+        if let type_bool = checkRow.value {
+            let type = type_bool ? BuildType.Custom : BuildType.Standard
+            if build.type != type {
+                build.type = type
+                updated = true
+            }
+            if type_bool {
+                var partsNeeded = [String: Int]()
+                
+                for part in parts {
+                    if let row = form.rowBy(tag: part.key) as? StepperRow, let value = row.value {
+                        partsNeeded[part.key] = Int(value)
+                    }
+                }
+                if build.partsNeeded != partsNeeded {
+                    build.partsNeeded = partsNeeded
+                    updated = true
+                }
+            }
+        }
+        
+        return build
+    }
 }
 
 extension ObjectMapper {

@@ -130,10 +130,12 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
             viewController.part = viewModel.selectedPart
             
         case Constants.Segues.BuildDetail:
-            let viewController = segue.destination as! BuildDetailViewController
             
-            viewController.build = viewModel.selectedBuild
-            //viewController.parts = viewModel.parts
+            guard let viewController = segue.destination as? CreateBuildViewController, let build = viewModel.selectedBuild else {
+                return
+            }
+
+            viewController.viewModel = BuildFormViewModel(project: viewModel.project!, build: build, callback: reloadCollectionViewCallback)
             
         case Constants.Segues.CreateBuild:
             let viewController = segue.destination as! CreateBuildViewController

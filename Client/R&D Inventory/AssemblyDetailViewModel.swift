@@ -42,8 +42,8 @@ class AssemblyDetailViewModel: PViewModel<Part, Build> {
         buildDataSource.delegate = self
     }
 
-    public func getNextViewModel() -> FormViewModel? {
-        return FormViewModel(project: project!, assembly: assembly, parts: parts.list)
+    public func getNextViewModel() -> BuildFormViewModel {
+        return BuildFormViewModel(project: project!, assembly: assembly, assemblies: [], parts: parts.list, callback: nil)
     }
 }
 

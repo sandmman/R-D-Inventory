@@ -49,8 +49,8 @@ class BuildsViewModel: NSObject {
         buildsDataSource.stopSync()
     }
 
-    public func getNextViewModel(_ assembly: Assembly? = nil) -> FormViewModel {
-        return FormViewModel(project: project, assembly: assembly)
+    public func getNextViewModel(_ assembly: Assembly? = nil) -> BuildFormViewModel {
+        return BuildFormViewModel(project: project, assembly: assembly)
     }
 
 }

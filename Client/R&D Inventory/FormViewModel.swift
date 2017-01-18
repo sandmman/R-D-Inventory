@@ -7,86 +7,68 @@
 //
 
 import UIKit
+import Eureka
 
-class FormViewModel: NSObject {
+class FormViewModel<T: FIRDataObject>: NSObject {
     
-    var project: Project!
+    public var obj: T? = nil
     
-    var assembly: Assembly? = nil
-
-    var assemblies = [Assembly]()
+    public var isEditing: Bool {
+        return obj != nil
+    }
     
-    var parts = [Part]()
+    public var project: Project? = nil
     
-    var generic = false
-
-    var assemblyCallback: (() -> ())? = nil
-
-    public init(project: Project, assemblyCallback: @escaping ()->()) {
+    public init(project: Project, obj: T? = nil) {
         
         self.project = project
         
-        self.assemblyCallback = assemblyCallback
-
-        super.init()
+        self.obj = obj
         
-        retrieveData()
+        super.init()
         
     }
     
-    public init(project: Project, assembly: Assembly, assemblyCallback: @escaping ()->()) {
-        
-        self.project = project
-        
-        self.assembly = assembly
-
-        self.assemblyCallback = assemblyCallback
-        
-        super.init()
-        
-        retrieveData()
-        
+    public func textRow(for label: String) -> TextRow {
+        return TextRow(label) {
+                    $0.title = setDefaultTitle(for: label)
+                    $0.placeholder = setDefaultValue(for: label) as? String ?? ""
+                    $0.validationOptions = .validatesOnChangeAfterBlurred
+                }.onRowValidationChanged(Validator.onValidationChanged)
     }
     
-    public init(project: Project, assembly: Assembly, parts: [Part]) {
-        
-        self.project = project
-        
-        self.assembly = assembly
-        
-        self.parts = parts
-        
-        super.init()
-
-        retrieveData()
-    }
-
-    public init(project: Project, assembly: Assembly?) {
-        self.generic = assembly == nil
-        
-        self.assembly = assembly
-
-        self.project = project
-        
-        super.init()
-
-        retrieveData()
-    }
-
-    public func retrieveData() {
-        FirebaseDataManager.getAssemblies(for: project, onComplete: didReceive)
+    public func intRow(for label: String) -> IntRow {
+        return IntRow(label) {
+                    $0.title = setDefaultTitle(for: label)
+                    $0.placeholder = setDefaultValue(for: label) as? String ?? ""
+                    $0.validationOptions = .validatesOnChangeAfterBlurred
+                }.onRowValidationChanged(Validator.onValidationChanged)
     }
     
-    public func defaultAssembly() -> Assembly? {
-        if let assem = assembly {
-            return assem
-        }
-        return assemblies.count > 0 ? assemblies[0] : nil
+    public func switchRow(for label: String) -> SwitchRow {
+        return SwitchRow(label) {
+                    $0.title = setDefaultTitle(for: label)
+                    $0.value = setDefaultValue(for: label) as? Bool ?? false
+                }
+    }
+    
+    public func dateInLineRow(for label: String) -> DateInlineRow {
+        return DateInlineRow(label) {
+                    $0.title = setDefaultTitle(for: label)
+                    $0.value = setDefaultValue(for: label) as? Date ?? Date()
+                }
     }
 
-    private func didReceive(assembly: Assembly) {
-        assemblies.append(assembly)
-        
-        assemblyCallback?()
+    public func setDefaultTitle(for label: String) -> String {
+        return ""
+    }
+    
+    public func setDefaultValue(for label: String) -> Any {
+        return ""
+    }
+    
+    public func completed(form: Form) -> Bool {
+        return false
     }
 }
+
