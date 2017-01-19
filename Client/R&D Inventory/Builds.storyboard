@@ -15,7 +15,7 @@
                 <navigationController id="fV3-Mp-eQc" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Builds" image="Builds" selectedImage="Builds" id="IcZ-dT-Cyr"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="UKv-tz-MLR">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="UKv-tz-MLR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

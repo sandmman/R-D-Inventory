@@ -99,6 +99,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <segue destination="9dO-LO-AkT" kind="show" identifier="PartDetailSegue" id="85P-1x-orZ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f73-Zy-j8u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -129,7 +132,7 @@
                     <tabBarItem key="tabBarItem" title="Inventory" image="Parts" selectedImage="Parts" id="JcF-ot-aRY"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="qwB-2N-9Ad">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qwB-2N-9Ad">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -147,4 +150,7 @@
         <image name="Parts" width="15" height="15"/>
         <image name="sidebar" width="15" height="15"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="85P-1x-orZ"/>
+    </inferredMetricsTieBreakers>
 </document>

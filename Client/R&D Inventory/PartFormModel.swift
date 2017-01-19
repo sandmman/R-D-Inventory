@@ -11,13 +11,7 @@ import Eureka
 
 class PartFormModel: FormViewModel<Part> {
     
-    public var assembly: Assembly? = nil {
-        didSet {
-            guard let assem = assembly else {
-                return
-            }
-        }
-    }
+    public var assembly: Assembly? = nil
 
     public var didReceivePart: (((Part, Int)) -> ())? = nil
     
@@ -72,7 +66,7 @@ class PartFormModel: FormViewModel<Part> {
         return isEditing ? updatePart(from: form) : savePart(from: form)
     }
     
-    public func instantiateForm() -> Form {
+    public override func instantiateForm() -> Form {
         return Section("Info")
             <<< textRow(for: Constants.PartFields.Name, isRequired: true)
             <<< textRow(for: Constants.PartFields.Manufacturer, isRequired: true)
@@ -83,7 +77,21 @@ class PartFormModel: FormViewModel<Part> {
             <<< intRow(for: Constants.PartFields.CountOnOrder)
             <<< intRow(for: Constants.PartFields.LeadTime)
     }
+    
+    // MARK: - Helpers
+
     private func updatePart(from form: Form) -> Part? {
+        
+        guard let oldPart = obj else {
+            return nil
+        }
+        
+        guard let newPart = ObjectMapper.update(part: oldPart, from: form) else {
+            return nil
+        }
+
+        FirebaseDataManager.update(part: newPart)
+
         return nil
     }
     
@@ -92,7 +100,7 @@ class PartFormModel: FormViewModel<Part> {
         guard let part = ObjectMapper.createPart(from: form), let proj = project else {
             return nil
         }
-        
+
         FirebaseDataManager.save(part: part, to: proj)
 
         return part

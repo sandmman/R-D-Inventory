@@ -16,6 +16,10 @@ private protocol Mapper {
     static func createBuild(from form: Form, parts: [Part]) -> Build?
 
     static func createPart(from form: Form) -> Part?
+    
+    static func update(part: Part, from form: Form) -> Part?
+    
+    static func update(build: Build, from form: Form, parts: [Part]) -> Build?
 }
 
 public class ObjectMapper: Mapper {
@@ -80,44 +84,80 @@ public class ObjectMapper: Mapper {
         return assem
     }
     
+    static func update(part: Part, from form: Form) -> Part? {
+        
+        var part = part
+        var didUpdate = false
+
+        let rows = form.values()
+        
+        if let name = rows[Constants.PartFields.Name] as? String {
+            part.name = name
+            didUpdate = true
+        }
+        if let uid  = rows[Constants.PartFields.ID] as? String {
+            part.key = uid
+            didUpdate = true
+        }
+        if let manufacturer = rows[Constants.PartFields.Manufacturer] as? String {
+            part.manufacturer = manufacturer
+            didUpdate = true
+        }
+        if let leadTime = rows[Constants.PartFields.LeadTime] as? Int {
+            part.leadTime = leadTime
+            didUpdate = true
+        }
+        if let countInAssembly = rows[Constants.PartFields.CountInAssembly] as? Int {
+            part.countInAssembly = countInAssembly
+            didUpdate = true
+        }
+        if let countInStock = rows[Constants.PartFields.CountInStock] as? Int {
+            part.countInStock = countInStock
+            didUpdate = true
+        }
+        if let countOnOrder = rows[Constants.PartFields.CountOnOrder] as? Int {
+            part.countOnOrder = countOnOrder
+            didUpdate = true
+        }
+        
+        return didUpdate ? part : nil
+        
+    }
+
     static func update(build: Build, from form: Form, parts: [Part]) -> Build? {
         
         var build = build
-        
-        var updated = false
-        
-        
+        var didUpdate = false
+
         guard let dateRow: DateInlineRow = form.rowBy(tag: Constants.BuildFields.Date),
             let quantityRow: IntRow = form.rowBy(tag: Constants.BuildFields.Quantity),
             let titleRow: TextRow = form.rowBy(tag: Constants.BuildFields.Title),
-            let checkRow: SwitchRow = form.rowBy(tag: Constants.BuildFields.BType),
-            let pushRow: PushRow<Assembly> = form.rowBy(tag: Constants.BuildFields.AssemblyID) else {
-                return nil
+            let checkRow: SwitchRow = form.rowBy(tag: Constants.BuildFields.BType) else {                return nil
             }
         
         if let title = titleRow.value {
             if build.title != title {
                 build.title = title
-                updated = true
+                didUpdate = true
             }
         }
         if let quantity = quantityRow.value {
             if build.quantity != quantity {
                 build.quantity = quantity
-                updated = true
+                didUpdate = true
             }
         }
         if let date = dateRow.value {
             if build.scheduledDate != date {
                 build.scheduledDate = date
-                updated = true
+                didUpdate = true
             }
         }
         if let type_bool = checkRow.value {
             let type = type_bool ? BuildType.Custom : BuildType.Standard
             if build.type != type {
                 build.type = type
-                updated = true
+                didUpdate = true
             }
             if type_bool {
                 var partsNeeded = [String: Int]()
@@ -129,12 +169,12 @@ public class ObjectMapper: Mapper {
                 }
                 if build.partsNeeded != partsNeeded {
                     build.partsNeeded = partsNeeded
-                    updated = true
+                    didUpdate = true
                 }
             }
         }
         
-        return build
+        return didUpdate ? build : nil
     }
 }
 

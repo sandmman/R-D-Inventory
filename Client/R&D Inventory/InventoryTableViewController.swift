@@ -52,6 +52,11 @@ class InventoryTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.didSelectCell(at: indexPath)
+        performSegue(withIdentifier: Constants.Segues.PartDetail, sender: nil)
+    }
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         
@@ -68,7 +73,12 @@ class InventoryTableViewController: UITableViewController {
         if segue.identifier == Constants.Segues.CreatePart, let dest = segue.destination as? CreatePartViewController {
             
             dest.project = project
+
+            dest.viewModel = PartFormModel(project: project, assembly: nil)
             
+        } else if segue.identifier == Constants.Segues.PartDetail, let dest = segue.destination as? CreatePartViewController {
+            
+            dest.viewModel = PartFormModel(project: project, assembly: nil, part: viewModel.section1SelectedCell!)
         }
     }
     

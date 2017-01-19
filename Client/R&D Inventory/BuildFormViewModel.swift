@@ -28,6 +28,8 @@ class BuildFormViewModel: FormViewModel<Build> {
 
     public var didReceiveAssembly: (() -> ())? = nil
     
+    public var didChangeAssembly: ((PushRow<Assembly>) -> ())!
+
     // MARK: - Initializers
 
     public init(project: Project, assembly: Assembly?, assemblies: [Assembly], parts: [Part], build: Build? = nil, callback: (()->())?) {
@@ -81,6 +83,12 @@ class BuildFormViewModel: FormViewModel<Build> {
         case Constants.BuildFields.Date             : return isEditing ? obj!.scheduledDate     : Date()
         case Constants.BuildFields.BType            : return isEditing ? obj!.type == .Standard ? false : true : false
         case Constants.BuildFields.Notifications    : return false
+        case Constants.BuildFields.AssemblyID       :
+            if isEditing {
+                return ""
+            } else {
+                return assemblies.count > 0 ? assemblies[0] : ""
+            }
         default                                     : return ""
         }
     }
@@ -94,10 +102,46 @@ class BuildFormViewModel: FormViewModel<Build> {
         case Constants.BuildFields.Date         : return "Scheduled Date"
         case Constants.BuildFields.BType        : return "Custom Build?"
         case Constants.BuildFields.Notifications: return "Receive Notification?"
+        case Constants.BuildFields.AssemblyID   : return "Assembly"
         default                                 : return ""
         }
     }
     
+    public override func instantiateForm() -> Form {
+        
+        let form = Form()
+        
+        let partsNeededTag = "Parts Needed"
+
+        form +++ Section("Please Choose Assembly for Build") {
+                    $0.hidden = Condition.function([""], { form in return self.isEditing })
+                }
+                <<< PushRow<Assembly>(Constants.BuildFields.AssemblyID) {
+                    $0.title = setDefaultTitle(for: Constants.BuildFields.AssemblyID)
+                    $0.options = assemblies
+                    $0.value = setDefaultValue(for: Constants.BuildFields.AssemblyID) as? Assembly ?? nil
+                    $0.selectorTitle = "Choose an Assembly!"
+                    $0.add(rule: RuleRequired())
+                    $0.validationOptions = .validatesOnChangeAfterBlurred
+                    $0.displayValueFor = { return $0?.name }
+                }.onChange(didChangeAssembly)
+            +++ Section("General")
+                <<< textRow(for: Constants.BuildFields.Title)
+                <<< intRow(for: Constants.BuildFields.Quantity)
+                <<< textRow(for: Constants.BuildFields.Location)
+                <<< dateInLineRow(for: Constants.BuildFields.Date)
+                <<< switchRow(for: Constants.BuildFields.Notifications)
+                <<< switchRow(for: Constants.BuildFields.BType)
+        
+        let partsSection = Section(partsNeededTag) { $0.hidden = "$type == false" }
+        
+        partsSection.append(contentsOf: parts.map { stepperRow(part: $0) })
+        
+        form +++ partsSection
+        
+        return form
+    }
+
     public override func completed(form: Form) -> Build? {
 
         return isEditing ? updateBuild(from: form) : saveBuild(from: form)
@@ -114,7 +158,7 @@ class BuildFormViewModel: FormViewModel<Build> {
         guard let assembly = assembly, let project = project else {
             return nil
         }
-        
+
         FirebaseDataManager.save(build: build, to: assembly, within: project)
 
         return build
@@ -129,7 +173,7 @@ class BuildFormViewModel: FormViewModel<Build> {
         guard let newBuild = ObjectMapper.update(build: oldBuild, from: form, parts: parts) else {
             return nil
         }
-        
+
         FirebaseDataManager.update(build: newBuild)
 
         return newBuild
@@ -145,6 +189,7 @@ class BuildFormViewModel: FormViewModel<Build> {
             didReceivePart?((part, 0))
             return
         }
+
         didReceivePart?((part, value))
     }
     

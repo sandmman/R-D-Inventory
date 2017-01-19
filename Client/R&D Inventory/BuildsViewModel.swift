@@ -50,6 +50,9 @@ class BuildsViewModel: NSObject {
     }
 
     public func getNextViewModel(_ assembly: Assembly? = nil) -> BuildFormViewModel {
+        if let build = selectedCell {
+            return BuildFormViewModel(project: project, build: build)
+        }
         return BuildFormViewModel(project: project, assembly: assembly)
     }
 

@@ -46,6 +46,7 @@ class FormViewModel<T: FIRDataObject>: NSObject, UITextFieldDelegate {
                     $0.title = setDefaultTitle(for: label)
                     $0.placeholder = setDefaultValue(for: label) as? String ?? ""
                     $0.validationOptions = .validatesOnChangeAfterBlurred
+                    $0.add(rule: RuleGreaterOrEqualThan(min: 0))
                     if isRequired {
                         $0.add(rule: RuleRequired())
                     }
@@ -79,6 +80,13 @@ class FormViewModel<T: FIRDataObject>: NSObject, UITextFieldDelegate {
                 cell.textField.delegate = self
             }
     }
+    
+    public func stepperRow(part: Part, value: Int = 0) -> StepperRow {
+        return StepperRow(part.key) {
+            $0.title = part.name
+            $0.value = Double(value)
+        }
+    }
 
     public func setDefaultTitle(for label: String) -> String {
         return ""
@@ -92,6 +100,10 @@ class FormViewModel<T: FIRDataObject>: NSObject, UITextFieldDelegate {
         return nil
     }
     
+    public func instantiateForm() -> Form {
+        return Form()
+    }
+
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         let nsString = textField.text as NSString?
