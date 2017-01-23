@@ -46,14 +46,6 @@ public protocol DataManager {
     
     static func update(project: Project)
     
-    static func delete(assembly: Assembly)
-    
-    static func delete(build: Build)
-    
-    static func delete(part: Part)
-    
-    static func delete(project: Project)
-    
     static func getParts(for assembly: Assembly, onComplete: @escaping (Part) -> ())
     
     static func getBuilds(for assembly: Assembly, onComplete: @escaping (Build) -> ())

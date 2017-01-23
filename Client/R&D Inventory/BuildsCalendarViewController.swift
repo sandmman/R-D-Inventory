@@ -9,6 +9,11 @@
 import UIKit
 import FSCalendar
 
+public protocol CalendarDataSourceDelegate {
+    func reloadCalendar()
+    func reloadTableView()
+}
+
 class BuildsCalendarViewController: UIViewController {
     
     var project: Project!
@@ -23,29 +28,28 @@ class BuildsCalendarViewController: UIViewController {
         
         initializeCalendar()
         
-        viewModel = BuildsViewModel(project: project, reloadCollectionViewCallback: reloadData)
+        viewModel = BuildsViewModel(project: project)
+        
+        viewModel.delegate = self
+        
+        viewModel.calendarDelegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        viewModel.listenForObjects()
+        
+        reloadTableView()
+        reloadCalendar()
+
+        viewModel.startSync()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        viewModel.deinitialize()
+        viewModel.stopSync()
     }
     
     // MARK: - Navigation
     
-    @IBAction func unwindToBuildCalendar(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.source as? CreateBuildViewController {
-            
-            guard let build = sourceViewController.newBuild else {
-                return
-            }
-            
-            viewModel.add(build: build)            
-        }
-    }
+    @IBAction func unwindToBuildCalendar(sender: UIStoryboardSegue) {}
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let _ = segue.identifier, let destination = segue.destination as? CreateBuildViewController else {
@@ -54,17 +58,6 @@ class BuildsCalendarViewController: UIViewController {
 
         destination.viewModel = viewModel.getNextViewModel(nil)
 
-    }
-    
-    // MARK: Private Functions
-    
-    private func reloadData() {
-        DispatchQueue.main.async {
-            if self.tableView != nil && self.calendar != nil {
-                self.tableView.reloadData()
-                self.calendar.reloadData()
-            }
-        }
     }
 }
 
@@ -84,7 +77,7 @@ extension BuildsCalendarViewController: FSCalendarDataSource, FSCalendarDelegate
     }
     
     public func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        return viewModel.builds[date.display]?.count ?? 0
+        return viewModel.buildsDataSource.count(date: date.display)
     }
     
     public func calendar(_ calendar: FSCalendar, didSelect date: Date) {
@@ -93,8 +86,8 @@ extension BuildsCalendarViewController: FSCalendarDataSource, FSCalendarDelegate
     
     public func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
         
-        guard let day = date.day else {
-            return UIColor.darkGray
+        guard let day = date.day, date.month == Date().month else {
+            return UIColor.lightGray
         }
         
         return day == 1 || day == 7 ? UIColor.lightGray : UIColor.darkGray
@@ -104,25 +97,27 @@ extension BuildsCalendarViewController: FSCalendarDataSource, FSCalendarDelegate
 extension BuildsCalendarViewController: UITableViewDelegate, UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfItemsInSection(section: section)
+        return viewModel.numberOfItemsInSection(date: calendar.selectedDate)
     }
     
     public func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.numberOfSectionsInCollectionView()
     }
     
+    public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            
+            viewModel.delete(from: tableView, at: indexPath)
+        }
+    }
+
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.Builds, for: indexPath)
-        
-        if let buildArr = viewModel.builds[calendar.selectedDate.display] {
-            
-            cell.textLabel?.text = buildArr[indexPath.row].title
-            cell.detailTextLabel?.text = buildArr[indexPath.row].type.rawValue
-            
+        guard let buildArr = viewModel.buildsDataSource.dict[calendar.selectedDate.display] else {
+            return UITableViewCell()
         }
         
-        return cell
+        return buildArr[indexPath.row].cellForTableView(tableView: tableView, at: indexPath)
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -135,11 +130,23 @@ extension BuildsCalendarViewController: TabBarViewController {
     
     public func didChangeProject(project: Project) {
         self.project = project
-
-        guard let vm = viewModel else {
-            return
-        }
-        vm.project = project
+        
+        viewModel?.project = project
     }
 
+}
+
+extension BuildsCalendarViewController: FirebaseTableViewDelegate, CalendarDataSourceDelegate {
+    
+    public func reloadTableView() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    
+    public func reloadCalendar() {
+        DispatchQueue.main.async {
+            self.calendar.reloadData()
+        }
+    }
 }

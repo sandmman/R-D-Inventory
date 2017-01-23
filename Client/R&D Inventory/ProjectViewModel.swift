@@ -8,122 +8,53 @@
 
 import UIKit
 
-class ProjectViewModel: NSObject {
+class ProjectViewModel: PViewModel<Build, Build> {
     
     var warnings = [(Part, Build)]()
     
-    var upcoming = [Build]()
-    
     var selectedWarning: (Part, Build)? = nil
     
-    var selectedBuild: Build? = nil
+    var dataSource: ProjectDataSource<Build> {
+        return objectDataSources.0 as! ProjectDataSource<Build>
+    }
 
-    private let listener: ListenerHandler!
-    
-    private let reloadCollectionViewCallback : (()->())!
-    
-    internal let kNumberOfSectionsInTableView = 2
-    
-    var project: Project? = nil {
-        didSet {
-            warnings = []
-            upcoming = []
+    public init(project: Project, section: Int) {
+        
+        let dataSource = ProjectDataSource<Build>(section: section, project: project)
+        
+        super.init(objectDataSources: (dataSource, nil), project: project)
 
-            reloadCollectionViewCallback()
-        }
+        dataSource.delegate = self
     }
     
-    public init(project: Project, reloadCollectionViewCallback : @escaping (()->())) {
-        
-        self.project = project
-        
-        self.reloadCollectionViewCallback = reloadCollectionViewCallback
-        
-        self.listener = ListenerHandler()
-
-        super.init()
-        
-        listenForObjects()
-        
-    }
-    
-    public init(reloadCollectionViewCallback : @escaping (()->())) {
-        
-        self.reloadCollectionViewCallback = reloadCollectionViewCallback
-        
-        listener = ListenerHandler()
-        
-        super.init()
-        
-        listenForObjects()
-        
-    }
-    
-    public func listenForObjects() {
-        listener.listenForObjects(for: project, onComplete: didReceive)
-    }
-    
-    public func deinitialize() {
-        listener.removeListeners()
-    }
-    
-    private func didReceive(build: Build) {
-        
-        let yesterdayDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
-        let nextWeekDate = Calendar.current.date(byAdding: .weekOfYear, value: 1, to: Date())!
-    
-        if let index = upcoming.index(of: build) {
-            
-            self.upcoming[index] = build
-            
-        } else {
-            
-            if build.scheduledDate < nextWeekDate && build.scheduledDate > yesterdayDate {
-                self.upcoming.append(build)
-            }
-            
-        }
-        
-        reloadCollectionViewCallback()
-    }
-}
-
-extension ProjectViewModel {
-    
-    public func delete(from tableView: UITableView, at indexPath: IndexPath) {
+    public override func delete(from tableView: UITableView, at indexPath: IndexPath) {
         if indexPath.section == 0 {
-
-        } else {
-            let object = upcoming.remove(at: indexPath.row)
             
-            object.delete()
+        } else {
+            dataSource.remove(at: indexPath.row)
+            
         }
         
         tableView.deleteRows(at: [indexPath], with: .fade)
         
     }
     
-}
+    public override func numberOfSectionsInCollectionView() -> Int {
+        return 2
+    }
 
-extension ProjectViewModel {
-    
-    public func numberOfItemsInSection(section : Int) -> Int {
+    public override func numberOfItemsInSection(section : Int) -> Int {
         
-        return section == 0 ? warnings.count : upcoming.count
+        return section == 0 ? warnings.count : dataSource.count
         
     }
     
-    public func numberOfSectionsInCollectionView() -> Int {
-        
-        return kNumberOfSectionsInTableView
-        
-    }
-    
-    public func selectedCell(at indexPath: IndexPath) {
+    public override func didSelectCell(at indexPath: IndexPath) {
         if indexPath.section == 0 {
             selectedWarning = warnings[indexPath.row]
         } else {
-            selectedBuild = upcoming[indexPath.row]
+            section2SelectedCell = dataSource.list[indexPath.row]
         }
     }
 }
+

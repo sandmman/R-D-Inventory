@@ -6,19 +6,21 @@
 //  Copyright © 2017 Aaron Liberatore. All rights reserved.
 //
 
-import UIKit
-import Firebase
+import Foundation
+import FirebaseSwift
 
 public struct Project: FIRDataObject {
     
     public var key: String = UUID().description
     
-    public var ref: FIRDatabaseReference? = nil
-
     public var name: String
 
     public var assemblies = [String]()
     
+    public var builds = [String]()
+    
+    public var parts = [String]()
+
     public init?(name: String, assemblies: [String] = []) {
         
         guard !name.isEmpty else {
@@ -29,9 +31,9 @@ public struct Project: FIRDataObject {
         self.assemblies = assemblies        
     }
     
-    public init?(snapshot: FIRDataSnapshot) {
+    public init?(key: String, value: Any) {
 
-        guard let value = snapshot.value as? [String: Any],
+        guard let value = value as? [String: Any],
             let name = value[Constants.ProjectFields.Name] as? String else {
 
                 return nil
@@ -42,18 +44,27 @@ public struct Project: FIRDataObject {
         if let assemblies = value[Constants.ProjectFields.Assemblies] as? [String: Bool] {
             self.assemblies = [String] ( assemblies.keys )
         }
+        if let builds = value[Constants.ProjectFields.Builds] as? [String: Bool] {
+            self.builds = [String] ( builds.keys )
+        }
+        if let parts = value[Constants.ProjectFields.Parts] as? [String: Bool] {
+            self.parts = [String] ( parts.keys )
+        }
         
-        key = snapshot.key
+        self.key = key
         
-        ref = snapshot.ref
     }
 
     public func toAnyObject() -> Any {
         let assembly: [String: Bool] = assemblies.reduce([String: Bool](), convertToDict)
-        
+        let build: [String: Bool] = builds.reduce([String: Bool](), convertToDict)
+        let part: [String: Bool] = parts.reduce([String: Bool](), convertToDict)
+
         return [
             Constants.ProjectFields.Name        : name,
-            Constants.ProjectFields.Assemblies  : assembly
+            Constants.ProjectFields.Assemblies  : assembly,
+            Constants.ProjectFields.Builds      : build,
+            Constants.ProjectFields.Parts       : part
         ]
     }
     
@@ -62,30 +73,11 @@ public struct Project: FIRDataObject {
         dict[String(describing: e)] = true
         return dict
     }
-    
-    public static func rootRef(with project: Project? = nil) -> FIRDatabaseReference {
-        return FirebaseDataManager.projectsRef
-    }
-}
-
-extension Project: TableViewCompatible {
-    
-    public var reuseIdentifier: String {
-        return Constants.TableViewCells.Project
-    }
-    
-    public func cellForTableView(tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath)
-        
-        cell.textLabel?.text = name
-        
-        return cell
-    }
 }
 
 extension Project {
     
-    public func delete<T: FIRDataObject>(obj: T) {
+    /*public func delete<T: FIRDataObject>(obj: T) {
         guard let r = ref else {
             return
         }
@@ -97,5 +89,5 @@ extension Project {
         default: break
         }
         
-    }
+    }*/
 }

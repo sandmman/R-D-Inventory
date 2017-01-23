@@ -11,168 +11,71 @@ import Eureka
 
 class CreateBuildViewController: FormViewController {
     
-    var viewModel: FormViewModel!
-    
-    var newBuild: Build? = nil
+    public var viewModel: BuildFormViewModel!
 
     private var partsNeededTag = "Parts Needed"
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        instantiateView()
         
-        viewModel.assemblyCallback = didUpdateAssemblies
+        viewModel.didReceivePart = didReceivePart
+        viewModel.didReceiveAssembly = didUpdateAssemblies
+        viewModel.didChangeAssembly = didChangeAssembly
+        
+        instantiateView()
     }
     
     private func instantiateView() {
         guard viewModel.project != nil else {
             return
         }
-        instantiateForm()
+
+        self.form = viewModel.instantiateForm()
+
         instantiateDoneButton()
     }
 
-    private func didUpdateAssemblies() {
+    private func instantiateDoneButton() {
+        let button = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(CreateBuildViewController.completedForm(_:)))
+        button.title = "Save"
+        navigationItem.rightBarButtonItem = button
+    }
     
+    private func didChangeAssembly(row: PushRow<Assembly>) {
+        viewModel.assembly = row.value
+        
+        guard let section = self.form.allSections.last else {
+            return
+        }
+        
+        section.removeAll()
+    }
+
+    private func didReceivePart(part: Part, value: Int = 0) {
+        guard let section = form.allSections.last else {
+            return
+        }
+
+        section.append(viewModel.stepperRow(part: part, value: value))
+        
+        section.reload()
+    }
+    
+    private func didUpdateAssemblies() {
+        
         if let cell: PushRow<Assembly> = form.rowBy(tag: Constants.BuildFields.AssemblyID) {
             cell.options = viewModel.assemblies
             cell.reload()
         }
     }
 
-    private func instantiateForm() {
-        
-        form +++ Section("Please Choose Assembly for Build") {
-                $0.hidden = Condition.function([""], { form in
-                    return !self.viewModel.generic
-                })
-            }
-            <<< PushRow<Assembly>(Constants.BuildFields.AssemblyID) {
-                $0.title = "Assembly"
-                $0.options = viewModel.assemblies
-                $0.value = viewModel.defaultAssembly()
-                $0.selectorTitle = "Choose an Assembly!"
-                $0.add(rule: RuleRequired())
-                $0.validationOptions = .validatesOnChangeAfterBlurred
-                $0.displayValueFor  = {
-                    if let t = $0 {
-                        return t.name
-                    }
-                    return nil
-                    }
-                }
-                .onChange { row in
-                
-                    self.updateSection(assembly: row.value)
-                    
-                }
-            +++ Section("General")
-            <<< TextRow(Constants.BuildFields.Title) {
-                $0.title = "Name"
-                $0.placeholder = ""
-                $0.add(rule: RuleRequired())
-                $0.validationOptions = .validatesOnChangeAfterBlurred
-            }.onRowValidationChanged(Validator.onValidationChanged)
-            <<< IntRow(Constants.BuildFields.Quantity) {
-                $0.title = "Quantity"
-                $0.placeholder = ""
-                $0.add(rule: RuleRequired())
-                $0.validationOptions = .validatesOnChangeAfterBlurred
-            }.onRowValidationChanged(Validator.onValidationChanged)
-            <<< TextRow(Constants.BuildFields.Location) {
-                $0.title = "Location"
-                $0.placeholder = ""
-            }
-            <<< DateInlineRow(Constants.BuildFields.Date) {
-                $0.title = "Scheduled Date"
-                $0.value = Date()
-            }
-            <<< SwitchRow("Notification") {
-                $0.title = "Receive Notifications"
-            }
-            <<< SwitchRow(Constants.BuildFields.BType) {
-                $0.title = "Custom Build?"
-                $0.value = false
-            }
-    
-        let partsSection = Section(partsNeededTag) { $0.hidden = "$type == false" }
-        
-        for part in viewModel.parts {
-            partsSection.append(stepperRow(part: part))
-        }
-        
-        form +++ partsSection
-        
-    }
+    public func completedForm(_ sender: UIBarButtonItem) {
 
-    private func updateSection(assembly: Assembly?) {
-
-        guard let section = form.allSections.last else {
+        guard let _ = viewModel.completed(form: form) else {
             return
         }
 
-        section.removeAll()
-        
-        guard let assembly = assembly else {
-            return
-        }
-
-        FirebaseDataManager.getParts(for: assembly, onComplete: didAddPartToSection)
-    }
-    
-    private func didAddPartToSection(part: Part) {
-        guard let section = form.allSections.last else {
-            return
-        }
-
-        viewModel.parts.append(part)
-
-        section.append(stepperRow(part: part))
-        
-        section.reload()
-    }
-
-    private func stepperRow(part: Part) -> StepperRow {
-        return StepperRow(part.key) {
-            $0.title = part.name
-            $0.value = 0
-        }
-    }
-
-    private func instantiateDoneButton() {
-        let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(CreateBuildViewController.completedForm(_:)))
-        button.title = "Save"
-        navigationItem.rightBarButtonItem = button
-    }
-    
-    public func completedForm(_ sender: UIBarButtonItem){
-
-        // Todo Clean this up to work straight from the form without the parts
-        guard let build = ObjectMapper.createBuild(from: form, parts: viewModel.parts), let proj = viewModel.project else {
-            return
-        }
-        
-        newBuild = build
-        
-        if viewModel.generic {
-            
-            guard let row: PushRow<Assembly> = form.rowBy(tag:  Constants.BuildFields.AssemblyID), let val = row.value else {
-                return
-            }
-
-            FirebaseDataManager.save(build: build, to: val, within: proj)
-
-        } else {
-
-            guard let assem = viewModel.assembly else { return }
-
-            FirebaseDataManager.save(build: build, to: assem, within: proj)
-        }
-        
-        let segue = viewModel.generic ? Constants.Segues.UnwindToBuildCalendar : Constants.Segues.UnwindToAssemblyDetail
-
-        self.performSegue(withIdentifier: segue, sender: self)
+        _ = navigationController?.popViewController(animated: true)
     }
     
     // MARK: - Navigation

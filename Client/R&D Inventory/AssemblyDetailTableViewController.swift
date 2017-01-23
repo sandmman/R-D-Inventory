@@ -9,50 +9,42 @@
 import UIKit
 import Eureka
 
-class AssemblyDetailTableViewController: UITableViewController, UIGestureRecognizerDelegate {
-    
-    var project: Project!
-
-    var assembly: Assembly!
+class AssemblyDetailTableViewController: UITableViewController, UIGestureRecognizerDelegate, FirebaseTableViewDelegate {
     
     var viewModel: AssemblyDetailViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel = AssemblyDetailViewModel(project: project, assembly: assembly, reloadCollectionViewCallback:
-        reloadCollectionViewCallback)
+        viewModel.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if let row = tableView.indexPathForSelectedRow {
-            self.tableView.deselectRow(at: row, animated: false)
-        }
-        viewModel.retreiveData()
+        
+        tableView.reloadData()
+
+        viewModel.startSync()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        viewModel.deinitialize()
+        viewModel.stopSync()
     }
 
     @IBAction func unwindToAssemblyDetail(sender: UIStoryboardSegue) {
-        if let _ = sender.source as? CreateBuildViewController {
-            
-            reloadCollectionViewCallback()
-        }
+        
     }
     
     //MARK: - TableView
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section == 0 ? "Builds" : "Parts"
+        return section == 0 ? "Parts" : "Builds"
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let v = UITableViewHeaderFooterView()
 
-        if ( section == 0) {
+        if ( section == 1) {
             let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleBuildTap))
             tapRecognizer.delegate = self
             tapRecognizer.numberOfTapsRequired = 1
@@ -71,11 +63,11 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return indexPath.section == 0 ? true : false
+        return indexPath.section == 0 ? false : true
     }
 
     public func handleBuildTap(gestureRecognizer: UIGestureRecognizer) {
-         performSegue(withIdentifier: Constants.Segues.CreateBuild, sender: self)
+         performSegue(withIdentifier: Constants.Segues.CreateBuild, sender: nil)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -87,26 +79,37 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.part)! as UITableViewCell
-        
         if indexPath.section == 0 {
-            cell.textLabel?.text = viewModel.builds[indexPath.row].title
-            cell.detailTextLabel?.text = viewModel.builds[indexPath.row].displayDate
+            
+            let count = viewModel.parts.list.count
+
+            guard count > indexPath.row else {
+                return UITableViewCell()
+            }
+            
+            let part = viewModel.parts.list[indexPath.row]
+
+            return part.cellForTableView(tableView: tableView, at: indexPath)
             
         } else {
-            cell.textLabel?.text = viewModel.parts[indexPath.row].name
-            cell.detailTextLabel?.text = viewModel.parts[indexPath.row].manufacturer
+
+            let count = viewModel.builds.list.count
+
+            guard count > indexPath.row else {
+                return UITableViewCell()
+            }
+            
+            let build = viewModel.builds.list[indexPath.row]
+
+            return build.cellForTableView(tableView: tableView, at: indexPath)
         }
-        
-        
-        return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt: IndexPath) {
 
-        viewModel.selectedCell(at: didSelectRowAt)
+        viewModel.didSelectCell(at: didSelectRowAt)
         
-        let segue = didSelectRowAt.section == 0 ? Constants.Segues.BuildDetail : Constants.Segues.PartDetail
+        let segue = didSelectRowAt.section == 0 ? Constants.Segues.PartDetail : Constants.Segues.BuildDetail
         
         performSegue(withIdentifier: segue, sender: nil)
     }
@@ -121,21 +124,30 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
         }
         
         switch identifier {
+        
         case Constants.Segues.PartDetail:
-            let viewController = segue.destination as! PartDetailTableViewController
+            
+            guard let viewController = segue.destination as? CreatePartViewController else {
+                return
+            }
 
-            viewController.part = viewModel.selectedPart
+            viewController.viewModel = viewModel.getPartFormViewModel()
             
         case Constants.Segues.BuildDetail:
-            let viewController = segue.destination as! BuildDetailViewController
             
-            viewController.build = viewModel.selectedBuild
-            viewController.parts = viewModel.parts
+            guard let viewController = segue.destination as? CreateBuildViewController else {
+                return
+            }
+
+            viewController.viewModel = viewModel.getBuildFormViewModel()
             
         case Constants.Segues.CreateBuild:
-            let viewController = segue.destination as! CreateBuildViewController
             
-            viewController.viewModel = viewModel.getNextViewModel()
+            guard let viewController = segue.destination as? CreateBuildViewController else {
+                return
+            }
+            
+            viewController.viewModel = viewModel.getBuildFormViewModel()
 
         default: break
         }
@@ -143,7 +155,7 @@ class AssemblyDetailTableViewController: UITableViewController, UIGestureRecogni
     
     // MARK: - Private
     
-    private func reloadCollectionViewCallback() {
+    fileprivate func reloadCollectionViewCallback() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }

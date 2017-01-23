@@ -19,15 +19,18 @@ class AssemblyTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel = ViewModel<Assembly>(project: project, reloadCollectionViewCallback: reloadCollectionViewData)
+        viewModel = ViewModel<Assembly>(project: project, section: 0)
+        viewModel.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        viewModel.listenForObjects()
+        reloadCollectionViewData()
+        
+        viewModel.startSync()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        viewModel.deinitialize()
+        viewModel.stopSync()
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -42,11 +45,15 @@ class AssemblyTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.assembly, for: indexPath)
+        let count = viewModel.objectDataSources.0.count
 
-        cell.textLabel?.text = viewModel.objects[indexPath.row].name
+        guard count > indexPath.row else {
+            return UITableViewCell()
+        }
         
-        return cell
+        let model = viewModel.objectDataSources.0.list[indexPath.row]
+
+        return model.cellForTableView(tableView: tableView, at: indexPath)
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -73,7 +80,7 @@ class AssemblyTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        viewModel.selectedCell(at: indexPath)
+        viewModel.didSelectCell(at: indexPath)
         
         performSegue(withIdentifier: Constants.Segues.AssemblyDetail, sender: self)
     }
@@ -83,8 +90,7 @@ class AssemblyTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.Segues.AssemblyDetail, let viewController = segue.destination as? AssemblyDetailTableViewController {
 
-            viewController.assembly = viewModel.selectedCell
-            viewController.project = viewModel.project
+            viewController.viewModel = AssemblyDetailViewModel(project: project, assembly: viewModel.section1SelectedCell!)
             
         } else if (segue.identifier == Constants.Segues.CreateAssembly), let viewController = segue.destination as? CreateAssemblyViewController {
             
@@ -101,7 +107,7 @@ class AssemblyTableViewController: UITableViewController {
     }
 }
 
-extension AssemblyTableViewController: TabBarViewController {
+extension AssemblyTableViewController: TabBarViewController, FirebaseTableViewDelegate {
     
     
     public func didChangeProject(project: Project) {

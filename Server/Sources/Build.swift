@@ -5,9 +5,8 @@
 //  Created by Aaron Liberatore on 12/30/16.
 //  Copyright © 2016 Aaron Liberatore. All rights reserved.
 //
-
-import UIKit
-import Firebase
+import Foundation
+import FirebaseSwift
 
 public enum BuildType: String {
     case Standard = "standard"
@@ -17,8 +16,6 @@ public enum BuildType: String {
 public struct Build: FIRDataObject {
     
     public var key: String = UUID().description
-    
-    public var ref: FIRDatabaseReference? = nil
 
     public var type: BuildType
 
@@ -29,10 +26,6 @@ public struct Build: FIRDataObject {
     public var assemblyID: String
     
     public var scheduledDate: Date
-    
-    public var displayDate: String {
-        return scheduledDate.display
-    }
     
     public var partsNeeded = [String: Int]()
 
@@ -51,9 +44,9 @@ public struct Build: FIRDataObject {
 
     }
     
-    public init?(snapshot: FIRDataSnapshot) {
-        
-        guard let value = snapshot.value as? [String: Any],
+    public init?(key: String, value: Any) {
+
+        guard let value = value as? [String: Any],
               let str_type = value[Constants.BuildFields.BType] as? String,
               let type = BuildType(rawValue: str_type),
               let quantity = value[Constants.BuildFields.Quantity] as? Int,
@@ -75,12 +68,11 @@ public struct Build: FIRDataObject {
 
         partsNeeded = (value[Constants.BuildFields.PartsNeeded] as? [String: Int]) ?? [:]
 
-        key = snapshot.key
+        self.key = key
         
-        ref = snapshot.ref        
     }
     
-    public func delete() {
+    /*public func delete() {
         guard let ref = self.ref else {
             return
         }
@@ -88,7 +80,7 @@ public struct Build: FIRDataObject {
         Assembly.rootRef().child(assemblyID).child(Constants.Types.Build).child(key).removeValue()
 
         ref.removeValue()
-    }
+    }*/
 
     public func toAnyObject() -> Any {
         return [
@@ -99,28 +91,5 @@ public struct Build: FIRDataObject {
             Constants.BuildFields.BType         : type.rawValue,
             Constants.BuildFields.Quantity      : quantity,
         ]
-    }
-    
-    public static func rootRef(with project: Project? = nil) -> FIRDatabaseReference {
-        guard let proj = project else {
-            return FirebaseDataManager.buildsRef
-        }
-        return FirebaseDataManager.projectsRef.child(proj.key).child(Constants.Types.Build)
-    }
-}
-
-extension Build: TableViewCompatible {
-    
-    public var reuseIdentifier: String {
-        return Constants.TableViewCells.Build
-    }
-    
-    public func cellForTableView(tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath)
-        
-        cell.textLabel?.text = title
-        cell.detailTextLabel?.text = type.rawValue
-        
-        return cell
     }
 }

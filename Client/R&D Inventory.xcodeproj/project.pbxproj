@@ -38,6 +38,14 @@
 		E37DC48A1E2301AC00A42792 /* SideBarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37DC4891E2301AC00A42792 /* SideBarTableViewCell.swift */; };
 		E37DC48C1E23174600A42792 /* InitialProjectCreation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E37DC48B1E23174600A42792 /* InitialProjectCreation.storyboard */; };
 		E37DC48E1E23336B00A42792 /* SideBarFooterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37DC48D1E23336B00A42792 /* SideBarFooterTableViewCell.swift */; };
+		E391B6E21E29F3EB008C2BCE /* FirebaseArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = E391B6E11E29F3EB008C2BCE /* FirebaseArray.swift */; };
+		E391B6E41E2A8FD9008C2BCE /* FirebaseDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E391B6E31E2A8FD9008C2BCE /* FirebaseDataSource.swift */; };
+		E391B6E61E2A98E0008C2BCE /* ProjectDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E391B6E51E2A98E0008C2BCE /* ProjectDataSource.swift */; };
+		E391B6E81E2A9960008C2BCE /* AssemblyDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E391B6E71E2A9960008C2BCE /* AssemblyDataSource.swift */; };
+		E391B6EB1E2ABC2D008C2BCE /* PViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E391B6EA1E2ABC2D008C2BCE /* PViewModel.swift */; };
+		E391B6ED1E2AC88D008C2BCE /* CalendarDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E391B6EC1E2AC88D008C2BCE /* CalendarDataSource.swift */; };
+		E391B6EF1E2AC9C4008C2BCE /* FirebaseDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = E391B6EE1E2AC9C4008C2BCE /* FirebaseDictionary.swift */; };
+		E393AEB21E293ECE00ABF970 /* BuildFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E393AEB11E293ECE00ABF970 /* BuildFormViewModel.swift */; };
 		E398F1191E1357E300CD91D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F1181E1357E300CD91D4 /* AppDelegate.swift */; };
 		E398F1201E1357E300CD91D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E398F11F1E1357E300CD91D4 /* Assets.xcassets */; };
 		E398F1231E1357E300CD91D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E398F1211E1357E300CD91D4 /* LaunchScreen.storyboard */; };
@@ -54,7 +62,6 @@
 		E398F15D1E15B28300CD91D4 /* FirebaseDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E398F15C1E15B28300CD91D4 /* FirebaseDataManager.swift */; };
 		E3AF6CB01E1762E000AE0947 /* Build.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AF6CAF1E1762E000AE0947 /* Build.swift */; };
 		E3AF6CB71E18135E00AE0947 /* CreateBuildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AF6CB61E18135E00AE0947 /* CreateBuildViewController.swift */; };
-		E3AF6CB91E1840EF00AE0947 /* BuildDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AF6CB81E1840EF00AE0947 /* BuildDetailViewController.swift */; };
 		E3AFE9BD1E195775008DA196 /* InventoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AFE9BC1E195775008DA196 /* InventoryTableViewController.swift */; };
 		E3AFE9C51E19B0EB008DA196 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AFE9C41E19B0EB008DA196 /* DataManager.swift */; };
 		E3AFE9C71E19B45B008DA196 /* CreatePartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3AFE9C61E19B45B008DA196 /* CreatePartViewController.swift */; };
@@ -62,6 +69,8 @@
 		E3E080B01E1DFF1D00455D15 /* ProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E080AF1E1DFF1D00455D15 /* ProjectViewController.swift */; };
 		E3ECCE931E15B662009C936D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ECCE921E15B662009C936D /* Constants.swift */; };
 		E3ECCE9A1E15D0DC009C936D /* FIRDataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3ECCE991E15D0DC009C936D /* FIRDataObject.swift */; };
+		E3F2171E1E2DE19D00ECD407 /* FirebaseTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F2171D1E2DE19D00ECD407 /* FirebaseTableViewDelegate.swift */; };
+		E3F217281E2FDF9800ECD407 /* PartFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3F217271E2FDF9800ECD407 /* PartFormModel.swift */; };
 		E3FD60611E1E0F1200E614EE /* TabBarViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FD60601E1E0F1200E614EE /* TabBarViewControllerProtocol.swift */; };
 		E3FD60631E1EF74300E614EE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FD60621E1EF74200E614EE /* LoginViewController.swift */; };
 		E3FD60651E1EF77100E614EE /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3FD60641E1EF77100E614EE /* Login.storyboard */; };
@@ -122,6 +131,14 @@
 		E37DC4891E2301AC00A42792 /* SideBarTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideBarTableViewCell.swift; sourceTree = "<group>"; };
 		E37DC48B1E23174600A42792 /* InitialProjectCreation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = InitialProjectCreation.storyboard; sourceTree = "<group>"; };
 		E37DC48D1E23336B00A42792 /* SideBarFooterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideBarFooterTableViewCell.swift; sourceTree = "<group>"; };
+		E391B6E11E29F3EB008C2BCE /* FirebaseArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseArray.swift; sourceTree = "<group>"; };
+		E391B6E31E2A8FD9008C2BCE /* FirebaseDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseDataSource.swift; sourceTree = "<group>"; };
+		E391B6E51E2A98E0008C2BCE /* ProjectDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectDataSource.swift; sourceTree = "<group>"; };
+		E391B6E71E2A9960008C2BCE /* AssemblyDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssemblyDataSource.swift; sourceTree = "<group>"; };
+		E391B6EA1E2ABC2D008C2BCE /* PViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PViewModel.swift; sourceTree = "<group>"; };
+		E391B6EC1E2AC88D008C2BCE /* CalendarDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarDataSource.swift; sourceTree = "<group>"; };
+		E391B6EE1E2AC9C4008C2BCE /* FirebaseDictionary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseDictionary.swift; sourceTree = "<group>"; };
+		E393AEB11E293ECE00ABF970 /* BuildFormViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildFormViewModel.swift; sourceTree = "<group>"; };
 		E398F1151E1357E300CD91D4 /* R&D Inventory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "R&D Inventory.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E398F1181E1357E300CD91D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E398F11F1E1357E300CD91D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -144,7 +161,6 @@
 		E398F15C1E15B28300CD91D4 /* FirebaseDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseDataManager.swift; sourceTree = "<group>"; };
 		E3AF6CAF1E1762E000AE0947 /* Build.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Build.swift; sourceTree = "<group>"; };
 		E3AF6CB61E18135E00AE0947 /* CreateBuildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateBuildViewController.swift; sourceTree = "<group>"; };
-		E3AF6CB81E1840EF00AE0947 /* BuildDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildDetailViewController.swift; sourceTree = "<group>"; };
 		E3AFE9BC1E195775008DA196 /* InventoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = InventoryTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E3AFE9C41E19B0EB008DA196 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		E3AFE9C61E19B45B008DA196 /* CreatePartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CreatePartViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -153,6 +169,8 @@
 		E3ECCE921E15B662009C936D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = "R&D Inventory/Constants.swift"; sourceTree = "<group>"; };
 		E3ECCE961E15C98A009C936D /* R&D Inventory.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "R&D Inventory.entitlements"; sourceTree = "<group>"; };
 		E3ECCE991E15D0DC009C936D /* FIRDataObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIRDataObject.swift; sourceTree = "<group>"; };
+		E3F2171D1E2DE19D00ECD407 /* FirebaseTableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseTableViewDelegate.swift; sourceTree = "<group>"; };
+		E3F217271E2FDF9800ECD407 /* PartFormModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartFormModel.swift; sourceTree = "<group>"; };
 		E3FD60601E1E0F1200E614EE /* TabBarViewControllerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewControllerProtocol.swift; sourceTree = "<group>"; };
 		E3FD60621E1EF74200E614EE /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E3FD60641E1EF77100E614EE /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
@@ -219,11 +237,12 @@
 		E30E055F1E1C8D9D0048539B /* Table Views */ = {
 			isa = PBXGroup;
 			children = (
+				E3E080AF1E1DFF1D00455D15 /* ProjectViewController.swift */,
+				E398F1461E13602E00CD91D4 /* AssemblyDetailTableViewController.swift */,
 				E3FEECFF1E21B4EB00F5F7F4 /* BuildsCalendarViewController.swift */,
 				E398F1561E136C2200CD91D4 /* AssemblyTableViewController.swift */,
 				E3AFE9BC1E195775008DA196 /* InventoryTableViewController.swift */,
 				E34DAC0A1E1B477900A93215 /* SideBarTableViewController.swift */,
-				E3FD60601E1E0F1200E614EE /* TabBarViewControllerProtocol.swift */,
 			);
 			name = "Table Views";
 			sourceTree = "<group>";
@@ -235,7 +254,8 @@
 				E378B6491E283A5400F03D00 /* BuildsViewModel.swift */,
 				E378B64B1E285C2800F03D00 /* AssemblyDetailViewModel.swift */,
 				E378B64D1E286D9B00F03D00 /* ProjectViewModel.swift */,
-				E378B64F1E28889600F03D00 /* FormViewModel.swift */,
+				E3F217261E2F3C8500ECD407 /* Forms */,
+				E391B6EA1E2ABC2D008C2BCE /* PViewModel.swift */,
 			);
 			name = ViewModels;
 			sourceTree = "<group>";
@@ -243,10 +263,7 @@
 		E364121F1E1DFB7300F4A5A2 /* Detail Views */ = {
 			isa = PBXGroup;
 			children = (
-				E398F1461E13602E00CD91D4 /* AssemblyDetailTableViewController.swift */,
-				E3AF6CB81E1840EF00AE0947 /* BuildDetailViewController.swift */,
 				E398F14C1E1363A600CD91D4 /* PartViewController.swift */,
-				E3E080AF1E1DFF1D00455D15 /* ProjectViewController.swift */,
 				E336ED011E27347B0000DE15 /* PartDetailTableViewController.swift */,
 			);
 			name = "Detail Views";
@@ -294,6 +311,17 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		E391B6E91E2AB65A008C2BCE /* DataSouces */ = {
+			isa = PBXGroup;
+			children = (
+				E391B6E31E2A8FD9008C2BCE /* FirebaseDataSource.swift */,
+				E391B6E51E2A98E0008C2BCE /* ProjectDataSource.swift */,
+				E391B6E71E2A9960008C2BCE /* AssemblyDataSource.swift */,
+				E391B6EC1E2AC88D008C2BCE /* CalendarDataSource.swift */,
+			);
+			name = DataSouces;
+			sourceTree = "<group>";
+		};
 		E398F10C1E1357E300CD91D4 = {
 			isa = PBXGroup;
 			children = (
@@ -326,6 +354,7 @@
 				E370B6851E19F0F800C0E349 /* CustomFormFields */,
 				E384849D1E1AFC3A007E3DE3 /* Helpers */,
 				E3AF6CB11E18031A00AE0947 /* Models */,
+				E3F2171F1E2DE1C500ECD407 /* Protocols */,
 				E3AF6CB21E18032500AE0947 /* Stores */,
 				E3AFE9C01E19AC82008DA196 /* Storyboards */,
 				E3AF6CB51E1808A300AE0947 /* TableViewCells */,
@@ -373,6 +402,9 @@
 				E398F15C1E15B28300CD91D4 /* FirebaseDataManager.swift */,
 				E3AFE9C41E19B0EB008DA196 /* DataManager.swift */,
 				E30E055A1E1B63E70048539B /* Listener.swift */,
+				E391B6E11E29F3EB008C2BCE /* FirebaseArray.swift */,
+				E391B6EE1E2AC9C4008C2BCE /* FirebaseDictionary.swift */,
+				E391B6E91E2AB65A008C2BCE /* DataSouces */,
 			);
 			name = Stores;
 			sourceTree = "<group>";
@@ -422,6 +454,25 @@
 				E37DC4841E21DFB300A42792 /* Tab Bar */,
 			);
 			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		E3F2171F1E2DE1C500ECD407 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				E3FD60601E1E0F1200E614EE /* TabBarViewControllerProtocol.swift */,
+				E3F2171D1E2DE19D00ECD407 /* FirebaseTableViewDelegate.swift */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
+		E3F217261E2F3C8500ECD407 /* Forms */ = {
+			isa = PBXGroup;
+			children = (
+				E378B64F1E28889600F03D00 /* FormViewModel.swift */,
+				E393AEB11E293ECE00ABF970 /* BuildFormViewModel.swift */,
+				E3F217271E2FDF9800ECD407 /* PartFormModel.swift */,
+			);
+			name = Forms;
 			sourceTree = "<group>";
 		};
 		E3FBFBDD1E1EFA27007AEB01 /* Login */ = {
@@ -647,38 +698,47 @@
 				E34DAC091E1B397900A93215 /* Validator.swift in Sources */,
 				E34FC4951E16B4E50028D36C /* CreateAssemblyViewController.swift in Sources */,
 				E398F1511E1363C500CD91D4 /* AssemblyTableViewCell.swift in Sources */,
+				E391B6EB1E2ABC2D008C2BCE /* PViewModel.swift in Sources */,
 				E398F1471E13602E00CD91D4 /* AssemblyDetailTableViewController.swift in Sources */,
 				E398F1571E136C2200CD91D4 /* AssemblyTableViewController.swift in Sources */,
 				E336ED001E271B720000DE15 /* Date.swift in Sources */,
 				E3589E321E21B6A500EC1D39 /* bridged_header.m in Sources */,
 				E3AF6CB01E1762E000AE0947 /* Build.swift in Sources */,
 				E3ECCE9A1E15D0DC009C936D /* FIRDataObject.swift in Sources */,
+				E391B6E21E29F3EB008C2BCE /* FirebaseArray.swift in Sources */,
 				E3AFE9C71E19B45B008DA196 /* CreatePartViewController.swift in Sources */,
+				E391B6EF1E2AC9C4008C2BCE /* FirebaseDictionary.swift in Sources */,
 				E3ECCE931E15B662009C936D /* Constants.swift in Sources */,
 				E3AFE9C51E19B0EB008DA196 /* DataManager.swift in Sources */,
 				E378B6501E28889600F03D00 /* FormViewModel.swift in Sources */,
 				E32CD1071E161326005A35BD /* CreatePartRowViewController.swift in Sources */,
+				E393AEB21E293ECE00ABF970 /* BuildFormViewModel.swift in Sources */,
 				E37DC48A1E2301AC00A42792 /* SideBarTableViewCell.swift in Sources */,
 				E398F14D1E1363A600CD91D4 /* PartViewController.swift in Sources */,
-				E3AF6CB91E1840EF00AE0947 /* BuildDetailViewController.swift in Sources */,
 				E378B64A1E283A5400F03D00 /* BuildsViewModel.swift in Sources */,
 				E30E055D1E1C61A40048539B /* CreateProjectViewController.swift in Sources */,
 				E34DAC0D1E1B48A000A93215 /* Project.swift in Sources */,
 				E3FD60631E1EF74300E614EE /* LoginViewController.swift in Sources */,
+				E391B6E81E2A9960008C2BCE /* AssemblyDataSource.swift in Sources */,
 				E34FC4931E16B31F0028D36C /* PartRow.swift in Sources */,
+				E391B6E41E2A8FD9008C2BCE /* FirebaseDataSource.swift in Sources */,
 				E3FEED001E21B4EB00F5F7F4 /* BuildsCalendarViewController.swift in Sources */,
 				E345076E1E1F0ED700C5D8EA /* User.swift in Sources */,
+				E3F2171E1E2DE19D00ECD407 /* FirebaseTableViewDelegate.swift in Sources */,
 				E37DC48E1E23336B00A42792 /* SideBarFooterTableViewCell.swift in Sources */,
 				E398F15D1E15B28300CD91D4 /* FirebaseDataManager.swift in Sources */,
 				E336ED051E27F3080000DE15 /* ViewModel.swift in Sources */,
 				E3AF6CB71E18135E00AE0947 /* CreateBuildViewController.swift in Sources */,
+				E3F217281E2FDF9800ECD407 /* PartFormModel.swift in Sources */,
 				E34DAC071E1B255D00A93215 /* PartIDCell.swift in Sources */,
 				E398F1531E13684500CD91D4 /* Part.swift in Sources */,
 				E336ED021E27347B0000DE15 /* PartDetailTableViewController.swift in Sources */,
 				E378B64E1E286D9B00F03D00 /* ProjectViewModel.swift in Sources */,
+				E391B6E61E2A98E0008C2BCE /* ProjectDataSource.swift in Sources */,
 				E3FD60611E1E0F1200E614EE /* TabBarViewControllerProtocol.swift in Sources */,
 				E370B6871E19F13B00C0E349 /* RegexRule.swift in Sources */,
 				E3AFE9BD1E195775008DA196 /* InventoryTableViewController.swift in Sources */,
+				E391B6ED1E2AC88D008C2BCE /* CalendarDataSource.swift in Sources */,
 				E378B64C1E285C2800F03D00 /* AssemblyDetailViewModel.swift in Sources */,
 				E398F1191E1357E300CD91D4 /* AppDelegate.swift in Sources */,
 				E3E080B01E1DFF1D00455D15 /* ProjectViewController.swift in Sources */,

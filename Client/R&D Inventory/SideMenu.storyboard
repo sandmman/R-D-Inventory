@@ -14,14 +14,14 @@
         <scene sceneID="rFW-BU-0q8">
             <objects>
                 <tableViewController id="pep-q4-3Mi" customClass="SideBarTableViewController" customModule="R_D_Inventory" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="7NG-j4-fou">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="7NG-j4-fou">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <color key="sectionIndexBackgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SideBarTableViewCell" rowHeight="160" id="eMQ-Dz-y3r" customClass="SideBarTableViewCell" customModule="R_D_Inventory" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="160"/>
+                                <rect key="frame" x="0.0" y="55.5" width="375" height="160"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eMQ-Dz-y3r" id="u6e-wA-06o">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="160"/>
@@ -67,7 +67,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProjectTableViewCell" id="D6e-dk-Ddb">
-                                <rect key="frame" x="0.0" y="188" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="215.5" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="D6e-dk-Ddb" id="BWw-id-mja">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -75,7 +75,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SideBarFooterTableViewCell" rowHeight="65" id="5Eh-9m-x4b" customClass="SideBarFooterTableViewCell" customModule="R_D_Inventory" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="232" width="375" height="65"/>
+                                <rect key="frame" x="0.0" y="259.5" width="375" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5Eh-9m-x4b" id="mXs-g9-llV">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>

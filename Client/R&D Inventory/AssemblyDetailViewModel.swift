@@ -7,136 +7,47 @@
 //
 
 import UIKit
+import Firebase
 
-class AssemblyDetailViewModel: NSObject {
+class AssemblyDetailViewModel: PViewModel<Part, Build> {
     
-    var parts: [Part] = []
+    var parts: AssemblyDataSource<Part>! {
+        return objectDataSources.0 as! AssemblyDataSource<Part>
+    }
     
-    var builds: [Build] = []
+    var builds: AssemblyDataSource<Build>! {
+        return objectDataSources.1 as! AssemblyDataSource<Build>
+    }
     
     var assembly: Assembly
 
-    var selectedPart: Part? = nil
-    
-    var selectedBuild: Build? = nil
-    
-    fileprivate let listener = ListenerHandler()
+    var selectedPart: Part? {
+        return section1SelectedCell
+    }
 
-    fileprivate let reloadCollectionViewCallback : (()->())!
-    
-    fileprivate let kNumberOfSectionsInTableView = 2
-    
-    var project: Project {
-        didSet {
-            parts = []
-            builds = []
-    
-            selectedPart = nil
-            selectedBuild = nil
-    
-            reloadCollectionViewCallback()
-        }
+    var selectedBuild: Build? {
+        return section2SelectedCell
     }
     
-    public init(project: Project, assembly: Assembly, reloadCollectionViewCallback : @escaping (()->())) {
-        
-        self.project = project
+    public init(project: Project, assembly: Assembly) {
         
         self.assembly = assembly
-
-        self.reloadCollectionViewCallback = reloadCollectionViewCallback
-
-        super.init()
         
-        retreiveData()
-        
+        let partDataSource = AssemblyDataSource<Part>(section: 0, project: project, assembly: assembly)
+        let buildDataSource = AssemblyDataSource<Build>(section: 1, project: project, assembly: assembly)
+    
+        super.init(objectDataSources: (partDataSource, buildDataSource), project: project)
+
+        partDataSource.delegate = self
+        buildDataSource.delegate = self
     }
     
-    public func retreiveData() {
-        listener.listenForObjects(for: project, onComplete: didReceivePart)
-        listener.listenForObjects(for: project, onComplete: didReceiveBuild)
+    public func getPartFormViewModel() -> PartFormModel {
+        return PartFormModel(project: project!, assembly: assembly, part: selectedPart)
     }
     
-    public func deinitialize() {
-        listener.removeListeners()
-    }
-
-    private func didReceivePart(part: Part) {
-        
-        if let index = parts.index(of: part) {
-            
-            self.parts[index] = part
-            
-        } else {
-            
-            self.parts.append(part)
-            
-        }
-        
-        reloadCollectionViewCallback()
-    }
-
-    private func didReceiveBuild(build: Build) {
-        
-        if let index = builds.index(of: build) {
-            
-            self.builds[index] = build
-            
-        } else {
-            
-            self.builds.append(build)
-            
-        }
-        
-        reloadCollectionViewCallback()
-    }
-
-    public func getNextViewModel() -> FormViewModel {
-        return FormViewModel(project: project, assembly: assembly, parts: parts)
+    public func getBuildFormViewModel() -> BuildFormViewModel {
+        return BuildFormViewModel(project: project!, assembly: assembly, build: selectedBuild!)
     }
 }
 
-extension AssemblyDetailViewModel {
-    
-    public func delete(from tableView: UITableView, at indexPath: IndexPath) {
-        if indexPath.section == 0 {
-
-            let object = builds.remove(at: indexPath.row)
-    
-            object.delete()
-            
-        } else {
-
-            let object = parts.remove(at: indexPath.row)
-
-            object.delete()
-            
-        }
-
-        tableView.deleteRows(at: [indexPath], with: .fade)
-    }
-    
-}
-
-extension AssemblyDetailViewModel {
-    
-    public func numberOfItemsInSection(section : Int) -> Int {
-        
-        return section == 0 ? builds.count : parts.count
-        
-    }
-    
-    public func numberOfSectionsInCollectionView() -> Int {
-        
-        return kNumberOfSectionsInTableView
-        
-    }
-    
-    public func selectedCell(at indexPath: IndexPath) {
-        if indexPath.section == 0 {
-            selectedBuild = builds[indexPath.row]
-        } else {
-            selectedPart = parts[indexPath.row]
-        }
-    }
-}

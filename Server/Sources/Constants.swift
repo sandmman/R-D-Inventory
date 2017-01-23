@@ -17,37 +17,6 @@ struct Constants {
         static var Project = "projects"
         static var User = "users"
     }
-
-    struct NotificationKeys {
-        static let SignedIn = "onSignInCompleted"
-    }
-    
-    struct Patterns {
-        static let PartID = "[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9][0-9]-[0-9][0-9]"
-    }
-
-    struct Segues {
-        static let SignInToHome = "SignInToHomeSegue"
-        static let SignInToCreateProject = "SignInToCreateProjectSegue"
-        static let HomeToSignIn = "HomeToSignInSegue"
-        static let ToHome = "ToHomeSegue"
-        
-        static let PartDetail = "PartDetailSegue"
-        static let BuildDetail = "BuildDetailSegue"
-        static let ProjectDetail = "ProjectDetailSegue"
-        static let AssemblyDetail = "AssemblyDetailSegue"
-
-        static let CreateBuild = "CreateBuildSegue"
-        static let CreatePart = "CreatePartSegue"
-        static let CreateAssembly = "CreateAssemblySegue"
-        static let CreateProject = "CreateProjectSegue"
-    
-        static let TabBarController = "TabBarControllerSegue"
-
-        static let UnwindToProjectDetail = "UnwindToProjectDetailSegue"
-        static let UnwindToAssemblyDetail = "UnwindToAssemblyDetailSegue"
-        static let UnwindToBuildCalendar = "UnwindToBuildCalendarSegue"
-    }
     
     struct PartFields {
         static let Name = "name"
@@ -79,19 +48,13 @@ struct Constants {
     struct ProjectFields {
         static let Name = "name"
         static let Assemblies = "assemblies"
+        static let Builds = "builds"
+        static let Parts = "parts"
     }
     
     struct UserFields {
         static let Name = "name"
         static let Company = "company"
         static let Projects = "projects"
-    }
-
-    struct TableViewCells {
-        static let Assembly = "AssemblyTableViewCell"
-        static let Part = "PartTableViewCell"
-        static let Project = "ProjectTableViewCell"
-        static let BuildWarning = "BuildWarningTableViewCell"
-        static let Build = "BuildTableViewCell"
     }
 }

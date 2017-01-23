@@ -9,7 +9,7 @@
 import UIKit
 import SideMenu
 
-class SideBarTableViewController: UITableViewController {
+class SideBarTableViewController: UITableViewController, FirebaseTableViewDelegate {
     
     var viewModel: ViewModel<Project>!
     
@@ -26,15 +26,18 @@ class SideBarTableViewController: UITableViewController {
         
         configureSideBar()
 
-        viewModel = ViewModel<Project>(reloadCollectionViewCallback: reloadCollectionViewData)
+        viewModel = ViewModel<Project>(section: 0)
+        
+        viewModel.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        viewModel.listenForObjects()
+        reloadCollectionViewData()
+        viewModel.startSync()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        viewModel.deinitialize()
+        viewModel.stopSync()
     }
 
     // MARK: - TableView
@@ -53,7 +56,7 @@ class SideBarTableViewController: UITableViewController {
         headerCell.nameLabel.text = CurrentUser.fullName
         headerCell.emailLabel.text = CurrentUser.email.lowercased()
 
-        return headerCell
+        return headerCell.contentView
     }
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -64,7 +67,7 @@ class SideBarTableViewController: UITableViewController {
         tapGesture.numberOfTapsRequired = 1
         footerCell.addGestureRecognizer(tapGesture)
         
-        return footerCell
+        return footerCell.contentView
     }
     
     @objc private func createProject(_ sender: UIGestureRecognizer) {
@@ -82,11 +85,8 @@ class SideBarTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.Project, for: indexPath)
-
-        cell.textLabel?.text = viewModel.objects[indexPath.row].name
-
-        return cell
+        let model = viewModel.objectDataSources.0.list[indexPath.row]
+        return model.cellForTableView(tableView: tableView, at: indexPath)
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -104,7 +104,7 @@ class SideBarTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        viewModel.selectedCell(at: indexPath)
+        viewModel.didSelectCell(at: indexPath)
 
         performSegue(withIdentifier: Constants.Segues.UnwindToProjectDetail, sender: nil)
     }
@@ -128,3 +128,4 @@ class SideBarTableViewController: UITableViewController {
         navigationController?.setNavigationBarHidden(true, animated: true)
     }
 }
+

@@ -24,8 +24,8 @@ public final class PartRow: SelectorRow<PushSelectorCell<Part>, CreatePartRowVie
                 
                 let vc =  CreatePartRowViewController(){ _ in }
                 
-                vc.project = proj
-                
+                vc.viewModel = PartFormModel(project: proj, assembly: nil)
+
                 return vc
             }, onDismiss: {
                 vc in _ = vc.navigationController?.popViewController(animated: true)

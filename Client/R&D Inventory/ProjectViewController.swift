@@ -12,42 +12,31 @@ class ProjectViewController: UIViewController {
     
     @IBOutlet var projectLabel: UILabel!
     
-    @IBOutlet var warningsTableView: UITableView!
+    @IBOutlet var tableView: UITableView!
     
-    var viewModel: ProjectViewModel!
+    fileprivate(set) var viewModel: ProjectViewModel!
 
-    var project: Project!
+    fileprivate(set) var project: Project!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureView()
 
-        viewModel = ProjectViewModel(project: project, reloadCollectionViewCallback: reloadData)
-
+        viewModel = ProjectViewModel(project: project, section: 1)
+        
+        viewModel.delegate = self    
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        configureView()
-
-    }
-    
-    // MARK: Private Helpers
-    
-    internal func configureView() {
-        guard let proj = project else {
-            return
-        }
         
-        projectLabel?.text = proj.name
-    }
+        reloadData()
 
-    private func reloadData() {
-        DispatchQueue.main.async {
-            if let table = self.warningsTableView {
-                table.reloadData()
-            }
-        }
+        viewModel.startSync()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        viewModel.stopSync()
     }
     
     // MARK: Navigation
@@ -55,7 +44,7 @@ class ProjectViewController: UIViewController {
     @IBAction func unwindToTabBarController(sender: UIStoryboardSegue) {
         if let vc = sender.source as? SideBarTableViewController {
             
-            guard let project = vc.viewModel.selectedCell else {
+            guard let project = vc.viewModel.section1SelectedCell else {
                 return
             }
             
@@ -79,13 +68,40 @@ class ProjectViewController: UIViewController {
             vc0.didChangeProject(project: project)
             vc1.didChangeProject(project: project)
             vc2.didChangeProject(project: project)
-            
+    
             didChangeProject(project: project)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let _ = segue.identifier, let destination = segue.destination as? CreateBuildViewController, let build = viewModel.section2SelectedCell   else {
+            return
+        }
+
+        destination.viewModel = BuildFormViewModel(project: project, build: build)
+        
+    }
+
+    // MARK: Private Helpers
+    
+    fileprivate func configureView() {
+        guard let proj = project else {
+            return
+        }
+        
+        projectLabel?.text = proj.name
+    }
+    
+    fileprivate func reloadData() {
+        DispatchQueue.main.async {
+            if let table = self.tableView {
+                table.reloadData()
+            }
         }
     }
 }
 
-extension ProjectViewController: UITableViewDelegate,UITableViewDataSource {
+extension ProjectViewController: UITableViewDelegate, UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return section == 0 ? "Part Warnings": "Upcoming Builds"
@@ -95,6 +111,15 @@ extension ProjectViewController: UITableViewDelegate,UITableViewDataSource {
         return UITableViewAutomaticDimension
     }
     
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        if indexPath.section == 1 {
+            viewModel.didSelectCell(at: indexPath)
+            performSegue(withIdentifier: Constants.Segues.BuildDetail, sender: nil)
+        }
+        
+    }
+
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfItemsInSection(section: section)
     }
@@ -107,20 +132,24 @@ extension ProjectViewController: UITableViewDelegate,UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.BuildWarning, for: indexPath)
         
-        cell.textLabel?.text = viewModel.upcoming[indexPath.row].title
-        
+        cell.textLabel?.text = viewModel.objectDataSources.0.list[indexPath.row].title
+        cell.detailTextLabel?.text = viewModel.objectDataSources.0.list[indexPath.row].type.rawValue
+
         return cell
     }
 }
 
-extension ProjectViewController: TabBarViewController {
+extension ProjectViewController: TabBarViewController, FirebaseTableViewDelegate {
     
     public func didChangeProject(project: Project) {
         self.project = project
         
         configureView()
-        
+
         viewModel?.project = project
+        viewModel?.stopSync()
+
+        reloadData()
     }
 
 }

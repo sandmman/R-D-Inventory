@@ -17,18 +17,19 @@ class InventoryTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel = ViewModel<Part>(project: project, reloadCollectionViewCallback: reloadCollectionViewData)
+        viewModel = ViewModel<Part>(project: project, section: 0)
+        
+        viewModel.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
-
-        viewModel.listenForObjects()
+        reloadCollectionViewData()
+        viewModel.startSync()
 
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        
-        viewModel.deinitialize()
+        viewModel.stopSync()
     }
 
     // MARK: - TableView
@@ -42,22 +43,19 @@ class InventoryTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.Part, for: indexPath) as! PartTableViewCell
-        
-        let obj = viewModel.objects[indexPath.row]
-
-        cell.nameTextLabel?.text = obj.name
-        cell.manufacturerTextLabel?.text = obj.manufacturer
-        cell.count = obj.countInStock
-
-        cell.indexPath = indexPath
+        let obj = viewModel.objectDataSources.0.list[indexPath.row]
+        let cell = obj.cellForTableView(tableView: tableView, at: indexPath) as! PartTableViewCell 
         cell.delegate = self
-
         return cell
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.didSelectCell(at: indexPath)
+        performSegue(withIdentifier: Constants.Segues.PartDetail, sender: nil)
     }
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -65,6 +63,7 @@ class InventoryTableViewController: UITableViewController {
         if editingStyle == .delete {
             
             viewModel.delete(from: tableView, at: indexPath)
+            
         }
     }
     
@@ -74,7 +73,12 @@ class InventoryTableViewController: UITableViewController {
         if segue.identifier == Constants.Segues.CreatePart, let dest = segue.destination as? CreatePartViewController {
             
             dest.project = project
+
+            dest.viewModel = PartFormModel(project: project, assembly: nil)
             
+        } else if segue.identifier == Constants.Segues.PartDetail, let dest = segue.destination as? CreatePartViewController {
+            
+            dest.viewModel = PartFormModel(project: project, assembly: nil, part: viewModel.section1SelectedCell!)
         }
     }
     
@@ -87,7 +91,7 @@ class InventoryTableViewController: UITableViewController {
     }
 }
 
-extension InventoryTableViewController: TabBarViewController, PartTableViewCellDelegate {
+extension InventoryTableViewController: TabBarViewController, PartTableViewCellDelegate, FirebaseTableViewDelegate {
     
     public func didChangeProject(project: Project) {
         self.project = project
@@ -102,10 +106,9 @@ extension InventoryTableViewController: TabBarViewController, PartTableViewCellD
     public func didChangeQuantityInStock(at indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? PartTableViewCell {
             let value = cell.count
-            var part = viewModel.objects[indexPath.row]
+            var part = viewModel.objectDataSources.0.list[indexPath.row]
             part.countInStock = value!
             FirebaseDataManager.update(object: part)
         }
     }
-
 }

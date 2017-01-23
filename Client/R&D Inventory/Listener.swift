@@ -9,18 +9,24 @@
 import Foundation
 import Firebase
 
+public enum ObserverResult<T: FIRDataObject> {
+    case added(T)
+    case removed(String)
+    case changed(T)
+}
+
 public class ListenerHandler {
-    
-    var handles = [UInt: FIRDatabaseReference]()
-    
+
+    fileprivate var handles = [FIRDatabaseReference: [UInt]]()
+
 }
 
 extension ListenerHandler {
     
-    public func listenForObjects<T: FIRDataObject>(for project: Project?, onComplete: @escaping (T) -> ()) {
+    public func listenForObjects<T: FIRDataObject>(for project: Project?, onComplete: @escaping (ObserverResult<T>) -> ()) {
         
         guard let project = project else {
-            setupListenerPair(ref: FirebaseDataManager.projectsRef, onComplete: onComplete)
+            setupListenerTrio(ref: FirebaseDataManager.projectsRef, onComplete: onComplete)
             return
         }
 
@@ -30,63 +36,105 @@ extension ListenerHandler {
         setupListenerSet(parentRef: parentRef, itemRef: itemRef, onComplete: onComplete)
     }
     
-    public func listenForBuilds(for project: Project, onComplete: @escaping (Build) -> ()) {
-        let parentRef = FirebaseDataManager.projectsRef.child(project.key).child("builds")
-        setupListenerSet(parentRef: parentRef, itemRef: FirebaseDataManager.buildsRef, onComplete: onComplete)
-    }
+    public func listenForObjects<T: FIRDataObject>(for assembly: Assembly, onComplete: @escaping (ObserverResult<T>) -> ()) {
+        
+        var parentRef: FIRDatabaseReference? = nil
+        let itemRef = T.rootRef(with: nil)
 
-    public func listenForParts(for project: Project, onComplete: @escaping (Part) -> ())  {
-        let parentRef = FirebaseDataManager.projectsRef.child(project.key).child("parts")
-        setupListenerSet(parentRef: parentRef, itemRef: FirebaseDataManager.partsRef, onComplete: onComplete)
-    }
-    
-    public func listenForProjects(onComplete: @escaping (Project) -> ())  {
-        setupListenerPair(ref: FirebaseDataManager.projectsRef, onComplete: onComplete)
+        switch itemRef {
+        case Part.rootRef() : parentRef = assembly.ref?.child(Constants.Types.Part)
+        case Build.rootRef(): parentRef = assembly.ref?.child(Constants.Types.Build)
+        default: break
+        }
+        
+        guard let ref = parentRef else {
+            return
+        }
+
+        setupListenerSet(parentRef: ref, itemRef: itemRef, onComplete: onComplete)
     }
 
     public func removeListeners() {
-        for (handle, ref) in handles {
-            FirebaseDataManager.removeListener(handle: handle, ref: ref)
+        for (ref, _) in handles {
+            ref.removeAllObservers()
         }
         handles = [:]
+    }
+    
+    public func removeListeners(to ref: FIRDatabaseReference) {
+        guard let arr = handles[ref] else {
+            return
+        }
+        for handle in arr {
+            FirebaseDataManager.removeListener(handle: handle, ref: ref)
+        }
+        handles[ref] = []
     }
 }
 
 extension ListenerHandler {
     
-    internal func setupListenerSet<T: FIRDataObject>(parentRef: FIRDatabaseReference, itemRef:  FIRDatabaseReference, onComplete: @escaping (T) -> ()) {
+    internal func setupListenerSet<T: FIRDataObject>(parentRef: FIRDatabaseReference, itemRef:  FIRDatabaseReference, onComplete: @escaping (ObserverResult<T>) -> ()) {
         
         let h1 = parentRef.observe(.childAdded, with: { snapshot in
+            
+            var first = true
 
             let h2 = itemRef.child(snapshot.key).observe(.value, with: { snap in
 
                 if let item = T(snapshot: snap) {
-                    onComplete(item)
+                    if first {
+                        onComplete(.added(item))
+                        first = false
+                    } else {
+                        onComplete(.changed(item))
+                    }
                 }
             })
             
-            self.handles[h2] = itemRef.child(snapshot.key)
+            self.addRef(ref: itemRef.child(snapshot.key), handle: h2)
+        })
+
+        let h3 = parentRef.observe(.childRemoved, with: { snapshot in
+            onComplete(.removed(snapshot.key))
         })
         
-        self.handles[h1] = parentRef
-    
+        addRef(ref: parentRef, handle: h1)
+        addRef(ref: parentRef, handle: h3)
+
     }
 
-    internal func setupListenerPair<T: FIRDataObject>(ref: FIRDatabaseReference, onComplete: @escaping (T) -> ()) {
-        
+    internal func setupListenerTrio<T: FIRDataObject>(ref: FIRDatabaseReference, onComplete: @escaping (ObserverResult<T>) -> ()) {
+
         let h1 = ref.observe(.childAdded, with: { snapshot in
             if let item = T(snapshot: snapshot) {
-                onComplete(item)
+                onComplete(.added(item))
             }
         })
         
         let h2 = ref.observe(.childChanged, with: { snapshot in
             if let item = T(snapshot: snapshot) {
-                onComplete(item)
+                onComplete(.changed(item))
             }
         })
         
-        handles[h1] = ref
-        handles[h2] = ref
+        let h3 = ref.observe(.childRemoved, with: { snapshot in
+            onComplete(.removed(snapshot.key))
+        })
+
+        addRef(ref: ref, handle: h1)
+        addRef(ref: ref, handle: h2)
+        addRef(ref: ref, handle: h3)
+
+    }
+    private func addRef(ref: FIRDatabaseReference, handle: UInt) {
+        guard var arr = handles[ref] else {
+            handles[ref] = [handle]
+            return
+        }
+
+        arr.append(handle)
+
+        handles[ref] = arr
     }
 }

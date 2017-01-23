@@ -15,7 +15,7 @@
                 <navigationController id="fV3-Mp-eQc" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Builds" image="Builds" selectedImage="Builds" id="IcZ-dT-Cyr"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="UKv-tz-MLR">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="UKv-tz-MLR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -52,7 +52,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="BuildsTableViewCell" textLabel="2AB-WH-Qs6" detailTextLabel="3rG-U5-d8z" rowHeight="66" style="IBUITableViewCellStyleSubtitle" id="VzX-p8-fPL">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="BuildTableViewCell" textLabel="2AB-WH-Qs6" detailTextLabel="3rG-U5-d8z" rowHeight="66" style="IBUITableViewCellStyleSubtitle" id="VzX-p8-fPL">
                                         <rect key="frame" x="0.0" y="28" width="375" height="66"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VzX-p8-fPL" id="Lg9-Mj-tk3">

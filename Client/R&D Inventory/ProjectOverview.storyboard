@@ -15,7 +15,7 @@
                 <viewControllerPlaceholder storyboardName="SideMenu" id="Qzn-8Z-hqy" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="var-Jx-QE3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2142" y="-800"/>
+            <point key="canvasLocation" x="2296" y="-1106"/>
         </scene>
         <!--Overview-->
         <scene sceneID="r04-uC-EiH">
@@ -76,12 +76,28 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BuildWarningTableViewCell" id="MWM-42-oDj">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="BuildWarningTableViewCell" textLabel="SDD-AH-s2W" detailTextLabel="WFy-bR-W29" style="IBUITableViewCellStyleSubtitle" id="MWM-42-oDj">
                                         <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MWM-42-oDj" id="ly2-gH-Y3J">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SDD-AH-s2W">
+                                                    <rect key="frame" x="15" y="4" width="34" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WFy-bR-W29">
+                                                    <rect key="frame" x="15" y="25" width="44" height="15"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -103,14 +119,33 @@
                     </navigationItem>
                     <connections>
                         <outlet property="projectLabel" destination="cny-YT-plI" id="wFw-Gw-8wE"/>
-                        <outlet property="warningsTableView" destination="6b8-IO-qbn" id="XxO-5y-1RV"/>
+                        <outlet property="tableView" destination="6b8-IO-qbn" id="Qzf-PK-5Ju"/>
                         <segue destination="007-3X-xvn" kind="unwind" identifier="UnwindToProjectDetailSegue" unwindAction="unwindToTabBarControllerWithSender:" id="xcF-lS-YYu"/>
+                        <segue destination="zh6-3e-Kp0" kind="show" identifier="BuildDetailSegue" id="4u1-Qk-qor"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pKa-Mh-0hO" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="007-3X-xvn" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1608.8" y="-800.14992503748135"/>
+        </scene>
+        <!--Create Build View Controller-->
+        <scene sceneID="9pI-nN-NlL">
+            <objects>
+                <viewController id="zh6-3e-Kp0" customClass="CreateBuildViewController" customModule="R_D_Inventory" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Kw8-uA-KhC"/>
+                        <viewControllerLayoutGuide type="bottom" id="9tT-2s-0JL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="niU-jS-pKM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qNz-Jl-1su" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2422" y="-455"/>
         </scene>
     </scenes>
     <resources>

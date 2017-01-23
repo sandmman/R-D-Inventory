@@ -5,18 +5,13 @@
 //  Created by Aaron Liberatore on 12/27/16.
 //  Copyright © 2016 Aaron Liberatore. All rights reserved.
 //
-
-import UIKit
-import Firebase
+import Foundation
+import FirebaseSwift
 
 public struct Part: FIRDataObject {
     
-    // FIRDataObject
     public var key: String = UUID().description
     
-    public var ref: FIRDatabaseReference? = nil
-
-    // Part
     public var name: String
 
     public var leadTime: Int
@@ -52,9 +47,9 @@ public struct Part: FIRDataObject {
         
     }
     
-    public init?(snapshot: FIRDataSnapshot) {
-        
-        guard let value = snapshot.value as? [String: Any] else {
+    public init?(key: String, value: Any) {
+
+        guard let value = value as? [String: Any] else {
             return nil
         }
         
@@ -65,9 +60,7 @@ public struct Part: FIRDataObject {
         self.countInStock = value[Constants.PartFields.CountInStock] as! Int
         self.countOnOrder = value[Constants.PartFields.CountOnOrder] as! Int
         
-        self.key = snapshot.key
-
-        self.ref = snapshot.ref
+        self.key = key
 
     }
 
@@ -79,39 +72,5 @@ public struct Part: FIRDataObject {
             Constants.PartFields.CountInStock   : countInStock,
             Constants.PartFields.CountOnOrder   : countOnOrder,
         ]
-    }
-    
-    public static func rootRef(with project: Project? = nil) -> FIRDatabaseReference {
-        guard let proj = project else {
-            return FirebaseDataManager.partsRef
-        }
-        return FirebaseDataManager.projectsRef.child(proj.key).child(Constants.Types.Part)
-    }
-}
-
-extension Part: TableViewCompatible {
-    
-    public var reuseIdentifier: String {
-        return Constants.TableViewCells.Part
-    }
-    
-    public func cellForTableView(tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath)
-
-        guard let partCell = cell as? PartTableViewCell, tableView.numberOfSections == 1 else {
-
-            cell.textLabel?.text = name
-            cell.detailTextLabel?.text = manufacturer
-
-            return cell
-        }
-
-        partCell.nameTextLabel?.text = name
-        partCell.manufacturerTextLabel?.text = manufacturer
-        partCell.count = countInStock
-        
-        partCell.indexPath = indexPath
-        
-        return partCell
     }
 }

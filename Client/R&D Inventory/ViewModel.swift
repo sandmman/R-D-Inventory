@@ -8,104 +8,25 @@
 
 import UIKit
 
-class ViewModel<T: FIRDataObject>: NSObject {
-    
-    var objects = [T]()
-    
-    var selectedCell: T? = nil
+class ViewModel<T: FIRDataObject>: PViewModel<T, T> {
 
-    private let listener: ListenerHandler!
-    
-    private let reloadCollectionViewCallback : (()->())!
-    
-    let kNumberOfSectionsInTableView = 1
-
-    var project: Project? = nil {
-        didSet {
-            objects = []
-
-            reloadCollectionViewCallback()
-        }
-    }
-
-    public init(project: Project, reloadCollectionViewCallback : @escaping (()->())) {
+    public init(project: Project, section: Int) {
         
-        self.project = project
-        
-        self.reloadCollectionViewCallback = reloadCollectionViewCallback
+        let dataSource = ProjectDataSource<T>(section: section, project: project)
 
-        listener = ListenerHandler()
-
-        super.init()
+        super.init(objectDataSources: (dataSource, nil), project: project)
         
-        listenForObjects()
-        
+        objectDataSources.0.delegate = self
     }
     
-    public init(reloadCollectionViewCallback : @escaping (()->())) {
-
-        self.reloadCollectionViewCallback = reloadCollectionViewCallback
+    public init(section: Int) {
         
-        listener = ListenerHandler()
+        let dataSource = FirebaseDataSource<T>(section: section)
         
-        super.init()
+        super.init(objectDataSources: (dataSource, nil))
         
-        listenForObjects()
-        
-    }
-
-    public func listenForObjects() {
-        listener.listenForObjects(for: project, onComplete: didReceiveObject)
-    }
-    
-    public func deinitialize() {
-        listener.removeListeners()
-    }
-
-    private func didReceiveObject(object: T) {
-        
-        if let index = objects.index(of: object) {
-
-            self.objects[index] = object
-    
-        } else {
-    
-            self.objects.append(object)
-
-        }
-
-        reloadCollectionViewCallback()
+        objectDataSources.0.delegate = self
     }
 }
 
-extension ViewModel {
 
-    public func delete(from tableView: UITableView, at indexPath: IndexPath) {
-        let object = objects.remove(at: indexPath.row)
-        
-        object.delete()
-
-        tableView.deleteRows(at: [indexPath], with: .fade)
-        
-    }
-
-}
-
-extension ViewModel {
-    
-    public func numberOfItemsInSection(section : Int) -> Int {
-        
-        return objects.count
-        
-    }
-    
-    public func numberOfSectionsInCollectionView() -> Int {
-        
-        return kNumberOfSectionsInTableView
-        
-    }
-    
-    public func selectedCell(at indexPath: IndexPath) {
-        selectedCell = objects[indexPath.row]
-    }
-}
