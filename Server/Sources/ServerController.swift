@@ -25,10 +25,13 @@ public class ServerController {
     
     private func setupRoutes() {
         router.get("/", handler: onGet)
+        router.get("/parts", handler: onGetParts)
+        router.get("/builds", handler: onGetBuilds)
+        router.get("/assemblies", handler: onGetAssemblies)
     }
     
     private func onGet(request: RouterRequest, response: RouterResponse, next: () -> Void) {
-        guard let result = firebase.get(path: "builds") else {
+        guard let result = firebase.get(path: "projects") else {
             response.send("Failure")
             next()
             return
@@ -38,5 +41,40 @@ public class ServerController {
 
         next()
     }
+    
+    private func onGetParts(request: RouterRequest, response: RouterResponse, next: () -> Void) {
+        guard let result = firebase.get(path: "parts") else {
+            response.send("Failure")
+            next()
+            return
+        }
+        
+        response.send(String(describing: result))
+        
+        next()
+    }
 
+    private func onGetBuilds(request: RouterRequest, response: RouterResponse, next: () -> Void) {
+        guard let result = firebase.get(path: "builds") else {
+            response.send("Failure")
+            next()
+            return
+        }
+        
+        response.send(String(describing: result))
+        
+        next()
+    }
+    
+    private func onGetAssemblies(request: RouterRequest, response: RouterResponse, next: () -> Void) {
+        guard let result = firebase.get(path: "assemblies") else {
+            response.send("Failure")
+            next()
+            return
+        }
+        
+        response.send(String(describing: result))
+        
+        next()
+    }
 }
