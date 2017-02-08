@@ -16,6 +16,7 @@ struct Constants {
         static var Part = "parts"
         static var Project = "projects"
         static var User = "users"
+        static var Warning = "warnings"
     }
 
     struct NotificationKeys {
@@ -86,12 +87,18 @@ struct Constants {
         static let Company = "company"
         static let Projects = "projects"
     }
+    
+    struct WarningFields {
+        static let BuildKey = "build_key"
+        static let BuildDate = "build_date"
+        static let Parts = "parts"
+    }
 
     struct TableViewCells {
         static let Assembly = "AssemblyTableViewCell"
+        static let Build = "BuildTableViewCell"
         static let Part = "PartTableViewCell"
         static let Project = "ProjectTableViewCell"
-        static let BuildWarning = "BuildWarningTableViewCell"
-        static let Build = "BuildTableViewCell"
+        static let Warning = "WarningTableViewCell"
     }
 }

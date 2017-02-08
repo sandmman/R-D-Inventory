@@ -11,7 +11,6 @@
 		E30E055B1E1B63E70048539B /* Listener.swift in Sources */ = {isa = PBXBuildFile; fileRef = E30E055A1E1B63E70048539B /* Listener.swift */; };
 		E30E055D1E1C61A40048539B /* CreateProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E30E055C1E1C61A40048539B /* CreateProjectViewController.swift */; };
 		E32CD1071E161326005A35BD /* CreatePartRowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32CD1061E161326005A35BD /* CreatePartRowViewController.swift */; };
-		E336ED001E271B720000DE15 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = E336ECFF1E271B720000DE15 /* Date.swift */; };
 		E336ED021E27347B0000DE15 /* PartDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E336ED011E27347B0000DE15 /* PartDetailTableViewController.swift */; };
 		E336ED051E27F3080000DE15 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E336ED041E27F3080000DE15 /* ViewModel.swift */; };
 		E345076E1E1F0ED700C5D8EA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E345076D1E1F0ED700C5D8EA /* User.swift */; };
@@ -33,6 +32,8 @@
 		E378B64C1E285C2800F03D00 /* AssemblyDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E378B64B1E285C2800F03D00 /* AssemblyDetailViewModel.swift */; };
 		E378B64E1E286D9B00F03D00 /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E378B64D1E286D9B00F03D00 /* ProjectViewModel.swift */; };
 		E378B6501E28889600F03D00 /* FormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E378B64F1E28889600F03D00 /* FormViewModel.swift */; };
+		E37A7F7D1E4B820A0065004C /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37A7F7C1E4B820A0065004C /* Extension.swift */; };
+		E37A7F7F1E4B91E90065004C /* Warning.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37A7F7E1E4B91E90065004C /* Warning.swift */; };
 		E37DC4811E21D79500A42792 /* SideMenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E37DC4801E21D79500A42792 /* SideMenu.storyboard */; };
 		E37DC4831E21DB0A00A42792 /* ProjectOverview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E37DC4821E21DB0A00A42792 /* ProjectOverview.storyboard */; };
 		E37DC48A1E2301AC00A42792 /* SideBarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37DC4891E2301AC00A42792 /* SideBarTableViewCell.swift */; };
@@ -103,7 +104,6 @@
 		E30E055A1E1B63E70048539B /* Listener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Listener.swift; sourceTree = "<group>"; };
 		E30E055C1E1C61A40048539B /* CreateProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateProjectViewController.swift; sourceTree = "<group>"; };
 		E32CD1061E161326005A35BD /* CreatePartRowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CreatePartRowViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		E336ECFF1E271B720000DE15 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		E336ED011E27347B0000DE15 /* PartDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartDetailTableViewController.swift; sourceTree = "<group>"; };
 		E336ED041E27F3080000DE15 /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		E345076D1E1F0ED700C5D8EA /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -126,6 +126,8 @@
 		E378B64B1E285C2800F03D00 /* AssemblyDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssemblyDetailViewModel.swift; sourceTree = "<group>"; };
 		E378B64D1E286D9B00F03D00 /* ProjectViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectViewModel.swift; sourceTree = "<group>"; };
 		E378B64F1E28889600F03D00 /* FormViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormViewModel.swift; sourceTree = "<group>"; };
+		E37A7F7C1E4B820A0065004C /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extension.swift; path = "R&D Inventory/Extension.swift"; sourceTree = "<group>"; };
+		E37A7F7E1E4B91E90065004C /* Warning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Warning.swift; sourceTree = "<group>"; };
 		E37DC4801E21D79500A42792 /* SideMenu.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SideMenu.storyboard; sourceTree = "<group>"; };
 		E37DC4821E21DB0A00A42792 /* ProjectOverview.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProjectOverview.storyboard; sourceTree = "<group>"; };
 		E37DC4891E2301AC00A42792 /* SideBarTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideBarTableViewCell.swift; sourceTree = "<group>"; };
@@ -305,7 +307,7 @@
 				E3AFE9C81E19B9B3008DA196 /* ObjectMapper.swift */,
 				E3ECCE921E15B662009C936D /* Constants.swift */,
 				E34DAC081E1B397900A93215 /* Validator.swift */,
-				E336ECFF1E271B720000DE15 /* Date.swift */,
+				E37A7F7C1E4B820A0065004C /* Extension.swift */,
 			);
 			name = Helpers;
 			path = ..;
@@ -392,6 +394,7 @@
 				E34DAC0C1E1B48A000A93215 /* Project.swift */,
 				E345076D1E1F0ED700C5D8EA /* User.swift */,
 				E345076F1E1F109300C5D8EA /* CurrentUser.swift */,
+				E37A7F7E1E4B91E90065004C /* Warning.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -554,7 +557,7 @@
 				TargetAttributes = {
 					E398F1141E1357E300CD91D4 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = HNACG3848H;
+						DevelopmentTeam = EVPAFL2549;
 						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -701,7 +704,6 @@
 				E391B6EB1E2ABC2D008C2BCE /* PViewModel.swift in Sources */,
 				E398F1471E13602E00CD91D4 /* AssemblyDetailTableViewController.swift in Sources */,
 				E398F1571E136C2200CD91D4 /* AssemblyTableViewController.swift in Sources */,
-				E336ED001E271B720000DE15 /* Date.swift in Sources */,
 				E3589E321E21B6A500EC1D39 /* bridged_header.m in Sources */,
 				E3AF6CB01E1762E000AE0947 /* Build.swift in Sources */,
 				E3ECCE9A1E15D0DC009C936D /* FIRDataObject.swift in Sources */,
@@ -710,6 +712,7 @@
 				E391B6EF1E2AC9C4008C2BCE /* FirebaseDictionary.swift in Sources */,
 				E3ECCE931E15B662009C936D /* Constants.swift in Sources */,
 				E3AFE9C51E19B0EB008DA196 /* DataManager.swift in Sources */,
+				E37A7F7D1E4B820A0065004C /* Extension.swift in Sources */,
 				E378B6501E28889600F03D00 /* FormViewModel.swift in Sources */,
 				E32CD1071E161326005A35BD /* CreatePartRowViewController.swift in Sources */,
 				E393AEB21E293ECE00ABF970 /* BuildFormViewModel.swift in Sources */,
@@ -725,6 +728,7 @@
 				E3FEED001E21B4EB00F5F7F4 /* BuildsCalendarViewController.swift in Sources */,
 				E345076E1E1F0ED700C5D8EA /* User.swift in Sources */,
 				E3F2171E1E2DE19D00ECD407 /* FirebaseTableViewDelegate.swift in Sources */,
+				E37A7F7F1E4B91E90065004C /* Warning.swift in Sources */,
 				E37DC48E1E23336B00A42792 /* SideBarFooterTableViewCell.swift in Sources */,
 				E398F15D1E15B28300CD91D4 /* FirebaseDataManager.swift in Sources */,
 				E336ED051E27F3080000DE15 /* ViewModel.swift in Sources */,
@@ -893,10 +897,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "R&D Inventory/R&D Inventory.entitlements";
-				DEVELOPMENT_TEAM = HNACG3848H;
+				DEVELOPMENT_TEAM = EVPAFL2549;
 				INFOPLIST_FILE = "R&D Inventory/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "ME.R-D-Inventory";
+				PRODUCT_BUNDLE_IDENTIFIER = "aaron.liberatore.R-D-Inventory";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "R&D Inventory/R&D Inventory-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -912,10 +916,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "R&D Inventory/R&D Inventory.entitlements";
-				DEVELOPMENT_TEAM = HNACG3848H;
+				DEVELOPMENT_TEAM = EVPAFL2549;
 				INFOPLIST_FILE = "R&D Inventory/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "ME.R-D-Inventory";
+				PRODUCT_BUNDLE_IDENTIFIER = "aaron.liberatore.R-D-Inventory";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "R&D Inventory/R&D Inventory-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

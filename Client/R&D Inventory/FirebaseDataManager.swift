@@ -18,6 +18,7 @@ public struct FirebaseDataManager {
     static let buildsRef = FIRDatabase.database().reference().child(Constants.Types.Build)
     static let projectsRef = FIRDatabase.database().reference().child(Constants.Types.Project)
     static let assemblyRef = FIRDatabase.database().reference().child(Constants.Types.Assembly)
+    static let warningRef = FIRDatabase.database().reference().child(Constants.Types.Warning)
 
     fileprivate static var currentUserRef: FIRDatabaseReference? {
         guard let userID = UserDefaults.standard.string(forKey: "user") else {
@@ -52,6 +53,7 @@ extension FirebaseDataManager: DataManager {
     public static func save(build: Build, to project: Project) {
         guard let ref = project.ref else { return }
         add(item: build, to: ref)
+        saveBuildToParts(build:build)
     }
     
     public static func save(part: Part, to project: Project) {
@@ -62,6 +64,7 @@ extension FirebaseDataManager: DataManager {
     public static func save(build: Build, to assembly: Assembly, within project: Project) {
         save(build: build, to: project)
         add(build: build, to: assembly)
+        saveBuildToParts(build:build)
     }
     
     public static func save(part: Part, to assembly: Assembly, within project: Project) {
@@ -182,6 +185,22 @@ extension FirebaseDataManager: DataManager {
 }
 
 extension FirebaseDataManager {
+    
+    internal static func saveBuildToParts(build: Build) {
+        
+        rootRef.updateChildValues(build.partsNeeded.reduce([String: Bool]()) { acc, val in
+            
+            var acc = acc
+            
+            acc[partsRef.key + "/" + val.key + "/builds/" + build.key] = true
+            
+            return acc
+        })
+    }
+}
+
+extension FirebaseDataManager {
+
     internal static func get<T: FIRDataObject>(ref: FIRDatabaseReference, onComplete: @escaping (T) -> ()) {
         ref.observeSingleEvent(of: .value, with: { snapshot in
             
@@ -218,4 +237,5 @@ extension FirebaseDataManager {
         default: break
         }
     }
+    
 }

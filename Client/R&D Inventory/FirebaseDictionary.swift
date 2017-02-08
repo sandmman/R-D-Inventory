@@ -67,9 +67,6 @@ class FirebaseDictionary {
     }
     
     public func update(at index: Int, data: [NSObject : Any]!) {
-        //let item = list[index]
-        //let itemRef = ref.child(item.key)
-        //itemRef.updateChildValues(data)
     }
     
     // MARK: Event Listeners
@@ -80,9 +77,9 @@ class FirebaseDictionary {
     
     private func didReceiveNotification(result: ObserverResult<Build>) {
         switch result {
-        case .added(let obj)    : serverAdd(item: obj)
-        case .changed(let obj)  : serverChange(item: obj)
-        case .removed(let key)  : serverRemove(key: key)
+        case .added(let obj)    : print("added"); serverAdd(item: obj)
+        case .changed(let obj)  : print("changed"); serverChange(item: obj)
+        case .removed(let key)  : print("removed"); serverRemove(key: key)
         }
     }
     

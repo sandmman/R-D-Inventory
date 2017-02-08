@@ -57,9 +57,12 @@ public struct Build: FIRDataObject {
               let str_type = value[Constants.BuildFields.BType] as? String,
               let type = BuildType(rawValue: str_type),
               let quantity = value[Constants.BuildFields.Quantity] as? Int,
-              let timestamp = value[Constants.BuildFields.Date] as? Int,
+              let timestamp = value[Constants.BuildFields.Date] as? NSNumber,
               let uid = value[Constants.BuildFields.AssemblyID] as? String,
               let title = value[Constants.BuildFields.Title] as? String else {
+                
+                print("Could not unwrap build snapshot with key:", snapshot.value)
+                
                 return nil
         }
         

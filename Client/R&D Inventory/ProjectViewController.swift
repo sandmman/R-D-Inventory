@@ -129,13 +129,7 @@ extension ProjectViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.TableViewCells.BuildWarning, for: indexPath)
-        
-        cell.textLabel?.text = viewModel.objectDataSources.0.list[indexPath.row].title
-        cell.detailTextLabel?.text = viewModel.objectDataSources.0.list[indexPath.row].type.rawValue
-
-        return cell
+        return viewModel.retrieveItem(at: indexPath).cellForTableView(tableView: tableView, at: indexPath)
     }
 }
 
