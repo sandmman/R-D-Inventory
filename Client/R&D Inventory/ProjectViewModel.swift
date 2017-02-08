@@ -8,31 +8,42 @@
 
 import UIKit
 
-class ProjectViewModel: PViewModel<Build, Build> {
+class ProjectViewModel: PViewModel<Warning, Build> {
     
-    var warnings = [(Part, Build)]()
+    fileprivate(set) var selectedWarning: Warning? = nil
     
-    var selectedWarning: (Part, Build)? = nil
-    
-    var dataSource: ProjectDataSource<Build> {
-        return objectDataSources.0 as! ProjectDataSource<Build>
+    fileprivate(set) var selectedBuild: Build? = nil
+
+    var warningDataSource: ProjectDataSource<Warning> {
+        return objectDataSources.0 as! ProjectDataSource<Warning>
+    }
+
+    var buildDataSource: ProjectDataSource<Build> {
+        return objectDataSources.1 as! ProjectDataSource<Build>
     }
 
     public init(project: Project, section: Int) {
         
-        let dataSource = ProjectDataSource<Build>(section: section, project: project)
+        let warningDataSource = ProjectDataSource<Warning>(section: section, project: project)
         
-        super.init(objectDataSources: (dataSource, nil), project: project)
+        let buildDataSource = ProjectDataSource<Build>(section: section, project: project)
+        
+        super.init(objectDataSources: (warningDataSource, buildDataSource), project: project)
 
-        dataSource.delegate = self
+        warningDataSource.delegate = self
+        buildDataSource.delegate = self
     }
     
+    public func retrieveItem(at indexPath: IndexPath) -> TableViewCompatible {
+        return indexPath.section == 0 ?
+            warningDataSource.list[indexPath.row]
+            :
+            buildDataSource.list[indexPath.row]
+    }
+
     public override func delete(from tableView: UITableView, at indexPath: IndexPath) {
-        if indexPath.section == 0 {
-            
-        } else {
-            dataSource.remove(at: indexPath.row)
-            
+        if indexPath.section == 1 {
+            buildDataSource.remove(at: indexPath.row)
         }
         
         tableView.deleteRows(at: [indexPath], with: .fade)
@@ -45,15 +56,15 @@ class ProjectViewModel: PViewModel<Build, Build> {
 
     public override func numberOfItemsInSection(section : Int) -> Int {
         
-        return section == 0 ? warnings.count : dataSource.count
+        return section == 0 ? warningDataSource.count : buildDataSource.count
         
     }
     
     public override func didSelectCell(at indexPath: IndexPath) {
         if indexPath.section == 0 {
-            selectedWarning = warnings[indexPath.row]
+            selectedWarning = warningDataSource.list[indexPath.row]
         } else {
-            section2SelectedCell = dataSource.list[indexPath.row]
+            selectedBuild = buildDataSource.list[indexPath.row]
         }
     }
 }
